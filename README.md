@@ -42,9 +42,6 @@ Juego de carreras desenfadado para retar a tu amigo.
 | 0. Propuesta del concepto: 13 de febrero de 2023  | 1. Arquitectura base: 6 de marzo de 2023  |
 |2. Ciclo de juego: 27 de marzo de 2023 | 3. Release: 5 de mayo de 2023 |
 
-## <p align="center">**ÍNDICE**</p>
-
-
 ## <p align="center">**PARTIDA TÍPICA**</p>
 
 Los jugadores conectan sus mandos al ordenador o se colocan en posición para usar el teclado a la vez. Pulsan el botón de RACE 2P.\
