@@ -1,6 +1,12 @@
 # <p align="center">**VROOM VROOM!**</p>
+<div align="center">
+    <img src="readme_assets/game_logo.png" alt="game_logo" width="969" height="300">
+</div>
 
 ## <p align="center">**MOTOR ENGINE**</p>
+<div align="center">
+    <img src="readme_assets/engine_logo.png" alt="engine_logo" width="827" height="400">
+</div>
 
 * Javier Cano Salcedo, jacano01@ucm.es 
 * José Miguel Villacañas, josemv03@ucm.es 
@@ -11,9 +17,13 @@
 * Pedro Pablo Cubells Talavera, pablocub@ucm.es 
 * Liyuan Li, liyli@ucm.es
 
-## <p align="center">**LINKS DE INTERES**</p>
+## <p align="center">**LINKS DE INTERÉS**</p>
 
-[Pivotal Tracker](https://www.pivotaltracker.com/n/projects/2630589)
+<div align="center">
+  <a href="https://www.pivotaltracker.com/n/projects/2630589">
+    <img src="readme_assets/pivotal_logo.png" alt="Logo_pivotal" width="214" height="80">
+  </a>
+</div>
 
 ## <p align="center">**INFORMACIÓN GENERAL**</p>
 Juego de carreras desenfadado para retar a tu amigo.
@@ -54,6 +64,10 @@ El juego soporta teclado y mando.
 | Derrape | Shift | O |  RB/RT | R1/R2 |
 | Usar objeto | Space | P | LB/LT | L1/L2 |
 | Pausa | ESC | ESC | Start | Options |
+
+<div align="center">
+    <img src="readme_assets/xbox_layout.png" alt="xbox_layout" width="691" height="334">
+</div>
 
 ## <p align="center">**MECÁNICAS**</p>
 
@@ -115,10 +129,18 @@ El diseño de sonido consta de una gama de sonidos cartoon, que representan cada
   * **Oil:**
     Deja una mancha de radio igual al ancho de 1 coche que, al colisionar con un corredor, lo ralentiza y hace deslizar durante un breve periodo de tiempo, quitando a la vez el control sobre su movimiento. La botella de aceite será lanzada al circuito detrás del coche y se quedará tirada en el suelo hasta que alguien colisione con ella.
     
+<div align="center">
+    <img src="readme_assets/power_ups.png" alt="power_ups" width="666" height="500">
+</div>
+    
     
 ## <p align="center">*UI*</p>
 
 En la parte superior derecha podremos ver el tiempo que tardamos en dar cada vuelta, que se mostrará una vez hayamos cruzado la meta en cada vuelta, además podremos ver el número de vuelta en el que nos encontramos y el número de vueltas totales del nivel. Tendremos en la parte inferior izquierda la posición en la que vamos. En la parte superior izquierda podremos ver el power up que tenemos en nuestro arsenal en caso de que hayamos recogido alguno. 
+
+<div align="center">
+    <img src="readme_assets/game_layout.png" alt="layout" width="666" height="500">
+</div>
 
 ## <p align="center">*Menús*</p>
 
@@ -139,6 +161,10 @@ En la parte superior derecha podremos ver el tiempo que tardamos en dar cada vue
 **Pantalla de carga :** Escena que se usará cuando comienza una partida para cargar todos los recursos del juego, con indicaciones visuales para que el jugador sepa que el juego sigue funcionando correctamente.
 
 **Menú resultados :** En este menú se nos dará toda la información acerca de nuestra partidas, el número de vueltas y el tiempo que hayamos hecho en la vuelta más rápida. Además encontraremos un botón que nos permitirá regresar al menú principal.
+
+<div align="center">
+    <img src="readme_assets/title_window.png" alt="title" width="666" height="500">
+</div>
 
 El flujo de juego que encontraremos entre los distintos menús y escenas del juego es el descrito a continuación.
 
@@ -166,5 +192,11 @@ stateDiagram
 
 ## <p align="center">*Referencias y contexto cultural*</p>
  * Saga Mario Kart
+ <div align="center">
+    <img src="readme_assets/mariokart.jpg" alt="mario" width="666" height="500">
+</div>
  * ModNation Racers
+ <div align="center">
+    <img src="readme_assets/modnation.jpg" alt="modnation" width="666" height="500">
+</div>
  
