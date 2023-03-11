@@ -1,32 +1,16 @@
-# Prerequisites
-*.d
+# Visual Studio Data
+/.vs
 
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
+# Vroom Vroom Output Files
+/Exe
+/Lib
+/Dll
 
-# Precompiled Headers
-*.gch
-*.pch
+# Vroom Vroom Temp Files
+/Temp
 
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
+# No user data
+*.user
 
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
-
-# Executables
-*.exe
-*.out
-*.app
+# No logs
+*.log
