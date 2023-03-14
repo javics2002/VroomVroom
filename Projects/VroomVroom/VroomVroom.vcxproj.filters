@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Src\VroomVroom\Main.cpp">
+    <ClCompile Include="..\..\Src\VroomVroom\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Src\VroomVroom\CameraFollow.cpp">

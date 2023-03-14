@@ -1,13 +1,14 @@
-#include <iostream>
+#pragma once
+#ifndef __VROOMVROOM_MAIN
+#define __VROOMVROOM_MAIN
 
-using namespace std;
+#define DllImport __declspec( dllimport )
+#define DllExport __declspec( dllexport )
 
-void hello() {
-	cout << "hello\n";
+extern "C" {
+	DllExport const char* name() {
+		return "Vroom Vroom";
+	}
 }
 
-#ifdef _DEBUG
-void main() {
-	hello();
-}
 #endif
