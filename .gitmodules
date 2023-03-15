@@ -1,0 +1,4 @@
+[submodule "MotorEngine"]
+	path = MotorEngine
+	url = https://github.com/javics2002/P3-Motor.git
+	branch = develop
