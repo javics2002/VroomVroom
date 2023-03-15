@@ -1,8 +1,10 @@
 #include "CameraFollow.h"
+#include "EntityComponent/Transform.h"
+#include "EntityComponent/Entity.h"
 
 me::CameraFollow::CameraFollow(Transform* player)
 {
-	mPlayer = player;
+	mPlayerTr = player;
 }
 
 me::CameraFollow::~CameraFollow()
@@ -17,8 +19,8 @@ void me::CameraFollow::start()
 
 void me::CameraFollow::update()
 {
-	mTransfor->setRotation(mPlayerTr->getRotation);
+	mTransform->setRotation(mPlayerTr->getRotation());
 	mTransform->setPosition(mPlayerTr->getPosition());
-	mTransform->translate(offsetof);
+	mTransform->translate(mOffset);
 	 
 }

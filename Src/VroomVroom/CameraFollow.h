@@ -2,7 +2,8 @@
 #ifndef __VROOM_CAMERA_FOLLOW
 #define __VROOM_CAMERA_FOLLOW
 
-#include "Component.h"
+
+#include "EntityComponent/Component.h"
 #include "Utils/Vector3.h"
 #include <list>
 
@@ -29,7 +30,7 @@ namespace me {
 		/**
 		Construct a new CameraFollow component and assign the player
 		*/
-		CameraFollow(Entity* player);
+		CameraFollow(Transform* player);
 		//Destroy om() map saved camera (ogreCamera)
 		~CameraFollow();
 
