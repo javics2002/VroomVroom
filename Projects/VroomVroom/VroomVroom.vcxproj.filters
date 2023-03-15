@@ -21,9 +21,15 @@
     <ClCompile Include="..\..\Src\VroomVroom\CameraFollow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="C:\hlocal\Nueva\P3-Juego\Src\VroomVroom\ComponentsRegister.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Src\VroomVroom\CameraFollow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\hlocal\Nueva\P3-Juego\Src\VroomVroom\ComponentsRegister.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
