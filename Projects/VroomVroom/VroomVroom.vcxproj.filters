@@ -15,13 +15,16 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Src\VroomVroom\main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Src\VroomVroom\CameraFollow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\hlocal\Nueva\P3-Juego\Src\VroomVroom\ComponentsRegister.cpp">
+    <ClCompile Include="..\..\Src\VroomVroom\ComponentsRegister.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\VroomVroom\dllmain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\VroomVroom\VroomVroom.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -29,7 +32,16 @@
     <ClInclude Include="..\..\Src\VroomVroom\CameraFollow.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\hlocal\Nueva\P3-Juego\Src\VroomVroom\ComponentsRegister.h">
+    <ClInclude Include="..\..\Src\VroomVroom\ComponentsRegister.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\VroomVroom\framework.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\VroomVroom\pch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\VroomVroom\VroomVroom.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
