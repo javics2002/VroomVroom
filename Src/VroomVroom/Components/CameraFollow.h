@@ -1,9 +1,8 @@
 #pragma once
-#ifndef __VROOM_CAMERA_FOLLOW
-#define __VROOM_CAMERA_FOLLOW
+#ifndef __VROOMVROOM_CAMERAFOLLOW
+#define __VROOMVROOM_CAMERAFOLLOW
 
-
-#include "EntityComponent/Component.h"
+#include "EntityComponent/Components/Component.h"
 #include "Utils/Vector3.h"
 #include <list>
 
@@ -20,7 +19,7 @@ namespace me {
 	private:
 	protected:
 		//entity player that we follow
-		Transform* mPlayerTr = nullptr;
+		Transform* mTargetTransform = nullptr;
 		//componenet transform of this.Entity
 		Transform* mTransform;
 		Vector3 mOffset;
@@ -30,7 +29,7 @@ namespace me {
 		/**
 		Construct a new CameraFollow component and assign the player
 		*/
-		CameraFollow(Transform* player);
+		CameraFollow();
 		//Destroy om() map saved camera (ogreCamera)
 		~CameraFollow();
 
@@ -44,8 +43,23 @@ namespace me {
 		*/
 		void update() override;
 
+		/**
+		Sets the target to follow
+		@params target The transform component of the target.
+		*/
+		void setTarget(Transform* target);
 
+		/**
+		Sets the target to follow
+		@params targetName The name of the entity to follow.
+		*/
+		void setTarget(std::string targetName);
 
+		/**
+		Sets offset to keep with the target
+		@params target Offset to keep with the target.
+		*/
+		void setOffset(Vector3 offset);
 	};
 }
 #endif

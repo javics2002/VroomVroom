@@ -9,17 +9,15 @@
 #define __VROOMVROOM_API __declspec(dllimport)
 #endif
 
-#include "ComponentsRegister.h"
-#include "MotorEngine/MotorEngine.h"
+//#include "ComponentsRegister.h"
+//#include "MotorEngine/MotorEngine.h"
 
 extern "C" {
 	__VROOMVROOM_API const char* name();
 
 	__VROOMVROOM_API bool init();
 
-	/*__VROOMVROOM_API void componentsResgister() {
-		me::addAllFactory();
-	}*/
+	__VROOMVROOM_API void initFactories();
 }
 
 #endif
