@@ -4,7 +4,6 @@
 
 #include "EntityComponent/Components/Component.h"
 #include "Utils/Vector3.h"
-#include <list>
 
 namespace me {
 
