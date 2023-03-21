@@ -10,9 +10,11 @@
 namespace me {
 	
 	enum class GameState {
+		LoadMainMenu,
 		MainMenu,
 		StartGame,
 		InGame,
+		LoadGameOver,
 		GameOver
 	};
 	enum class NumPlayer {

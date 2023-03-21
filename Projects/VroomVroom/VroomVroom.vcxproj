@@ -25,6 +25,7 @@
     <ClCompile Include="..\..\Src\VroomVroom\Components\VehicleController.cpp" />
     <ClCompile Include="..\..\Src\VroomVroom\dllmain.cpp" />
     <ClCompile Include="..\..\Src\VroomVroom\VroomVroom.cpp" />
+    <ClCompile Include="..\..\Src\VroomVroom\Components\CircuitoInfo.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Src\VroomVroom\Components\CameraFollow.h" />
@@ -34,6 +35,7 @@
     <ClInclude Include="..\..\Src\VroomVroom\framework.h" />
     <ClInclude Include="..\..\Src\VroomVroom\pch.h" />
     <ClInclude Include="..\..\Src\VroomVroom\VroomVroom.h" />
+    <ClInclude Include="..\..\Src\VroomVroom\Components\CircuitoInfo.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

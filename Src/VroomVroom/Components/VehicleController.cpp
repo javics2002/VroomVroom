@@ -2,6 +2,7 @@
 #include "Input/InputManager.h"
 #include "EntityComponent/Components/Transform.h"
 #include "EntityComponent/Components/RigidBody.h"
+#include "EntityComponent/Entity.h"
 #include "Utils/Vector3.h"
 
 using namespace me;
