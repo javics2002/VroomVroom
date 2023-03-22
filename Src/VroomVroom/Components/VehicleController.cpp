@@ -1,5 +1,6 @@
 #include "VehicleController.h"
 #include "Input/InputManager.h"
+#include "EntityComponent/Entity.h"
 #include "EntityComponent/Components/Transform.h"
 #include "EntityComponent/Components/RigidBody.h"
 #include "EntityComponent/Entity.h"
@@ -14,7 +15,6 @@ VehicleController::VehicleController(float s, float rs, float df)
     mRotationSpeed = rs;
     mDriftFactor = df;
 }
-
 
 /**
 Returns the difference between this vector and another vector

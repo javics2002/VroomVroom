@@ -9,9 +9,6 @@
 #define __VROOMVROOM_API __declspec(dllimport)
 #endif
 
-//#include "ComponentsRegister.h"
-//#include "MotorEngine/MotorEngine.h"
-
 extern "C" {
 	__VROOMVROOM_API const char* name();
 
