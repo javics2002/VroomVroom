@@ -5,6 +5,7 @@
 /Exe
 /Lib
 /Dll
+/Bin
 
 # Vroom Vroom Temp Files
 /Temp
