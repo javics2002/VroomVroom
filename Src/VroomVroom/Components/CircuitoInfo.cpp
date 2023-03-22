@@ -62,7 +62,7 @@ me::Vector3 me::CircuitoInfo::getRandomPosInside()
 	std::srand(std::time(nullptr));
 
 	//range (-44 ,44)
-	float x = -mHalfWidthOuter + static_cast<float>(rand()) / static_cast<float>(RAND_MAX / (mHalfWidthOuter*2));
+	x = -mHalfWidthOuter + static_cast<float>(rand()) / static_cast<float>(RAND_MAX / (mHalfWidthOuter*2));
 	
 	//range (-36 , 36)
 	if (x < mHalfWidthInner || x > -mHalfWidthInner)

@@ -34,6 +34,19 @@ void VehicleController::update()
     bool right = me::inputManager().getButton("RIGHT");
     float deltaX = me::inputManager().getAxis("HORIZONTAL");
 
+    /*
+    // Get the input
+    bool acelerate = me::inputManager().getButton(mAcelerate);
+    bool decelerate = me::inputManager().getButton(mDecelerate);
+    bool drift = me::inputManager().getButton(mDrift);
+
+    //If the player is using keyboard
+    bool left = me::inputManager().getButton(mLeft);
+    bool right = me::inputManager().getButton(mRight);
+    float deltaX = me::inputManager().getAxis(mDeltaX);
+    */
+
+
     // Rotate the vehicle if the player is using DualShock or Xbox controller
     if(deltaX != 0) {
         if (drift) {
@@ -61,4 +74,14 @@ void VehicleController::update()
         // If the vertical input axis is negative, add a backward impulse to the vehicle's rigidbody
         mEntity->getComponent<me::RigidBody>("transform")->addImpulse(v.forward()*-mSpeed,mEntity->getComponent<me::Transform>("transform")->getPosition());
     }
+}
+
+void VehicleController::setInput(std::string left, std::string right, std::string deltaX, std::string acelerate, std::string decelerate, std::string drift)
+{
+    mLeft = left;
+    mRight = right;
+    mDeltaX = deltaX;
+    mAcelerate = acelerate;
+    mDecelerate = decelerate;
+    mDrift = drift;
 }
