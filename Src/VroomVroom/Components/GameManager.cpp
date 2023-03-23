@@ -11,23 +11,27 @@
 #include "CameraFollow.h"
 #include "CircuitoInfo.h"
 
+using namespace me;
 
-
-me::GameManager::~GameManager()
-{
-}
-
-void me::GameManager::start()
-{
+GameManager::GameManager() {
 
 }
 
-void me::GameManager::update()
+GameManager::~GameManager()
+{
+}
+
+void GameManager::start()
+{
+
+}
+
+void GameManager::update()
 {
 	switch (mGameState)
 	{
 
-	case me::GameState::LoadMainMenu:
+	case GameState::LoadMainMenu:
 		if (sceneManager().getScene("MainMenu") == nullptr)
 		{
 			sceneManager().addScene("MainMenu");
@@ -38,7 +42,7 @@ void me::GameManager::update()
 		mGameState = GameState::MainMenu;
 		break;
 
-	case me::GameState::StartGame:
+	case GameState::StartGame:
 		if (sceneManager().getScene("Race") == nullptr)
 		{
 			sceneManager().addScene("Race");
@@ -50,7 +54,7 @@ void me::GameManager::update()
 		mGameState = GameState::InGame;
 		break;
 
-	case me::GameState::LoadGameOver:
+	case GameState::LoadGameOver:
 		if (sceneManager().getScene("OverMenu") == nullptr)
 		{
 			sceneManager().addScene("OverMenu");
@@ -60,9 +64,9 @@ void me::GameManager::update()
 		mGameState = GameState::GameOver;
 		break;
 
-	case me::GameState::MainMenu:
-	case me::GameState::InGame:
-	case me::GameState::GameOver:
+	case GameState::MainMenu:
+	case GameState::InGame:
+	case GameState::GameOver:
 		sceneManager().update();
 		break;
 	default:
@@ -72,7 +76,7 @@ void me::GameManager::update()
 
 }
 
-void me::GameManager::setEntitiesInfo()
+void GameManager::setEntitiesInfo()
 {
 
 	mPlayerOne = sceneManager().getActiveScene().get()->findEntity("playerOne").get();
@@ -196,7 +200,7 @@ void me::GameManager::setupInput(int player)
 */
 
 
-void me::GameManager::setPowerUps()
+void GameManager::setPowerUps()
 {
 
 
@@ -223,25 +227,25 @@ void me::GameManager::setPowerUps()
 
 
 
-void me::GameManager::startGame(NumPlayer num)
+void GameManager::startGame(NumPlayer num)
 {
 	mNumPlayer = num;
 	mGameState = GameState::StartGame;
 }
 
-void me::GameManager::mainMenu()
+void GameManager::mainMenu()
 {
 	mGameState = GameState::LoadMainMenu;
 }
 
-void me::GameManager::powerUpPicked(std::string name)
+void GameManager::powerUpPicked(std::string name)
 {
 	Vector3 pos = mCircuitoInfo->getRandomPosInside();
 	mPowerUps[name]->getComponent<Transform>("transform")->setPosition(pos);
 	//mPowerUps[name]->getComponent<ParticleSystem>("particlesystem")->setEmitting(true);
 }
 
-void me::GameManager::updatePlayerCheckpoint(std::string playerName, Vector3 pos)
+void GameManager::updatePlayerCheckpoint(std::string playerName, Vector3 pos)
 {
 	if (playerName == "playerOne")
 	{
@@ -254,7 +258,7 @@ void me::GameManager::updatePlayerCheckpoint(std::string playerName, Vector3 pos
 
 }
 
-void me::GameManager::respawnPlayer(std::string playerName)
+void GameManager::respawnPlayer(std::string playerName)
 {
 	if (playerName == "playerOne")
 	{

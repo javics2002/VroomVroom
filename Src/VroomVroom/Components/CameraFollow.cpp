@@ -19,7 +19,7 @@ void me::CameraFollow::start()
 
 void me::CameraFollow::update()
 {
-	mTransform->setRotation(mTargetTransform->getRotation()); //Cambiar a look to
+	//mTransform->setRotation(mTargetTransform->getRotation()); //Cambiar a look to
 	mTransform->setPosition(mTargetTransform->getPosition()); //Suavizar
 	mTransform->translate(mOffset);
 	 

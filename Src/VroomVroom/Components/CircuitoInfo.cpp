@@ -2,7 +2,9 @@
 #include <cstdlib> //  rand() y srand()
 #include <ctime> //  time()
 
-bool me::CircuitoInfo::isCircuitInside(Vector3 pos)
+using namespace me;
+
+bool CircuitoInfo::isCircuitInside(Vector3 pos)
 {
 
 
@@ -56,7 +58,7 @@ bool me::CircuitoInfo::isCircuitInside(Vector3 pos)
 	return true;
 }
 
-me::Vector3 me::CircuitoInfo::getRandomPosInside()
+Vector3 CircuitoInfo::getRandomPosInside()
 {
 	float x, z , radius;
 	std::srand(std::time(nullptr));

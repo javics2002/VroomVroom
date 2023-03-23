@@ -30,7 +30,7 @@ namespace me {
 		Construct a new CameraFollow component and assign the player
 		*/
 		CameraFollow();
-		//Destroy om() map saved camera (ogreCamera)
+		//Destroy renderManager() map saved camera
 		~CameraFollow();
 
 		/**

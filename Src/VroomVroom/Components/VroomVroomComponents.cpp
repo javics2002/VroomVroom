@@ -1,6 +1,9 @@
 #include "VroomVroomComponents.h"
 #include "CameraFollow.h"
 #include "VehicleController.h"
+#include "CircuitoInfo.h"
+#include "GameManager.h"
+#include "Checkpoint.h"
 
 using namespace me;
 
@@ -17,8 +20,15 @@ Component* FactoryCameraFollow::create(Parameters params)
 
 Component* FactoryVehicleController::create(Parameters params)
 {
+    //Constructor vacio!!
     VehicleController* vehicleController = new VehicleController(value(params, "speed", 0.0f),
         value(params, "rotationspeed", 0.0f), value(params, "driftfactor", 0.0f));
 
     return vehicleController;
+}
+
+Component* FactoryCheckpoint::create(Parameters params)
+{
+    Checkpoint* checkpoint = new Checkpoint();
+    return checkpoint;
 }

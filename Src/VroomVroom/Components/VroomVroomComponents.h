@@ -4,15 +4,22 @@
 
 #include "EntityComponent/Components/FactoryComponent.h"
 
-namespace me {
-	class FactoryCameraFollow : public FactoryComponent {
-	public:
-		Component* create(Parameters params) override;
-	};
+class FactoryCameraFollow : public me::FactoryComponent {
+public:
+	me::Component* create(me::Parameters params) override;
+};
 
-	class FactoryVehicleController : public FactoryComponent {
-	public:
-		Component* create(Parameters params) override;
-	};
-}
+class FactoryVehicleController : public me::FactoryComponent {
+public:
+	me::Component* create(me::Parameters params) override;
+};
+
+//CirtuitoInfo
+
+//GameManager
+
+class FactoryCheckpoint : public me::FactoryComponent {
+public:
+	me::Component* create(me::Parameters params) override;
+};
 #endif

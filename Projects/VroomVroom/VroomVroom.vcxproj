@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Src\VroomVroom\Components\CameraFollow.cpp" />
+    <ClCompile Include="..\..\Src\VroomVroom\Components\Checkpoint.cpp" />
     <ClCompile Include="..\..\Src\VroomVroom\Components\GameManager.cpp" />
     <ClCompile Include="..\..\Src\VroomVroom\Components\VroomVroomComponents.cpp" />
     <ClCompile Include="..\..\Src\VroomVroom\Components\VehicleController.cpp" />
@@ -29,6 +30,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Src\VroomVroom\Components\CameraFollow.h" />
+    <ClInclude Include="..\..\Src\VroomVroom\Components\Checkpoint.h" />
     <ClInclude Include="..\..\Src\VroomVroom\Components\GameManager.h" />
     <ClInclude Include="..\..\Src\VroomVroom\Components\VroomVroomComponents.h" />
     <ClInclude Include="..\..\Src\VroomVroom\Components\VehicleController.h" />
@@ -168,7 +170,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
-      <AdditionalDependencies>MotorEngine.lib;EntityComponent.lib;Input.lib;Physics.lib;Render.lib;Utils.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>MotorEngine.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)MotorEngine\Lib\$(Platform)\$(ConfigurationName)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
