@@ -4,6 +4,7 @@
 #include "EntityComponent/Components/Transform.h"
 #include "EntityComponent/Components/RigidBody.h"
 #include "EntityComponent/Entity.h"
+#include "GameManager.h"
 #include "Utils/Vector3.h"
 
 using namespace me;
@@ -28,6 +29,7 @@ void VehicleController::update()
     bool acelerate = me::inputManager().getButton("ACELERATE");
     bool decelerate = me::inputManager().getButton("DECELERATE");
     bool drift = me::inputManager().getButton("DRIFT");
+    bool useObjeto = me::inputManager().getButton("USEOBJECT");
 
     //If the player is using keyboard
     bool left = me::inputManager().getButton("LEFT");
@@ -39,6 +41,7 @@ void VehicleController::update()
     bool acelerate = me::inputManager().getButton(mAcelerate);
     bool decelerate = me::inputManager().getButton(mDecelerate);
     bool drift = me::inputManager().getButton(mDrift);
+    bool useObjeto = me::inputManager().getButton(mUseObject);
 
     //If the player is using keyboard
     bool left = me::inputManager().getButton(mLeft);
@@ -76,7 +79,7 @@ void VehicleController::update()
     }
 }
 
-void VehicleController::setInput(std::string left, std::string right, std::string deltaX, std::string acelerate, std::string decelerate, std::string drift)
+void VehicleController::setInput(std::string left, std::string right, std::string deltaX, std::string acelerate, std::string decelerate, std::string drift, std::string useObject)
 {
     mLeft = left;
     mRight = right;
@@ -84,4 +87,5 @@ void VehicleController::setInput(std::string left, std::string right, std::strin
     mAcelerate = acelerate;
     mDecelerate = decelerate;
     mDrift = drift;
+    mUseObject = useObject;
 }

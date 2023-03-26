@@ -32,3 +32,17 @@ Component* FactoryCheckpoint::create(Parameters params)
     Checkpoint* checkpoint = new Checkpoint();
     return checkpoint;
 }
+
+me::Component* FactoryCirtuitoInfo::create(me::Parameters params)
+{
+    CircuitoInfo* circuitoInfo = new CircuitoInfo();
+    circuitoInfo->setPosition(Vector3(value(params, "position_x", 0.0f),
+        value(params, "position_y", 0.0f), value(params, "position_z", 0.0f)));
+    return circuitoInfo;
+}
+
+me::Component* FactoryGameManager::create(me::Parameters params)
+{
+    return gameManager();
+    
+}

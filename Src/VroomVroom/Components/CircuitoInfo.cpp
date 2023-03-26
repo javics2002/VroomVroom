@@ -105,3 +105,18 @@ Vector3 CircuitoInfo::getRandomPosInside()
 	
 	return Vector3(x,mPosition.y,z);
 }
+
+void CircuitoInfo::setPosition(me::Vector3 pos)
+{
+	mPosition = pos;
+}
+
+void CircuitoInfo::setInfo(float halfWidthInner, float halfWidthOuter, float halfHeightInner, float halfHeightOuter, float radiusInner, float radiusOuter)
+{
+	mHalfHeightInner = halfHeightInner;
+	mHalfHeightOuter = halfHeightOuter;
+	mHalfWidthInner = halfWidthInner;
+	mHalfWidthOuter = halfWidthOuter;
+	mRadiusInner = radiusInner;
+	mRadiusOuter = radiusOuter;
+}

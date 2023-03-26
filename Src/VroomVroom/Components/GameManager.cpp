@@ -23,7 +23,7 @@ GameManager::~GameManager()
 
 void GameManager::start()
 {
-
+	mGameState = GameState::StartGame;
 }
 
 void GameManager::update()
@@ -80,13 +80,13 @@ void GameManager::setEntitiesInfo()
 {
 
 	mPlayerOne = sceneManager().getActiveScene().get()->findEntity("playerOne").get();
-	mPlayerOne->getComponent<VehicleController>("vehiclecontroller")->setInput("LEFT", "RIGHT", "JOYSTICK1", "UP", "DOWN", "ENTER");
+	mPlayerOne->getComponent<VehicleController>("vehiclecontroller")->setInput("LEFT1", "RIGHT1", "JOYSTICK1", "ACELERATE1", "DECELERATE1","DRIFT1", "USE1");
 	mPlayerOneLastCheckpointPos = mPlayerOne->getComponent<Transform>("transform")->getPosition();
 	//setupInput(1);
 	if (mNumPlayer == NumPlayer::TwoPlayer)
 	{
 		mPlayerTwo = sceneManager().getActiveScene().get()->findEntity("playerTwo").get();
-		mPlayerTwo->getComponent<VehicleController>("vehiclecontroller")->setInput("A", "D", "JOYSTICK2", "W", "S", "SPACE");
+		mPlayerTwo->getComponent<VehicleController>("vehiclecontroller")->setInput("LEFT2", "RIGHT2", "JOYSTICK2", "ACELERATE2", "DECELERATE2", "DRIFT2", "USE2");
 		mPlayerTwoLastCheckpointPos = mPlayerOne->getComponent<Transform>("transform")->getPosition();
 		//setupInput(2);
 	}
@@ -102,103 +102,124 @@ void GameManager::setEntitiesInfo()
 }
 
 /*
-void me::GameManager::setupInput(int player)
+void GameManager::setupInput(int player)
 {
-	if (player == 1)
+	Input left, right, joy, acelerate, decelerate, drift, use;
+	if (player == 2)
 	{
-		//"LEFT", "RIGHT", "JOYSTICKRIGHT", "UP", "DOWN", "ENTER"
-		Input left, right, joy1, up, down, enter;
+		//"LEFT2", "RIGHT2", "JOYSTICK2", "ACELERATE2", "DECELERATE2", "DRIFT2", "USE2"
+		//	<-		  ->						/\			\/						P
+		//										A			B					 LB/LT
+		//										X			O					 L1/L2
 		left.type = INPUTTYPE_KEYBOARD;
 		left.which = SDLK_LEFT;
-		inputManager().addButton("LEFT", left);
+		inputManager().addButton("LEFT2", left);
 
 		right.type = INPUTTYPE_KEYBOARD;
 		right.which = SDLK_RIGHT;
-		inputManager().addButton("RIGHT", right);
+		inputManager().addButton("RIGHT2", right);
 
-		joy1.type = INPUTTYPE_GAMEPAD_AXIS;
-		joy1.which = Gamepad_Left;
-		inputManager().addButton("JOYSTICK1", joy1);
+		joy.type = INPUTTYPE_GAMEPAD_AXIS;
+		joy.which = Gamepad_JOY2;
+		inputManager().addButton("JOYSTICK2", joy);
 
-		if (mPlayerOneType == PlayerInputType::Keyboard)
+		if (mPlayerTwoType == PlayerInputType::Keyboard)
 		{
-			up.type = INPUTTYPE_KEYBOARD;
-			up.which = SDLK_UP;
-			inputManager().addButton("UP", up);
+			acelerate.type = INPUTTYPE_KEYBOARD;
+			acelerate.which = SDLK_UP;
+			inputManager().addButton("ACELERATE2", acelerate);
 
-			down.type = INPUTTYPE_KEYBOARD;
-			down.which = SDLK_DOWN;
-			inputManager().addButton("DOWN", down);
+			decelerate.type = INPUTTYPE_KEYBOARD;
+			decelerate.which = SDLK_DOWN;
+			inputManager().addButton("DECELERATE2", decelerate);
 
-			enter.type = INPUTTYPE_KEYBOARD;
-			enter.which = SDLK_RETURN;
-			inputManager().addButton("ENTER", enter);
+			drift.type = INPUTTYPE_KEYBOARD;
+			drift.which = SDLK_P;
+			inputManager().addButton("DRIFT2", drift);
+
+			use.type = INPUTTYPE_KEYBOARD;
+			use.which = SDLK_P;
+			inputManager().addButton("USE2", use);
 		}
 		else
 		{
-			up.type = INPUTTYPE_GAMEPAD_BUTTON;
-			up.which = B;
-			inputManager().addButton("UP", up);
+			acelerate.type = INPUTTYPE_KEYBOARD;
+			acelerate.which = GamepadA;
+			inputManager().addButton("ACELERATE2", acelerate);
 
-			down.type = INPUTTYPE_GAMEPAD_BUTTON;
-			down.which = A;
-			inputManager().addButton("DOWN", down);
+			decelerate.type = INPUTTYPE_KEYBOARD;
+			decelerate.which = GamepadB2;
+			inputManager().addButton("DECELERATE2", decelerate);
 
-			enter.type = INPUTTYPE_GAMEPAD_BUTTON;
-			enter.which = X;
-			inputManager().addButton("ENTER", enter);
+			drift.type = INPUTTYPE_KEYBOARD;
+			drift.which = GamepadLBLT2;
+			inputManager().addButton("DRIFT2", drift);
+
+			use.type = INPUTTYPE_KEYBOARD;
+			use.which = GamepadStart2;
+			inputManager().addButton("USE2", use);
 
 		}
 	}
-	else if (player == 2)
+	else if (player == 1)
 	{
-		//"A", "D", "JOYSTICK2", "W", "S", "SPACE"
-		Input keya, keyd, joy2, keyw, keys, space;
-		keya.type = INPUTTYPE_KEYBOARD;
-		keya.which = SDLK_A;
-		inputManager().addButton("A", keya);
+		//"LEFT1", "RIGHT1", "JOYSTICK1", "ACELERATE1", "DECELERATE1","DRIFT1", "USE1"
+		//	 A		   D						W			  S					 SPACE
+		//										A			  B					 LB/LT
+		//										X			  O					 L1/L2
+		left.type = INPUTTYPE_KEYBOARD;
+		left.which = SDLK_A;
+		inputManager().addButton("LEFT1", left);
 
-		keyd.type = INPUTTYPE_KEYBOARD;
-		keyd.which = SDLK_D;
-		inputManager().addButton("D", keyw);
+		right.type = INPUTTYPE_KEYBOARD;
+		right.which = SDLK_D;
+		inputManager().addButton("RIGHT1", right);
 
-		joy2.type = INPUTTYPE_GAMEPAD_AXIS;
-		joy2.which = Gamepad_Left;
-		inputManager().addButton("JOYSTICK2", joy2);
+		joy.type = INPUTTYPE_GAMEPAD_AXIS;
+		joy.which = Gamepad_JOY1;
+		inputManager().addButton("JOYSTICK1", joy);
 
 		if (mPlayerOneType == PlayerInputType::Keyboard)
 		{
-			keyw.type = INPUTTYPE_KEYBOARD;
-			keyw.which = SDLK_W;
-			inputManager().addButton("W", keyw);
+			acelerate.type = INPUTTYPE_KEYBOARD;
+			acelerate.which = SDLK_W;
+			inputManager().addButton("ACELERATE2", acelerate);
 
-			keys.type = INPUTTYPE_KEYBOARD;
-			keys.which = SDLK_S;
-			inputManager().addButton("S", keys);
+			decelerate.type = INPUTTYPE_KEYBOARD;
+			decelerate.which = SDLK_S;
+			inputManager().addButton("DECELERATE2", decelerate);
 
-			space.type = INPUTTYPE_KEYBOARD;
-			space.which = SDLK_SPACE;
-			inputManager().addButton("SPACE", space);
+			drift.type = INPUTTYPE_KEYBOARD;
+			drift.which = SDLK_K;
+			inputManager().addButton("DRIFT2", drift);
+
+			use.type = INPUTTYPE_KEYBOARD;
+			use.which = SDLK_SPACE;
+			inputManager().addButton("USE2", use);
 		}
 		else
 		{
-			keyw.type = INPUTTYPE_GAMEPAD_BUTTON;
-			keyw.which = B;
-			inputManager().addButton("W", keyw);
+			acelerate.type = INPUTTYPE_KEYBOARD;
+			acelerate.which = GamepadA2;
+			inputManager().addButton("ACELERATE2", acelerate);
 
-			keys.type = INPUTTYPE_GAMEPAD_BUTTON;
-			keys.which = A;
-			inputManager().addButton("S", keys);
+			decelerate.type = INPUTTYPE_KEYBOARD;
+			decelerate.which = GamepadB2;
+			inputManager().addButton("DECELERATE2", decelerate);
 
-			space.type = INPUTTYPE_GAMEPAD_BUTTON;
-			space.which = X;
-			inputManager().addButton("SPACE", space);
+			drift.type = INPUTTYPE_KEYBOARD;
+			drift.which = GamepadLBLT2;
+			inputManager().addButton("DRIFT2", drift);
+
+			use.type = INPUTTYPE_KEYBOARD;
+			use.which = GamepadStart2;
+			inputManager().addButton("USE2", use);
 
 		}
 	}
 }
-*/
 
+*/
 
 void GameManager::setPowerUps()
 {
