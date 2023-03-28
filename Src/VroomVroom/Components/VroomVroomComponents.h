@@ -18,7 +18,11 @@ class FactoryVehicleController : public me::FactoryComponent {
 public:
 	me::Component* create(me::Parameters params) override;
 };
-
+//return a WheelController as component
+class FactoryWheelController : public me::FactoryComponent {
+public:
+	me::Component* create(me::Parameters params) override;
+};
 //return a CirtuitoInfo as component
 class FactoryCirtuitoInfo : public me::FactoryComponent {
 public:

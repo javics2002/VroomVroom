@@ -89,3 +89,8 @@ void VehicleController::setInput(std::string left, std::string right, std::strin
     mDrift = drift;
     mUseObject = useObject;
 }
+
+float VehicleController::getSpeed()
+{
+    return mSpeed;
+}

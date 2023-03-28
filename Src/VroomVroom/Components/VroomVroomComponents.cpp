@@ -2,6 +2,7 @@
 #include "CameraFollow.h"
 #include "VehicleController.h"
 #include "CircuitoInfo.h"
+#include "WheelController.h"
 #include "GameManager.h"
 #include "Checkpoint.h"
 
@@ -25,6 +26,13 @@ Component* FactoryVehicleController::create(Parameters params)
         value(params, "rotationspeed", 0.0f), value(params, "driftfactor", 0.0f));
 
     return vehicleController;
+}
+
+Component* FactoryWheelController::create(Parameters params)
+{
+    WheelController* wheelController = new WheelController();
+
+    return wheelController;
 }
 
 Component* FactoryCheckpoint::create(Parameters params)
