@@ -20,14 +20,22 @@ namespace me{
         std::string mDrift;     
         std::string mUseObject; //1:Spacw   2:P     //
 
-    public:
-        VehicleController(float s, float rs, float df);
+        //Index of the last valid checkpoint
+        int checkpointIndex;
 
-        void update();
+    public:
+        VehicleController();
+
+        void start() override;
+        void update() override;
 
         //set input info to vehicle controller
         void setInput(std::string left, std::string right, std::string deltaX,
             std::string acelerate, std::string decelerate, std::string drift, std::string useObject );
+
+        // Initializes the speed, rotation speed, and drift factor variables
+        void setSpeedAndDrift(float speed, float angularSpeed, float driftFactor);
+
         /**
         Get the speed value of the Vehicle Controller component.
 
@@ -35,6 +43,25 @@ namespace me{
         */
         float getSpeed();
 
+        //Esto va aqui?
+        /*
+        void OnCollisionEnter(Collider other) {
+            if (other.hascomponent<Checkpoint>("Checkpoint")) {
+                if (checkpoint.index == checkpointIndex + 1)
+                    checkpointIndex++; 
+                else if (checkpoint.index == checkpointIndex - 1)
+                    checkpointIndex--; //Vas marcha atras por alguna razon
+            }
+        }
+
+        void OnCollisionExit(Collider other) {
+            if (other.hascomponent<Checkpoint>("Checkpoint")) {
+                if (checkpoint.index == checkpointIndex + 1)
+                    checkpointIndex++;
+                else if (checkpoint.index == checkpointIndex)
+                    checkpointIndex--; //Vas marcha atras por alguna razon
+            }
+        }*/
     };
 }
 #endif

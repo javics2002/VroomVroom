@@ -9,12 +9,13 @@
 
 using namespace me;
 
-VehicleController::VehicleController(float s, float rs, float df)
+VehicleController::VehicleController()
 {
-    // Constructor - Initializes the speed, rotation speed, and drift factor variables
-    mSpeed = s;
-    mRotationSpeed = rs;
-    mDriftFactor = df;
+}
+
+void me::VehicleController::start()
+{
+    checkpointIndex = 0;
 }
 
 /**
@@ -88,6 +89,13 @@ void VehicleController::setInput(std::string left, std::string right, std::strin
     mDecelerate = decelerate;
     mDrift = drift;
     mUseObject = useObject;
+}
+
+void VehicleController::setSpeedAndDrift(float speed, float angularSpeed, float driftFactor)
+{
+    mSpeed = speed;
+    mRotationSpeed = angularSpeed;
+    mDriftFactor = driftFactor;
 }
 
 float VehicleController::getSpeed()
