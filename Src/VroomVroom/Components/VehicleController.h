@@ -5,7 +5,11 @@
 #include "EntityComponent/Components/Component.h"
 #include <string>
 
+#include "PowerUpObject.h"
+
 namespace me{
+
+
     class VehicleController : public me::Component {
     private:
         float mSpeed;
@@ -15,6 +19,11 @@ namespace me{
         //Index of the last valid checkpoint
         int checkpointIndex;
 
+
+        bool mPowerUp;
+        PowerUpType mPowerUpType;
+
+
     public:
         VehicleController();
 
@@ -23,6 +32,8 @@ namespace me{
 
         // Initializes the speed, rotation speed, and drift factor variables
         void setSpeedAndDrift(float speed, float angularSpeed, float driftFactor);
+
+        void setPowerUp(PowerUpType powerUpType);
 
         /**
         Get the speed value of the Vehicle Controller component.

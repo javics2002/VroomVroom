@@ -5,6 +5,7 @@
 #include "WheelController.h"
 #include "GameManager.h"
 #include "Checkpoint.h"
+#include "Oil.h"
 
 using namespace me;
 
@@ -27,7 +28,7 @@ Component* FactoryVehicleController::create(Parameters& params)
     vehicleController->setSpeedAndDrift(value(params, "speed", 0.0f),
         value(params, "rotationspeed", 0.0f), value(params, "driftfactor", 0.0f));
 
-    return vehicleController;
+    return nullptr;
 }
 
 Component* FactoryWheelController::create(Parameters& params)
@@ -55,4 +56,12 @@ me::Component* FactoryGameManager::create(me::Parameters& params)
 {
     return gameManager();
     
+}
+
+me::Component* FactoryOil::create(me::Parameters& params)
+{
+    Oil* oil = new Oil();
+    oil->setFriction(value(params, "friction", 5.0f));
+    return oil;
+
 }

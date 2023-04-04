@@ -38,5 +38,10 @@ class FactoryCheckpoint : public me::FactoryComponent {
 public:
 	me::Component* create(me::Parameters& params) override;
 };
+//return a Oil as component
+class FactoryOil : public me::FactoryComponent {
+public:
+	me::Component* create(me::Parameters& params) override;
+};
 
 #endif

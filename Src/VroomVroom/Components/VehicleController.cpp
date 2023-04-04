@@ -47,7 +47,6 @@ void VehicleController::update()
             mEntity->getComponent<me::Transform>("transform")->rotate(mRotationSpeed * deltaX, Vector3(0, 1, 0));
         }
     }
-
     //If the player is using keyboard
     else if(left)
         mEntity->getComponent<me::Transform>("transform")->rotate(-mRotationSpeed, Vector3(0, 1, 0));
@@ -64,6 +63,37 @@ void VehicleController::update()
         // If the vertical input axis is negative, add a backward impulse to the vehicle's rigidbody
         mEntity->getComponent<me::RigidBody>("transform")->addImpulse(v.forward()*-mSpeed,mEntity->getComponent<me::Transform>("transform")->getPosition());
     }
+
+
+    if (mPowerUp && useObject) {
+        switch (mPowerUpType)
+        {
+        case NERF:
+            // Create nerf entity  with nerf Component
+            break;
+        case OIL:
+            //Create oil entity with Oil Component
+            break;
+        case THUNDER:
+            // Create thunder entity  with thunder Component
+            break;
+        default:
+            break;
+        }
+
+        mPowerUp = false;
+    }
+}
+
+void VehicleController::setInput(std::string left, std::string right, std::string deltaX, std::string acelerate, std::string decelerate, std::string drift, std::string useObject)
+{
+    mLeft = left;
+    mRight = right;
+    mDeltaX = deltaX;
+    mAcelerate = acelerate;
+    mDecelerate = decelerate;
+    mDrift = drift;
+    mUseObject = useObject;
 }
 
 void VehicleController::setSpeedAndDrift(float speed, float angularSpeed, float driftFactor)
@@ -71,6 +101,12 @@ void VehicleController::setSpeedAndDrift(float speed, float angularSpeed, float 
     mSpeed = speed;
     mRotationSpeed = angularSpeed;
     mDriftFactor = driftFactor;
+}
+
+void me::VehicleController::setPowerUp(PowerUpType powerUpType)
+{
+    mPowerUpType = powerUpType;
+    mPowerUp = true;
 }
 
 float VehicleController::getSpeed()
