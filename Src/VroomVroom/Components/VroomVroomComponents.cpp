@@ -5,10 +5,11 @@
 #include "WheelController.h"
 #include "GameManager.h"
 #include "Checkpoint.h"
+#include "Oil.h"
 
 using namespace me;
 
-Component* FactoryCameraFollow::create(Parameters params)
+Component* FactoryCameraFollow::create(Parameters& params)
 {
     CameraFollow* camerafollow = new CameraFollow();
     if (params.count("target"))
@@ -19,29 +20,29 @@ Component* FactoryCameraFollow::create(Parameters params)
     return camerafollow;
 }
 
-Component* FactoryVehicleController::create(Parameters params)
+Component* FactoryVehicleController::create(Parameters& params)
 {
     //Constructor vacio!!
-    VehicleController* vehicleController = new VehicleController(value(params, "speed", 0.0f),
-        value(params, "rotationspeed", 0.0f), value(params, "driftfactor", 0.0f));
+    /*VehicleController* vehicleController = new VehicleController(value(params, "speed", 0.0f),
+        value(params, "rotationspeed", 0.0f), value(params, "driftfactor", 0.0f));*/
 
-    return vehicleController;
+    return nullptr;
 }
 
-Component* FactoryWheelController::create(Parameters params)
+Component* FactoryWheelController::create(Parameters& params)
 {
     WheelController* wheelController = new WheelController();
 
     return wheelController;
 }
 
-Component* FactoryCheckpoint::create(Parameters params)
+Component* FactoryCheckpoint::create(Parameters& params)
 {
     Checkpoint* checkpoint = new Checkpoint();
     return checkpoint;
 }
 
-me::Component* FactoryCirtuitoInfo::create(me::Parameters params)
+me::Component* FactoryCirtuitoInfo::create(me::Parameters& params)
 {
     CircuitoInfo* circuitoInfo = new CircuitoInfo();
     circuitoInfo->setPosition(Vector3(value(params, "position_x", 0.0f),
@@ -49,8 +50,16 @@ me::Component* FactoryCirtuitoInfo::create(me::Parameters params)
     return circuitoInfo;
 }
 
-me::Component* FactoryGameManager::create(me::Parameters params)
+me::Component* FactoryGameManager::create(me::Parameters& params)
 {
     return gameManager();
     
+}
+
+me::Component* FactoryOil::create(me::Parameters& params)
+{
+    Oil* oil = new Oil();
+    oil->setFriction(value(params, "friction", 5.0f));
+    return oil;
+
 }
