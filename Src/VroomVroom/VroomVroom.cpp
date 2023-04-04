@@ -34,26 +34,21 @@ __VROOMVROOM_API void initFactories()
 
 __VROOMVROOM_API void initInput()
 {
-	inputManager().addButton("LEFT");
-	inputManager().addButton("RIGHT");
+	AxisInput horizontal;
+	horizontal.type = INPUTTYPE_KEYBOARD;
+	horizontal.positive = KEYBOARDCODE_A;
+	horizontal.negative = KEYBOARDCODE_D;
+
+	AxisInfo horizontalInfo;
+	horizontalInfo.dead = .1f;
+	horizontalInfo.gravity = .4f;
+
+	inputManager().addAxis("HORIZONTAL", horizontalInfo, horizontal);
+
 	inputManager().addButton("ACELERATE");
 	inputManager().addButton("DECELERATE");
 	inputManager().addButton("DRIFT");
 	inputManager().addButton("USEOBJECT");
-	inputManager().addButton("HORIZONTAL");
-
-
-	Input keyboardA;
-	keyboardA.type = INPUTTYPE_KEYBOARD;
-	keyboardA.which = KEYBOARDCODE_A;
-
-	inputManager().addBinding("LEFT", keyboardA);
-
-	Input keyboardD;
-	keyboardD.type = INPUTTYPE_KEYBOARD;
-	keyboardD.which = KEYBOARDCODE_D;
-
-	inputManager().addBinding("RIGHT", keyboardD);
 
 	Input keyboardS;
 	keyboardS.type = INPUTTYPE_KEYBOARD;
@@ -78,10 +73,4 @@ __VROOMVROOM_API void initInput()
 	keyboardDrift.which = KEYBOARDCODE_J;
 
 	inputManager().addBinding("DRIFT", keyboardDrift);
-
-	Input keyboardHorizontal;
-	keyboardHorizontal.type = INPUTTYPE_KEYBOARD;
-	keyboardHorizontal.which = KEYBOARDCODE_0;
-
-	inputManager().addBinding("HORIZONTAL", keyboardHorizontal);
 }

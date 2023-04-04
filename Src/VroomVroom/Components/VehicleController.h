@@ -19,11 +19,8 @@ namespace me{
         //Index of the last valid checkpoint
         int checkpointIndex;
 
-
         bool mPowerUp;
         PowerUpType mPowerUpType;
-
-
     public:
         VehicleController();
 

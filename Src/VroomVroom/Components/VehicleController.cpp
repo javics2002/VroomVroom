@@ -4,7 +4,6 @@
 #include "EntityComponent/Components/Transform.h"
 #include "EntityComponent/Components/RigidBody.h"
 #include "Utils/Vector3.h"
-#include "Input/InputCode.h"
 
 using namespace me;
 
@@ -28,72 +27,60 @@ void VehicleController::update()
     bool acelerate = me::inputManager().getButton("ACELERATE");
     bool decelerate = me::inputManager().getButton("DECELERATE");
     bool drift = me::inputManager().getButton("DRIFT");
-    bool useObjeto = me::inputManager().getButton("USEOBJECT");
+    bool useObject = me::inputManager().getButton("USEOBJECT");
 
     //If the player is using keyboard
-    bool left = me::inputManager().getButton("LEFT");
-    bool right = me::inputManager().getButton("RIGHT");
     float deltaX = me::inputManager().getAxis("HORIZONTAL");
 
-
-    // Rotate the vehicle if the player is using DualShock or Xbox controller
-    if(deltaX != 0) {
-        if (drift) {
-            // If the vehicle is drifting, rotate it based on the drift factor
-            mEntity->getComponent<me::Transform>("transform")->rotate( mRotationSpeed * deltaX * mDriftFactor, Vector3(0,1,0));
-        }
-        else {
-            // Otherwise, rotate it normally
-            mEntity->getComponent<me::Transform>("transform")->rotate(mRotationSpeed * deltaX, Vector3(0, 1, 0));
-        }
+    // Rotate the vehicle
+    if (deltaX < 0) { // Left
+        mEntity->getComponent<me::Transform>("transform")->rotate(mRotationSpeed * deltaX, Vector3(0, 1, 0));
     }
-    //If the player is using keyboard
-    else if(left)
-        mEntity->getComponent<me::Transform>("transform")->rotate(-mRotationSpeed, Vector3(0, 1, 0));
-    else if(right)
-        mEntity->getComponent<me::Transform>("transform")->rotate(mRotationSpeed, Vector3(0, 1, 0));
+    if (deltaX > 0) { // Right
+        mEntity->getComponent<me::Transform>("transform")->rotate(mRotationSpeed * deltaX, Vector3(0, 1, 0));
+    }
+
+    // std::cout << deltaX << "\n";
 
     // Move the vehicle forward or backward
-    me::Vector3 v;
-    if (true) {
+    Vector3 f;
+
+    //me::Vector4 rotationQuat = mEntity->getComponent<me::Transform>("transform")->getRotation();
+    //std::cout << "rot quat: " << rotationQuat.x << " " << rotationQuat.y << " " << rotationQuat.z << " " << rotationQuat.w << "\n";
+
+    me::Vector3 rotationDegree = mEntity->getComponent<me::Transform>("transform")->getRotation().toEuler();
+    std::cout << "rot degree euler: " << rotationDegree.x << " " << rotationDegree.y << " " << rotationDegree.z << "\n";
+
+    rotationDegree.normalize();
+    rotationDegree.dot(f.left());
+
+    if (acelerate) {
         // If the vertical input axis is positive, add a forward impulse to the vehicle's rigidbody
-        //mEntity->getComponent<me::RigidBody>("rigidbody")->addImpulse(v.left()*mSpeed,mEntity->getComponent<me::Transform>("transform")->getPosition());
+        mEntity->getComponent<me::RigidBody>("rigidbody")->addForce(rotationDegree * mSpeed);
     }
     else if (decelerate) {
         // If the vertical input axis is negative, add a backward impulse to the vehicle's rigidbody
-        //mEntity->getComponent<me::RigidBody>("transform")->addImpulse(v.forward()*-mSpeed,mEntity->getComponent<me::Transform>("transform")->getPosition());
+        mEntity->getComponent<me::RigidBody>("rigidbody")->addForce(rotationDegree * -mSpeed);
     }
 
+    //if (mPowerUp && useObject) {
+    //    switch (mPowerUpType)
+    //    {
+    //    case NERF:
+    //        // Create nerf entity  with nerf Component
+    //        break;
+    //    case OIL:
+    //        //Create oil entity with Oil Component
+    //        break;
+    //    case THUNDER:
+    //        // Create thunder entity  with thunder Component
+    //        break;
+    //    default:
+    //        break;
+    //    }
 
-    if (mPowerUp && useObject) {
-        switch (mPowerUpType)
-        {
-        case NERF:
-            // Create nerf entity  with nerf Component
-            break;
-        case OIL:
-            //Create oil entity with Oil Component
-            break;
-        case THUNDER:
-            // Create thunder entity  with thunder Component
-            break;
-        default:
-            break;
-        }
-
-        mPowerUp = false;
-    }
-}
-
-void VehicleController::setInput(std::string left, std::string right, std::string deltaX, std::string acelerate, std::string decelerate, std::string drift, std::string useObject)
-{
-    mLeft = left;
-    mRight = right;
-    mDeltaX = deltaX;
-    mAcelerate = acelerate;
-    mDecelerate = decelerate;
-    mDrift = drift;
-    mUseObject = useObject;
+    //    mPowerUp = false;
+    //}
 }
 
 void VehicleController::setSpeedAndDrift(float speed, float angularSpeed, float driftFactor)
