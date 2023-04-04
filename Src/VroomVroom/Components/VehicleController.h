@@ -12,14 +12,6 @@ namespace me{
         float mRotationSpeed;
         float mDriftFactor;
 
-        std::string mLeft;      //1:A   2: <-   //
-        std::string mRight;     //1:D   2: ->   //
-        std::string mDeltaX;    //1:Joystick    2:Joystick  //
-        std::string mAcelerate;     //1:W   2:/\    //
-        std::string mDecelerate;    //1:S   2:\/    //
-        std::string mDrift;     
-        std::string mUseObject; //1:Spacw   2:P     //
-
         //Index of the last valid checkpoint
         int checkpointIndex;
 
@@ -29,16 +21,11 @@ namespace me{
         void start() override;
         void update() override;
 
-        //set input info to vehicle controller
-        void setInput(std::string left, std::string right, std::string deltaX,
-            std::string acelerate, std::string decelerate, std::string drift, std::string useObject );
-
         // Initializes the speed, rotation speed, and drift factor variables
         void setSpeedAndDrift(float speed, float angularSpeed, float driftFactor);
 
         /**
         Get the speed value of the Vehicle Controller component.
-
         @return A float object representing the speed.
         */
         float getSpeed();

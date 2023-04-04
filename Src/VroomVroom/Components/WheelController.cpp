@@ -3,6 +3,7 @@
 #include "Input/InputManager.h"
 #include "EntityComponent/Entity.h"
 #include "EntityComponent/Components/Transform.h"
+#include "Input/InputCode.h"
 
 
 me::WheelController::WheelController()
@@ -19,13 +20,12 @@ me::WheelController::~WheelController()
 
 void me::WheelController::update()
 {
-	bool left = me::inputManager().getButton(mLeftButton);
-	bool right = me::inputManager().getButton(mRightButton);
+	bool left = me::inputManager().getButton("LEFT");
+	bool right = me::inputManager().getButton("RIGHT");
 
-	float deltaX = me::inputManager().getAxis(mSpinStick);
+	float deltaX = me::inputManager().getAxis("HORIZONTAL");
 
 	//Rotación en Y para el giro
-
 	if (mYRotation < me::Y_ROTATION_THRESHOLD && mYRotation >= 0) {
 		if (left || deltaX > 0) { //Es posible que haya que intercambiar los < > de los deltaX al revés.
 			mEntity->getComponent<me::Transform>("transform")->rotate(+Y_STEP_ROTATION, { 0, 1, 0 });
@@ -40,8 +40,8 @@ void me::WheelController::update()
 		}
 	}
 
-	bool acelerate = me::inputManager().getButton(mAccelerateButton);
-	bool decelerate = me::inputManager().getButton(mDecelerateRightButton);
+	bool acelerate = me::inputManager().getButton("ACELERATE");
+	bool decelerate = me::inputManager().getButton("DECELERATE");
 
 	//Rotación en Z para la aceleracion
 
@@ -53,13 +53,4 @@ void me::WheelController::update()
 		mEntity->getComponent<me::Transform>("transform")->rotate(-mSpeed * Z_ROTATION_FACTOR, { 0, 0, 1 });
 	}
 
-}
-
-void me::WheelController::setInput(std::string left, std::string right, std::string deltaX, std::string acelerate, std::string decelerate)
-{
-	mLeftButton = left;
-	mRightButton = right;
-	mSpinStick = deltaX;
-	mAccelerateButton = acelerate;
-	mDecelerateRightButton = decelerate;
 }

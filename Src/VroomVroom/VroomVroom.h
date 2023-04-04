@@ -15,6 +15,8 @@ extern "C" {
 	__VROOMVROOM_API bool init();
 
 	__VROOMVROOM_API void initFactories();
+
+	__VROOMVROOM_API void initInput();
 }
 
 #endif

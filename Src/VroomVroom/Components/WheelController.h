@@ -21,20 +21,11 @@ namespace me {
 		float mXRotation;
 		float mYRotation;
 		float mSpeed;
-		std::string mLeftButton;
-		std::string mRightButton;
-		std::string mAccelerateButton;
-		std::string mDecelerateRightButton;
-		std::string mSpinStick;
 	public:
 		WheelController();
 		~WheelController();
 
 		void update() override;
-
-		//Set input info to vehicle controller
-		void setInput(std::string left, std::string right, std::string deltaX,
-			std::string acelerate, std::string decelerate);
 	};	
 }
 #endif	
