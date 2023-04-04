@@ -4,6 +4,7 @@
 #include "EntityComponent/Components/Transform.h"
 #include "EntityComponent/Components/RigidBody.h"
 #include "Utils/Vector3.h"
+#include <math.h>
 
 using namespace me;
 
@@ -40,27 +41,44 @@ void VehicleController::update()
         mEntity->getComponent<me::Transform>("transform")->rotate(mRotationSpeed * deltaX, Vector3(0, 1, 0));
     }
 
-    // std::cout << deltaX << "\n";
+    Vector3 rot = mEntity->getComponent<me::Transform>("transform")->getRotation().toEuler(); // reemplazar con el cuaternión a utilizar
+    Vector3 v; // reemplazar con el vector3 a rotar
 
-    // Move the vehicle forward or backward
-    Vector3 f;
+    Vector3 rotatedV;
 
-    //me::Vector4 rotationQuat = mEntity->getComponent<me::Transform>("transform")->getRotation();
-    //std::cout << "rot quat: " << rotationQuat.x << " " << rotationQuat.y << " " << rotationQuat.z << " " << rotationQuat.w << "\n";
+    Vector3 vector_radians = rot;
+    vector_radians.x = rot.x * 3.1415926 / 180.0;
+    vector_radians.y = rot.y * 3.1415926 / 180.0;
+    vector_radians.z = rot.z * 3.1415926 / 180.0;
+    
+    rotatedV.x = cos(vector_radians.y);
+    rotatedV.y = -tan(vector_radians.x);
+    rotatedV.z = -sin(vector_radians.y);
 
-    me::Vector3 rotationDegree = mEntity->getComponent<me::Transform>("transform")->getRotation().toEuler();
-    std::cout << "rot degree euler: " << rotationDegree.x << " " << rotationDegree.y << " " << rotationDegree.z << "\n";
+    if (std::abs(rotatedV.x) < 0.000001) {
+        rotatedV.x = 0;
+    }
 
-    rotationDegree.normalize();
-    rotationDegree.dot(f.left());
+    if (std::abs(rotatedV.y) < 0.000001) {
+        rotatedV.y = 0;
+    }
+
+    if (std::abs(rotatedV.z) < 0.000001) {
+        rotatedV.z = 0;
+    }
+
+
+    rotatedV.dot(v.forward());
+
+    std::cout << "rotated angle: " << rotatedV.x << " " << rotatedV.y << " " << rotatedV.z << "\n";
 
     if (acelerate) {
         // If the vertical input axis is positive, add a forward impulse to the vehicle's rigidbody
-        mEntity->getComponent<me::RigidBody>("rigidbody")->addForce(rotationDegree * mSpeed);
+        mEntity->getComponent<me::RigidBody>("rigidbody")->addForce(rotatedV * mSpeed);
     }
     else if (decelerate) {
         // If the vertical input axis is negative, add a backward impulse to the vehicle's rigidbody
-        mEntity->getComponent<me::RigidBody>("rigidbody")->addForce(rotationDegree * -mSpeed);
+        mEntity->getComponent<me::RigidBody>("rigidbody")->addForce(rotatedV * -mSpeed);
     }
 
     //if (mPowerUp && useObject) {
