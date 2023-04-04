@@ -19,7 +19,9 @@ void Checkpoint::start()
 {
 	mIndex = mNumCheckpoints++;
 
-	mEntity->addComponent<RigidBody>("rigidbody");
+	rigidbody = mEntity->addComponent<RigidBody>("rigidbody");
+	rigidbody->setTrigger(true);
+	rigidbody->setColShape(1);
 }
 
 void Checkpoint::update()

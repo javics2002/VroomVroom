@@ -57,11 +57,11 @@ void VehicleController::update()
     me::Vector3 v;
     if (true) {
         // If the vertical input axis is positive, add a forward impulse to the vehicle's rigidbody
-        mEntity->getComponent<me::RigidBody>("rigidbody")->addImpulse(v.left()*mSpeed,mEntity->getComponent<me::Transform>("transform")->getPosition());
+        //mEntity->getComponent<me::RigidBody>("rigidbody")->addImpulse(v.left()*mSpeed,mEntity->getComponent<me::Transform>("transform")->getPosition());
     }
     else if (decelerate) {
         // If the vertical input axis is negative, add a backward impulse to the vehicle's rigidbody
-        mEntity->getComponent<me::RigidBody>("transform")->addImpulse(v.forward()*-mSpeed,mEntity->getComponent<me::Transform>("transform")->getPosition());
+        //mEntity->getComponent<me::RigidBody>("transform")->addImpulse(v.forward()*-mSpeed,mEntity->getComponent<me::Transform>("transform")->getPosition());
     }
 
 

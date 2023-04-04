@@ -6,6 +6,10 @@
 #include "EntityComponent/Components/Component.h"
 #include "Utils/Vector3.h"
 
+namespace me {
+	class RigidBody;
+}
+
 /*
 A checkpoint is a cube trigger with an index, that checks the players that go
 through it and update their circuit progress. 
@@ -17,6 +21,8 @@ class Checkpoint : public me::Component
 
 	int mIndex;
 	me::Vector3 mSize;
+
+	me::RigidBody* rigidbody = nullptr;
 
 public:
 	Checkpoint();

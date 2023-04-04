@@ -32,7 +32,7 @@ void me::CameraFollow::setTarget(Transform* target)
 
 void me::CameraFollow::setTarget(std::string targetName)
 {
-	mTargetTransform = sceneManager().getActiveScene().get()->findEntity(targetName).get()->getComponent<Transform>("transform");
+	mTargetTransform = sceneManager().getActiveScene()->findEntity(targetName).get()->getComponent<Transform>("transform");
 }
 
 void me::CameraFollow::setOffset(Vector3 offset)

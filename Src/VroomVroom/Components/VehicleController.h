@@ -40,26 +40,24 @@ namespace me{
         @return A float object representing the speed.
         */
         float getSpeed();
+        
+        //void onCollisionEnter(Entity other) override {
+        //    if (other.hascomponent<Checkpoint>("Checkpoint")) {
+        //        if (checkpoint.index == checkpointIndex + 1)
+        //            checkpointIndex++; 
+        //        else if (checkpoint.index == checkpointIndex - 1)
+        //            checkpointIndex--; //Vas marcha atras por alguna razon
+        //    }
+        //}
 
-        //Esto va aqui?
-        /*
-        void OnCollisionEnter(Collider other) {
-            if (other.hascomponent<Checkpoint>("Checkpoint")) {
-                if (checkpoint.index == checkpointIndex + 1)
-                    checkpointIndex++; 
-                else if (checkpoint.index == checkpointIndex - 1)
-                    checkpointIndex--; //Vas marcha atras por alguna razon
-            }
-        }
-
-        void OnCollisionExit(Collider other) {
-            if (other.hascomponent<Checkpoint>("Checkpoint")) {
-                if (checkpoint.index == checkpointIndex + 1)
-                    checkpointIndex++;
-                else if (checkpoint.index == checkpointIndex)
-                    checkpointIndex--; //Vas marcha atras por alguna razon
-            }
-        }*/
+        //void onCollisionExit(Entity other) override {
+        //    if (other.hascomponent<Checkpoint>("Checkpoint")) {
+        //        if (checkpoint.index == checkpointIndex + 1)
+        //            checkpointIndex++;
+        //        else if (checkpoint.index == checkpointIndex)
+        //            checkpointIndex--; //Vas marcha atras por alguna razon
+        //    }
+        //}
     };
 }
 #endif

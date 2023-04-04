@@ -20,15 +20,23 @@ Component* FactoryCameraFollow::create(Parameters& params)
     return camerafollow;
 }
 
+void FactoryCameraFollow::destroy(me::Component* component)
+{
+    delete component;
+}
+
 Component* FactoryVehicleController::create(Parameters& params)
 {
-    //Constructor vacio!!
     VehicleController* vehicleController = new VehicleController();
-
     vehicleController->setSpeedAndDrift(value(params, "speed", 0.0f),
         value(params, "rotationspeed", 0.0f), value(params, "driftfactor", 0.0f));
+    
+    return vehicleController;
+}
 
-    return nullptr;
+void FactoryVehicleController::destroy(me::Component* component)
+{
+    delete component;
 }
 
 Component* FactoryWheelController::create(Parameters& params)
@@ -38,10 +46,20 @@ Component* FactoryWheelController::create(Parameters& params)
     return wheelController;
 }
 
+void FactoryWheelController::destroy(me::Component* component)
+{
+    delete component;
+}
+
 Component* FactoryCheckpoint::create(Parameters& params)
 {
     Checkpoint* checkpoint = new Checkpoint();
     return checkpoint;
+}
+
+void FactoryCheckpoint::destroy(me::Component* component)
+{
+    delete component;
 }
 
 me::Component* FactoryCirtuitoInfo::create(me::Parameters& params)
@@ -52,10 +70,19 @@ me::Component* FactoryCirtuitoInfo::create(me::Parameters& params)
     return circuitoInfo;
 }
 
+void FactoryCirtuitoInfo::destroy(me::Component* component)
+{
+    delete component;
+}
+
 me::Component* FactoryGameManager::create(me::Parameters& params)
 {
     return gameManager();
-    
+}
+
+void FactoryGameManager::destroy(me::Component* component)
+{
+    delete component;
 }
 
 me::Component* FactoryOil::create(me::Parameters& params)
@@ -64,4 +91,9 @@ me::Component* FactoryOil::create(me::Parameters& params)
     oil->setFriction(value(params, "friction", 5.0f));
     return oil;
 
+}
+
+void FactoryOil::destroy(me::Component* component)
+{
+    delete component;
 }

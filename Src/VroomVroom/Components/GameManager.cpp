@@ -79,25 +79,25 @@ void GameManager::update()
 void GameManager::setEntitiesInfo()
 {
 
-	mPlayerOne = sceneManager().getActiveScene().get()->findEntity("playerOne").get();
+	mPlayerOne = sceneManager().getActiveScene()->findEntity("playerOne").get();
 	mPlayerOne->getComponent<VehicleController>("vehiclecontroller")->setInput("LEFT1", "RIGHT1", "JOYSTICK1", "ACELERATE1", "DECELERATE1","DRIFT1", "USE1");
 	mPlayerOneLastCheckpointPos = mPlayerOne->getComponent<Transform>("transform")->getPosition();
 	//setupInput(1);
 	if (mNumPlayer == NumPlayer::TwoPlayer)
 	{
-		mPlayerTwo = sceneManager().getActiveScene().get()->findEntity("playerTwo").get();
+		mPlayerTwo = sceneManager().getActiveScene()->findEntity("playerTwo").get();
 		mPlayerTwo->getComponent<VehicleController>("vehiclecontroller")->setInput("LEFT2", "RIGHT2", "JOYSTICK2", "ACELERATE2", "DECELERATE2", "DRIFT2", "USE2");
 		mPlayerTwoLastCheckpointPos = mPlayerOne->getComponent<Transform>("transform")->getPosition();
 		//setupInput(2);
 	}
 
-	mCircuito = sceneManager().getActiveScene().get()->findEntity("circuito").get();
+	mCircuito = sceneManager().getActiveScene()->findEntity("circuito").get();
 	mCircuitoInfo = mCircuito->getComponent<CircuitoInfo>("circuitoinfo");
-	mMeta = sceneManager().getActiveScene().get()->findEntity("meta").get();
+	mMeta = sceneManager().getActiveScene()->findEntity("meta").get();
 
-	mPowerUps["powerup1"] = sceneManager().getActiveScene().get()->findEntity("powerup1").get();
-	mPowerUps["powerup2"] = sceneManager().getActiveScene().get()->findEntity("powerup2").get();
-	mPowerUps["powerup3"] = sceneManager().getActiveScene().get()->findEntity("powerup3").get();
+	mPowerUps["powerup1"] = sceneManager().getActiveScene()->findEntity("powerup1").get();
+	mPowerUps["powerup2"] = sceneManager().getActiveScene()->findEntity("powerup2").get();
+	mPowerUps["powerup3"] = sceneManager().getActiveScene()->findEntity("powerup3").get();
 	
 }
 
