@@ -17,7 +17,8 @@ enum PowerUpType
 
 
 /**
-* A component class that represents a power-up object in the game.
+A box that gives the player that touches it a random power-up, 
+and then disappears for a short time.
 */
 class PowerUpObject : public me::Component
 {

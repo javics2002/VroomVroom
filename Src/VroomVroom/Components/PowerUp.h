@@ -4,12 +4,14 @@
 
 #include "EntityComponent/Components/Component.h"
 
+/**
+A component class that represents a power-up in the game.
+*/
 class PowerUp : public me::Component
 {
 public:
 	PowerUp();
 	~PowerUp();
-
 };
 
 #endif

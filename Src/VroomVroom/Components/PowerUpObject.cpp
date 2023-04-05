@@ -5,6 +5,8 @@
 #include "EntityComponent/Components/MeshRenderer.h"
 #include "EntityComponent/Components/Rigidbody.h"
 
+using namespace me;
+
 PowerUpObject::PowerUpObject()
 {
 }
@@ -27,8 +29,8 @@ void PowerUpObject::update()
 		if (mTime >= mReviveTime) {
 
 			// Reactivate the MeshRenderer and RigidBody components of the power-up object after the respawn time has elapsed
-			mEntity->getComponent<me::MeshRenderer>("meshrenderer")->enabled = true; // Activamos de nuevo el componente MeshRenderer
-			mEntity->getComponent<me::RigidBody>("rigidbody")->enabled = true;
+			mEntity->getComponent<MeshRenderer>("meshrenderer")->enabled = true; // Activamos de nuevo el componente MeshRenderer
+			mEntity->getComponent<RigidBody>("rigidbody")->enabled = true;
 
 			mPicked = false; // Reset the picked flag to allow the power-up object to be picked up again
  			mTime = 0; // Reset the elapsed time since the power-up was picked up
@@ -44,14 +46,14 @@ void PowerUpObject::resetPowerUp()
 	mPowerUp = PowerUpType(rand() % 3);
 }
 
-void PowerUpObject::onCollisionEnter(me::Entity* other)
+void PowerUpObject::onCollisionEnter(Entity* other)
 {
 	// Deactivate the MeshRenderer and RigidBody components of the power-up object when it is picked up by a player
-	mEntity->getComponent<me::MeshRenderer>("meshrenderer")->enabled = false; // Desactivamos el MeshRenderer para que no se vea por pantalla
-	mEntity->getComponent<me::RigidBody>("rigidbody")->enabled = false; // Desactivamos las colisiones
+	mEntity->getComponent<MeshRenderer>("meshrenderer")->enabled = false; // Desactivamos el MeshRenderer para que no se vea por pantalla
+	mEntity->getComponent<RigidBody>("rigidbody")->enabled = false; // Desactivamos las colisiones
 
 	// Pass the power-up type to the player's vehicle controller component
-	other->getComponent<me::VehicleController>("vehiclecontroller")->setPowerUp(mPowerUp);
+	other->getComponent<VehicleController>("vehiclecontroller")->setPowerUp(mPowerUp);
 	mPicked = true;
 
 	//TODO: ACTIVATE THE SPIN ANIMATION OF THE UI ROULETTE

@@ -12,7 +12,8 @@ namespace me {
 	class Entity;
 
 	/**
-	The CameraFollow class move camera to follow player assign
+	The CameraFollow component manages the Transform and Camera components
+	to track a target.
 	*/
 	class CameraFollow : public Component
 	{

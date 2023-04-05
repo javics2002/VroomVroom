@@ -30,6 +30,7 @@ Component* FactoryVehicleController::create(Parameters& params)
     VehicleController* vehicleController = new VehicleController();
     vehicleController->setSpeedAndDrift(value(params, "speed", 0.0f),
         value(params, "rotationspeed", 0.0f), value(params, "driftfactor", 0.0f));
+    vehicleController->setPlayerNumber(PlayerNumber(value(params, "playerNumber", 0)));
     
     return vehicleController;
 }
@@ -57,12 +58,12 @@ Component* FactoryCheckpoint::create(Parameters& params)
     return checkpoint;
 }
 
-void FactoryCheckpoint::destroy(me::Component* component)
+void FactoryCheckpoint::destroy(Component* component)
 {
     delete component;
 }
 
-me::Component* FactoryCirtuitoInfo::create(me::Parameters& params)
+Component* FactoryCirtuitoInfo::create(Parameters& params)
 {
     CircuitoInfo* circuitoInfo = new CircuitoInfo();
     circuitoInfo->setPosition(Vector3(value(params, "position_x", 0.0f),
@@ -70,22 +71,22 @@ me::Component* FactoryCirtuitoInfo::create(me::Parameters& params)
     return circuitoInfo;
 }
 
-void FactoryCirtuitoInfo::destroy(me::Component* component)
+void FactoryCirtuitoInfo::destroy(Component* component)
 {
     delete component;
 }
 
-me::Component* FactoryGameManager::create(me::Parameters& params)
+Component* FactoryGameManager::create(Parameters& params)
 {
     return gameManager();
 }
 
-void FactoryGameManager::destroy(me::Component* component)
+void FactoryGameManager::destroy(Component* component)
 {
     delete component;
 }
 
-me::Component* FactoryOil::create(me::Parameters& params)
+Component* FactoryOil::create(Parameters& params)
 {
     Oil* oil = new Oil();
     oil->setFriction(value(params, "friction", 5.0f));
@@ -93,7 +94,7 @@ me::Component* FactoryOil::create(me::Parameters& params)
 
 }
 
-void FactoryOil::destroy(me::Component* component)
+void FactoryOil::destroy(Component* component)
 {
     delete component;
 }

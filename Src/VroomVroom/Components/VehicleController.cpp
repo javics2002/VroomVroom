@@ -4,44 +4,50 @@
 #include "EntityComponent/Components/Transform.h"
 #include "EntityComponent/Components/RigidBody.h"
 #include "Utils/Vector3.h"
+#include "PowerUpObject.h"
 #include <math.h>
 
 using namespace me;
+
+bool VehicleController::getPlayerButton(std::string buttonName)
+{
+    return inputManager().getButton(buttonName + std::to_string(mPlayerNumber));
+}
+
+float VehicleController::getPlayerAxis(std::string axisName)
+{
+    return inputManager().getButton(axisName + std::to_string(mPlayerNumber));
+}
 
 VehicleController::VehicleController()
 {
 }
 
-void me::VehicleController::start()
+void VehicleController::start()
 {
-    checkpointIndex = 0;
+    mCheckpointIndex = 0;
 }
 
-/**
-Returns the difference between this vector and another vector
-@param v The other vector to subtract from this vector
-@return The difference between this vector and the other vector
-*/
 void VehicleController::update()
 {
     // Get the input
-    bool acelerate = me::inputManager().getButton("ACELERATE");
-    bool decelerate = me::inputManager().getButton("DECELERATE");
-    bool drift = me::inputManager().getButton("DRIFT");
-    bool useObject = me::inputManager().getButton("USEOBJECT");
+    bool accelerate = getPlayerButton("ACCELERATE");
+    bool decelerate = getPlayerButton("DECELERATE");
+    bool drift = getPlayerButton("DRIFT");
+    bool useObject = getPlayerButton("USEOBJECT");
 
     //If the player is using keyboard
-    float deltaX = me::inputManager().getAxis("HORIZONTAL");
+    float deltaX = getPlayerAxis("HORIZONTAL");
 
     // Rotate the vehicle
     if (deltaX < 0) { // Left
-        mEntity->getComponent<me::Transform>("transform")->rotate(mRotationSpeed * deltaX, Vector3(0, 1, 0));
+        mEntity->getComponent<Transform>("transform")->rotate(mRotationSpeed * deltaX, Vector3(0, 1, 0));
     }
     if (deltaX > 0) { // Right
-        mEntity->getComponent<me::Transform>("transform")->rotate(mRotationSpeed * deltaX, Vector3(0, 1, 0));
+        mEntity->getComponent<Transform>("transform")->rotate(mRotationSpeed * deltaX, Vector3(0, 1, 0));
     }
 
-    Vector3 rot = mEntity->getComponent<me::Transform>("transform")->getRotation().toEuler(); // reemplazar con el cuaternión a utilizar
+    Vector3 rot = mEntity->getComponent<Transform>("transform")->getRotation().toEuler(); // reemplazar con el cuaterniï¿½n a utilizar
     Vector3 v; // reemplazar con el vector3 a rotar
 
     Vector3 rotatedV;
@@ -72,13 +78,13 @@ void VehicleController::update()
 
     std::cout << "rotated angle: " << rotatedV.x << " " << rotatedV.y << " " << rotatedV.z << "\n";
 
-    if (acelerate) {
+    if (accelerate) {
         // If the vertical input axis is positive, add a forward impulse to the vehicle's rigidbody
-        mEntity->getComponent<me::RigidBody>("rigidbody")->addForce(rotatedV * mSpeed);
+        mEntity->getComponent<RigidBody>("rigidbody")->addForce(rotatedV * mSpeed);
     }
     else if (decelerate) {
         // If the vertical input axis is negative, add a backward impulse to the vehicle's rigidbody
-        mEntity->getComponent<me::RigidBody>("rigidbody")->addForce(rotatedV * -mSpeed);
+        mEntity->getComponent<RigidBody>("rigidbody")->addForce(rotatedV * -mSpeed);
     }
 
     //if (mPowerUp && useObject) {
@@ -108,7 +114,7 @@ void VehicleController::setSpeedAndDrift(float speed, float angularSpeed, float 
     mDriftFactor = driftFactor;
 }
 
-void me::VehicleController::setPowerUp(PowerUpType powerUpType)
+void VehicleController::setPowerUp(PowerUpType powerUpType)
 {
     mPowerUpType = powerUpType;
     mPowerUp = true;

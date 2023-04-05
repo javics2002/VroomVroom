@@ -2,11 +2,15 @@
 #include "framework.h"
 #include "EntityComponent/Components/ComponentsFactory.h"
 #include "Components/VroomVroomComponents.h"
+#include "Components/GameManager.h"
 #include "EntityComponent/SceneManager.h"
 
 // Input
 #include "Input/InputManager.h"
 #include "Input/InputCode.h"
+#include "VroomVroom/VroomVroomInput.h"
+
+#define CREATE_PLAYER_BUTTON(buttonName) inputManager().addButton(playerButtonName(buttonName, playerI), playerI)
 
 using namespace me;
 
@@ -31,46 +35,47 @@ __VROOMVROOM_API void initFactories()
 	componentsFactory().addFactoryComponent("checkpoint", new FactoryCheckpoint());
 }
 
-
 __VROOMVROOM_API void initInput()
 {
-	AxisInput horizontal;
-	horizontal.type = INPUTTYPE_KEYBOARD;
-	horizontal.positive = KEYBOARDCODE_A;
-	horizontal.negative = KEYBOARDCODE_D;
+	for (int playerI = PLAYERNUMBER_1; playerI != PLAYERNUMBER_MAX; playerI++) {
+		AxisInput horizontal;
+		horizontal.type = INPUTTYPE_KEYBOARD;
+		horizontal.positive = KEYBOARDCODE_A;
+		horizontal.negative = KEYBOARDCODE_D;
 
-	AxisInfo horizontalInfo;
-	horizontalInfo.dead = .1f;
-	horizontalInfo.gravity = .4f;
+		AxisInfo horizontalInfo;
+		horizontalInfo.dead = .1f;
+		horizontalInfo.gravity = .4f;
 
-	inputManager().addAxis("HORIZONTAL", horizontalInfo, horizontal);
+		inputManager().addAxis(playerButtonName("HORIZONTAL", playerI), horizontalInfo, horizontal);
 
-	inputManager().addButton("ACELERATE");
-	inputManager().addButton("DECELERATE");
-	inputManager().addButton("DRIFT");
-	inputManager().addButton("USEOBJECT");
+		CREATE_PLAYER_BUTTON("ACCELERATE");
+		CREATE_PLAYER_BUTTON("DECELERATE");
+		CREATE_PLAYER_BUTTON("DRIFT");
+		CREATE_PLAYER_BUTTON("USEOBJECT");
 
-	Input keyboardS;
-	keyboardS.type = INPUTTYPE_KEYBOARD;
-	keyboardS.which = KEYBOARDCODE_S;
+		Input keyboardS;
+		keyboardS.type = INPUTTYPE_KEYBOARD;
+		keyboardS.which = KEYBOARDCODE_S;
 
-	inputManager().addBinding("DECELERATE", keyboardS);
+		inputManager().addBinding(playerButtonName("DECELERATE", playerI), keyboardS);
 
-	Input keyboardW;
-	keyboardW.type = INPUTTYPE_KEYBOARD;
-	keyboardW.which = KEYBOARDCODE_W;
+		Input keyboardW;
+		keyboardW.type = INPUTTYPE_KEYBOARD;
+		keyboardW.which = KEYBOARDCODE_W;
 
-	inputManager().addBinding("ACELERATE", keyboardW);
+		inputManager().addBinding(playerButtonName("ACCELERATE", playerI), keyboardW);
 
-	Input keyboardSpace;
-	keyboardSpace.type = INPUTTYPE_KEYBOARD;
-	keyboardSpace.which = KEYBOARDCODE_SPACE;
+		Input keyboardSpace;
+		keyboardSpace.type = INPUTTYPE_KEYBOARD;
+		keyboardSpace.which = KEYBOARDCODE_SPACE;
 
-	inputManager().addBinding("USEOBJECT", keyboardSpace);
+		inputManager().addBinding(playerButtonName("USEOBJECT", playerI), keyboardSpace);
 
-	Input keyboardDrift;
-	keyboardDrift.type = INPUTTYPE_KEYBOARD;
-	keyboardDrift.which = KEYBOARDCODE_J;
+		Input keyboardDrift;
+		keyboardDrift.type = INPUTTYPE_KEYBOARD;
+		keyboardDrift.which = KEYBOARDCODE_J;
 
-	inputManager().addBinding("DRIFT", keyboardDrift);
+		inputManager().addBinding(playerButtonName("DRIFT", playerI), keyboardDrift);
+	}
 }

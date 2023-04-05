@@ -23,7 +23,7 @@ GameManager::~GameManager()
 
 void GameManager::start()
 {
-	mGameState = GameState::StartGame;
+	mGameState = GameState::GAMESTATE_STARTGAME;
 }
 
 void GameManager::update()
@@ -31,7 +31,7 @@ void GameManager::update()
 	switch (mGameState)
 	{
 
-	case GameState::LoadMainMenu:
+	case GameState::GAMESTATE_LOADMAINMENU:
 		if (sceneManager().getScene("MainMenu") == nullptr)
 		{
 			sceneManager().addScene("MainMenu");
@@ -39,10 +39,10 @@ void GameManager::update()
 		}
 		sceneManager().setActiveScene("MainMenu");
 		sceneManager().loadEntities("mainmenu.lua");
-		mGameState = GameState::MainMenu;
+		mGameState = GameState::GAMESTATE_MAINMENU;
 		break;
 
-	case GameState::StartGame:
+	case GameState::GAMESTATE_STARTGAME:
 		if (sceneManager().getScene("Race") == nullptr)
 		{
 			sceneManager().addScene("Race");
@@ -51,22 +51,22 @@ void GameManager::update()
 		sceneManager().loadEntities("race.lua");
 		setEntitiesInfo();
 		setPowerUps();
-		mGameState = GameState::InGame;
+		mGameState = GameState::GAMESTATE_INGAME;
 		break;
 
-	case GameState::LoadGameOver:
+	case GameState::GAMESTATE_LOADGAMEOVER:
 		if (sceneManager().getScene("OverMenu") == nullptr)
 		{
 			sceneManager().addScene("OverMenu");
 		}
 		sceneManager().setActiveScene("OverMenu");
 		sceneManager().loadEntities("overmenu.lua");
-		mGameState = GameState::GameOver;
+		mGameState = GameState::GAMESTATE_GAMEOVER;
 		break;
 
-	case GameState::MainMenu:
-	case GameState::InGame:
-	case GameState::GameOver:
+	case GameState::GAMESTATE_MAINMENU:
+	case GameState::GAMESTATE_INGAME:
+	case GameState::GAMESTATE_GAMEOVER:
 		sceneManager().update();
 		break;
 	default:
@@ -221,7 +221,7 @@ void GameManager::setupInput(int player)
 
 void GameManager::setPowerUps()
 {
-
+	//Seguro que la queremos random? Esos bucles no parecen muy eficaces
 
 	Vector3 pos1, pos2, pos3;
 	pos1 = mCircuitoInfo->getRandomPosInside();
@@ -241,20 +241,19 @@ void GameManager::setPowerUps()
 	//mPowerUps["powerup2"]->getComponent<ParticleSystem>("particlesystem")->setEmitting(true);
 	mPowerUps["powerup3"]->getComponent<Transform>("transform")->setPosition(pos3);
 	//mPowerUps["powerup3"]->getComponent<ParticleSystem>("particlesystem")->setEmitting(true);
-
 }
 
 
 
-void GameManager::startGame(NumPlayer num)
+void GameManager::startGame(PlayerNumber num)
 {
 	mNumPlayer = num;
-	mGameState = GameState::StartGame;
+	mGameState = GameState::GAMESTATE_STARTGAME;
 }
 
 void GameManager::mainMenu()
 {
-	mGameState = GameState::LoadMainMenu;
+	mGameState = GameState::GAMESTATE_LOADMAINMENU;
 }
 
 void GameManager::powerUpPicked(std::string name)

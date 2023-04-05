@@ -3,35 +3,37 @@
 #include "Input/InputManager.h"
 #include "EntityComponent/Entity.h"
 #include "EntityComponent/Components/Transform.h"
+#include "Utils/Vector3.h"
 
+using namespace me;
 
-me::WheelController::WheelController()
+WheelController::WheelController()
 {
 	mXRotation = 0;
 	mYRotation = 0;
 	mSpeed = 0.05;
 }
 
-me::WheelController::~WheelController()
+WheelController::~WheelController()
 {
 }
 
 
-void me::WheelController::update()
+void WheelController::update()
 {
 	bool left = me::inputManager().getButton("LEFT");
 	bool right = me::inputManager().getButton("RIGHT");
 
-	float deltaX = me::inputManager().getAxis("HORIZONTAL");
+	float deltaX = inputManager().getAxis("HORIZONTAL");
 
 	//Rotación en Y para el giro
-	if (mYRotation < me::Y_ROTATION_THRESHOLD && mYRotation >= 0) {
+	if (mYRotation < Y_ROTATION_THRESHOLD && mYRotation >= 0) {
 		if (left || deltaX > 0) { //Es posible que haya que intercambiar los < > de los deltaX al revés.
-			mEntity->getComponent<me::Transform>("transform")->rotate(+Y_STEP_ROTATION, { 0, 1, 0 });
+			mEntity->getComponent<Transform>("transform")->rotate(+Y_STEP_ROTATION, { 0, 1, 0 });
 			mYRotation += Y_STEP_ROTATION;
 		}
 		else if (right || deltaX < 0) {
-			mEntity->getComponent<me::Transform>("transform")->rotate(-Y_STEP_ROTATION, { 0, 1, 0 });
+			mEntity->getComponent<Transform>("transform")->rotate(-Y_STEP_ROTATION, { 0, 1, 0 });
 			mYRotation += Y_STEP_ROTATION;
 		}
 		else {
@@ -39,17 +41,17 @@ void me::WheelController::update()
 		}
 	}
 
-	bool acelerate = me::inputManager().getButton("ACELERATE");
-	bool decelerate = me::inputManager().getButton("DECELERATE");
+	bool acelerate = inputManager().getButton("ACELERATE");
+	bool decelerate = inputManager().getButton("DECELERATE");
 
 	//Rotación en Z para la aceleracion
 
-	mSpeed = mEntity->getComponent<me::VehicleController>("vehiclecontroller")->getSpeed();
+	mSpeed = mEntity->getComponent<VehicleController>("vehiclecontroller")->getSpeed();
 	if (acelerate) {
-		mEntity->getComponent<me::Transform>("transform")->rotate(mSpeed * Z_ROTATION_FACTOR, { 0, 0, 1 });
+		mEntity->getComponent<Transform>("transform")->rotate(mSpeed * Z_ROTATION_FACTOR, { 0, 0, 1 });
 	}
 	else if (decelerate) {
-		mEntity->getComponent<me::Transform>("transform")->rotate(-mSpeed * Z_ROTATION_FACTOR, { 0, 0, 1 });
+		mEntity->getComponent<Transform>("transform")->rotate(-mSpeed * Z_ROTATION_FACTOR, { 0, 0, 1 });
 	}
 
 }
