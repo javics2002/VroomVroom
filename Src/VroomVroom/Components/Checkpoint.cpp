@@ -21,7 +21,7 @@ void Checkpoint::start()
 
 	rigidbody = mEntity->addComponent<RigidBody>("rigidbody");
 	rigidbody->setTrigger(true);
-	rigidbody->setColShape(1);
+	rigidbody->setColShape(SHAPES_BOX);
 }
 
 void Checkpoint::update()

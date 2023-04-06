@@ -16,7 +16,7 @@ bool VehicleController::getPlayerButton(std::string buttonName)
 
 float VehicleController::getPlayerAxis(std::string axisName)
 {
-    return inputManager().getButton(axisName + std::to_string(mPlayerNumber));
+    return inputManager().getAxis(axisName + std::to_string(mPlayerNumber));
 }
 
 VehicleController::VehicleController()
@@ -74,14 +74,15 @@ void VehicleController::update()
     }
 
 
-    rotatedV.dot(v.forward());
+    rotatedV.dot(v.left());
 
-    std::cout << "rotated angle: " << rotatedV.x << " " << rotatedV.y << " " << rotatedV.z << "\n";
+    //std::cout << "rotated angle: " << rotatedV.x << " " << rotatedV.y << " " << rotatedV.z << "\n";
 
-    if (accelerate) {
+    if (accelerate ) {
         // If the vertical input axis is positive, add a forward impulse to the vehicle's rigidbody
         mEntity->getComponent<RigidBody>("rigidbody")->addForce(rotatedV * mSpeed);
     }
+
     else if (decelerate) {
         // If the vertical input axis is negative, add a backward impulse to the vehicle's rigidbody
         mEntity->getComponent<RigidBody>("rigidbody")->addForce(rotatedV * -mSpeed);
