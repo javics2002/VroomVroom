@@ -40,11 +40,13 @@ void VehicleController::update()
     float deltaX = getPlayerAxis("HORIZONTAL");
 
     // Rotate the vehicle
+    Vector3 direction = Vector3(0, 1, 0);
+
     if (deltaX < 0) { // Left
-        mEntity->getComponent<Transform>("transform")->rotate(mRotationSpeed * deltaX, Vector3(0, 1, 0));
+        mEntity->getComponent<RigidBody>("rigidbody")->addTorque(direction * (mRotationSpeed * deltaX));
     }
     if (deltaX > 0) { // Right
-        mEntity->getComponent<Transform>("transform")->rotate(mRotationSpeed * deltaX, Vector3(0, 1, 0));
+        mEntity->getComponent<RigidBody>("rigidbody")->addTorque(direction * (mRotationSpeed * deltaX));
     }
 
     Vector3 rot = mEntity->getComponent<Transform>("transform")->getRotation().toEuler(); // reemplazar con el cuaterni�n a utilizar
@@ -61,24 +63,11 @@ void VehicleController::update()
     rotatedV.y = -tan(vector_radians.x);
     rotatedV.z = -sin(vector_radians.y);
 
-    if (std::abs(rotatedV.x) < 0.000001) {
-        rotatedV.x = 0;
-    }
-
-    if (std::abs(rotatedV.y) < 0.000001) {
-        rotatedV.y = 0;
-    }
-
-    if (std::abs(rotatedV.z) < 0.000001) {
-        rotatedV.z = 0;
-    }
-
-
     rotatedV.dot(v.left());
 
     //std::cout << "rotated angle: " << rotatedV.x << " " << rotatedV.y << " " << rotatedV.z << "\n";
 
-    if (accelerate ) {
+    if (accelerate) {
         // If the vertical input axis is positive, add a forward impulse to the vehicle's rigidbody
         mEntity->getComponent<RigidBody>("rigidbody")->addForce(rotatedV * mSpeed);
     }
