@@ -1,0 +1,5 @@
+Game: VroomVroom
+------------------------
+Platform: x64
+Configuration: Debug
+GameMachine: MotorEngine
