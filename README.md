@@ -40,7 +40,19 @@ Juego de carreras desenfadado para retar a tu amigo.
 |**Hitos**| |
 | ------ | ----------- |
 | 0. Propuesta del concepto: 13 de febrero de 2023  | 1. Arquitectura base: 6 de marzo de 2023  |
-|2. Ciclo de juego: 27 de marzo de 2023 | 3. Release: 5 de mayo de 2023 |
+|2. Ciclo de juego: 27 de marzo de 2023 | 3. Release: 5 de mayo de 2023 |  
+
+## <p align="center">**INSTALACIÓN**</p>
+
+| Estructura | Información |
+| --- | --- |
+| ![estructura-automatización](./readme_assets/estructura-automatizaci%C3%B3n-juego-novedades.png) | Doble click en install.bat |
+
+Este árbol de directorios y ficheros comienza en la raíz del proyecto VroomVroom, nuestro videojuego. Donde se encuentra el fichero VroomVroom.sln, que junto con este también tenemos: 
+- config.txt : fichero de configuración para la instalación.  
+- install.bat : configura, llama al constructor del motor, hace los copias de fichero necesarios y al final compila y ejecuta el juego.  
+- uninstall.bat : deshace los cambios realizados dentro del proyecto del juego exclusivamente.  
+- refresh_finalBuild.bat : vuelve a generar la build final y la comprime para preparar la entrega.    
 
 ## <p align="center">**PARTIDA TÍPICA**</p>
 

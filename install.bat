@@ -1,13 +1,15 @@
 @echo off
-setlocal
-
-
-rem Pregunta si generar paradas de comprobación entre cada paso
-set /p pause_option="> Quieres que se generen pausas? [S/N]: "
+setlocal 
 
 
 rem Fecha inicio: 
-set start_time=%time%
+set start_time=%time% 
+
+rem Referencia de seguridad al directorio actual: 
+set RootDirectory=%CD% 
+
+rem Referencia a la herramienta de compresión: 
+set "zip=.\%GameMachine%\Dependencies\7zip\7za.exe" 
 
 
 rem Elimina si existe el anterior registro
@@ -24,40 +26,49 @@ rem TODO EL PROCESO AQUI: CONFIGURACIÓN
 rem -----------------------------------
 
 
-rem Configuración de paradas
-set /p pause_option="> Quieres que se generen pausas? [S/N]: " 
-
-
 
 rem Configuración inicial del proyecto, realiza una búsqueda de tipo clave/valor (config.txt)
-rem Se crean las variables: %Game% , %Platform% , %Configuration% y %GameMachine%
-for /f "tokens=1,* delims=: " %%a in ('type datos.txt ^| findstr /i "Game: Platform: Configuration: GameMachine:"') do (
-    set "key=%%a"
-    set "value=%%b"
-    set "%key%=%value%"
+
+rem Se crean las variables: %Game% , %GameMachine% , %Platform% , %Configuration% , %debug% y %run_type% 
+for /f "tokens=1,* delims=: " %%a in ('type config.txt ^| findstr /i "Game: GameMachine: Platform: Configuration: debug: run_type: "') do (
+
+    rem Asigna a la variable de nombre 'key' el valor de 'value' 
+    set "%%a=%%b" 
+
+) 
+
+
+rem Formatea la salida de pause_option 
+if /i "%debug%"=="true" ( 
+    
+    set "pause_option=S" 
+    
+) 
+
+
+rem Formatea la salida de exec_option 
+if /i "%run_type%"=="Paralelo" ( 
+    
+    set "exec_option=P" 
+    
+) else if /i "%run_type%"=="Serie" ( 
+    
+    set "exec_option=S" 
+    
 ) 
 
 
 
-rem Configuración para la ejecución global 
-:loop
-set /p exec_option="> Quieres que se ejecute en serie o en paralelo? [S/P]: " 
-
-rem Comprueba la opción escogida: 
-if /i "%exec_option%"=="S" ( 
-
-    echo: && echo "> COMENZANDO EN SERIE!!" && echo:
-
-) else if /i "%exec_option%"=="P" (
+rem Configuración para la ejecución global de los procesos 
+if /i "%exec_option%"=="P" (
 
     echo: && echo "> COMENZANDO EN PARALELO!!" && echo:
 
-) else ( 
+) else if /i "%exec_option%"=="S" (  
+    
+    echo: && echo "> COMENZANDO EN SERIE!!" && echo:
 
-    echo: && echo "La opcion %exec_option% no es valida. Prueba otra vez." && echo:
-    goto loop
-
-)
+) 
 if /i "%pause_option%"=="S" ( pause ) 
 
 
@@ -78,59 +89,63 @@ rem TODO EL PROCESO AQUI: EJECUCIÓN
 rem -------------------------------
 
 
-rem Ejecuta la instalación del motor: MotorEngine
 
-cd .\%GameMachine% 
-echo: && echo "> Instalando _%GameMachine%_" && echo: 
-if /i "%exec_option%"=="S" ( call .\build_MOTOR.bat %pause_option% %exec_option% ) else if /i "%exec_option%"=="P" ( start .\build_MOTOR.bat %pause_option% %exec_option% ) 
-cd .. 
+rem Ejecuta la instalación del motor (MotorEngine)
+
+if not exist ".\%GameMachine%\build_Output.txt" ( 
+
+    cd .\%GameMachine% 
+    echo: && echo "> Instalando: %GameMachine%" && echo: 
+    if /i "%exec_option%"=="S" ( call .\install.bat %pause_option% %exec_option% ) else if /i "%exec_option%"=="P" ( start .\install.bat %pause_option% %exec_option% ) 
+    cd .. 
+
+) else (
+
+    echo: && echo "> El motor de videojuegos %GameMachine% ya se encuentra instalado." && echo: 
+
+)
+if /i "%pause_option%"=="S" ( pause ) 
 
 
-rem Control de espera para asegurar que el anterior proceso que instala el motor haya terminado
+rem Espera hasta que finalicen los scripts 
+echo: && echo "> Espere a que finalicen los scripts..." && echo: 
+
 :check
-if not exist ".\build_Output.txt" ( 
+if not exist ".\%GameMachine%\build_Output.txt" ( 
         
     rem Esperar 1 segundo antes de volver a comprobar
     timeout /t 1 /nobreak > nul
     goto check 
         
-) 
+)
 
-
-rem Copia de archivos de configuración de Ogre
-set "origen=.\Dependencies\Ogre\" 
-
-rem Copia para ejecutar desde Visual Studio: (se podría quitar)
-set "destino=.\Projects\Main\" 
-robocopy %origen% %destino% *.cfg 
-
-rem Copia para ejecutar directamente:
-set "destino=.\Exe\Main\%Platform%\%Configuration%\" 
-robocopy %origen% %destino% *.cfg 
-
-
-if /i "%pause_option%"=="S" ( pause ) 
+rem Continuar con el archivo por lotes 
+echo: && echo "> Todos los scripts han terminado!!" && echo: 
 
 
 
-rem Ejecuta la instalación del juego: VroomVroom
+rem Ejecuta la instalación del juego (VroomVroom)
 
-rem Copia los binarios del motor al juego
+rem Directorios involucrados 
 set "origen=.\%GameMachine%\Exe\Main\%Platform%\%Configuration%\" 
 set "destinoMotor=.\%GameMachine%\Lib\%Platform%\%Configuration%\" 
 set "destinoJuego=.\Bin\%Platform%\%Configuration%\"
 
-if /I "%Configuration%==Debug" ( 
 
-    robocopy %origen% %destinoMotor% %GameMachine%_d.lib 
-    robocopy %origen% %destinoJuego% %GameMachine%_d.dll 
+rem Copia los binarios del motor al juego 
+if /I "%Configuration%"=="Debug" ( 
+
+    echo: && echo "> Copiando ficheros necesarios del motor %GameMachine% para: debug configuration." && echo: 
+    robocopy /NJH %origen% %destinoMotor% %GameMachine%_d.lib 
+    robocopy /NJH %origen% %destinoJuego% %GameMachine%_d.dll 
     set "targetGame=%Game%_d" 
     set "targetMain=Main_d" 
 
-) else if /I "%Configuration%==Release" (
+) else if /I "%Configuration%"=="Release" (
 
-    robocopy %origen% %destinoMotor% %GameMachine%.lib 
-    robocopy %origen% %destinoJuego% %GameMachine%.dll 
+    echo: && echo "> Copiando ficheros necesarios del motor %GameMachine% para: release configuration." && echo: 
+    robocopy /NJH %origen% %destinoMotor% %GameMachine%.lib 
+    robocopy /NJH %origen% %destinoJuego% %GameMachine%.dll 
     set "targetGame=%Game%" 
     set "targetMain=Main" 
 
@@ -142,7 +157,6 @@ if /i "%pause_option%"=="S" ( pause )
 
 rem Llamada al DCP: Developer Command Prompt
 call "%VS_PATH%\Common7\Tools\VsDevCmd.bat" 
-
 
 rem Configuración preestablecida
 if not exist "Bin\%Platform%\%Configuration%\%targetGame%.dll" ( 
@@ -158,34 +172,59 @@ if /i "%pause_option%"=="S" ( pause )
 
 
 
-rem Prepara los recursos del juego en el motor 
+rem Ejecuta la instalación del ejecutable (build final)
+echo: && echo "> Generando build final." && echo: 
+
+
+rem Dirección de archivos de configuración de Ogre 
+set "origen=.\%GameMachine%\Dependencies\Ogre\" 
+
+rem Copia para ejecutar directamente 
+echo: && echo "> Copiando ficheros necesarios del motor de renderizado de %GameMachine% para: build final." && echo: 
+set "destino=.\%GameMachine%\Exe\Main\%Platform%\%Configuration%\" 
+robocopy /NJH %origen% %destino% *.cfg 
+
+if /i "%pause_option%"=="S" ( pause ) 
+
 
 rem Dirección de recursos utilizados en el juego
 set "origen=.\%GameMachine%\Assets\" 
 
-rem Copia para ejecutar desde Visual Studio: (se podría quitar)
-set "destino=.\%GameMachine%\Projects\Main\Assets\" 
-robocopy %origen% %destino% /E 
-
-rem Copia para ejecutar directamente:
+rem Copia para ejecutar directamente  
+echo: && echo "> Copiando ficheros necesarios del videojuego %Game% para: build final." && echo: 
 set "destino=.\%GameMachine%\Exe\Main\%Platform%\%Configuration%\Assets\" 
-robocopy %origen% %destino% /E 
+robocopy /NJH %origen% %destino% /E 
 
 if /i "%pause_option%"=="S" ( pause ) 
 
 
 rem Copia el binario generado por el juego
+echo: && echo "> Copiando fichero final del videojuego %Game% para: arrancar desde motor." && echo: 
 set "origen=.\Bin\%Platform%\%Configuration%\" 
 set "destino=.\%GameMachine%\Exe\Main\%Platform%\%Configuration%\" 
-robocopy %origen% %destino% %targetGame%.dll 
+robocopy /NJH %origen% %destino% %targetGame%.dll 
 
 if /i "%pause_option%"=="S" ( pause ) 
 
 
+rem Comprime el directorio final 
+echo: && echo "> Comprimiendo build final del videojuego %Game%." && echo: 
+set "source=.\%GameMachine%\Exe\Main\%Platform%\%Configuration%\" 
+if not exist "build_final_%Platform%_%Configuration%.7z" (
 
-rem Ejecuta el juego desde el motor:
-call .\%GameMachine%\Exe\Main\%Platform%\%Configuration%\%targetMain%.exe
+    %zip% a -t7z -m0=lzma -mx=9 -mfb=64 -md=32m -ms=on build_final_%Platform%_%Configuration%.7z %source%/* 
+    echo - Archivo comprimido con exito.
 
+) else (
+    echo - Se ha encontrado una version anterior. No se genera el nuevo fichero.
+)
+
+
+rem Arranca el juego desde el motor!! 
+echo: && echo "> Ejecutando %Game%!!!" && echo: 
+cd .\%GameMachine%\Exe\Main\%Platform%\%Configuration%\
+call .\%targetMain%.exe 
+cd %RootDirectory% 
 
 
 rem ---------------------------

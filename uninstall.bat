@@ -1,49 +1,40 @@
 @echo off
 setlocal
 
-
-rem Pregunta si generar paradas de comprobación entre cada paso
 set /p pause_option="> Quieres que se generen pausas? [S/N]: "
 
 
-rem Fecha inicio: 
-set start_time=%time%
+
+echo:
+echo Se va ha proceder a borrar el directorio BIN de ./root_project:
+if /i "%pause_option%"=="S" ( pause ) && echo:
+
+rmdir /s /q .\Bin 2>nul && echo - Borrado el directorio ./Bin || echo - No se ha encontrado el directorio ./Bin 
 
 
-rem Elimina si existe el anterior registro
+echo:
+echo Se va ha proceder a borrar el directorio TEMP de ./root_project:
+if /i "%pause_option%"=="S" ( pause ) && echo:
+
+rmdir /s /q .\Temp 2>nul && echo - Borrado el directorio ./Temp || echo - No se ha encontrado el directorio ./Temp 
+
+
+
+echo:
+echo Se va ha proceder a borrar el registro de la build del juego:
+if /i "%pause_option%"=="S" ( pause ) && echo:
+
+rem Elimina si existe el anterior registro del juego
 if exist "./build_Output.txt" (
 
     del "./build_Output.txt"
+    echo - Borrado el registro del juego 
 
+) else (
+    echo - No se ha encontrado el registro del juego  
 )
 
 
 
-rem -----------------------------------
-rem TODO EL PROCESO AQUI: CONFIGURACIÓN
-rem -----------------------------------
-
-
-
-rem --------------------
-rem TODO EL PROCESO AQUI
-rem --------------------
-
-
-
-rem Fecha final: 
-set end_time=%time%
-
-
-echo:
-echo ----------------------------
-echo Fecha inicio: %start_time% 
-echo Fecha final: %end_time% 
-echo:
-
-
-rem Check final
-echo "> Build %project% finalizada [ inicio: %start_time% // finalizado: %end_time% ]" > "./build_Output.txt"
-
-pause
+echo: && pause 
 endlocal
