@@ -9,7 +9,7 @@
 
 #include "VehicleController.h"
 #include "CameraFollow.h"
-#include "CircuitoInfo.h"
+//#include "CircuitoInfo.h"
 
 using namespace me;
 
@@ -23,7 +23,8 @@ GameManager::~GameManager()
 
 void GameManager::start()
 {
-	mGameState = GameState::GAMESTATE_STARTGAME;
+	mGameState = GameState::GAMESTATE_LOADMAINMENU;
+
 }
 
 void GameManager::update()
@@ -35,10 +36,9 @@ void GameManager::update()
 		if (sceneManager().getScene("MainMenu") == nullptr)
 		{
 			sceneManager().addScene("MainMenu");
-
 		}
 		sceneManager().setActiveScene("MainMenu");
-		sceneManager().loadEntities("mainmenu.lua");
+		//sceneManager().loadEntities("mainmenu.lua");
 		mGameState = GameState::GAMESTATE_MAINMENU;
 		break;
 
@@ -63,11 +63,12 @@ void GameManager::update()
 		sceneManager().loadEntities("overmenu.lua");
 		mGameState = GameState::GAMESTATE_GAMEOVER;
 		break;
-
-	case GameState::GAMESTATE_MAINMENU:
 	case GameState::GAMESTATE_INGAME:
+		break;
+	case GameState::GAMESTATE_MAINMENU:
 	case GameState::GAMESTATE_GAMEOVER:
-		sceneManager().update();
+		//sceneManager().update();
+		processInput();
 		break;
 	default:
 		break;
@@ -75,6 +76,8 @@ void GameManager::update()
 
 
 }
+
+
 
 void GameManager::setEntitiesInfo()
 {
@@ -223,24 +226,24 @@ void GameManager::setPowerUps()
 {
 	//Seguro que la queremos random? Esos bucles no parecen muy eficaces
 
-	Vector3 pos1, pos2, pos3;
-	pos1 = mCircuitoInfo->getRandomPosInside();
+	//Vector3 pos1, pos2, pos3;
+	//pos1 = mCircuitoInfo->getRandomPosInside();
 
-	//distance should be change, multiply by scale
-	do {
-		pos2 = mCircuitoInfo->getRandomPosInside();
-	} while ((pos2 - pos1).magnitude() < 2.0f);
+	////distance should be change, multiply by scale
+	//do {
+	//	pos2 = mCircuitoInfo->getRandomPosInside();
+	//} while ((pos2 - pos1).magnitude() < 2.0f);
 
-	do {
-		pos3 = mCircuitoInfo->getRandomPosInside();
-	} while ((pos3 - pos1).magnitude() < 2.0f || (pos3 -pos2).magnitude() < 2.0f);
+	//do {
+	//	pos3 = mCircuitoInfo->getRandomPosInside();
+	//} while ((pos3 - pos1).magnitude() < 2.0f || (pos3 -pos2).magnitude() < 2.0f);
 
-	mPowerUps["powerup1"]->getComponent<Transform>("transform")->setPosition(pos1);
-	//mPowerUps["powerup1"]->getComponent<ParticleSystem>("particlesystem")->setEmitting(true);
-	mPowerUps["powerup2"]->getComponent<Transform>("transform")->setPosition(pos2);
-	//mPowerUps["powerup2"]->getComponent<ParticleSystem>("particlesystem")->setEmitting(true);
-	mPowerUps["powerup3"]->getComponent<Transform>("transform")->setPosition(pos3);
-	//mPowerUps["powerup3"]->getComponent<ParticleSystem>("particlesystem")->setEmitting(true);
+	//mPowerUps["powerup1"]->getComponent<Transform>("transform")->setPosition(pos1);
+	////mPowerUps["powerup1"]->getComponent<ParticleSystem>("particlesystem")->setEmitting(true);
+	//mPowerUps["powerup2"]->getComponent<Transform>("transform")->setPosition(pos2);
+	////mPowerUps["powerup2"]->getComponent<ParticleSystem>("particlesystem")->setEmitting(true);
+	//mPowerUps["powerup3"]->getComponent<Transform>("transform")->setPosition(pos3);
+	////mPowerUps["powerup3"]->getComponent<ParticleSystem>("particlesystem")->setEmitting(true);
 }
 
 
@@ -256,10 +259,19 @@ void GameManager::mainMenu()
 	mGameState = GameState::GAMESTATE_LOADMAINMENU;
 }
 
+void GameManager::processInput()
+{
+	std::cout <<  mGameState << std::endl;
+	
+		mGameState = GAMESTATE_STARTGAME;
+		std::cout << me::inputManager().getAxis("HORIZONTAL") << mGameState << std::endl;
+	
+}
+
 void GameManager::powerUpPicked(std::string name)
 {
-	Vector3 pos = mCircuitoInfo->getRandomPosInside();
-	mPowerUps[name]->getComponent<Transform>("transform")->setPosition(pos);
+	//Vector3 pos = mCircuitoInfo->getRandomPosInside();
+	//mPowerUps[name]->getComponent<Transform>("transform")->setPosition(pos);
 	//mPowerUps[name]->getComponent<ParticleSystem>("particlesystem")->setEmitting(true);
 }
 

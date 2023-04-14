@@ -20,9 +20,12 @@ __VROOMVROOM_API const char* name()
 }
 
 __VROOMVROOM_API bool init() {
-	sceneManager().addScene("Race");
+	/*sceneManager().addScene("Race");
 	sceneManager().setActiveScene("Race");
-	return sceneManager().loadEntities("race.lua") == 0;
+	return sceneManager().loadEntities("race.lua") == 0;*/
+	sceneManager().addScene("MainMenu");
+	sceneManager().setActiveScene("MainMenu");
+	return sceneManager().loadEntities("mainmenu.lua") == 0;
 }
 
 __VROOMVROOM_API void initFactories()
