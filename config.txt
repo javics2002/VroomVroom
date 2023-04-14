@@ -1,0 +1,9 @@
+Game: VroomVroom
+GameMachine: MotorEngine
+------------------------
+Platform: x64
+Configuration: Debug
+------------------------
+debug: false
+run_type: Paralelo
+refresh: true
