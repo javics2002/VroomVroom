@@ -32,3 +32,23 @@ void Checkpoint::setSize(Vector3& size)
 {
 	mSize = size;
 }
+
+void Checkpoint::setIndex(int index)
+{
+	mIndex = index;
+}
+
+int Checkpoint::getIndex()
+{
+	return mIndex;
+}
+
+void Checkpoint::setNumCheckpoints(int numCheckpoints)
+{
+	mNumCheckpoints = numCheckpoints;
+}
+
+int Checkpoint::getNumCheckpoints()
+{
+	return mNumCheckpoints;
+}

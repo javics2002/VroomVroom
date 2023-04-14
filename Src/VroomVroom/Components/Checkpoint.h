@@ -32,6 +32,12 @@ public:
 	void update() override;
 
 	void setSize(me::Vector3& size);
+
+	void setIndex(int index);
+	int getIndex();
+
+	void setNumCheckpoints(int numCheckpoints);
+	int getNumCheckpoints();
 };
 #endif
 

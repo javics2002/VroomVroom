@@ -1,10 +1,18 @@
-#include "CircuitoInfo.h"
+#include "CircuitInfo.h"
 #include <cstdlib> //  rand() y srand()
 #include <ctime> //  time()
 
 using namespace me;
 
-bool CircuitoInfo::isCircuitInside(Vector3 pos)
+CircuitInfo::CircuitInfo()
+{
+}
+
+CircuitInfo::~CircuitInfo()
+{
+}
+
+bool CircuitInfo::isCircuitInside(Vector3 pos)
 {
 
 
@@ -58,7 +66,7 @@ bool CircuitoInfo::isCircuitInside(Vector3 pos)
 	return true;
 }
 
-Vector3 CircuitoInfo::getRandomPosInside()
+Vector3 CircuitInfo::getRandomPosInside()
 {
 	float x, z , radius;
 	std::srand(std::time(nullptr));
@@ -106,12 +114,12 @@ Vector3 CircuitoInfo::getRandomPosInside()
 	return Vector3(x,mPosition.y,z);
 }
 
-void CircuitoInfo::setPosition(me::Vector3 pos)
+void CircuitInfo::setPosition(me::Vector3 pos)
 {
 	mPosition = pos;
 }
 
-void CircuitoInfo::setInfo(float halfWidthInner, float halfWidthOuter, float halfHeightInner, float halfHeightOuter, float radiusInner, float radiusOuter)
+void CircuitInfo::setInfo(float halfWidthInner, float halfWidthOuter, float halfHeightInner, float halfHeightOuter, float radiusInner, float radiusOuter)
 {
 	mHalfHeightInner = halfHeightInner;
 	mHalfHeightOuter = halfHeightOuter;
@@ -119,4 +127,13 @@ void CircuitoInfo::setInfo(float halfWidthInner, float halfWidthOuter, float hal
 	mHalfWidthOuter = halfWidthOuter;
 	mRadiusInner = radiusInner;
 	mRadiusOuter = radiusOuter;
+}
+
+void CircuitInfo::setLaps(int laps)
+{
+}
+
+int CircuitInfo::getLaps()
+{
+	return mLaps;
 }

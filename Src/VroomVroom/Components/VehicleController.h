@@ -6,6 +6,7 @@
 #include "VroomVroom/VroomVroomInput.h"
 #include <string>
 
+class Checkpoint;
 enum PowerUpType : int;
 
 /**
@@ -19,6 +20,9 @@ private:
 
 	//Index of the last valid checkpoint
 	int mCheckpointIndex;
+
+	//Current lap of this vehicle
+	int mLap;
 
 	bool mPowerUp;
 	PowerUpType mPowerUpType;
@@ -59,22 +63,7 @@ public:
 	*/
 	float getSpeed();
 
-	//void onCollisionEnter(Entity other) override {
-	//    if (other.hascomponent<Checkpoint>("Checkpoint")) {
-	//        if (checkpoint.index == checkpointIndex + 1)
-	//            checkpointIndex++; 
-	//        else if (checkpoint.index == checkpointIndex - 1)
-	//            checkpointIndex--; //Vas marcha atras por alguna razon
-	//    }
-	//}
-
-	//void onCollisionExit(Entity other) override {
-	//    if (other.hascomponent<Checkpoint>("Checkpoint")) {
-	//        if (checkpoint.index == checkpointIndex + 1)
-	//            checkpointIndex++;
-	//        else if (checkpoint.index == checkpointIndex)
-	//            checkpointIndex--; //Vas marcha atras por alguna razon
-	//    }
-	//}
+	void onCollisionEnter(me::Entity* other) override;
+	void onCollisionExit(me::Entity* other) override;
 };
 #endif

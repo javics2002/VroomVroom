@@ -19,7 +19,7 @@ enum GameState {
 };
 
 class Entity;
-class CircuitoInfo;
+class CircuitInfo;
 
 /**
 Class GameManager, componente that is singleton, use for control the gamestate
@@ -32,8 +32,8 @@ class GameManager : public me::Component, public me::Singleton<GameManager>
 	GameManager();
 
 protected:
-	me::Entity* mCircuito = nullptr;
-	CircuitoInfo* mCircuitoInfo = nullptr;
+	me::Entity* mCircuit = nullptr;
+	CircuitInfo* mCircuitInfo = nullptr;
 	me::Entity* mPlayerOne = nullptr;
 	me::Entity* mPlayerTwo = nullptr;
 	PlayerInputType mPlayerOneType = PLAYERINPUTTYPE_KEYBOARD;
@@ -94,6 +94,9 @@ public:
 	@params playerName: indicate the name of player's entity
 	*/
 	void respawnPlayer(std::string playerName);
+
+	void setCircuitInfo(CircuitInfo* circuitInfo);
+	CircuitInfo* getCircuitInfo();
 };
 
 

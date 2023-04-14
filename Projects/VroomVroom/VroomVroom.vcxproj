@@ -30,7 +30,7 @@
     <ClCompile Include="..\..\Src\VroomVroom\Components\WheelController.cpp" />
     <ClCompile Include="..\..\Src\VroomVroom\dllmain.cpp" />
     <ClCompile Include="..\..\Src\VroomVroom\VroomVroom.cpp" />
-    <ClCompile Include="..\..\Src\VroomVroom\Components\CircuitoInfo.cpp" />
+    <ClCompile Include="..\..\Src\VroomVroom\Components\CircuitInfo.cpp" />
     <ClCompile Include="..\..\Src\VroomVroom\VroomVroomInput.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -46,7 +46,7 @@
     <ClInclude Include="..\..\Src\VroomVroom\framework.h" />
     <ClInclude Include="..\..\Src\VroomVroom\pch.h" />
     <ClInclude Include="..\..\Src\VroomVroom\VroomVroom.h" />
-    <ClInclude Include="..\..\Src\VroomVroom\Components\CircuitoInfo.h" />
+    <ClInclude Include="..\..\Src\VroomVroom\Components\CircuitInfo.h" />
     <ClInclude Include="..\..\Src\VroomVroom\VroomVroomInput.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

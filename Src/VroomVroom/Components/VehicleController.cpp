@@ -3,6 +3,7 @@
 #include "EntityComponent/Entity.h"
 #include "EntityComponent/Components/Transform.h"
 #include "EntityComponent/Components/RigidBody.h"
+#include "Checkpoint.h"
 #include "Utils/Vector3.h"
 #include "PowerUpObject.h"
 #include <math.h>
@@ -26,6 +27,7 @@ VehicleController::VehicleController()
 void VehicleController::start()
 {
     mCheckpointIndex = 0;
+    mLap = 0;
 }
 
 void VehicleController::update()
@@ -113,4 +115,48 @@ void VehicleController::setPowerUp(PowerUpType powerUpType)
 float VehicleController::getSpeed()
 {
     return mSpeed;
+}
+
+void VehicleController::onCollisionEnter(me::Entity* other)
+{
+    if (other->hasComponent("Checkpoint")) {
+        Checkpoint* checkpoint = other->getComponent<Checkpoint>("Checkpoint");
+
+        if (checkpoint->getIndex() == (mCheckpointIndex + 1) % checkpoint->getNumCheckpoints()) {
+            //Next checkpoint
+            mCheckpointIndex++; 
+
+            if (mCheckpointIndex == checkpoint->getNumCheckpoints()) {
+                //Add lap
+                mCheckpointIndex = 0;   
+                mLap++;
+            }
+        }
+        else if (checkpoint->getIndex() == (mCheckpointIndex + 1) % checkpoint->getNumCheckpoints())
+        {
+            //Previous checkpoint (you are in the wrong direction)
+            mCheckpointIndex--; 
+
+            if (mCheckpointIndex == -1) {
+                //Remove lap
+                mCheckpointIndex += checkpoint->getNumCheckpoints();
+                mLap--;
+            }
+        }
+    }
+
+    //else if (other->hasComponent("PowerUpObject"))
+}
+
+void VehicleController::onCollisionExit(me::Entity* other)
+{
+    //TESTEAR SI ESTO HACE FALTA
+    if (other->hasComponent("Checkpoint")) {
+        Checkpoint* checkpoint = other->getComponent<Checkpoint>("Checkpoint");
+
+        if (checkpoint->getIndex() == mCheckpointIndex + 1)
+            mCheckpointIndex++;
+        else if (checkpoint->getIndex() == mCheckpointIndex)
+            mCheckpointIndex--; //Vas marcha atras por alguna razon
+    }
 }

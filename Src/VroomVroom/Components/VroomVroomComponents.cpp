@@ -1,7 +1,7 @@
 #include "VroomVroomComponents.h"
 #include "CameraFollow.h"
 #include "VehicleController.h"
-#include "CircuitoInfo.h"
+#include "CircuitInfo.h"
 #include "WheelController.h"
 #include "GameManager.h"
 #include "Checkpoint.h"
@@ -65,10 +65,10 @@ void FactoryCheckpoint::destroy(Component* component)
 
 Component* FactoryCirtuitoInfo::create(Parameters& params)
 {
-    CircuitoInfo* circuitoInfo = new CircuitoInfo();
-    circuitoInfo->setPosition(Vector3(value(params, "position_x", 0.0f),
+    CircuitInfo* circuitInfo = new CircuitInfo();
+    circuitInfo->setPosition(Vector3(value(params, "position_x", 0.0f),
         value(params, "position_y", 0.0f), value(params, "position_z", 0.0f)));
-    return circuitoInfo;
+    return circuitInfo;
 }
 
 void FactoryCirtuitoInfo::destroy(Component* component)

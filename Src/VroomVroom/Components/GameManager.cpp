@@ -9,7 +9,7 @@
 
 #include "VehicleController.h"
 #include "CameraFollow.h"
-#include "CircuitoInfo.h"
+#include "CircuitInfo.h"
 
 using namespace me;
 
@@ -224,15 +224,15 @@ void GameManager::setPowerUps()
 	//Seguro que la queremos random? Esos bucles no parecen muy eficaces
 
 	Vector3 pos1, pos2, pos3;
-	pos1 = mCircuitoInfo->getRandomPosInside();
+	pos1 = mCircuitInfo->getRandomPosInside();
 
 	//distance should be change, multiply by scale
 	do {
-		pos2 = mCircuitoInfo->getRandomPosInside();
+		pos2 = mCircuitInfo->getRandomPosInside();
 	} while ((pos2 - pos1).magnitude() < 2.0f);
 
 	do {
-		pos3 = mCircuitoInfo->getRandomPosInside();
+		pos3 = mCircuitInfo->getRandomPosInside();
 	} while ((pos3 - pos1).magnitude() < 2.0f || (pos3 -pos2).magnitude() < 2.0f);
 
 	mPowerUps["powerup1"]->getComponent<Transform>("transform")->setPosition(pos1);
@@ -258,7 +258,7 @@ void GameManager::mainMenu()
 
 void GameManager::powerUpPicked(std::string name)
 {
-	Vector3 pos = mCircuitoInfo->getRandomPosInside();
+	Vector3 pos = mCircuitInfo->getRandomPosInside();
 	mPowerUps[name]->getComponent<Transform>("transform")->setPosition(pos);
 	//mPowerUps[name]->getComponent<ParticleSystem>("particlesystem")->setEmitting(true);
 }
@@ -287,6 +287,16 @@ void GameManager::respawnPlayer(std::string playerName)
 		mPlayerTwo->getComponent<Transform>("transform")->setPosition(mPlayerTwoLastCheckpointPos);
 	}
 
+}
+
+void GameManager::setCircuitInfo(CircuitInfo* circuitInfo)
+{
+	circuitInfo = mCircuitInfo;
+}
+
+CircuitInfo* GameManager::getCircuitInfo()
+{
+	return mCircuitInfo;
 }
 
 
