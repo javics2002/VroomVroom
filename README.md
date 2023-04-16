@@ -50,9 +50,18 @@ Juego de carreras desenfadado para retar a tu amigo.
 
 Este árbol de directorios y ficheros comienza en la raíz del proyecto VroomVroom, nuestro videojuego. Donde se encuentra el fichero VroomVroom.sln, que junto con este también tenemos: 
 - config.txt : fichero de configuración para la instalación.  
-- install.bat : configura, llama al constructor del motor, hace los copias de fichero necesarios y al final compila y ejecuta el juego.  
-- uninstall.bat : deshace los cambios realizados dentro del proyecto del juego exclusivamente.  
-- refresh_finalBuild.bat : vuelve a generar la build final y la comprime para preparar la entrega.    
+- install.bat :  
+  1 - Configura las variables para la generación de los proyectos desde el fichero config.txt.  
+  2 - Llama al constructor del motor y este realiza todos sus pasos antes de continuar con programa actual.  
+  3 - Copia la dll del motor en el juego y lo compila.  
+  4 - Copia los assets y la dll del juego en el motor.  
+  5 - Prepara la build final y la comprime.  
+  6 - Ejecuta el juego desde el motor.  
+  7 - Muestra un log final con el tiempo utilizado en la ejecución del script y lo guarda en un txt.  
+- uninstall.bat : deshace los cambios realizados por install.bat dentro del proyecto del juego exclusivamente.  
+(El motor tiene su propio uninstall.bat)  
+- refresh_finalBuild.bat : vuelve a generar la build final y la comprime para preparar la entrega.  
+- run.bat : ejecuta el juego desde el motor de forma directa.  
 
 ## <p align="center">**PARTIDA TÍPICA**</p>
 
