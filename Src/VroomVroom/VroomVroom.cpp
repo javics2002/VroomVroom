@@ -23,9 +23,12 @@ __VROOMVROOM_API bool init() {
 	/*sceneManager().addScene("Race");
 	sceneManager().setActiveScene("Race");
 	return sceneManager().loadEntities("race.lua") == 0;*/
-	sceneManager().addScene("MainMenu");
-	sceneManager().setActiveScene("MainMenu");
-	return sceneManager().loadEntities("mainmenu.lua") == 0;
+	sceneManager().addScene("GameManager");
+	sceneManager().setActiveScene("GameManager");
+	if (sceneManager().loadEntities("gamemanager.lua") == 0) {
+		return true;
+	}
+	return false;
 }
 
 __VROOMVROOM_API void initFactories()

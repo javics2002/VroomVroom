@@ -23,7 +23,6 @@ GameManager::~GameManager()
 
 void GameManager::start()
 {
-	mGameState = GameState::GAMESTATE_LOADMAINMENU;
 
 }
 
@@ -38,7 +37,7 @@ void GameManager::update()
 			sceneManager().addScene("MainMenu");
 		}
 		sceneManager().setActiveScene("MainMenu");
-		//sceneManager().loadEntities("mainmenu.lua");
+		sceneManager().loadEntities("mainmenu.lua");
 		mGameState = GameState::GAMESTATE_MAINMENU;
 		break;
 
@@ -68,7 +67,6 @@ void GameManager::update()
 	case GameState::GAMESTATE_MAINMENU:
 	case GameState::GAMESTATE_GAMEOVER:
 		//sceneManager().update();
-		processInput();
 		break;
 	default:
 		break;
