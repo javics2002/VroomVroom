@@ -23,7 +23,7 @@ GameManager::~GameManager()
 
 void GameManager::start()
 {
-
+	mGameState = GAMESTATE_LOADMAINMENU;
 }
 
 void GameManager::update()
@@ -67,6 +67,7 @@ void GameManager::update()
 	case GameState::GAMESTATE_MAINMENU:
 	case GameState::GAMESTATE_GAMEOVER:
 		//sceneManager().update();
+		processInput();
 		break;
 	default:
 		break;
