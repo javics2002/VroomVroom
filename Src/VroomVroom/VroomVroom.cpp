@@ -46,6 +46,14 @@ __VROOMVROOM_API void initFactories()
 
 __VROOMVROOM_API void initInput()
 {
+	inputManager().addButton(playerButtonName("LEFTCLIC", 0), 0);
+
+	Input mouseClick;
+	mouseClick.type = INPUTTYPE_MOUSE_CLICK;
+	mouseClick.which = MOUSE_LEFTCLICK;
+
+	inputManager().addBinding(playerButtonName("LEFTCLICK", 0), mouseClick);
+
 	for (int playerI = PLAYERNUMBER_1; playerI != PLAYERNUMBER_MAX; playerI++) {
 		AxisInput horizontal;
 		horizontal.type = INPUTTYPE_KEYBOARD;
@@ -62,6 +70,7 @@ __VROOMVROOM_API void initInput()
 		CREATE_PLAYER_BUTTON("DECELERATE");
 		CREATE_PLAYER_BUTTON("DRIFT");
 		CREATE_PLAYER_BUTTON("USEOBJECT");
+		
 
 		Input keyboardS;
 		keyboardS.type = INPUTTYPE_KEYBOARD;

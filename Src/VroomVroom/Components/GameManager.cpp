@@ -47,7 +47,6 @@ void GameManager::update()
 		{
 			sceneManager().addScene("Race");
 		}
-		sceneManager().removeScene("MainMenu");
 		sceneManager().setActiveScene("Race");
 		sceneManager().loadEntities("race.lua");
 		//setEntitiesInfo();
@@ -267,6 +266,17 @@ void GameManager::processInput()
 	mGameState = GAMESTATE_STARTGAME;
 	std::cout << me::inputManager().getAxis("HORIZONTAL") << mGameState << std::endl;
 
+}
+
+void GameManager::changeScene(std::string scene)
+{
+
+	if (scene == "mainmenu") {
+		mGameState = GAMESTATE_LOADMAINMENU;
+	}
+	else if (scene == "race") {
+		mGameState = GAMESTATE_STARTGAME;
+	}
 }
 
 void GameManager::powerUpPicked(std::string name)

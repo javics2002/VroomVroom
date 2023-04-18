@@ -78,6 +78,8 @@ public:
 
 	void processInput();
 
+	void changeScene(std::string scene);
+
 	/**
 	Function that change position to powerup picked to new random pos (powerup is the cube incognit to collision enter, the real powerup is assigned when collisioned, so , use again the powerup incognit)
 	@param name : indicate the name of powerup's entity, and searching in unordered map of 3 powerup.
