@@ -4,6 +4,7 @@
 #include "Components/VroomVroomComponents.h"
 #include "Components/GameManager.h"
 #include "EntityComponent/SceneManager.h"
+#include "EntityComponent/Entity.h"
 
 // Input
 #include "Input/InputManager.h"
@@ -26,7 +27,7 @@ __VROOMVROOM_API bool init() {
 	//sceneManager().addScene("GameManager");
 	//sceneManager().setActiveScene("GameManager");
 	if (sceneManager().addGameManager("gamemanager.lua") == 0) {
-		sceneManager().getGameManager();
+		sceneManager().getGameManager()->start();
 		return true;
 	}
 	return false;
