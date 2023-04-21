@@ -6,4 +6,7 @@ Configuration: Debug
 ------------------------
 debug: false
 run_type: Paralelo
-refresh: true
+refresh: false
+------------------------
+recompile-game: true
+recompile-motor: false

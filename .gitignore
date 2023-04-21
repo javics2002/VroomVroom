@@ -6,6 +6,7 @@
 /Lib
 /Dll
 /Bin
+build_Output.txt
 
 # Vroom Vroom Temp Files
 /Temp

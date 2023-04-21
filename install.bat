@@ -27,8 +27,8 @@ rem -----------------------------------
 
 rem Configuración inicial del proyecto, realiza una búsqueda de tipo clave/valor (config.txt)
 
-rem Se crean las variables: %Game% , %GameMachine% , %Platform% , %Configuration% , %debug% , %run_type% y %refresh%
-for /f "tokens=1,* delims=: " %%a in ('type config.txt ^| findstr /i "Game: GameMachine: Platform: Configuration: debug: run_type: refresh: "') do (
+rem Se crean las variables: %Game% , %GameMachine% , %Platform% , %Configuration% , %debug% , %run_type% , %refresh% , %recompile-game% y %recompile-motor%
+for /f "tokens=1,* delims=: " %%a in ('type config.txt ^| findstr /i "Game: GameMachine: Platform: Configuration: debug: run_type: refresh: recompile-game: recompile-motor: "') do (
 
     rem Asigna a la variable de nombre 'key' el valor de 'value' 
     set "%%a=%%b" 
@@ -88,6 +88,9 @@ echo   debug: %debug%
 echo   run_type: %run_type% 
 echo   refresh: %refresh% 
 echo  ------------------------------------------------ 
+echo   recompile-game: %recompile-game% 
+echo   recompile-motor: %recompile-motor% 
+echo  ------------------------------------------------ 
 echo   target: %targetMain%.exe 
 echo   source: %source% 
 echo   build final: build_final_%Platform%_%Configuration%.7z 
@@ -138,6 +141,17 @@ if not exist ".\%GameMachine%\build_Output.txt" (
     if /i "%exec_option%"=="S" ( call .\install.bat %pause_option% %exec_option% ) else if /i "%exec_option%"=="P" ( start .\install.bat %pause_option% %exec_option% ) 
     cd .. 
 
+    echo: && echo "> Build %GameMachine% solucion en modo %Platform%_%Configuration% compilado." && echo: 
+) else if /i "%recompile-motor%"=="true" (
+
+    del .\%GameMachine%\build_Output.txt 
+
+    cd .\%GameMachine% 
+    echo: && echo "> Instalando: %GameMachine%" && echo: 
+    if /i "%exec_option%"=="S" ( call .\install.bat %pause_option% %exec_option% ) else if /i "%exec_option%"=="P" ( start .\install.bat %pause_option% %exec_option% ) 
+    cd .. 
+
+    echo: && echo "> Build %GameMachine% solucion en modo %Platform%_%Configuration% compilado." && echo: 
 ) else (
 
     echo: && echo "> El motor de videojuegos %GameMachine% ya se encuentra instalado." && echo: 
@@ -201,9 +215,17 @@ if not exist "Bin\%Platform%\%Configuration%\%targetGame%.dll" (
     rem Compilación 
     msbuild %Game%.sln /t:Rebuild /p:Configuration=%Configuration% /p:Platform=%Platform% /p:PlatformToolset=v143 
 
-    echo: && echo "> Build %Game% solucion en modo debug compilada." && echo: 
+    echo: && echo "> Build %Game% solucion en modo %Platform%_%Configuration% compilada." && echo: 
+
+) else if /i "%recompile-game%"=="true" (
+
+    rem Compilación 
+    msbuild %Game%.sln /t:Rebuild /p:Configuration=%Configuration% /p:Platform=%Platform% /p:PlatformToolset=v143 
+
+    echo: && echo "> Build %Game% solucion en modo %Platform%_%Configuration% compilada." && echo: 
+    
 ) else (
-    echo: && echo "> Build %Game% solucion en modo debug ya existe." && echo: 
+    echo: && echo "> Build %Game% solucion en modo %Platform%_%Configuration% ya existe." && echo: 
 )
 if /i "%pause_option%"=="S" ( pause ) 
 
@@ -213,18 +235,7 @@ rem Ejecuta la instalación del ejecutable (build final)
 echo: && echo "> Generando build final." && echo: 
 
 
-rem Dirección de archivos de configuración de Ogre 
-set "origen=.\%GameMachine%\Dependencies\Ogre\" 
-
-rem Copia para ejecutar directamente 
-echo: && echo "> Copiando ficheros necesarios del motor de renderizado de %GameMachine% para: build final." && echo: 
-set "destino=.\%GameMachine%\Exe\Main\%Platform%\%Configuration%\" 
-robocopy /NJH %origen% %destino% *.cfg 
-
-if /i "%pause_option%"=="S" ( pause ) 
-
-
-rem Dirección de recursos utilizados en el juego
+rem Dirección de recursos utilizados en el juego ( actualiza ASSETS ) 
 set "origen=.\%GameMachine%\Assets\" 
 
 rem Copia para ejecutar directamente  
@@ -233,6 +244,14 @@ set "destino=.\%GameMachine%\Exe\Main\%Platform%\%Configuration%\Assets\"
 robocopy /NJH %origen% %destino% /E 
 
 if /i "%pause_option%"=="S" ( pause ) 
+
+rem Copia para ejecutar desde Visual Studio 
+echo: && echo "> Copiando recursos almacenados para: desarrollador." && echo: 
+set "destino=.\%GameMachine%\Projects\Main\Assets\" 
+robocopy /NJH %origen% %destino% /E 
+
+if /i "%pause_option%"=="S" ( pause ) 
+
 
 
 rem Copia el binario generado por el juego
@@ -245,7 +264,7 @@ if /i "%pause_option%"=="S" ( pause )
 
 
 rem Comprime el directorio final 
-echo: && echo "> Comprimiendo build final del videojuego %Game%." && echo: 
+echo: && echo "> Comprimiendo build final del videojuego: %Game%." && echo: 
 if exist "build_final_%Platform%_%Configuration%.7z" (
 
     if /i "%refresh%"=="true" (
