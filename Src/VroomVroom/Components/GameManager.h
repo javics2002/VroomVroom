@@ -19,7 +19,7 @@ enum GameState {
 };
 
 class Entity;
-class CircuitInfo;
+//class CircuitoInfo;
 
 /**
 Class GameManager, componente that is singleton, use for control the gamestate
@@ -32,8 +32,8 @@ class GameManager : public me::Component, public me::Singleton<GameManager>
 	GameManager();
 
 protected:
-	me::Entity* mCircuit = nullptr;
-	CircuitInfo* mCircuitInfo = nullptr;
+	me::Entity* mCircuito = nullptr;
+	//CircuitoInfo* mCircuitoInfo = nullptr;
 	me::Entity* mPlayerOne = nullptr;
 	me::Entity* mPlayerTwo = nullptr;
 	PlayerInputType mPlayerOneType = PLAYERINPUTTYPE_KEYBOARD;
@@ -76,6 +76,10 @@ public:
 	//Function that change gamestate to loadMainMenu when go back to MainMenu (example: OverMenu to MainMenu)
 	void mainMenu();
 
+	void processInput();
+
+	void changeScene(std::string scene);
+
 	/**
 	Function that change position to powerup picked to new random pos (powerup is the cube incognit to collision enter, the real powerup is assigned when collisioned, so , use again the powerup incognit)
 	@param name : indicate the name of powerup's entity, and searching in unordered map of 3 powerup.
@@ -95,8 +99,8 @@ public:
 	*/
 	void respawnPlayer(std::string playerName);
 
-	void setCircuitInfo(CircuitInfo* circuitInfo);
-	CircuitInfo* getCircuitInfo();
+	/*void setCircuitInfo(CircuitInfo* circuitInfo);
+	CircuitInfo* getCircuitInfo();*/
 };
 
 

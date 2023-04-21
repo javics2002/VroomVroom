@@ -4,6 +4,7 @@
 #include "Components/VroomVroomComponents.h"
 #include "Components/GameManager.h"
 #include "EntityComponent/SceneManager.h"
+#include "EntityComponent/Entity.h"
 
 // Input
 #include "Input/InputManager.h"
@@ -20,9 +21,17 @@ __VROOMVROOM_API const char* name()
 }
 
 __VROOMVROOM_API bool init() {
-	sceneManager().addScene("Race");
+	/*sceneManager().addScene("Race");
 	sceneManager().setActiveScene("Race");
-	return sceneManager().loadEntities("race.lua") == 0;
+	return sceneManager().loadEntities("race.lua") == 0;*/
+	//sceneManager().addScene("GameManager");
+	//sceneManager().setActiveScene("GameManager");
+	if (sceneManager().addGameManager("gamemanager.lua") == 0) {
+		sceneManager().getGameManager()->start();
+		return true;
+	}
+	return false;
+
 }
 
 __VROOMVROOM_API void initFactories()
@@ -37,6 +46,14 @@ __VROOMVROOM_API void initFactories()
 
 __VROOMVROOM_API void initInput()
 {
+	inputManager().addButton(playerButtonName("LEFTCLIC", 0), 0);
+
+	Input mouseClick;
+	mouseClick.type = INPUTTYPE_MOUSE_CLICK;
+	mouseClick.which = MOUSE_LEFTCLICK;
+
+	inputManager().addBinding(playerButtonName("LEFTCLICK", 0), mouseClick);
+
 	for (int playerI = PLAYERNUMBER_1; playerI != PLAYERNUMBER_MAX; playerI++) {
 		AxisInput horizontal;
 		horizontal.type = INPUTTYPE_KEYBOARD;
@@ -53,6 +70,7 @@ __VROOMVROOM_API void initInput()
 		CREATE_PLAYER_BUTTON("DECELERATE");
 		CREATE_PLAYER_BUTTON("DRIFT");
 		CREATE_PLAYER_BUTTON("USEOBJECT");
+		
 
 		Input keyboardS;
 		keyboardS.type = INPUTTYPE_KEYBOARD;

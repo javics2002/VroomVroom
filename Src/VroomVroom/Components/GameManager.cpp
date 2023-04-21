@@ -9,7 +9,7 @@
 
 #include "VehicleController.h"
 #include "CameraFollow.h"
-#include "CircuitInfo.h"
+//#include "CircuitoInfo.h"
 
 using namespace me;
 
@@ -23,7 +23,7 @@ GameManager::~GameManager()
 
 void GameManager::start()
 {
-	mGameState = GameState::GAMESTATE_STARTGAME;
+	mGameState = GAMESTATE_LOADMAINMENU;
 }
 
 void GameManager::update()
@@ -35,22 +35,24 @@ void GameManager::update()
 		if (sceneManager().getScene("MainMenu") == nullptr)
 		{
 			sceneManager().addScene("MainMenu");
-
 		}
+		//sceneManager().removeScene("Race");
 		sceneManager().setActiveScene("MainMenu");
 		sceneManager().loadEntities("mainmenu.lua");
 		mGameState = GameState::GAMESTATE_MAINMENU;
 		break;
 
 	case GameState::GAMESTATE_STARTGAME:
+
 		if (sceneManager().getScene("Race") == nullptr)
 		{
 			sceneManager().addScene("Race");
 		}
+		sceneManager().removeScene("MainMenu");
 		sceneManager().setActiveScene("Race");
 		sceneManager().loadEntities("race.lua");
-		setEntitiesInfo();
-		setPowerUps();
+		//setEntitiesInfo();
+		//setPowerUps();
 		mGameState = GameState::GAMESTATE_INGAME;
 		break;
 
@@ -63,11 +65,13 @@ void GameManager::update()
 		sceneManager().loadEntities("overmenu.lua");
 		mGameState = GameState::GAMESTATE_GAMEOVER;
 		break;
-
-	case GameState::GAMESTATE_MAINMENU:
 	case GameState::GAMESTATE_INGAME:
+		//mGameState = GAMESTATE_LOADMAINMENU;
+		break;
+	case GameState::GAMESTATE_MAINMENU:
 	case GameState::GAMESTATE_GAMEOVER:
-		sceneManager().update();
+		//sceneManager().update();
+		processInput();
 		break;
 	default:
 		break;
@@ -75,6 +79,8 @@ void GameManager::update()
 
 
 }
+
+
 
 void GameManager::setEntitiesInfo()
 {
@@ -223,24 +229,24 @@ void GameManager::setPowerUps()
 {
 	//Seguro que la queremos random? Esos bucles no parecen muy eficaces
 
-	Vector3 pos1, pos2, pos3;
-	pos1 = mCircuitInfo->getRandomPosInside();
+	//Vector3 pos1, pos2, pos3;
+	//pos1 = mCircuitoInfo->getRandomPosInside();
 
-	//distance should be change, multiply by scale
-	do {
-		pos2 = mCircuitInfo->getRandomPosInside();
-	} while ((pos2 - pos1).magnitude() < 2.0f);
+	////distance should be change, multiply by scale
+	//do {
+	//	pos2 = mCircuitoInfo->getRandomPosInside();
+	//} while ((pos2 - pos1).magnitude() < 2.0f);
 
-	do {
-		pos3 = mCircuitInfo->getRandomPosInside();
-	} while ((pos3 - pos1).magnitude() < 2.0f || (pos3 -pos2).magnitude() < 2.0f);
+	//do {
+	//	pos3 = mCircuitoInfo->getRandomPosInside();
+	//} while ((pos3 - pos1).magnitude() < 2.0f || (pos3 -pos2).magnitude() < 2.0f);
 
-	mPowerUps["powerup1"]->getComponent<Transform>("transform")->setPosition(pos1);
-	//mPowerUps["powerup1"]->getComponent<ParticleSystem>("particlesystem")->setEmitting(true);
-	mPowerUps["powerup2"]->getComponent<Transform>("transform")->setPosition(pos2);
-	//mPowerUps["powerup2"]->getComponent<ParticleSystem>("particlesystem")->setEmitting(true);
-	mPowerUps["powerup3"]->getComponent<Transform>("transform")->setPosition(pos3);
-	//mPowerUps["powerup3"]->getComponent<ParticleSystem>("particlesystem")->setEmitting(true);
+	//mPowerUps["powerup1"]->getComponent<Transform>("transform")->setPosition(pos1);
+	////mPowerUps["powerup1"]->getComponent<ParticleSystem>("particlesystem")->setEmitting(true);
+	//mPowerUps["powerup2"]->getComponent<Transform>("transform")->setPosition(pos2);
+	////mPowerUps["powerup2"]->getComponent<ParticleSystem>("particlesystem")->setEmitting(true);
+	//mPowerUps["powerup3"]->getComponent<Transform>("transform")->setPosition(pos3);
+	////mPowerUps["powerup3"]->getComponent<ParticleSystem>("particlesystem")->setEmitting(true);
 }
 
 
@@ -256,10 +262,30 @@ void GameManager::mainMenu()
 	mGameState = GameState::GAMESTATE_LOADMAINMENU;
 }
 
+void GameManager::processInput()
+{
+	std::cout << mGameState << std::endl;
+
+	mGameState = GAMESTATE_STARTGAME;
+	std::cout << me::inputManager().getAxis("HORIZONTAL") << mGameState << std::endl;
+
+}
+
+void GameManager::changeScene(std::string scene)
+{
+
+	if (scene == "mainmenu") {
+		mGameState = GAMESTATE_LOADMAINMENU;
+	}
+	else if (scene == "race") {
+		mGameState = GAMESTATE_STARTGAME;
+	}
+}
+
 void GameManager::powerUpPicked(std::string name)
 {
-	Vector3 pos = mCircuitInfo->getRandomPosInside();
-	mPowerUps[name]->getComponent<Transform>("transform")->setPosition(pos);
+	//Vector3 pos = mCircuitoInfo->getRandomPosInside();
+	//mPowerUps[name]->getComponent<Transform>("transform")->setPosition(pos);
 	//mPowerUps[name]->getComponent<ParticleSystem>("particlesystem")->setEmitting(true);
 }
 
@@ -288,16 +314,16 @@ void GameManager::respawnPlayer(std::string playerName)
 	}
 
 }
-
-void GameManager::setCircuitInfo(CircuitInfo* circuitInfo)
-{
-	circuitInfo = mCircuitInfo;
-}
-
-CircuitInfo* GameManager::getCircuitInfo()
-{
-	return mCircuitInfo;
-}
+//
+//void GameManager::setCircuitInfo(CircuitInfo* circuitInfo)
+//{
+//	circuitInfo = mCircuitInfo;
+//}
+//
+//CircuitInfo* GameManager::getCircuitInfo()
+//{
+//	return mCircuitInfo;
+//}
 
 
 
