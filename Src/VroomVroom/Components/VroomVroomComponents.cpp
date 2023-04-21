@@ -6,6 +6,7 @@
 #include "GameManager.h"
 #include "Checkpoint.h"
 #include "Oil.h"
+#include "UIButtonScene.h"
 
 using namespace me;
 
@@ -95,6 +96,28 @@ Component* FactoryOil::create(Parameters& params)
 }
 
 void FactoryOil::destroy(Component* component)
+{
+    delete component;
+}
+
+me::Component* FactoryUIButtonScene::create(me::Parameters& params)
+{
+    if (params.empty())
+    {
+        return new UIButtonScene();
+    }
+    std::string sprite = value(params, "sprite", std::string());
+    std::string materialName = value(params, "materialname", std::string());
+    std::string newScene = value(params, "scene", std::string());
+
+    UIButtonScene* button = new UIButtonScene();
+    button->init(sprite, materialName);
+    button->setNewScene(newScene);
+
+    return button;
+}
+
+void FactoryUIButtonScene::destroy(me::Component* component)
 {
     delete component;
 }

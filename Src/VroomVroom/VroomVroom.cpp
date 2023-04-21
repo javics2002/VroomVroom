@@ -42,11 +42,12 @@ __VROOMVROOM_API void initFactories()
 	componentsFactory().addFactoryComponent("circuitoinfo", new FactoryCirtuitoInfo());
 	componentsFactory().addFactoryComponent("gamemanager", new FactoryGameManager());
 	componentsFactory().addFactoryComponent("checkpoint", new FactoryCheckpoint());
+	componentsFactory().addFactoryComponent("uibuttonscene", new FactoryUIButtonScene());
 }
 
 __VROOMVROOM_API void initInput()
 {
-	inputManager().addButton(playerButtonName("LEFTCLIC", 0), 0);
+	inputManager().addButton(playerButtonName("LEFTCLICK", 0), 0);
 
 	Input mouseClick;
 	mouseClick.type = INPUTTYPE_MOUSE_CLICK;

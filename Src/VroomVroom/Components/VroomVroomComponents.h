@@ -57,4 +57,11 @@ public:
 	void destroy(me::Component* component) override;
 };
 
+//return a Oil as component
+class FactoryUIButtonScene : public me::FactoryComponent {
+public:
+	me::Component* create(me::Parameters& params) override;
+	void destroy(me::Component* component) override;
+};
+
 #endif

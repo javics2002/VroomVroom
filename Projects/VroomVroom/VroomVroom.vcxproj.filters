@@ -54,6 +54,9 @@
     <ClCompile Include="..\..\Src\VroomVroom\VroomVroomInput.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Src\VroomVroom\Components\UIButtonScene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Src\VroomVroom\framework.h">
@@ -96,6 +99,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Src\VroomVroom\VroomVroomInput.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\VroomVroom\Components\UIButtonScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

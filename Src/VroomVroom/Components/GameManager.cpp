@@ -71,7 +71,7 @@ void GameManager::update()
 	case GameState::GAMESTATE_MAINMENU:
 	case GameState::GAMESTATE_GAMEOVER:
 		//sceneManager().update();
-		processInput();
+		//processInput();
 		break;
 	default:
 		break;
@@ -266,7 +266,7 @@ void GameManager::processInput()
 {
 	std::cout << mGameState << std::endl;
 
-	mGameState = GAMESTATE_STARTGAME;
+	//mGameState = GAMESTATE_STARTGAME;
 	std::cout << me::inputManager().getAxis("HORIZONTAL") << mGameState << std::endl;
 
 }
@@ -277,7 +277,7 @@ void GameManager::changeScene(std::string scene)
 	if (scene == "mainmenu") {
 		mGameState = GAMESTATE_LOADMAINMENU;
 	}
-	else if (scene == "race") {
+	else if (scene == "Race") {
 		mGameState = GAMESTATE_STARTGAME;
 	}
 }
