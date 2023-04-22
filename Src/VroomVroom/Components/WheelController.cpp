@@ -6,12 +6,13 @@
 #include "Utils/Vector3.h"
 
 using namespace me;
+using namespace VroomVroom;
 
 WheelController::WheelController()
 {
 	mXRotation = 0;
 	mYRotation = 0;
-	mSpeed = 0.05;
+	mSpeed = 0.05f;
 }
 
 WheelController::~WheelController()

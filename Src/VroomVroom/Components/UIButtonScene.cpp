@@ -8,6 +8,7 @@
 #include "Render/Window.h"
 
 using namespace me;
+using namespace VroomVroom;
 
 UIButtonScene::UIButtonScene()
 {

@@ -9,6 +9,7 @@
 #include <math.h>
 
 using namespace me;
+using namespace VroomVroom;
 
 bool VehicleController::getPlayerButton(std::string buttonName)
 {

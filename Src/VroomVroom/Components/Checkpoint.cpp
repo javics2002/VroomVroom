@@ -3,8 +3,9 @@
 #include "EntityComponent/Components/RigidBody.h"
 
 using namespace me;
+using namespace VroomVroom;
 
-int Checkpoint::mNumCheckpoints = 0;
+int Checkpoint::MNumCheckpoints = 0;
 
 Checkpoint::Checkpoint()
 {
@@ -12,12 +13,12 @@ Checkpoint::Checkpoint()
 
 Checkpoint::~Checkpoint()
 {
-	mNumCheckpoints--; //pasar a la futura destructora
+	MNumCheckpoints--; //pasar a la futura destructora
 }
 
 void Checkpoint::start()
 {
-	mIndex = mNumCheckpoints++;
+	mIndex = MNumCheckpoints++;
 
 	rigidbody = mEntity->addComponent<RigidBody>("rigidbody");
 	rigidbody->setTrigger(true);
@@ -45,10 +46,10 @@ int Checkpoint::getIndex()
 
 void Checkpoint::setNumCheckpoints(int numCheckpoints)
 {
-	mNumCheckpoints = numCheckpoints;
+	MNumCheckpoints = numCheckpoints;
 }
 
 int Checkpoint::getNumCheckpoints()
 {
-	return mNumCheckpoints;
+	return MNumCheckpoints;
 }

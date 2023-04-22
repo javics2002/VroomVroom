@@ -2,6 +2,9 @@
 #include "EntityComponent/Components/RigidBody.h"
 #include "EntityComponent/Entity.h"
 
+using namespace me;
+using namespace VroomVroom;
+
 Oil::Oil()
 {
 

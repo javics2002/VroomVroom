@@ -6,64 +6,66 @@
 #include "VroomVroom/VroomVroomInput.h"
 #include <string>
 
-class Checkpoint;
-enum PowerUpType : int;
-
-/**
-Enables player input for their car.
-*/
-class VehicleController : public me::Component {
-private:
-	float mSpeed;
-	float mRotationSpeed;
-	float mDriftFactor;
-
-	//Index of the last valid checkpoint
-	int mCheckpointIndex;
-
-	//Current lap of this vehicle
-	int mLap;
-
-	bool mPowerUp;
-	PowerUpType mPowerUpType;
-
-	PlayerNumber mPlayerNumber;
+namespace VroomVroom {
+	class Checkpoint;
+	enum PowerUpType : int;
 
 	/**
-	Checks if buttonName has been pressed for this playerNumber
-	by calling inputManager().getButton(buttonName + mPlayerNumber).
-	@returns Whether this player has pressed buttonName.
+	Enables player input for their car.
 	*/
-	bool getPlayerButton(std::string buttonName);
+	class VehicleController : public me::Component {
+	private:
+		float mSpeed;
+		float mRotationSpeed;
+		float mDriftFactor;
 
-	/**
-	Checks axisName value by calling inputManager().getButton(axisName + mPlayerNumber).
-	@returns Value of axisName of this player
-	*/
-	float getPlayerAxis(std::string axisName);
+		//Index of the last valid checkpoint
+		int mCheckpointIndex;
 
-public:
-	VehicleController();
+		//Current lap of this vehicle
+		int mLap;
 
-	void start() override;
-	void update() override;
+		bool mPowerUp;
+		PowerUpType mPowerUpType;
 
-	// Initializes the speed, rotation speed, and drift factor variables
-	void setSpeedAndDrift(float speed, float angularSpeed, float driftFactor);
+		PlayerNumber mPlayerNumber;
 
-	void setPowerUp(PowerUpType powerUpType);
+		/**
+		Checks if buttonName has been pressed for this playerNumber
+		by calling inputManager().getButton(buttonName + mPlayerNumber).
+		@returns Whether this player has pressed buttonName.
+		*/
+		bool getPlayerButton(std::string buttonName);
 
-	inline void setPlayerNumber(PlayerNumber playerNumber) {
-		mPlayerNumber = playerNumber;
-	}
+		/**
+		Checks axisName value by calling inputManager().getButton(axisName + mPlayerNumber).
+		@returns Value of axisName of this player
+		*/
+		float getPlayerAxis(std::string axisName);
 
-	/**
-	Get the speed value of the Vehicle Controller component.
-	@return A float object representing the speed.
-	*/
-	float getSpeed();
+	public:
+		VehicleController();
 
-	void onCollisionEnter(me::Entity* other) override;
-	void onCollisionExit(me::Entity* other) override;
-};
+		void start() override;
+		void update() override;
+
+		// Initializes the speed, rotation speed, and drift factor variables
+		void setSpeedAndDrift(float speed, float angularSpeed, float driftFactor);
+
+		void setPowerUp(PowerUpType powerUpType);
+
+		inline void setPlayerNumber(PlayerNumber playerNumber) {
+			mPlayerNumber = playerNumber;
+		}
+
+		/**
+		Get the speed value of the Vehicle Controller component.
+		@return A float object representing the speed.
+		*/
+		float getSpeed();
+
+		void onCollisionEnter(me::Entity* other) override;
+		void onCollisionExit(me::Entity* other) override;
+	};
+}
 #endif

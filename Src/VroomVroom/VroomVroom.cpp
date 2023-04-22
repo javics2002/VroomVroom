@@ -14,6 +14,7 @@
 #define CREATE_PLAYER_BUTTON(buttonName) inputManager().addButton(playerButtonName(buttonName, playerI), playerI)
 
 using namespace me;
+using namespace VroomVroom;
 
 __VROOMVROOM_API const char* name()
 {
@@ -21,17 +22,9 @@ __VROOMVROOM_API const char* name()
 }
 
 __VROOMVROOM_API bool init() {
-	/*sceneManager().addScene("Race");
+	sceneManager().addScene("Race");
 	sceneManager().setActiveScene("Race");
-	return sceneManager().loadEntities("race.lua") == 0;*/
-	//sceneManager().addScene("GameManager");
-	//sceneManager().setActiveScene("GameManager");
-	if (sceneManager().addGameManager("gamemanager.lua") == 0) {
-		sceneManager().getGameManager()->start();
-		return true;
-	}
-	return false;
-
+	return sceneManager().loadEntities("race.lua") == 0;
 }
 
 __VROOMVROOM_API void initFactories()

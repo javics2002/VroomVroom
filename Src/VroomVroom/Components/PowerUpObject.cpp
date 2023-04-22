@@ -6,6 +6,7 @@
 #include "EntityComponent/Components/Rigidbody.h"
 
 using namespace me;
+using namespace VroomVroom;
 
 PowerUpObject::PowerUpObject()
 {

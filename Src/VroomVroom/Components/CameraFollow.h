@@ -7,16 +7,17 @@
 #include <string>
 
 namespace me {
-
 	class Transform;
 	class Entity;
 	class Camera;
+}
 
+namespace VroomVroom {
 	/*
 	The CameraFollow component manages the Transform and Camera components
 	to track a target.
 	*/
-	class CameraFollow : public Component
+	class CameraFollow : public me::Component
 	{
 	private:
 	protected:
@@ -24,14 +25,14 @@ namespace me {
 		Entity's transform that the camera follows
 		*/
 		std::string mTargetName;
-		Transform* mTargetTransform;
+		me::Transform* mTargetTransform;
 
 		/*
 		Transform of the camera
 		*/
-		Transform* mCameraTransform;
-		Camera* mCamera;
-		Vector3 mOffset;
+		me::Transform* mCameraTransform;
+		me::Camera* mCamera;
+		me::Vector3 mOffset;
 
 	public:
 
@@ -62,7 +63,7 @@ namespace me {
 		Sets the target to follow
 		@params target The transform component of the target.
 		*/
-		void setTarget(Transform* target);
+		void setTarget(me::Transform* target);
 
 		/**
 		Sets the target to follow
@@ -74,7 +75,7 @@ namespace me {
 		Sets offset to keep with the target
 		@params target Offset to keep with the target.
 		*/
-		void setOffset(Vector3 offset);
+		void setOffset(me::Vector3 offset);
 	};
 }
 #endif

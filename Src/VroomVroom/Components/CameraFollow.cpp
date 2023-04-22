@@ -6,17 +6,20 @@
 #include "Render/RenderManager.h"
 #include "EntityComponent/Components/Camera.h"
 
-me::CameraFollow::CameraFollow()
+using namespace me;
+using namespace VroomVroom;
+
+CameraFollow::CameraFollow()
 {
 	mTargetTransform = nullptr;
 	mCameraTransform = nullptr;
 }
 
-me::CameraFollow::~CameraFollow()
+CameraFollow::~CameraFollow()
 {
 }
 
-void me::CameraFollow::start()
+void CameraFollow::start()
 {
 	mTargetTransform = sceneManager().getActiveScene()->findEntity(mTargetName).get()->getComponent<Transform>("transform");
 	mCameraTransform = getEntity()->getComponent<Transform>("transform");
@@ -25,29 +28,29 @@ void me::CameraFollow::start()
 	renderManager().setCameraFixedY(mCamera->getName(), true);
 }
 
-void me::CameraFollow::update()
+void CameraFollow::update()
 {
 	mCameraTransform->setPosition(mTargetTransform->getPosition() - mTargetTransform->forward() * 20); //Suavizar
 	mCamera->setLookAt(mTargetTransform->getPosition());
 	mCameraTransform->setPosition(mCameraTransform->getPosition() + Vector3(0, 5, 0));
 }
 
-void me::CameraFollow::setTargetName(std::string targetName)
+void CameraFollow::setTargetName(std::string targetName)
 {
 	mTargetName = targetName;
 }
 
-void me::CameraFollow::setTarget(Transform* target)
+void CameraFollow::setTarget(Transform* target)
 {
 	mTargetTransform = target;
 }
 
-void me::CameraFollow::setTarget(std::string targetName)
+void CameraFollow::setTarget(std::string targetName)
 {
 	mTargetTransform = sceneManager().getActiveScene()->findEntity(mTargetName).get()->getComponent<Transform>("transform");
 }
 
-void me::CameraFollow::setOffset(Vector3 offset)
+void CameraFollow::setOffset(Vector3 offset)
 {
 	mOffset = offset;
 }

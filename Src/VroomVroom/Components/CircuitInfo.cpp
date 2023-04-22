@@ -3,6 +3,7 @@
 #include <ctime> //  time()
 
 using namespace me;
+using namespace VroomVroom;
 
 CircuitInfo::CircuitInfo()
 {
@@ -14,8 +15,6 @@ CircuitInfo::~CircuitInfo()
 
 bool CircuitInfo::isCircuitInside(Vector3 pos)
 {
-
-
 	// pos.z must be inside (8 , 1.7) || (-1.7 , -8)  vertical
 	// Case (-1.7 , 1.7) if pos.x be inside (-36 , 36)
 

@@ -14,69 +14,65 @@ namespace me {
 	class UITransform;
 }
 
-
-/**
-The UISpriteRenderer class represents a visual object in 2D space as a screen overlay that will be attached to an entity.
-*/
-class UIButtonScene : public me::Component
-{
-private:
-protected:
-	//name for RenderManager map and for entity that attached in node
-	std::string mName;
-	//name of .png file
-	std::string mSpriteName;
-	//componenet transform of this.Entity
-	me::UITransform* mUITransform;
-	//static state of this.Entity 
-	bool mStaticObject = false;
-
-	std::string mNewScene;
-
-	Ogre::TextAreaOverlayElement* mButtonArea;
-
-	int x = 0;
-
-public:
-
+namespace VroomVroom {
 	/**
-	Construct a new UISpriteRenderer component and save necesary info
-	@param name: name saved in RenderManager map and used for entity that attached in node
-	@param meshName: name of .png file
+	The UISpriteRenderer class represents a visual object in 2D space as a screen overlay that will be attached to an entity.
 	*/
-	UIButtonScene();
-	//Destroy RenderManager map saved image
-	~UIButtonScene();
+	class UIButtonScene : public me::Component
+	{
+	protected:
+		//name for RenderManager map and for entity that attached in node
+		std::string mName;
+		//name of .png file
+		std::string mSpriteName;
+		//componenet transform of this.Entity
+		me::UITransform* mUITransform;
+		//static state of this.Entity 
+		bool mStaticObject = false;
 
-	void init(std::string name, std::string materialName);
+		std::string mNewScene;
 
-	/**
-	Get info for UITransform, create the Sprite and set the start pos
-	*/
-	void start() override;
+		Ogre::TextAreaOverlayElement* mButtonArea;
 
-	void setNewScene(std::string newScene);
+		int x = 0;
 
+	public:
+		/**
+		Construct a new UISpriteRenderer component and save necesary info
+		@param name: name saved in RenderManager map and used for entity that attached in node
+		@param meshName: name of .png file
+		*/
+		UIButtonScene();
+		//Destroy RenderManager map saved image
+		~UIButtonScene();
 
-	/**
-	Update UITransform info to image
-	*/
-	void update() override;
+		void init(std::string name, std::string materialName);
 
-	void execute();
+		/**
+		Get info for UITransform, create the Sprite and set the start pos
+		*/
+		void start() override;
 
-	/**
-		Set material.
-		@param materialName: name of material, as written in MaterialResource.material.
-	*/
-	void setSpriteMaterial(std::string materialName);
+		void setNewScene(std::string newScene);
 
-	/**
-	Name getter
-	*/
-	std::string getName();
+		/**
+		Update UITransform info to image
+		*/
+		void update() override;
 
-};
+		void execute();
 
+		/**
+			Set material.
+			@param materialName: name of material, as written in MaterialResource.material.
+		*/
+		void setSpriteMaterial(std::string materialName);
+
+		/**
+		Name getter
+		*/
+		std::string getName();
+	};
+}
 #endif
 
