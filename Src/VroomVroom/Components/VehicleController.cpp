@@ -51,32 +51,18 @@ void VehicleController::update()
         mEntity->getComponent<RigidBody>("rigidbody")->addTorque(direction * (mRotationSpeed * deltaX));
     }
 
-    Vector3 rot = mEntity->getComponent<Transform>("transform")->getRotation().toEuler(); // reemplazar con el cuaterni�n a utilizar
-    Vector3 v; // reemplazar con el vector3 a rotar
-
-    Vector3 rotatedV;
-
-    Vector3 vector_radians = rot;
-    vector_radians.x = rot.x * 3.1415926 / 180.0;
-    vector_radians.y = rot.y * 3.1415926 / 180.0;
-    vector_radians.z = rot.z * 3.1415926 / 180.0;
-    
-    rotatedV.x = cos(vector_radians.y);
-    rotatedV.y = -tan(vector_radians.x);
-    rotatedV.z = -sin(vector_radians.y);
-
-    rotatedV.dot(v.left());
+    Vector3 vForward = mEntity->getComponent<Transform>("transform")->forward();
 
     //std::cout << "rotated angle: " << rotatedV.x << " " << rotatedV.y << " " << rotatedV.z << "\n";
 
     if (accelerate) {
         // If the vertical input axis is positive, add a forward impulse to the vehicle's rigidbody
-        mEntity->getComponent<RigidBody>("rigidbody")->addForce(rotatedV * mSpeed);
+        mEntity->getComponent<RigidBody>("rigidbody")->addForce(vForward * mSpeed);
     }
 
     else if (decelerate) {
         // If the vertical input axis is negative, add a backward impulse to the vehicle's rigidbody
-        mEntity->getComponent<RigidBody>("rigidbody")->addForce(rotatedV * -mSpeed);
+        mEntity->getComponent<RigidBody>("rigidbody")->addForce(vForward * -mSpeed);
     }
 
     //if (mPowerUp && useObject) {

@@ -13,8 +13,8 @@ using namespace me;
 Component* FactoryCameraFollow::create(Parameters& params)
 {
     CameraFollow* camerafollow = new CameraFollow();
-    if (params.count("target"))
-        camerafollow->setTarget(value(params, "target", std::string()));
+    camerafollow->setTargetName(value(params, "target", std::string()));
+
     camerafollow->setOffset(Vector3(value(params, "offset_x", 0.0f),
         value(params, "offset_y", 3.0f), value(params, "offset_z", 5.0f)));
     //A�adir suavizado

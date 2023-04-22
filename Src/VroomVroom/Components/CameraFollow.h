@@ -10,8 +10,9 @@ namespace me {
 
 	class Transform;
 	class Entity;
+	class Camera;
 
-	/**
+	/*
 	The CameraFollow component manages the Transform and Camera components
 	to track a target.
 	*/
@@ -19,32 +20,45 @@ namespace me {
 	{
 	private:
 	protected:
-		//entity player that we follow
-		Transform* mTargetTransform = nullptr;
-		//componenet transform of this.Entity
-		Transform* mTransform;
+		/*
+		Entity's transform that the camera follows
+		*/
+		std::string mTargetName;
+		Transform* mTargetTransform;
+
+		/*
+		Transform of the camera
+		*/
+		Transform* mCameraTransform;
+		Camera* mCamera;
 		Vector3 mOffset;
 
 	public:
 
-		/**
+		/*
 		Construct a new CameraFollow component and assign the player
 		*/
 		CameraFollow();
 		//Destroy renderManager() map saved camera
 		~CameraFollow();
 
-		/**
+		/*
 		Get info for mTransform and create ogreCamera and set the start pos
 		*/
 		void start() override;
 
-		/**
+		/*
 		Update transform info to camera node
 		*/
 		void update() override;
 
-		/**
+		/*
+		Sets the target to follow
+		@params target The transform component of the target.
+		*/
+		void setTargetName(std::string targetName);
+
+		/*
 		Sets the target to follow
 		@params target The transform component of the target.
 		*/
