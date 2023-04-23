@@ -62,7 +62,7 @@ void UIButtonScene::update(const double& dt)
 
 void UIButtonScene::execute()
 {
-	gameManager()->changeScene(mNewScene);
+	sceneManager().loadScene(mNewScene);
 }
 
 std::string UIButtonScene::getName()

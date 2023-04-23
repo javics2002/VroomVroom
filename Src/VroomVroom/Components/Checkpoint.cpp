@@ -1,6 +1,7 @@
 #include "Checkpoint.h"
 #include "EntityComponent/Entity.h"
 #include "EntityComponent/Components/RigidBody.h"
+#include "EntityComponent/Components/Collider.h"
 
 using namespace me;
 using namespace VroomVroom;
@@ -19,19 +20,6 @@ Checkpoint::~Checkpoint()
 void Checkpoint::start()
 {
 	mIndex = MNumCheckpoints++;
-
-	rigidbody = mEntity->addComponent<RigidBody>("rigidbody");
-	rigidbody->setTrigger(true);
-	rigidbody->setColShape(SHAPES_BOX);
-}
-
-void Checkpoint::update(const double& dt)
-{
-}
-
-void Checkpoint::setSize(Vector3& size)
-{
-	mSize = size;
 }
 
 void Checkpoint::setIndex(int index)

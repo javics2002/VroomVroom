@@ -4,10 +4,18 @@
 
 #include "EntityComponent/Components/Component.h"
 #include "VroomVroom/VroomVroomInput.h"
+#include "Utils/Vector3.h"
 #include <string>
+
+namespace me {
+	class Transform;
+	class RigidBody;
+}
 
 namespace VroomVroom {
 	class Checkpoint;
+	class CircuitInfo;
+
 	enum PowerUpType : int;
 
 	/**
@@ -21,6 +29,7 @@ namespace VroomVroom {
 
 		//Index of the last valid checkpoint
 		int mCheckpointIndex;
+		me::Vector3 mLastCheckpointPosition;
 
 		//Current lap of this vehicle
 		int mLap;
@@ -29,6 +38,17 @@ namespace VroomVroom {
 		PowerUpType mPowerUpType;
 
 		PlayerNumber mPlayerNumber;
+
+		//Current place of the vehicle in the race.
+		int mPlace;
+		//Stores the final timer when the vehicle reaches the finish line.
+		std::string mFinishTime;
+
+		me::Transform* mTransform;
+		me::RigidBody* mRigidBody;
+		CircuitInfo* mCircuitInfo;
+
+		bool mControllable;
 
 		/**
 		Checks if buttonName has been pressed for this playerNumber

@@ -1,7 +1,7 @@
 Entities = {
 	Circuit = {
 	    Transform = {
-            position = { x = 0, y = 5, z = 0 },
+            position = { x = 0, y = 0, z = 0 },
 			rotation = { x = 0, y = 0, z = 0 },
             scale = { x = 80, y = 25, z = 20} --80 30 40
 	    },
@@ -20,8 +20,88 @@ Entities = {
             mesh = "circuit",
             meshName = "Circuito.mesh",
             -- materialName = "Material/roja"
+        },
+        circuitInfo = {
+            laps = 1
         }
 	},
+
+    Car = {
+        Transform = {
+            position = { x= 28, y = 2, z = -10 },
+            scale = { x = 0.5, y = 0.5, z = 0.5 },
+            rotation = {x = 0, y = 0, z = 0}
+        },
+        RigidBody = {
+            colShape = 1,
+            mvType = 0,
+            mass = 1,
+            group = 2,
+            mask = 7,
+            colliderscale = {x = 4, y = 2, z = 4},
+            restitution = .5,
+            friction = 0.5,
+            isTrigger = false
+        },
+        vehicleController = {
+            speed = 1000;
+            rotationspeed = 200;
+            driftFactor = 2;
+            playerNumber = 0;
+        },
+        meshrenderer = {
+            mesh = "kart",
+            meshName = "Kart.mesh",
+            --materialName = "Material/roja"
+        },
+        collider = {
+
+        }
+	},
+
+    camera = {
+        transform = {
+            position = { x = 20, y = 10, z = -10 } -- -104 70 0 / 20 10 -10
+        },
+        camera = {
+            lookat = { x = -20, y = 10, z = -10 }, -- -104 10 0 / -20 10 -10
+            name = "main",
+            neardistance = 0.5,
+            fardistance = 100000,
+            autoratio = true,
+            zorder = 0,
+            backgroundcolor = { r = .72, g = .92, b = 1, a = 1  }
+        },
+		camerafollow = {
+			target = "car",
+			offset = { x= 20, y = 10, z = -10 }
+		}
+    },
+
+    checkpoint0 = {
+        Transform = {
+            position = {  x= 40, y = 2, z = -10 },
+            scale = { x = 0.05, y = 0.05, z = 0.05 }
+        },
+        meshrenderer = {
+            mesh = "checkpoint0",
+            meshName = "cube.mesh"
+        },
+        RigidBody = {
+            colShape = 1,
+            mvType = 1,
+            mass = 1,
+            group = 2,
+            mask = 7,
+            colliderscale = {x = 4, y = 4, z = 4},
+            restitution = .5,
+            friction = 0.5,
+            isTrigger = true
+        },
+        checkpoint = {
+            index = 0
+        }
+    },
 
     ParedDerecha = {
         Transform = {
@@ -694,36 +774,6 @@ Entities = {
     --     },
 		
 	-- },
-
-	Car = {
-        Transform = {
-            position = { x= 0, y = 10, z = -10 },
-            scale = { x = 0.5, y = 0.5, z = 0.5 },
-            rotation = {x = 0, y = 180, z = 0}
-        },
-        RigidBody = {
-            colShape = 1,
-            mvType = 0,
-            mass = 1,
-            group = 2,
-            mask = 7,
-            colliderscale = {x = 4, y = 2, z = 4},
-            restitution = .5,
-            friction = 0.5,
-            isTrigger = false
-        },
-        vehicleController = {
-            speed = 20;
-            rotationspeed = 0.5;
-            driftFactor = 1;
-            playerNumber = 0;
-        },
-        meshrenderer = {
-            mesh = "kart",
-            meshName = "Kart.mesh",
-            --materialName = "Material/roja"
-        }
-	},
     
     -- Cube = {
         -- Transform = {
@@ -751,25 +801,6 @@ Entities = {
             -- --materialName = "Material/roja"
         -- }
 	-- },
-    
-    camera = {
-        transform = {
-            position = { x = 20, y = 10, z = -10 } -- -104 70 0 / 20 10 -10
-        },
-        camera = {
-            lookat = { x = -20, y = 10, z = -10 }, -- -104 10 0 / -20 10 -10
-            name = "main",
-            neardistance = 0.5,
-            fardistance = 100000,
-            autoratio = true,
-            zorder = 0,
-            backgroundcolor = { r = .72, g = .92, b = 1, a = 1  }
-        },
-		camerafollow = {
-			target = "car",
-			offset = { x= 20, y = 10, z = -10 }
-		}
-    },
 
     -- DirectionalLight2 = {
     --     Transform = {

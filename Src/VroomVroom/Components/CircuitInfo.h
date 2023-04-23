@@ -4,6 +4,8 @@
 
 #include "EntityComponent/Components/Component.h"
 #include "Utils/Vector3.h"
+#include "Utils/Timer.h"
+#include <string>
 
 namespace VroomVroom {
 	/**
@@ -12,6 +14,9 @@ namespace VroomVroom {
 	class CircuitInfo : public me::Component {
 	protected:
 		me::Vector3 mPosition; //0,0,0
+
+		//If a vehicle falls beneath this height, it will respawn.
+		float mDeathHeight;
 
 		// multiply by scale
 		float mHalfWidthInner; //72 -> 36
@@ -23,11 +28,15 @@ namespace VroomVroom {
 
 		int mLaps;
 
+		me::Timer* mTimer = nullptr;
+
 	public:
 		CircuitInfo();
 		~CircuitInfo();
 
-		const float pi = 3.14159f;
+		void start() override;
+		void update(const double& dt) override;
+
 		bool isCircuitInside(me::Vector3 pos);
 		me::Vector3 getRandomPosInside();
 		void setPosition(me::Vector3 pos);
@@ -36,6 +45,12 @@ namespace VroomVroom {
 
 		void setLaps(int laps);
 		int getLaps();
+
+		void setDeathHeight(float deathHeight);
+		float getDeathHeight();
+
+		void startRace();
+		std::string getFinishTime();
 	};
 }
 #endif

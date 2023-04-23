@@ -21,7 +21,6 @@ namespace VroomVroom {
 		static int MNumCheckpoints;
 
 		int mIndex;
-		me::Vector3 mSize;
 
 		me::RigidBody* rigidbody = nullptr;
 
@@ -30,9 +29,6 @@ namespace VroomVroom {
 		~Checkpoint();
 
 		void start() override;
-		void update(const double& dt) override;
-
-		void setSize(me::Vector3& size);
 
 		void setIndex(int index);
 		int getIndex();

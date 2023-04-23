@@ -1,16 +1,34 @@
 #include "CircuitInfo.h"
 #include <cstdlib> //  rand() y srand()
 #include <ctime> //  time()
+#define _USE_MATH_DEFINES
+#include <math.h>
 
 using namespace me;
 using namespace VroomVroom;
 
 CircuitInfo::CircuitInfo()
 {
+	mHalfWidthInner = 0;
+	mHalfWidthOuter = 0;
+	mHalfHeightInner = 0;
+	mHalfHeightOuter = 0;
+	mRadiusInner = 0;
+	mRadiusOuter = 0;
 }
 
 CircuitInfo::~CircuitInfo()
 {
+}
+
+void CircuitInfo::start()
+{
+	mTimer = new Timer(false);
+}
+
+void CircuitInfo::update(const double& dt)
+{
+	mTimer->update(dt);
 }
 
 bool CircuitInfo::isCircuitInside(Vector3 pos)
@@ -41,25 +59,19 @@ bool CircuitInfo::isCircuitInside(Vector3 pos)
 	Vector3 dist;
 	float distance;
 	// if pos.x is in (36 , 44)
-	if (pos.x > mPosition.x + mHalfWidthInner )
-	{
+	if (pos.x > mPosition.x + mHalfWidthInner ) {
 		dist = pos - pointRight;
 		distance = dist.magnitude();
 		if (distance < mRadiusInner || distance > mRadiusOuter)
-		{
 			return false;
-		}
 	}
 
 	// if pos.x is in (-44, -36),
-	if (pos.x < mPosition.x - mHalfHeightInner)
-	{
+	if (pos.x < mPosition.x - mHalfHeightInner) {
 		dist = pos - pointLeft;
 		distance = dist.magnitude();
 		if (distance < mRadiusInner || distance > mRadiusOuter)
-		{
 			return false;
-		}
 	}
 
 	return true;
@@ -74,40 +86,30 @@ Vector3 CircuitInfo::getRandomPosInside()
 	x = -mHalfWidthOuter + static_cast<float>(rand()) / static_cast<float>(RAND_MAX / (mHalfWidthOuter*2));
 	
 	//range (-36 , 36)
-	if (x < mHalfWidthInner || x > -mHalfWidthInner)
-	{
+	if (x < mHalfWidthInner || x > -mHalfWidthInner) {
 		bool is_negative = rand() % 2 == 0;
 
 		z= static_cast<float>(rand()) / static_cast<float>(RAND_MAX / (mHalfHeightOuter - mHalfHeightInner));
 
-		if (is_negative) {
+		if (is_negative)
 			z = -z - mHalfHeightInner;
-		}
-		else {
+		else
 			z = z + mHalfHeightInner;
-		}
 
 		x += mPosition.x;
 		z += mPosition.y;
 	}
-	else
-	{
-
+	else {
 		radius = mRadiusInner + static_cast<float>(RAND_MAX / (mRadiusOuter - mRadiusInner));
 		float angle = rand() % 360;
-		float radians = angle * pi / 180.0f;
-
+		float radians = angle * M_PI / 180.0f;
+		
 		x = radius * std::cos(radians);
 		if (x > 0)
-		{
-			x = mPosition.x + mHalfWidthInner- + x ;
-		}
+			x = mPosition.x + mHalfWidthInner- + x;
 		else
-		{
 			x = mPosition.x - mHalfWidthInner - x;
-		}
 		z = radius * std::sin(radians) + mPosition.z;
-
 	}
 	
 	return Vector3(x,mPosition.y,z);
@@ -130,9 +132,30 @@ void CircuitInfo::setInfo(float halfWidthInner, float halfWidthOuter, float half
 
 void CircuitInfo::setLaps(int laps)
 {
+	mLaps = laps;
 }
 
 int CircuitInfo::getLaps()
 {
 	return mLaps;
+}
+
+void CircuitInfo::setDeathHeight(float deathHeight)
+{
+	mDeathHeight = deathHeight;
+}
+
+float CircuitInfo::getDeathHeight()
+{
+	return mDeathHeight;
+}
+
+void CircuitInfo::startRace()
+{
+	mTimer->resume();
+}
+
+std::string CircuitInfo::getFinishTime()
+{
+	return mTimer->getFormattedTime();
 }

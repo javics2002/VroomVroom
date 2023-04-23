@@ -58,6 +58,9 @@ void FactoryWheelController::destroy(me::Component* component)
 Component* FactoryCheckpoint::create(Parameters& params)
 {
     Checkpoint* checkpoint = new Checkpoint();
+
+    checkpoint->setIndex(Value(params, "index", checkpoint->getNumCheckpoints()));
+
     return checkpoint;
 }
 
@@ -66,22 +69,31 @@ void FactoryCheckpoint::destroy(Component* component)
     delete component;
 }
 
-Component* FactoryCirtuitoInfo::create(Parameters& params)
+Component* FactoryCirtuitInfo::create(Parameters& params)
 {
     CircuitInfo* circuitInfo = new CircuitInfo();
     circuitInfo->setPosition(Vector3(Value(params, "position_x", 0.0f),
         Value(params, "position_y", 0.0f), Value(params, "position_z", 0.0f)));
+
+    circuitInfo->setLaps(Value(params, "laps", 3));
+
+    circuitInfo->setInfo(Value(params, "halfwidthinner", 36.0f), Value(params, "halfwidthouter", 44.0f), 
+        Value(params, "halfheightinner", 1.7f), Value(params, "halfheightouter", 8.0f), 
+        Value(params, "radiusinner", 1.7f), Value(params, "radiusouter", 8.0f));
+
     return circuitInfo;
 }
 
-void FactoryCirtuitoInfo::destroy(Component* component)
+void FactoryCirtuitInfo::destroy(Component* component)
 {
     delete component;
 }
 
 Component* FactoryGameManager::create(Parameters& params)
 {
-    return gameManager();
+    GameManager* gameManager = new GameManager();
+
+    return gameManager;
 }
 
 void FactoryGameManager::destroy(Component* component)

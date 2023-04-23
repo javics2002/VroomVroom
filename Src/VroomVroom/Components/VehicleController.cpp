@@ -1,12 +1,19 @@
 #include "VehicleController.h"
+
 #include "Input/InputManager.h"
 #include "EntityComponent/Entity.h"
+#include "EntityComponent/Scene.h"
 #include "EntityComponent/Components/Transform.h"
 #include "EntityComponent/Components/RigidBody.h"
 #include "Checkpoint.h"
+#include "CircuitInfo.h"
 #include "Utils/Vector3.h"
+#include "Utils/Vector4.h"
 #include "PowerUpObject.h"
 #include <math.h>
+#ifdef _DEBUG
+#include <iostream>
+#endif
 
 using namespace me;
 using namespace VroomVroom;
@@ -23,16 +30,42 @@ float VehicleController::getPlayerAxis(std::string axisName)
 
 VehicleController::VehicleController()
 {
+    mCheckpointIndex = 0;
+    mCircuitInfo = nullptr;
+    mControllable = false;
+    mDriftFactor = 0;
+    mLap = 0;
+    mPlace = 0;
+    mPlayerNumber = PLAYERNUMBER_MAX;
+    mPowerUp = false;
+    mPowerUpType = PowerUpType::NERF;
+    mRigidBody = nullptr;
+    mRotationSpeed = 0;
+    mSpeed = 0;
+    mTransform = nullptr;
 }
 
 void VehicleController::start()
 {
     mCheckpointIndex = 0;
     mLap = 0;
+
+    mTransform = mEntity->getComponent<Transform>("transform");
+    mRigidBody = mEntity->getComponent<RigidBody>("rigidbody");
+    mCircuitInfo = mEntity->getScene()->findEntity("circuit").get()->getComponent<CircuitInfo>("circuitinfo");
+
+    mControllable = true;
 }
 
 void VehicleController::update(const double& dt)
 {
+    //Respawn if out of bounds
+    if (mTransform->getPosition().y <= mCircuitInfo->getDeathHeight())
+        mTransform->setPosition(mLastCheckpointPosition);
+
+    if (!mControllable)
+        return;
+
     // Get the input
     bool accelerate = getPlayerButton("ACCELERATE");
     bool decelerate = getPlayerButton("DECELERATE");
@@ -42,29 +75,22 @@ void VehicleController::update(const double& dt)
     //If the player is using keyboard
     float deltaX = getPlayerAxis("HORIZONTAL");
 
+    Vector3 vForward = mTransform->forward();
+
+    // If the vertical input axis is positive, add a forward impulse to the vehicle's rigidbody
+    if (accelerate)
+        mRigidBody->addForce(vForward * mSpeed * dt);
+
+    // If the vertical input axis is negative, add a backward impulse to the vehicle's rigidbody
+    else if (decelerate)
+        mRigidBody->addForce(vForward * -mSpeed * dt);
+
     // Rotate the vehicle
-    Vector3 direction = Vector3(0, 1, 0);
+    float velocity = mRigidBody->getVelocity().magnitude(); //Coger velocity solo en vector forward.
 
-    if (deltaX < 0) { // Left
-        mEntity->getComponent<RigidBody>("rigidbody")->addTorque(direction * (mRotationSpeed * deltaX));
-    }
-    if (deltaX > 0) { // Right
-        mEntity->getComponent<RigidBody>("rigidbody")->addTorque(direction * (mRotationSpeed * deltaX));
-    }
+    mRigidBody->addForce(mTransform->right() * velocity * mRotationSpeed * deltaX * dt);
 
-    Vector3 vForward = mEntity->getComponent<Transform>("transform")->forward();
-
-    //std::cout << "rotated angle: " << rotatedV.x << " " << rotatedV.y << " " << rotatedV.z << "\n";
-
-    if (accelerate) {
-        // If the vertical input axis is positive, add a forward impulse to the vehicle's rigidbody
-        mEntity->getComponent<RigidBody>("rigidbody")->addForce(vForward * mSpeed);
-    }
-
-    else if (decelerate) {
-        // If the vertical input axis is negative, add a backward impulse to the vehicle's rigidbody
-        mEntity->getComponent<RigidBody>("rigidbody")->addForce(vForward * -mSpeed);
-    }
+    mTransform->rotate(deltaX * mDriftFactor * velocity, Vector3::up());
 
     //if (mPowerUp && useObject) {
     //    switch (mPowerUpType)
@@ -108,6 +134,11 @@ void VehicleController::onCollisionEnter(me::Entity* other)
 {
     if (other->hasComponent("Checkpoint")) {
         Checkpoint* checkpoint = other->getComponent<Checkpoint>("Checkpoint");
+        mLastCheckpointPosition = checkpoint->getEntity()->getComponent<Transform>("transform")->getPosition();
+
+#ifdef _DEBUG
+        std::cout << "Car " << mPlayerNumber << " has reached checkpoint " << checkpoint->getIndex() << "\n";
+#endif
 
         if (checkpoint->getIndex() == (mCheckpointIndex + 1) % checkpoint->getNumCheckpoints()) {
             //Next checkpoint
@@ -117,6 +148,20 @@ void VehicleController::onCollisionEnter(me::Entity* other)
                 //Add lap
                 mCheckpointIndex = 0;   
                 mLap++;
+
+#ifdef _DEBUG
+                std::cout << "Car " << mPlayerNumber << " started lap " << mLap << "\n";
+#endif
+
+                if (mLap == mCircuitInfo->getLaps()) {
+                    //Finish race
+                    mFinishTime = mCircuitInfo->getFinishTime();
+                    mControllable = false;
+
+#ifdef _DEBUG
+                    std::cout << "Car " << mPlayerNumber << " finished the race in " << mFinishTime << "\n";
+#endif
+                }
             }
         }
         else if (checkpoint->getIndex() == (mCheckpointIndex + 1) % checkpoint->getNumCheckpoints())
