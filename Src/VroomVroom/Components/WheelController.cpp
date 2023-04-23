@@ -20,7 +20,7 @@ WheelController::~WheelController()
 }
 
 
-void WheelController::update()
+void WheelController::update(const double& dt)
 {
 	bool left = me::inputManager().getButton("LEFT");
 	bool right = me::inputManager().getButton("RIGHT");

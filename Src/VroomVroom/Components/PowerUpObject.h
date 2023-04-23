@@ -29,7 +29,7 @@ namespace VroomVroom {
 		*/
 		void start() override;
 
-		void update() override;
+		void update(const double& dt) override;
 
 		/**
 		* Resets the power-up object

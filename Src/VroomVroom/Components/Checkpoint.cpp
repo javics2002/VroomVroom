@@ -25,7 +25,7 @@ void Checkpoint::start()
 	rigidbody->setColShape(SHAPES_BOX);
 }
 
-void Checkpoint::update()
+void Checkpoint::update(const double& dt)
 {
 }
 

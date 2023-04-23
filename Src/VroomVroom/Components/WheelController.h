@@ -27,7 +27,7 @@ namespace VroomVroom {
 		WheelController();
 		~WheelController();
 
-		void update() override;
+		void update(const double& dt) override;
 	};
 }
 #endif	

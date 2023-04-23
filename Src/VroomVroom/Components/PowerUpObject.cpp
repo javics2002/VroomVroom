@@ -23,7 +23,7 @@ void PowerUpObject::start()
 	mReviveTime = 10000; // Set the time it takes for the power-up object to respawn after being picked up
 }
 
-void PowerUpObject::update()
+void PowerUpObject::update(const double& dt)
 {
 	if (mPicked) {
 		mTime += 1; // Increase the elapsed time since the power-up was picked up by delta time

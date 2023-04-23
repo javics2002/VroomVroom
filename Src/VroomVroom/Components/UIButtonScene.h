@@ -58,7 +58,7 @@ namespace VroomVroom {
 		/**
 		Update UITransform info to image
 		*/
-		void update() override;
+		void update(const double& dt) override;
 
 		void execute();
 

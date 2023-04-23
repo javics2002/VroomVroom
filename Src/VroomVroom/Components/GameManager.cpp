@@ -26,7 +26,7 @@ void GameManager::start()
 	mGameState = GAMESTATE_LOADMAINMENU;
 }
 
-void GameManager::update()
+void GameManager::update(const double& dt)
 {
 	switch (mGameState)
 	{

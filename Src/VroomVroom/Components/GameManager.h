@@ -67,7 +67,7 @@ namespace VroomVroom {
 		void start() override;
 
 		//Call sceneManger loading map or update entities
-		void update() override;
+		void update(const double& dt) override;
 
 		/**
 		Function that change gamestate to startGame when clicked race button in MainMenu

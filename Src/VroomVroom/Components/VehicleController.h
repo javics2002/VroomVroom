@@ -47,7 +47,7 @@ namespace VroomVroom {
 		VehicleController();
 
 		void start() override;
-		void update() override;
+		void update(const double& dt) override;
 
 		// Initializes the speed, rotation speed, and drift factor variables
 		void setSpeedAndDrift(float speed, float angularSpeed, float driftFactor);

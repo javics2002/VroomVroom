@@ -51,7 +51,7 @@ namespace VroomVroom {
 		/*
 		Update transform info to camera node
 		*/
-		void update() override;
+		void update(const double& dt) override;
 
 		/*
 		Sets the target to follow

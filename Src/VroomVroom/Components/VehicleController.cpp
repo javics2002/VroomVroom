@@ -31,7 +31,7 @@ void VehicleController::start()
     mLap = 0;
 }
 
-void VehicleController::update()
+void VehicleController::update(const double& dt)
 {
     // Get the input
     bool accelerate = getPlayerButton("ACCELERATE");
