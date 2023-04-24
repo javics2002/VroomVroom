@@ -122,7 +122,7 @@ void VehicleController::update(const double& dt)
         case THUNDER:
             // Create thunder entity with thunder Component
             std::cout << "PowerUp used: " << "THUNDER" << std::endl;
-            mEntity->getComponent<RigidBody>("rigidbody")->addImpulse(rotatedV * mSpeed * 3);
+            //mEntity->getComponent<RigidBody>("rigidbody")->addImpulse(rotatedV * mSpeed * 3);
             break;
         default:
             break;
