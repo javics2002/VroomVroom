@@ -56,5 +56,11 @@ namespace VroomVroom {
 		me::Component* create(me::Parameters& params) override;
 		void destroy(me::Component* component) override;
 	};
+
+	class FactoryPowerUpUIWheel : public me::FactoryComponent {
+	public:
+		me::Component* create(me::Parameters& params) override;
+		void destroy(me::Component* component) override;
+	};
 }
 #endif

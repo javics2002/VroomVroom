@@ -7,6 +7,7 @@
 #include "Checkpoint.h"
 #include "Oil.h"
 #include "UIButtonScene.h"
+#include "PowerUpUIWheel.h"
 
 using namespace me;
 using namespace VroomVroom;
@@ -132,6 +133,27 @@ me::Component* FactoryUIButtonScene::create(me::Parameters& params)
 }
 
 void FactoryUIButtonScene::destroy(me::Component* component)
+{
+    delete component;
+}
+
+
+me::Component* FactoryPowerUpUIWheel::create(me::Parameters& params)
+{
+    if (params.empty())
+    {
+        return new PowerUpUIWheel();
+    }
+    float spinSpeed = Value(params, "spinspeed", 0.2f);
+    std::string linkedSpriteEntityName = Value(params, "linkedsprite", std::string());
+
+    PowerUpUIWheel* powerUpWheel = new PowerUpUIWheel();
+    powerUpWheel->init(spinSpeed, linkedSpriteEntityName);
+
+    return powerUpWheel;
+}
+
+void FactoryPowerUpUIWheel::destroy(me::Component* component)
 {
     delete component;
 }
