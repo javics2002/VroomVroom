@@ -8,6 +8,7 @@
 #include "Oil.h"
 #include "UIButtonScene.h"
 #include "PowerUpUIWheel.h"
+#include "PowerUpObject.h"
 
 using namespace me;
 using namespace VroomVroom;
@@ -154,6 +155,18 @@ me::Component* FactoryPowerUpUIWheel::create(me::Parameters& params)
 }
 
 void FactoryPowerUpUIWheel::destroy(me::Component* component)
+{
+    delete component;
+}
+
+me::Component* VroomVroom::FactoryPowerUpObject::create(me::Parameters& params)
+{
+    PowerUpObject* power = new PowerUpObject();
+    power->setPower(PowerUpType(Value(params, "type", rand() % 3)));
+    return power;
+}
+
+void VroomVroom::FactoryPowerUpObject::destroy(me::Component* component)
 {
     delete component;
 }

@@ -16,6 +16,9 @@ Entities = {
 		    friction = .3,
 		    isTrigger = false
 	    },
+        collider = {
+            
+        },
         meshrenderer = {
             mesh = "circuit",
             meshName = "Circuito.mesh",
@@ -795,6 +798,9 @@ Entities = {
             driftFactor = 1;
             playerNumber = 0;
         },
+        collider = {
+            
+        },
         meshrenderer = {
             mesh = "kart",
             meshName = "Kart.mesh",
@@ -828,6 +834,34 @@ Entities = {
             -- --materialName = "Material/roja"
         -- }
 	-- },
+    PowerUp = {
+        Transform = {
+            position = { x= -10, y = 7.5, z = -10 },
+            scale = { x = 0.025, y = 0.025, z = 0.025 },
+            rotation = {x = 0, y = 180, z = 0}
+        },
+        RigidBody = {
+            colShape = 1,
+            mvType = 0,
+            mass = 0,
+            group = 2,
+            mask = 7,
+            colliderscale = {x = 50, y = 50, z = 50},
+            restitution = .5,
+            friction = 0.5,
+            isTrigger = true
+        },
+        meshrenderer = {
+            mesh = "cube",
+            meshName = "cube.mesh"
+        },
+        collider = {
+            
+        },
+        PowerUpObject = {
+            type = 2
+        }
+    },
     
     camera = {
         transform = {

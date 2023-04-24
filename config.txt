@@ -4,9 +4,9 @@ GameMachine: MotorEngine
 Platform: x64
 Configuration: Debug
 ------------------------
-debug: false
+make_stops: false
 run_type: Paralelo
 refresh: false
 ------------------------
 recompile-game: true
-recompile-motor: false
+recompile-motor: true

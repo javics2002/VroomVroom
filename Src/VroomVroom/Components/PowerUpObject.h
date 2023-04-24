@@ -37,6 +37,11 @@ namespace VroomVroom {
 		void resetPowerUp();
 
 		/**
+		* Sets a specific power-up
+		*/
+		void setPower(PowerUpType type);
+
+		/**
 		* Called when the power-up object collides with another entity.
 		* @param other: a pointer to the entity that the power-up object collided with.
 		*/

@@ -110,6 +110,26 @@ void VehicleController::update(const double& dt)
 
     //    mPowerUp = false;
     //}
+    if (mPowerUp && useObject) {
+        switch (mPowerUpType)
+        {
+        case NERF:
+            // Create nerf entity  with nerf Component
+            break;
+        case OIL:
+            //Create oil entity with Oil Component
+            break;
+        case THUNDER:
+            // Create thunder entity with thunder Component
+            std::cout << "PowerUp used: " << "THUNDER" << std::endl;
+            mEntity->getComponent<RigidBody>("rigidbody")->addImpulse(rotatedV * mSpeed * 3);
+            break;
+        default:
+            break;
+        }
+
+        mPowerUp = false;
+    }
 }
 
 void VehicleController::setSpeedAndDrift(float speed, float angularSpeed, float driftFactor)

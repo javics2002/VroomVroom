@@ -35,6 +35,7 @@ __VROOMVROOM_API void initFactories()
 	componentsFactory().addFactoryComponent("checkpoint", new FactoryCheckpoint());
 	componentsFactory().addFactoryComponent("uibuttonscene", new FactoryUIButtonScene());
 	componentsFactory().addFactoryComponent("powerupuiwheel", new FactoryPowerUpUIWheel());
+	componentsFactory().addFactoryComponent("powerupobject", new FactoryPowerUpObject());
 }
 
 __VROOMVROOM_API void initInput()
