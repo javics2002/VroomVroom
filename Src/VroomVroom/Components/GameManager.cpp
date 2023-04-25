@@ -16,7 +16,7 @@ using namespace VroomVroom;
 GameManager* GameManager::MInstance = nullptr;
 
 GameManager::GameManager() {
-	mEntity->isActive(); //si instancia nula borrar, singleton
+
 }
 
 GameManager::~GameManager()
@@ -31,37 +31,27 @@ GameManager* VroomVroom::GameManager::Instance()
 void GameManager::start()
 {
 	if (MInstance != nullptr)
-		SceneManager().getActiveScene()->removeEntity(mEntity->getName());
+		sceneManager().getActiveScene()->removeEntity(mEntity->getName());
 	else {
 		MInstance = this;
 		sceneManager().getActiveScene()->promoteToGlobal(mEntity);
-		mGameState = GAMESTATE_LOADMAINMENU;
+		mGameState = GAMESTATE_MAINMENU;
 	}	
+}
+
+void GameManager::changeState(std::string newScene) {
+	if (newScene == "mainmenu.lua")
+		mGameState = GAMESTATE_MAINMENU;
+	else if (newScene == "race.lua")
+		mGameState = GAMESTATE_INGAME;
+	else if (newScene == "results.lua")
+		mGameState = GAMESTATE_RESULTS;
 }
 
 void GameManager::update(const double& dt)
 {
 	switch (mGameState)
 	{
-	case GameState::GAMESTATE_LOADMAINMENU:
-		if (sceneManager().getScene("MainMenu") == nullptr)
-			sceneManager().addScene("MainMenu");
-		sceneManager().setActiveScene("MainMenu");
-		sceneManager().loadEntities("mainmenu.lua");
-
-		mGameState = GameState::GAMESTATE_MAINMENU;
-		break;
-
-	case GameState::GAMESTATE_STARTGAME:
-		if (sceneManager().getScene("Race") == nullptr)
-			sceneManager().addScene("Race");
-		sceneManager().removeScene("MainMenu");
-		sceneManager().setActiveScene("Race");
-		sceneManager().loadEntities("race.lua");
-		
-		mGameState = GameState::GAMESTATE_INGAME;
-		break;
-
 	case GameState::GAMESTATE_LOADGAMEOVER:
 		if (sceneManager().getScene("OverMenu") == nullptr)
 		{
@@ -73,10 +63,18 @@ void GameManager::update(const double& dt)
 		break;
 
 	case GameState::GAMESTATE_INGAME:
-		//mGameState = GAMESTATE_LOADMAINMENU;
+		if (inputManager().getButton("CLOSE" + std::to_string(0))) {
+			sceneManager().change("mainmenu.lua");
+			mGameState = GAMESTATE_MAINMENU;
+		}
+		else if (inputManager().getButton("RESULTS" + std::to_string(0))) {
+			sceneManager().change("results.lua");
+			mGameState = GAMESTATE_RESULTS;
+		}
 		break;
 	case GameState::GAMESTATE_MAINMENU:
 	case GameState::GAMESTATE_GAMEOVER:
+	case GameState::GAMESTATE_RESULTS:
 		//sceneManager().update();
 		//processInput();
 		break;
