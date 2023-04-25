@@ -1,5 +1,5 @@
 #include "VehicleController.h"
-
+#include "GameManager.h"
 #include "Input/InputManager.h"
 #include "EntityComponent/Entity.h"
 #include "EntityComponent/Scene.h"
@@ -11,6 +11,7 @@
 #include "Utils/Vector4.h"
 #include "PowerUpObject.h"
 #include <math.h>
+#include "EntityComponent/SceneManager.h"
 #ifdef _DEBUG
 #include <iostream>
 #endif
@@ -47,7 +48,7 @@ VehicleController::VehicleController()
 
 void VehicleController::start()
 {
-    mCheckpointIndex = 0;
+    mCheckpointIndex = -1;
     mLap = 0;
 
     mTransform = mEntity->getComponent<Transform>("transform");
@@ -152,8 +153,8 @@ float VehicleController::getSpeed()
 
 void VehicleController::onCollisionEnter(me::Entity* other)
 {
-    if (other->hasComponent("Checkpoint")) {
-        Checkpoint* checkpoint = other->getComponent<Checkpoint>("Checkpoint");
+    if (other->hasComponent("checkpoint")) {
+        Checkpoint* checkpoint = other->getComponent<Checkpoint>("checkpoint");
         mLastCheckpointPosition = checkpoint->getEntity()->getComponent<Transform>("transform")->getPosition();
 
 #ifdef _DEBUG
@@ -164,9 +165,9 @@ void VehicleController::onCollisionEnter(me::Entity* other)
             //Next checkpoint
             mCheckpointIndex++; 
 
-            if (mCheckpointIndex == checkpoint->getNumCheckpoints()) {
+            if (mCheckpointIndex == checkpoint->getNumCheckpoints()-1) {
                 //Add lap
-                mCheckpointIndex = 0;   
+                mCheckpointIndex = -1;   
                 mLap++;
 
 #ifdef _DEBUG
@@ -181,6 +182,9 @@ void VehicleController::onCollisionEnter(me::Entity* other)
 #ifdef _DEBUG
                     std::cout << "Car " << mPlayerNumber << " finished the race in " << mFinishTime << "\n";
 #endif
+                    sceneManager().change("results.lua");
+                    gameManager()->changeState("results.lua");
+
                 }
             }
         }

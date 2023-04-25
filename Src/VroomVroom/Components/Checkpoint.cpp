@@ -19,7 +19,8 @@ Checkpoint::~Checkpoint()
 
 void Checkpoint::start()
 {
-	mIndex = MNumCheckpoints++;
+	//mIndex = MNumCheckpoints++;
+	MNumCheckpoints++;
 }
 
 void Checkpoint::setIndex(int index)

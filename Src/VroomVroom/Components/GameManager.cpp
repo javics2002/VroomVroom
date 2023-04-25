@@ -52,16 +52,6 @@ void GameManager::update(const double& dt)
 {
 	switch (mGameState)
 	{
-	case GameState::GAMESTATE_LOADGAMEOVER:
-		if (sceneManager().getScene("OverMenu") == nullptr)
-		{
-			sceneManager().addScene("OverMenu");
-		}
-		sceneManager().setActiveScene("OverMenu");
-		sceneManager().loadEntities("overmenu.lua");
-		mGameState = GameState::GAMESTATE_GAMEOVER;
-		break;
-
 	case GameState::GAMESTATE_INGAME:
 		if (inputManager().getButton("CLOSE" + std::to_string(0))) {
 			sceneManager().change("mainmenu.lua");
