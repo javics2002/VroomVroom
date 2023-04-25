@@ -46,7 +46,7 @@ namespace VroomVroom {
 		//Destroy RenderManager map saved image
 		~UIButtonScene();
 
-		void init(std::string name, std::string materialName);
+		void init(std::string name, std::string materialName, int zOrder);
 
 		/**
 		Get info for UITransform, create the Sprite and set the start pos

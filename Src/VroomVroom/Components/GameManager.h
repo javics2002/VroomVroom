@@ -15,10 +15,9 @@ namespace me {
 
 namespace VroomVroom {
 	enum GameState {
-		GAMESTATE_LOADMAINMENU,
 		GAMESTATE_MAINMENU,
-		GAMESTATE_STARTGAME,
 		GAMESTATE_INGAME,
+		GAMESTATE_RESULTS,
 		GAMESTATE_LOADGAMEOVER,
 		GAMESTATE_GAMEOVER
 	};
@@ -32,7 +31,7 @@ namespace VroomVroom {
 	protected:
 		static GameManager* MInstance;
 
-		GameState mGameState = GAMESTATE_LOADMAINMENU;
+		GameState mGameState = GAMESTATE_MAINMENU;
 		PlayerInputType mPlayerOneType = PLAYERINPUTTYPE_KEYBOARD;
 		PlayerInputType mPlayerTwoType = PLAYERINPUTTYPE_KEYBOARD;
 
@@ -48,6 +47,8 @@ namespace VroomVroom {
 
 		//Call sceneManger loading map or update entities
 		void update(const double& dt) override;
+
+		void changeState(std::string newScene);
 	};
 
 

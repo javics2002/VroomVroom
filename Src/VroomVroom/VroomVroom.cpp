@@ -22,7 +22,7 @@ __VROOMVROOM_API const char* name()
 }
 
 __VROOMVROOM_API bool init() {
-	return sceneManager().loadScene("race.lua");
+	return sceneManager().loadScene("mainmenu.lua");
 }
 
 __VROOMVROOM_API void initFactories()
@@ -41,12 +41,26 @@ __VROOMVROOM_API void initFactories()
 __VROOMVROOM_API void initInput()
 {
 	inputManager().addButton(playerButtonName("LEFTCLICK", 0), 0);
-
 	Input mouseClick;
 	mouseClick.type = INPUTTYPE_MOUSE_CLICK;
 	mouseClick.which = MOUSE_LEFTCLICK;
-
 	inputManager().addBinding(playerButtonName("LEFTCLICK", 0), mouseClick);
+
+
+
+	inputManager().addButton(playerButtonName("CLOSE", 0), 0);
+	Input escape;
+	escape.type = INPUTTYPE_KEYBOARD;
+	escape.which = KEYBOARDCODE_1;
+	inputManager().addBinding(playerButtonName("CLOSE", 0), escape);
+	
+
+	inputManager().addButton(playerButtonName("RESULTS", 0), 0);
+	Input results;
+	results.type = INPUTTYPE_KEYBOARD;
+	results.which = KEYBOARDCODE_2;
+	inputManager().addBinding(playerButtonName("RESULTS", 0), results);
+
 
 	for (int playerI = PLAYERNUMBER_1; playerI != PLAYERNUMBER_MAX; playerI++) {
 		AxisInput horizontal;

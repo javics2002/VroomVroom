@@ -125,9 +125,10 @@ me::Component* FactoryUIButtonScene::create(me::Parameters& params)
     std::string sprite = Value(params, "sprite", std::string());
     std::string materialName = Value(params, "materialname", std::string());
     std::string newScene = Value(params, "scene", std::string());
+    int zOrder= Value(params, "zorder", 1);
 
     UIButtonScene* button = new UIButtonScene();
-    button->init(sprite, materialName);
+    button->init(sprite, materialName,zOrder);
     button->setNewScene(newScene);
 
     return button;

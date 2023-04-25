@@ -19,14 +19,14 @@ UIButtonScene::~UIButtonScene()
 	renderManager().destroyUISprite(mName);
 }
 
-void UIButtonScene::init(std::string name, std::string materialName) 
+void UIButtonScene::init(std::string name, std::string materialName,int zOrder) 
 {
 	mName = name;
 	mSpriteName = materialName;
 
 	if (mSpriteName.size() > 0)
 	{
-		renderManager().createSprite(mName, mSpriteName);
+		renderManager().createSprite(mName, mSpriteName,zOrder);
 	}
 
 }
@@ -56,13 +56,16 @@ void UIButtonScene::update(const double& dt)
 		if (mousePosition.x >= mUITransform->getPosition().x * w && mousePosition.x <= mUITransform->getPosition().y * w + mUITransform->getScale().x * w  &&
 			mousePosition.y >= mUITransform->getPosition().y * h && mousePosition.y <= mUITransform->getPosition().y * h + mUITransform->getScale().y * h) {
 			execute();
+			
+			gameManager()->changeState(mNewScene);
+
 		}
 	}
 }
 
 void UIButtonScene::execute()
 {
-	sceneManager().loadScene(mNewScene);
+	sceneManager().change(mNewScene);
 }
 
 std::string UIButtonScene::getName()
