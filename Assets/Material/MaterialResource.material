@@ -213,3 +213,39 @@ material Main/button
 		}
 	}
 }
+
+material insideRoundedSquare
+{
+	technique
+	{
+		pass
+		{
+			depth_check off
+			lighting off
+			scene_blend alpha_blend
+			texture_unit 
+			{
+				texture RoundedSquare.PNG
+				colour_op replace
+			}
+		}
+	}
+}
+
+material insideroundedsquare
+{
+	technique
+	{
+		pass
+		{
+			depth_check off
+			lighting off
+			scene_blend alpha_blend
+			texture_unit 
+			{
+				texture RoundedSquare.PNG
+				colour_op replace
+			}
+		}
+	}
+}
