@@ -15,12 +15,7 @@ PowerUpUIWheel::~PowerUpUIWheel()
 {
 }
 
-void PowerUpUIWheel::init(float spinSpeed, std::string linkedUISpriteName) {
-	mSpinSpeed = spinSpeed;
 
-	if (linkedUISpriteName != "")
-		mLinkedUISprite = getEntity()->getScene()->findEntity(linkedUISpriteName)->getComponent<UISpriteRenderer>("uispriterenderer");
-}
 
 void PowerUpUIWheel::start() {
 	mSpinning = false;
@@ -28,6 +23,7 @@ void PowerUpUIWheel::start() {
 	mSpinTimer = new Timer(false);
 	mTotalSpinTime = 1;
 	mSpriteToLandOn = "NameNotSet";
+	mLinkedUISprite = mEntity->getScene()->findEntity(mLinkedUISpriteName)->getComponent<UISpriteRenderer>("uispriterenderer");
 }
 
 void PowerUpUIWheel::update(const double& dt) {
@@ -37,7 +33,7 @@ void PowerUpUIWheel::update(const double& dt) {
 	mSpriteIntervalTimer->update(dt);
 	mSpinTimer->update(dt);
 
-	if (mSpriteIntervalTimer->getRawSeconds() > 1.0 / mSpinSpeed) {
+	if (mSpriteIntervalTimer->getRawSeconds() > mSpinSpeed) {
 		mSpriteIntervalTimer->reset();
 
 		std::string lastName = mAvailableSpriteNames.front();
@@ -71,6 +67,17 @@ void PowerUpUIWheel::spinForSecondsAndLandOnSprite(float secs, std::string mater
 
 void PowerUpUIWheel::addSpriteNameToPool(std::string materialName) {
 	mAvailableSpriteNames.push_back(materialName);
+}
+
+void VroomVroom::PowerUpUIWheel::setSpinSpeed(float spinSpeed)
+{
+	mSpinSpeed = spinSpeed;
+}
+
+void VroomVroom::PowerUpUIWheel::setLinked(std::string linkedUISpriteName)
+{
+	if (linkedUISpriteName != "")
+		mLinkedUISpriteName = linkedUISpriteName;
 }
 
 void PowerUpUIWheel::stopSpinOnSprite(std::string materialName) {

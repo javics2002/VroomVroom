@@ -15,6 +15,7 @@ namespace me {
 namespace VroomVroom {
 	class Checkpoint;
 	class CircuitInfo;
+	class PowerUpUIWheel;
 
 	enum PowerUpType : int;
 
@@ -47,6 +48,7 @@ namespace VroomVroom {
 		me::Transform* mTransform;
 		me::RigidBody* mRigidBody;
 		CircuitInfo* mCircuitInfo;
+		PowerUpUIWheel* mPowerUpUIWheel;
 
 		bool mControllable;
 
@@ -73,6 +75,8 @@ namespace VroomVroom {
 		void setSpeedAndDrift(float speed, float angularSpeed, float driftFactor);
 
 		void setPowerUp(PowerUpType powerUpType);
+
+		void setPowerUpUI();
 
 		inline void setPlayerNumber(PlayerNumber playerNumber) {
 			mPlayerNumber = playerNumber;

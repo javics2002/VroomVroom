@@ -24,7 +24,6 @@ namespace VroomVroom {
 		PowerUpUIWheel();
 		~PowerUpUIWheel();
 
-		void init(float spinSpeed, std::string linkedUISpriteName);
 		void start() override;
 		void update(const double& dt) override;
 
@@ -46,6 +45,9 @@ namespace VroomVroom {
 		*/
 		void addSpriteNameToPool(std::string materialName);
 
+		void setSpinSpeed(float spinSpeed);
+		void setLinked(std::string linkedUISpriteName);
+
 
 	private:
 		// Described in component
@@ -55,6 +57,7 @@ namespace VroomVroom {
 		// For internal purposes
 		std::list<std::string> mAvailableSpriteNames;	// Dictated by the PowerUp Wheel Manager, which knows of each PowerUp and the name of its Sprite. Calls addSpriteNameToPool to add.
 		std::string mSpriteToLandOn;
+		std::string mLinkedUISpriteName;
 		bool mSpinning;
 		me::Timer* mSpriteIntervalTimer;
 		me::Timer* mSpinTimer;

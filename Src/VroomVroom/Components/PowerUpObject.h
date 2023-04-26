@@ -5,6 +5,11 @@
 #include "EntityComponent/Entity.h"
 #include "EntityComponent/Components/Component.h"
 
+namespace me {
+	class Timer;
+	class Transform;
+}
+
 namespace VroomVroom {
 	/**
 	* Enumeration representing the different types of power-ups that can be picked up by a player.
@@ -49,8 +54,9 @@ namespace VroomVroom {
 
 	private:
 		PowerUpType mPowerUp; // the type of power-up that this object represents
+		me::Transform* mTransform;
 
-		float mTime; // the time that has elapsed since the power-up object was picked
+		me::Timer* mTimer;
 		float mReviveTime; // the time it takes for the power-up object to respawn after being picked up
 		bool mPicked; // whether the power-up object has been picked up by a player
 	};

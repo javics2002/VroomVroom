@@ -150,7 +150,8 @@ me::Component* FactoryPowerUpUIWheel::create(me::Parameters& params)
     std::string linkedSpriteEntityName = Value(params, "linkedsprite", std::string());
 
     PowerUpUIWheel* powerUpWheel = new PowerUpUIWheel();
-    powerUpWheel->init(spinSpeed, linkedSpriteEntityName);
+    powerUpWheel->setSpinSpeed(spinSpeed);
+    powerUpWheel->setLinked(linkedSpriteEntityName);
 
     return powerUpWheel;
 }
