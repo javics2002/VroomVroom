@@ -29,31 +29,9 @@ Entities = {
         }
 	},
     
-    -- SpriteTest2 = {
-    --     UITransform = {
-    --         position = { x = 0.8, y = 0.8 },
-    --         scale = { x = 0.1, y = 0.15 },
-    --         rotation = 0
-    --     },
-    --     UISpriteRenderer = {
-    --         sprite = "lightning",     -- Nombre Interno
-    --         materialName = "lightningBolt"  -- Nombre en MaterialsResource
-    --     }
-    -- },
 
-    -- SpriteTest3 = {
-    --     UITransform = {
-    --         position = { x = 0.05, y = 0.8 },
-    --         scale = { x = 0.1, y = 0.15 },
-    --         rotation = 0
-    --     },
-    --     UISpriteRenderer = {
-    --         sprite = "nerf",     -- Nombre Interno
-    --         materialName = "nerf"  -- Nombre en MaterialsResource
-    --     }
-    -- },
 
-	Car = {
+	CarOne = {
         Transform = {
             position = { x= 0, y = 10, z = -10 },
             scale = { x = 0.5, y = 0.5, z = 0.5 },
@@ -71,10 +49,10 @@ Entities = {
             isTrigger = false
         },
         vehicleController = {
-            speed = 1000;
-            rotationspeed = 200;
-            driftFactor = 1;
-            playerNumber = 0;
+            speed = 1000,
+            rotationspeed = 200,
+            driftFactor = 1,
+            playerNumber = 0
         },
         collider = {
             
@@ -84,12 +62,89 @@ Entities = {
             linkedsprite = "insideroundedsquare"
         },
         meshrenderer = {
-            mesh = "kart",
+            mesh = "kartone",
+            meshName = "Kart.mesh",
+            --materialName = "Material/roja"
+        }
+	},
+
+    cameraOne = {
+        transform = {
+            position = { x = -90, y = 100, z = 0 } -- -104 70 0 / 20 10 -10
+        },
+        camera = {
+            lookat = { x = -9, y = 1, z = 0 }, -- -104 10 0 / -20 10 -10
+            name = "mainOne",
+            neardistance = 0.5,
+            fardistance = 100000,
+            autoratio = true,
+            zorder = 0,
+            backgroundcolor = { r = .72, g = .92, b = 1, a = 1  },
+            viewport = { left = 0.0, right = 0.0, width = 0.5, height =1.0 }
+        },
+		camerafollow = {
+			target = "carone",
+			offset = { x= 20, y = 10, z = -10 }
+		}
+    },
+
+
+    CarTwo = {
+        Transform = {
+            position = { x= 0, y = 10, z = -15 },
+            scale = { x = 0.5, y = 0.5, z = 0.5 },
+            rotation = {x = 0, y = 180, z = 0}
+        },
+        RigidBody = {
+            colShape = 1,
+            mvType = 0,
+            mass = 1,
+            group = 2,
+            mask = 7,
+            colliderscale = {x = 4, y = 2, z = 4},
+            restitution = .5,
+            friction = 0.5,
+            isTrigger = false
+        },
+        vehicleController = {
+            speed = 1000,
+            rotationspeed = 200,
+            driftFactor = 1,
+            playerNumber = 1
+        },
+        collider = {
+            
+        },
+        powerupuiwheel = {
+            spinspeed = 0.1;
+            linkedsprite = "insideroundedsquare"
+        },
+        meshrenderer = {
+            mesh = "karttwo",
             meshName = "Kart.mesh",
             --materialName = "Material/roja"
         }
 	},
     
+    cameraTwo = {
+        transform = {
+            position = { x = -90, y = 100, z = 0 } -- -104 70 0 / 20 10 -10
+        },
+        camera = {
+            lookat = { x = -9, y = 1, z = 0 }, -- -104 10 0 / -20 10 -10
+            name = "mainTwo",
+            neardistance = 0.5,
+            fardistance = 100000,
+            autoratio = true,
+            zorder = 1,
+            backgroundcolor = { r = .72, g = .92, b = 1, a = 1  },
+            viewport = { left = 0.5, top = 0.0, width = 0.5, height =1.0 }
+        },
+		camerafollow = {
+			target = "cartwo",
+			offset = { x= 20, y = 10, z = -10 }
+		}
+    },
 
     insideRoundedSquare = {
         UITransform = {
@@ -302,24 +357,7 @@ Entities = {
     -- --     }
     -- -- },
     
-    camera = {
-        transform = {
-            position = { x = -90, y = 100, z = 0 } -- -104 70 0 / 20 10 -10
-        },
-        camera = {
-            lookat = { x = -90, y = 10, z = 0 }, -- -104 10 0 / -20 10 -10
-            name = "main",
-            neardistance = 0.5,
-            fardistance = 100000,
-            autoratio = true,
-            zorder = 0,
-            backgroundcolor = { r = .72, g = .92, b = 1, a = 1  }
-        },
-		camerafollow = {
-			target = "car",
-			offset = { x= 20, y = 10, z = -10 }
-		}
-    },
+
 
     -- -- checkpoint = {
     -- --     Transform = {
@@ -1093,6 +1131,31 @@ Entities = {
 	    },
         collider = {}
     }
+
+
+        -- SpriteTest2 = {
+    --     UITransform = {
+    --         position = { x = 0.8, y = 0.8 },
+    --         scale = { x = 0.1, y = 0.15 },
+    --         rotation = 0
+    --     },
+    --     UISpriteRenderer = {
+    --         sprite = "lightning",     -- Nombre Interno
+    --         materialName = "lightningBolt"  -- Nombre en MaterialsResource
+    --     }
+    -- },
+
+    -- SpriteTest3 = {
+    --     UITransform = {
+    --         position = { x = 0.05, y = 0.8 },
+    --         scale = { x = 0.1, y = 0.15 },
+    --         rotation = 0
+    --     },
+    --     UISpriteRenderer = {
+    --         sprite = "nerf",     -- Nombre Interno
+    --         materialName = "nerf"  -- Nombre en MaterialsResource
+    --     }
+    -- },
 }
 
 

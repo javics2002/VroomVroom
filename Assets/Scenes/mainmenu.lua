@@ -26,6 +26,9 @@ Entities = {
         }
     },
  
+    GameManager ={
+        GameManager ={}
+    },
 
     Background = {
         UITransform = {
@@ -35,14 +38,16 @@ Entities = {
         },
         UISpriteRenderer = {
             sprite = "mainbackground",
-            materialName = "Main/background"
+            materialName = "Main/background",
+            zorder=0
         }
     },
     Title = {
 
         UISpriteRenderer = {
             sprite = "maintitle",
-            materialName = "Main/title"
+            materialName = "Main/title",
+            zorder=1
         },
         UITransform = {
             position = { x = 0.25, y = 0.1 },
@@ -55,7 +60,8 @@ Entities = {
         UIButtonScene = {
             sprite = "mainbutton",
             materialName = "Main/button",
-            scene = "Race"
+            zorder=2,
+            scene = "race.lua"
         },
 
         UITransform = {
