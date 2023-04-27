@@ -35,7 +35,6 @@ namespace VroomVroom {
 		//Current lap of this vehicle
 		int mLap;
 
-		bool mPowerUp;
 		PowerUpType mPowerUpType;
 
 		PlayerNumber mPlayerNumber;

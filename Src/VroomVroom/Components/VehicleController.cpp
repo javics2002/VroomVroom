@@ -235,7 +235,6 @@ VehicleController::VehicleController()
     mLap = 0;
     mPlace = 0;
     mPlayerNumber = PLAYERNUMBER_MAX;
-    mPowerUp = false;
     mPowerUpType = PowerUpType::NERF;
     mRigidBody = nullptr;
     mRotationSpeed = 0;
@@ -325,7 +324,10 @@ void VehicleController::update(const double& dt)
 
     //    mPowerUp = false;
     //}
-    if (mPowerUp && useObject) {
+    if (mPowerUpUIWheel->isAnimEnd() && useObject) {
+        
+        me::Entity* powerUPEntity = new me::Entity();
+        
         switch (mPowerUpType)
         {
         case NERF:
@@ -343,7 +345,7 @@ void VehicleController::update(const double& dt)
             break;
         }
 
-        mPowerUp = false;
+        mPowerUpUIWheel->resetLinkSprite();
     }
 }
 
@@ -357,7 +359,6 @@ void VehicleController::setSpeedAndDrift(float speed, float angularSpeed, float 
 void VehicleController::setPowerUp(PowerUpType powerUpType)
 {
     mPowerUpType = powerUpType;
-    mPowerUp = true;
 }
 
 void VroomVroom::VehicleController::setPowerUpUI()

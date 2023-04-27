@@ -19,6 +19,7 @@ PowerUpUIWheel::~PowerUpUIWheel()
 
 void PowerUpUIWheel::start() {
 	mSpinning = false;
+	mAnimEnd = false;
 	mSpriteIntervalTimer = new Timer(false);
 	mSpinTimer = new Timer(false);
 	mTotalSpinTime = 1;
@@ -80,8 +81,20 @@ void VroomVroom::PowerUpUIWheel::setLinked(std::string linkedUISpriteName)
 		mLinkedUISpriteName = linkedUISpriteName;
 }
 
+void VroomVroom::PowerUpUIWheel::resetLinkSprite()
+{
+	mLinkedUISprite->resetSpriteMaterial();
+	mAnimEnd = false;
+}
+
+bool VroomVroom::PowerUpUIWheel::isAnimEnd()
+{
+	return mAnimEnd;
+}
+
 void PowerUpUIWheel::stopSpinOnSprite(std::string materialName) {
 	mSpinning = false;
+	mAnimEnd = true;
 	mSpriteIntervalTimer->pause();
 	mLinkedUISprite->setSpriteMaterial(materialName);
 	mAvailableSpriteNames.remove(materialName);

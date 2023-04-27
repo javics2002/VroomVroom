@@ -48,6 +48,10 @@ namespace VroomVroom {
 		void setSpinSpeed(float spinSpeed);
 		void setLinked(std::string linkedUISpriteName);
 
+		//set the original sprite to the link
+		void resetLinkSprite();
+
+		bool isAnimEnd();
 
 	private:
 		// Described in component
@@ -59,6 +63,7 @@ namespace VroomVroom {
 		std::string mSpriteToLandOn;
 		std::string mLinkedUISpriteName;
 		bool mSpinning;
+		bool mAnimEnd;
 		me::Timer* mSpriteIntervalTimer;
 		me::Timer* mSpinTimer;
 		float mTotalSpinTime;	// This comes from the PowerUp Wheel Manager, which calls spinForSeconds
