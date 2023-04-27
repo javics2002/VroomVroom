@@ -1,5 +1,6 @@
 #include "Oil.h"
 #include "EntityComponent/Components/RigidBody.h"
+#include "VehicleController.h"
 #include "EntityComponent/Entity.h"
 
 using namespace me;
@@ -27,22 +28,28 @@ void Oil::setFriction(float friction)
 
 void Oil::onCollisionEnter(me::Entity* other)
 {
-	// Save the player's current friction value to be restored later
-	mPlayerFriction = other->getComponent<me::RigidBody>("Rigidbody")->getFriction();
-	other->getComponent<me::RigidBody>("Rigidbody")->setFriction(mFriction);
-	
+	if (other->getName() == "car") {
+		// Save the player's current friction value to be restored later
+		mPlayerFriction = other->getComponent<me::RigidBody>("Rigidbody")->getFriction();
+		other->getComponent<me::RigidBody>("Rigidbody")->setFriction(mFriction);
+	}
 }
 
 void Oil::onCollisionStay(me::Entity* other)
 {
-	// Apply the oil's friction to the player
-	other->getComponent<me::RigidBody>("Rigidbody")->setFriction(mFriction);
+	if (other->getName() == "car") {
+		// Apply the oil's friction to the player
+		other->getComponent<me::RigidBody>("Rigidbody")->setFriction(mFriction);
+	}
 }
 
 void Oil::onCollisionExit(me::Entity* other)
 {
-	// Restore the player's previous friction value
-	other->getComponent<me::RigidBody>("Rigidbody")->setFriction(mPlayerFriction);
-	// Destroy the oil object from the scene
-	mEntity->destroy();
+	if (other->getName() == "car") {
+		// Restore the player's previous friction value
+		other->getComponent<me::RigidBody>("Rigidbody")->setFriction(mPlayerFriction);
+		// Destroy the oil object from the scene
+		mEntity->destroy();
+	}
+	
 }

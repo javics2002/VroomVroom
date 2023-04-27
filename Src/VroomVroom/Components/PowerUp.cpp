@@ -12,3 +12,5 @@ PowerUp::PowerUp()
 PowerUp::~PowerUp()
 {
 }
+
+void VroomVroom::PowerUp::use(me::Entity* other){}

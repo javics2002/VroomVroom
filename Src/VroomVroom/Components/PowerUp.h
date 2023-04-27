@@ -13,6 +13,9 @@ namespace VroomVroom {
 	public:
 		PowerUp();
 		~PowerUp();
+
+		//Method to be called whenever a player uses a power up, other being the user.
+		virtual void use(me::Entity* other);
 	};
 }
 #endif

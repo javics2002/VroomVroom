@@ -60,6 +60,9 @@
     <ClCompile Include="..\..\Src\VroomVroom\Components\PowerUpUIWheel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Src\VroomVroom\Components\Nerf.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Src\VroomVroom\framework.h">
@@ -108,6 +111,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Src\VroomVroom\Components\PowerUpUIWheel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\VroomVroom\Components\Nerf.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

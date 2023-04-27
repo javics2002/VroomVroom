@@ -82,6 +82,10 @@ namespace VroomVroom {
 			mPlayerNumber = playerNumber;
 		}
 
+		inline void setControllable(bool controllable) {
+			mControllable = controllable;
+		}
+
 		/**
 		Get the speed value of the Vehicle Controller component.
 		@return A float object representing the speed.

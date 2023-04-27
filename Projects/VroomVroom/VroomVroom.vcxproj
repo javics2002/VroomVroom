@@ -22,6 +22,7 @@
     <ClCompile Include="..\..\Src\VroomVroom\Components\CameraFollow.cpp" />
     <ClCompile Include="..\..\Src\VroomVroom\Components\Checkpoint.cpp" />
     <ClCompile Include="..\..\Src\VroomVroom\Components\GameManager.cpp" />
+    <ClCompile Include="..\..\Src\VroomVroom\Components\Nerf.cpp" />
     <ClCompile Include="..\..\Src\VroomVroom\Components\Oil.cpp" />
     <ClCompile Include="..\..\Src\VroomVroom\Components\PowerUp.cpp" />
     <ClCompile Include="..\..\Src\VroomVroom\Components\PowerUpObject.cpp" />
@@ -39,6 +40,7 @@
     <ClInclude Include="..\..\Src\VroomVroom\Components\CameraFollow.h" />
     <ClInclude Include="..\..\Src\VroomVroom\Components\Checkpoint.h" />
     <ClInclude Include="..\..\Src\VroomVroom\Components\GameManager.h" />
+    <ClInclude Include="..\..\Src\VroomVroom\Components\Nerf.h" />
     <ClInclude Include="..\..\Src\VroomVroom\Components\Oil.h" />
     <ClInclude Include="..\..\Src\VroomVroom\Components\PowerUp.h" />
     <ClInclude Include="..\..\Src\VroomVroom\Components\PowerUpObject.h" />
