@@ -14,6 +14,7 @@
 #ifdef _DEBUG
 #include <iostream>
 #endif
+#define MY_PI 3.14159265358979323846
 
 using namespace me;
 using namespace VroomVroom;
@@ -41,7 +42,7 @@ VehicleController::VehicleController()
     mPowerUpType = PowerUpType::NERF;
     mRigidBody = nullptr;
     mRotationSpeed = 0;
-    mSpeed = 0;
+    mSpeed = Vector2();
     mTransform = nullptr;
 }
 
@@ -60,8 +61,8 @@ void VehicleController::start()
 void VehicleController::update(const double& dt)
 {
     //Respawn if out of bounds
-    if (mTransform->getPosition().y <= mCircuitInfo->getDeathHeight())
-        mTransform->setPosition(mLastCheckpointPosition);
+    /*if (mTransform->getPosition().y <= mCircuitInfo->getDeathHeight())
+        mTransform->setPosition(mLastCheckpointPosition);*/
 
     if (!mControllable)
         return;
@@ -75,41 +76,22 @@ void VehicleController::update(const double& dt)
     //If the player is using keyboard
     float deltaX = getPlayerAxis("HORIZONTAL");
 
-    Vector3 vForward = mTransform->forward();
+    Vector3 vForward = mTransform->forward().normalize();
 
     // If the vertical input axis is positive, add a forward impulse to the vehicle's rigidbody
     if (accelerate)
-        mRigidBody->addForce(vForward * mSpeed * dt);
+        mRigidBody->addForce(vForward * mAcceleration * dt);
 
     // If the vertical input axis is negative, add a backward impulse to the vehicle's rigidbody
     else if (decelerate)
-        mRigidBody->addForce(vForward * -mSpeed * dt);
+        mRigidBody->addForce(vForward * mDeceleration * dt);
 
     // Rotate the vehicle
-    float velocity = mRigidBody->getVelocity().magnitude(); //Coger velocity solo en vector forward.
+    if (deltaX != 0)
+        applyRotation(dt, deltaX);
+    
 
-    mRigidBody->addForce(mTransform->right() * velocity * mRotationSpeed * deltaX * dt);
-
-    mTransform->rotate(deltaX * mDriftFactor * velocity, Vector3::up());
-
-    //if (mPowerUp && useObject) {
-    //    switch (mPowerUpType)
-    //    {
-    //    case NERF:
-    //        // Create nerf entity  with nerf Component
-    //        break;
-    //    case OIL:
-    //        //Create oil entity with Oil Component
-    //        break;
-    //    case THUNDER:
-    //        // Create thunder entity  with thunder Component
-    //        break;
-    //    default:
-    //        break;
-    //    }
-
-    //    mPowerUp = false;
-    //}
+    // make use of the power up active if it has anyone
     if (mPowerUp && useObject) {
         switch (mPowerUpType)
         {
@@ -122,7 +104,7 @@ void VehicleController::update(const double& dt)
         case THUNDER:
             // Create thunder entity with thunder Component
             std::cout << "PowerUp used: " << "THUNDER" << std::endl;
-            //mEntity->getComponent<RigidBody>("rigidbody")->addImpulse(rotatedV * mSpeed * 3);
+            mEntity->getComponent<RigidBody>("rigidbody")->addImpulse(vForward * mAcceleration * 3);
             break;
         default:
             break;
@@ -132,9 +114,93 @@ void VehicleController::update(const double& dt)
     }
 }
 
+void VehicleController::fixedUpdate() {
+    // Actualizar la velocidad y la dirección del coche
+    float increase = mAcceleration - mFriction;
+    mVelocity = mVelocity + increase;
+    mDirection += mRotation;
+
+    // Aplicar la gravedad para simular la caída del coche
+    mPosition.y += mGravity;
+
+    // Calcular la velocidad horizontal y vertical a partir de la dirección y la velocidad
+    mSpeed.x = mVelocity * std::cos(mDirection);
+    mSpeed.y = mVelocity * std::sin(mDirection);
+
+    // Mover el coche en la dirección del vector de velocidad
+    mPosition.x += mSpeed.x;
+    mPosition.y += mSpeed.y;
+
+    // Verificar si el coche ha colisionado con un obstáculo y aplicar la lógica de colisión
+
+    // Verificar si el coche está haciendo un derrape y aplicar la lógica de derrape
+    if (mDrift) {
+        // Reducir la fricción del coche para permitir que derrape
+        mFriction -= 0.1;
+        // Aplicar una fuerza lateral para girar mientras se derrapa
+        mDirection += mRotation * 0.5;
+    }
+    else {
+        // Restablecer la fricción normal del coche
+        mFriction = 0.1;
+    }
+}
+
+void VroomVroom::VehicleController::angularSpeed(float deltaX)
+{
+    if (deltaX != 0) {
+        // variables for this method
+        Vector3 vNormal = mTransform->up();
+        Vector3 position = mTransform->getPosition();
+        float tangencialSpeed = mRigidBody->getVelocity().magnitude();
+        float radius = tangencialSpeed * maxRadius / maxSpeed;
+
+        // reference turning point
+        Vector3 right = mTransform->right().normalize();
+        Vector3 turningPoint = position - (right * deltaX * radius); // puede que sea un + en lugar de -
+        Vector3 vRadius = turningPoint - position;
+
+        // rotation axis calculate by cross product between vNormal and vRadius
+        Vector3 rotationAxis = vNormal.cross(vRadius);
+
+        // angular speed in degrees
+        float angularSpeed = tangencialSpeed / radius * (180.0f / MY_PI);
+        Vector3 v_squared = mRigidBody->getVelocity() * mRigidBody->getVelocity();
+
+        // make the final rotation
+        //mTransform->rotate(angularSpeed, rotationAxis);
+        Vector3 centripetalForce = (v_squared / vRadius) * mRigidBody->getMass();
+        mRigidBody->addForce(centripetalForce);
+        //mRigidBody->addTorque(centripetalForce * vRadius);
+    }
+}
+
+void VroomVroom::VehicleController::applyRotation(const double& dt, float deltaX)
+{
+    float tangencialSpeed = mRigidBody->getVelocity().magnitude();
+    if (tangencialSpeed > minSpeed) {
+        // apply a torque to rotate the body  
+        mRigidBody->addTorque(mTransform->up() * deltaX * mRotationSpeed * dt);
+        Vector3 w = mRigidBody->getAngularVelocity();
+        float w_abs = w.magnitude();
+
+        if (w_abs > maxAngularSpeed) {
+            w.normalize();
+            mRigidBody->setAngularVelocity(w * maxAngularSpeed);
+        }
+
+        // apply a lateral force to the body
+        Vector3 velocity = mRigidBody->getVelocity();
+        Vector3 lateralDirection = velocity.cross(mTransform->up()).normalize();
+        Vector3 lateralForce = lateralDirection * lateralForceFactor * dt;
+        mRigidBody->addForce(lateralForce);
+    }
+}
+
 void VehicleController::setSpeedAndDrift(float speed, float angularSpeed, float driftFactor)
 {
-    mSpeed = speed;
+    mAcceleration = speed * 2;
+    mDeceleration = -speed;
     mRotationSpeed = angularSpeed;
     mDriftFactor = driftFactor;
 }
@@ -147,7 +213,7 @@ void VehicleController::setPowerUp(PowerUpType powerUpType)
 
 float VehicleController::getSpeed()
 {
-    return mSpeed;
+    return mVelocity;
 }
 
 void VehicleController::onCollisionEnter(me::Entity* other)

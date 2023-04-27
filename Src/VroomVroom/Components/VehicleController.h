@@ -5,6 +5,7 @@
 #include "EntityComponent/Components/Component.h"
 #include "VroomVroom/VroomVroomInput.h"
 #include "Utils/Vector3.h"
+#include "Utils/Vector2.h"
 #include <string>
 
 namespace me {
@@ -23,9 +24,33 @@ namespace VroomVroom {
 	*/
 	class VehicleController : public me::Component {
 	private:
-		float mSpeed;
+		// Variables de estado del coche
+		me::Vector2 mSpeed = me::Vector2();
+		float mVelocity = 0;
+		float mDirection = 0;
+		me::Vector2 mPosition = me::Vector2();
+
+		// Variables de física del coche
+		//float mAcceleration = 0;
+		float mFriction = 0;
+		float mGravity = 0;
+		float mRotation = 0;
+
+		// flags de movimiento
+		bool mDrift = false;
+
+		// predefine constant parameters
+		float mAcceleration = 0;
+		float mDeceleration = 0;
+		float maxSpeed = 45.5;
+		float minSpeed = 8.5;
+		float maxAngularSpeed = 3.5;
+		float maxRadius = 20.0;
+
+		//float mSpeed;
 		float mRotationSpeed;
 		float mDriftFactor;
+		float lateralForceFactor = 100.0f;
 
 		//Index of the last valid checkpoint
 		int mCheckpointIndex;
@@ -62,6 +87,15 @@ namespace VroomVroom {
 		@returns Value of axisName of this player
 		*/
 		float getPlayerAxis(std::string axisName);
+
+		void fixedUpdate();
+		void angularSpeed(float deltaX);
+
+		/**
+		Apply the rotation physics to the car, using angularSpeed.
+		@param DeltaX turn direction
+		*/
+		void applyRotation(const double& dt, float deltaX);
 
 	public:
 		VehicleController();
