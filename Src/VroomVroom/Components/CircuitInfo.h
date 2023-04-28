@@ -3,11 +3,15 @@
 #define __VROOMVROOM_CIRCUITOINFO
 
 #include "EntityComponent/Components/Component.h"
+#include "EntityComponent/Components/UISpriteRenderer.h"
 #include "Utils/Vector3.h"
 #include "Utils/Timer.h"
 #include <string>
+#include <vector>
 
 namespace VroomVroom {
+	class VehicleController;
+
 	/**
 	Stores information about the circuits area
 	*/
@@ -28,7 +32,12 @@ namespace VroomVroom {
 
 		int mLaps;
 
+		bool mRaceStarted = false;
 		me::Timer* mTimer = nullptr;
+
+		std::vector<VehicleController*> mVehicles;
+
+		me::UISpriteRenderer* mCountdownSprite;
 
 	public:
 		CircuitInfo();
@@ -51,6 +60,8 @@ namespace VroomVroom {
 
 		void startRace();
 		std::string getFinishTime();
+
+		void addVehicle(VehicleController* newVehicle);
 	};
 }
 #endif

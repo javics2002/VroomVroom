@@ -1,5 +1,10 @@
 Entities = {
     
+    gameManager = {
+        GameManager = {}
+    },
+
+
     camera = {
         transform = {
             position = { x = 30, y = 10, z = 0 }
@@ -26,9 +31,6 @@ Entities = {
         }
     },
  
-    GameManager ={
-        GameManager ={}
-    },
 
     Background = {
         UITransform = {
@@ -39,7 +41,7 @@ Entities = {
         UISpriteRenderer = {
             sprite = "mainbackground",
             materialName = "Main/background",
-            zorder=0
+            zorder = 1
         }
     },
     Title = {
@@ -47,11 +49,11 @@ Entities = {
         UISpriteRenderer = {
             sprite = "maintitle",
             materialName = "Main/title",
-            zorder=1
+            zorder = 2
         },
         UITransform = {
-            position = { x = 0.25, y = 0.1 },
-            scale = { x = 0.5, y = 0.2},
+            position = { x = 0.20, y = 0.07 },
+            scale = { x = 0.5, y = 0.4},
             rotation = 0
         }
     },
@@ -60,8 +62,8 @@ Entities = {
         UIButtonScene = {
             sprite = "mainbutton",
             materialName = "Main/button",
-            zorder=2,
-            scene = "race.lua"
+            scene = "race.lua",
+            zorder = 3
         },
 
         UITransform = {

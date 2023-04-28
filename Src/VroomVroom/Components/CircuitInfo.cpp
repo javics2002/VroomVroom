@@ -1,4 +1,8 @@
 #include "CircuitInfo.h"
+#include "EntityComponent/Scene.h"
+#include "EntityComponent/Entity.h"
+#include "EntityComponent/SceneManager.h"
+#include "VehicleController.h"
 #include <cstdlib> //  rand() y srand()
 #include <ctime> //  time()
 #define _USE_MATH_DEFINES
@@ -23,12 +27,47 @@ CircuitInfo::~CircuitInfo()
 
 void CircuitInfo::start()
 {
-	mTimer = new Timer(false);
+	mRaceStarted = false;
+	mTimer = new Timer(true);
+
+	mCountdownSprite = sceneManager().getActiveScene()->findEntity("countdownui").get()
+		->getComponent<UISpriteRenderer>("uispriterenderer");
 }
 
 void CircuitInfo::update(const double& dt)
 {
 	mTimer->update(dt);
+
+	if (!mRaceStarted) {
+		if (mTimer->getRawSeconds() > 3) {
+			mRaceStarted = true;
+			//GO!
+			mCountdownSprite->setSpriteMaterial("countdownGO");
+			mTimer->reset();
+
+			for (VehicleController* vehicle : mVehicles)
+				vehicle->setControllable(true);
+		}
+		else if (mTimer->getRawSeconds() > 2) {
+			//1
+			mCountdownSprite->setSpriteMaterial("countdown1");
+		}
+		else if (mTimer->getRawSeconds() > 1) {
+			//2
+			mCountdownSprite->setSpriteMaterial("countdown2");
+		}
+		else {
+			//3
+			mCountdownSprite->setSpriteMaterial("countdown3");
+		}
+
+		return;
+	}
+
+	if (mTimer->getRawSeconds() > 1 && mCountdownSprite != nullptr) {
+		mCountdownSprite->getEntity()->destroy();
+		mCountdownSprite = nullptr;
+	}
 }
 
 bool CircuitInfo::isCircuitInside(Vector3 pos)
@@ -158,4 +197,9 @@ void CircuitInfo::startRace()
 std::string CircuitInfo::getFinishTime()
 {
 	return mTimer->getFormattedTime();
+}
+
+void VroomVroom::CircuitInfo::addVehicle(VehicleController* newVehicle)
+{
+	mVehicles.push_back(newVehicle);
 }
