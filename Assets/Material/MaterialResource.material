@@ -250,7 +250,7 @@ material insideRoundedSquare
 			scene_blend alpha_blend
 			texture_unit 
 			{
-				texture RoundedSquare.PNG
+				texture RoundedSquare.png
 				colour_op replace
 			}
 		}
@@ -268,7 +268,7 @@ material insideroundedsquare
 			scene_blend alpha_blend
 			texture_unit 
 			{
-				texture RoundedSquare.PNG
+				texture RoundedSquare.png
 				colour_op replace
 			}
 		}

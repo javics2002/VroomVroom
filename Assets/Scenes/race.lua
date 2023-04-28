@@ -86,10 +86,10 @@ Entities = {
 
     cameraOne = {
         transform = {
-            position = { x = -90, y = 100, z = 0 } -- -104 70 0 / 20 10 -10
+            position = { x = 0, y = 150, z = 0 } -- -104 70 0 / 20 10 -10
         },
         camera = {
-            lookat = { x = -9, y = 1, z = 0 }, -- -104 10 0 / -20 10 -10
+            lookat = { x = 0, y = -1, z = 0 }, -- -104 10 0 / -20 10 -10
             name = "playerOne",
             neardistance = 0.5,
             fardistance = 100000,
@@ -99,10 +99,10 @@ Entities = {
             backgroundcolor = { r = .72, g = .92, b = 1, a = 1  },
             viewport = { left = 0.0, right = 0.0, width = 1.0, height =1.0 }
         },
-		camerafollow = {
-			target = "carone",
-			offset = { x= 20, y = 10, z = -10 }
-		}
+		-- camerafollow = {
+		-- 	target = "carone",
+		-- 	offset = { x= 20, y = 10, z = -10 }
+		-- }
     },
 
     insideRoundedSquare = {
@@ -784,7 +784,7 @@ Entities = {
 
     ParedDerecha = {
         Transform = {
-            position = { x = 0, y = 5, z = 20.5},
+            position = { x = 0, y = 5, z = -50},
 			rotation = { x = 0, y = 0, z = 0 },
             scale = { x = 1, y = 1, z = 1}
 	    },
@@ -804,7 +804,7 @@ Entities = {
 
     ParedIzquierda = {
         Transform = {
-            position = { x = 0, y = 5, z = -20.5},
+            position = { x = 0, y = 5, z = 50},
 			rotation = { x = 0, y = 0, z = 0 },
             scale = { x = 1, y = 1, z = 1}
 	    },
