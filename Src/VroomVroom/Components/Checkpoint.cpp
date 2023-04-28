@@ -1,7 +1,9 @@
 #include "Checkpoint.h"
 #include "EntityComponent/Entity.h"
+#include "EntityComponent/Scene.h"
 #include "EntityComponent/Components/RigidBody.h"
 #include "EntityComponent/Components/Collider.h"
+#include "CircuitInfo.h"
 
 using namespace me;
 using namespace VroomVroom;
@@ -14,13 +16,15 @@ Checkpoint::Checkpoint()
 
 Checkpoint::~Checkpoint()
 {
-	MNumCheckpoints--; //pasar a la futura destructora
+	MNumCheckpoints--;
 }
 
 void Checkpoint::start()
 {
-	//mIndex = MNumCheckpoints++;
 	MNumCheckpoints++;
+
+	mCircuitInfo = mEntity->getScene()->findEntity("circuit").get()->getComponent<CircuitInfo>("circuitinfo");
+	mCircuitInfo->addCheckpoint(this);
 }
 
 void Checkpoint::setIndex(int index)
@@ -33,12 +37,12 @@ int Checkpoint::getIndex()
 	return mIndex;
 }
 
-void Checkpoint::setNumCheckpoints(int numCheckpoints)
+void Checkpoint::SetNumCheckpoints(int numCheckpoints)
 {
 	MNumCheckpoints = numCheckpoints;
 }
 
-int Checkpoint::getNumCheckpoints()
+int Checkpoint::GetNumCheckpoints()
 {
 	return MNumCheckpoints;
 }

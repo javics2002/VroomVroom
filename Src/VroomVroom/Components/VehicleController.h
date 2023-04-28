@@ -44,10 +44,10 @@ namespace VroomVroom {
 		//Stores the final timer when the vehicle reaches the finish line.
 		std::string mFinishTime;
 
-		me::Transform* mTransform;
-		me::RigidBody* mRigidBody;
-		CircuitInfo* mCircuitInfo;
-		PowerUpUIWheel* mPowerUpUIWheel;
+		me::Transform* mTransform = nullptr;
+		me::RigidBody* mRigidBody = nullptr;
+		CircuitInfo* mCircuitInfo = nullptr;
+		PowerUpUIWheel* mPowerUpUIWheel = nullptr;
 
 		bool mControllable;
 
@@ -80,6 +80,9 @@ namespace VroomVroom {
 		inline void setPlayerNumber(PlayerNumber playerNumber) {
 			mPlayerNumber = playerNumber;
 		}
+		inline PlayerNumber getPlayerNumber() {
+			return mPlayerNumber;
+		}
 
 		inline void setControllable(bool controllable) {
 			mControllable = controllable;
@@ -90,6 +93,12 @@ namespace VroomVroom {
 		@return A float object representing the speed.
 		*/
 		float getSpeed();
+
+		void setPlace(int newPlace);
+		int getPlace();
+
+		int getLap();
+		int getChekpointIndex();
 
 		void onCollisionEnter(me::Entity* other) override;
 		void onCollisionExit(me::Entity* other) override;

@@ -62,7 +62,7 @@ Component* FactoryCheckpoint::create(Parameters& params)
 {
     Checkpoint* checkpoint = new Checkpoint();
 
-    checkpoint->setIndex(Value(params, "index", checkpoint->getNumCheckpoints()));
+    checkpoint->setIndex(Value(params, "index", Checkpoint::GetNumCheckpoints()));
 
     return checkpoint;
 }

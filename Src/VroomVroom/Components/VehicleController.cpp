@@ -193,6 +193,26 @@ float VehicleController::getSpeed()
     return mSpeed;
 }
 
+void VehicleController::setPlace(int newPlace)
+{
+    mPlace = newPlace;
+}
+
+int VehicleController::getPlace()
+{
+    return mPlace;
+}
+
+int VehicleController::getLap()
+{
+    return mLap;
+}
+
+int VehicleController::getChekpointIndex()
+{
+    return mCheckpointIndex;
+}
+
 void VehicleController::onCollisionEnter(me::Entity* other)
 {
     if (other->hasComponent("checkpoint")) {
@@ -203,11 +223,11 @@ void VehicleController::onCollisionEnter(me::Entity* other)
         std::cout << "Car " << mPlayerNumber << " has reached checkpoint " << checkpoint->getIndex() << "\n";
 #endif
 
-        if (checkpoint->getIndex() == (mCheckpointIndex + 1) % checkpoint->getNumCheckpoints()) {
+        if (checkpoint->getIndex() == (mCheckpointIndex + 1) % checkpoint->GetNumCheckpoints()) {
             //Next checkpoint
             mCheckpointIndex++;
 
-            if (mCheckpointIndex == checkpoint->getNumCheckpoints()-1) {
+            if (mCheckpointIndex == checkpoint->GetNumCheckpoints()-1) {
                 //Add lap
                 mCheckpointIndex = -1;   
                 mLap++;
@@ -230,14 +250,14 @@ void VehicleController::onCollisionEnter(me::Entity* other)
                 }
             }
         }
-        else if (checkpoint->getIndex() == (mCheckpointIndex + 1) % checkpoint->getNumCheckpoints())
+        else if (checkpoint->getIndex() == (mCheckpointIndex + 1) % checkpoint->GetNumCheckpoints())
         {
             //Previous checkpoint (you are in the wrong direction)
             mCheckpointIndex--;
 
             if (mCheckpointIndex == -1) {
                 //Remove lap
-                mCheckpointIndex += checkpoint->getNumCheckpoints();
+                mCheckpointIndex += checkpoint->GetNumCheckpoints();
                 mLap--;
             }
         }

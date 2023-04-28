@@ -185,7 +185,7 @@ material Main/title
 }
 
 
-material Main/OnePlayerbutton
+material Main/button
 {
 	technique
 	{
@@ -196,43 +196,7 @@ material Main/OnePlayerbutton
 			scene_blend alpha_blend
 			texture_unit 
 			{
-				texture onePlayer.png
-				colour_op replace
-			}
-		}
-	}
-}
-
-material Main/TwoPlayerbutton
-{
-	technique
-	{
-		pass
-		{
-			depth_check off
-			lighting off
-			scene_blend alpha_blend
-			texture_unit 
-			{
-				texture twoPlayer.png
-				colour_op replace
-			}
-		}
-	}
-}
-
-material Main/Quitbutton
-{
-	technique
-	{
-		pass
-		{
-			depth_check off
-			lighting off
-			scene_blend alpha_blend
-			texture_unit 
-			{
-				texture quitbutton.png
+				texture Countdown3.png
 				colour_op replace
 			}
 		}
@@ -250,7 +214,7 @@ material insideRoundedSquare
 			scene_blend alpha_blend
 			texture_unit 
 			{
-				texture RoundedSquare.png
+				texture RoundedSquare.PNG
 				colour_op replace
 			}
 		}
@@ -268,7 +232,7 @@ material insideroundedsquare
 			scene_blend alpha_blend
 			texture_unit 
 			{
-				texture RoundedSquare.png
+				texture RoundedSquare.PNG
 				colour_op replace
 			}
 		}
@@ -341,6 +305,42 @@ material countdown3
 			texture_unit 
 			{
 				texture Countdown3.png
+				colour_op replace
+			}
+		}
+	}
+}
+
+material first
+{
+	technique
+	{
+		pass
+		{
+			depth_check off
+			lighting off
+			scene_blend alpha_blend
+			texture_unit 
+			{
+				texture FirstPlace.png
+				colour_op replace
+			}
+		}
+	}
+}
+
+material second
+{
+	technique
+	{
+		pass
+		{
+			depth_check off
+			lighting off
+			scene_blend alpha_blend
+			texture_unit 
+			{
+				texture SecondPlace.png
 				colour_op replace
 			}
 		}
