@@ -76,6 +76,8 @@ void VehicleController::update(const double& dt)
     //If the player is using keyboard
     float deltaX = getPlayerAxis("HORIZONTAL");
 
+    
+
     Vector3 vForward = mTransform->forward().normalize();
 
     // If the vertical input axis is positive, add a forward impulse to the vehicle's rigidbody
@@ -89,6 +91,10 @@ void VehicleController::update(const double& dt)
     // Rotate the vehicle
     if (deltaX != 0)
         applyRotation(dt, deltaX);
+
+    
+    
+    
     
 
     // make use of the power up active if it has anyone
@@ -175,12 +181,31 @@ void VroomVroom::VehicleController::angularSpeed(float deltaX)
     }
 }
 
+float VroomVroom::VehicleController::clamp(float value, float min, float max)
+{
+    if (value < min) return min;
+    if (value > max) return max;
+    return value;
+}
+
 void VroomVroom::VehicleController::applyRotation(const double& dt, float deltaX)
 {
-    float tangencialSpeed = mRigidBody->getVelocity().magnitude();
-    if (tangencialSpeed > minSpeed) {
-        // apply a torque to rotate the body  
-        mRigidBody->addTorque(mTransform->up() * deltaX * mRotationSpeed * dt);
+    float velocity = mRigidBody->getVelocity().magnitude();
+    float speedFraction = clamp(velocity / maxSpeed, 0.0f, 1.0f);
+
+    if (speedFraction > minSpeedFraction) {
+        // vector towards the center of the curve
+        //Vector3 lateralDirection = mRigidBody->getVelocity().cross(mTransform->up()).normalize();
+        Vector3 lateralDirection = mTransform->right().normalize() * deltaX;
+
+        // apply a torque to rotate the body
+        float radius = speedFraction * maxRadius;
+        Vector3 vRadius = lateralDirection * radius;
+        Vector3 rotationAxis = mTransform->up().normalize() * deltaX;
+        rotationAxis.translate(mTransform->getPosition(), vRadius);
+
+        mRigidBody->addTorque(rotationAxis * mRotationForce * dt);
+
         Vector3 w = mRigidBody->getAngularVelocity();
         float w_abs = w.magnitude();
 
@@ -190,10 +215,13 @@ void VroomVroom::VehicleController::applyRotation(const double& dt, float deltaX
         }
 
         // apply a lateral force to the body
-        Vector3 velocity = mRigidBody->getVelocity();
-        Vector3 lateralDirection = velocity.cross(mTransform->up()).normalize();
-        Vector3 lateralForce = lateralDirection * lateralForceFactor * dt;
-        mRigidBody->addForce(lateralForce);
+        float curveAngle = speedFraction * maxCurveAngle;
+        float centripetalForce = lateralForceFactor * velocity * sinf(curveAngle);
+
+        mRigidBody->addForce(lateralDirection * centripetalForce * dt);
+
+        // update the direction of the velocity
+        //mRigidBody->setVelocity();
     }
 }
 
@@ -201,7 +229,7 @@ void VehicleController::setSpeedAndDrift(float speed, float angularSpeed, float 
 {
     mAcceleration = speed * 2;
     mDeceleration = -speed;
-    mRotationSpeed = angularSpeed;
+    mRotationForce = angularSpeed;
     mDriftFactor = driftFactor;
 }
 

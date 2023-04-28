@@ -40,15 +40,17 @@ namespace VroomVroom {
 		bool mDrift = false;
 
 		// predefine constant parameters
-		float mAcceleration = 0;
-		float mDeceleration = 0;
-		float maxSpeed = 45.5;
-		float minSpeed = 8.5;
-		float maxAngularSpeed = 3.5;
-		float maxRadius = 20.0;
+		float mAcceleration = .0f;
+		float mDeceleration = .0f;
+		float maxSpeed = 45.5f;
+		float minSpeed = 8.5f;
+		float minSpeedFraction = 0.2f;
+		float maxAngularSpeed = 3.5f;
+		float maxRadius = 20.0f;
+		float maxCurveAngle = 45.0f;
 
 		//float mSpeed;
-		float mRotationSpeed;
+		float mRotationForce;
 		float mDriftFactor;
 		float lateralForceFactor = 100.0f;
 
@@ -92,7 +94,17 @@ namespace VroomVroom {
 		void angularSpeed(float deltaX);
 
 		/**
+		Limits a value in a specific range.
+		@param Value the value to be limited
+		@param Min the minimum value that the value can take
+		@param Max the maximum value that the value can take
+		@returns Value of the fitted value
+		*/
+		float clamp(float value, float min, float max);
+
+		/**
 		Apply the rotation physics to the car, using angularSpeed.
+		@param Dt the time lapsed from previous frame
 		@param DeltaX turn direction
 		*/
 		void applyRotation(const double& dt, float deltaX);
