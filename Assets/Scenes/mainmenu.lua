@@ -57,21 +57,53 @@ Entities = {
             rotation = 0
         }
     },
-    PlayButton = {
+    PlayOneButton = {
 	
         UIButtonScene = {
-            sprite = "mainbutton",
-            materialName = "Main/button",
+            sprite = "oneplayerbutton",
+            materialName = "Main/OnePlayerbutton",
             scene = "race.lua",
             zorder = 3
         },
 
         UITransform = {
-            position = { x = 0.25, y = 0.35 },
-            scale = { x = 0.2, y = 0.2},
+            position = { x = 0.25, y = 0.45 },
+            scale = { x = 0.2, y = 0.1},
+            rotation = 0
+        }
+    },
+    
+    PlayTwoButton = {
+	
+        UIButtonScene = {
+            sprite = "twoplayerbutton",
+            materialName = "Main/TwoPlayerbutton",
+            scene = "race2.lua",
+            zorder = 3
+        },
+
+        UITransform = {
+            position = { x = 0.25, y = 0.6 },
+            scale = { x = 0.2, y = 0.1},
+            rotation = 0
+        }
+    },
+
+    QuitButton = {
+	
+        UIButtonQuit = {
+            sprite = "mainquitbutton",
+            materialName = "Main/Quitbutton",
+            zorder = 3
+        },
+
+        UITransform = {
+            position = { x = 0.25, y = 0.75 },
+            scale = { x = 0.2, y = 0.1},
             rotation = 0
         }
     }
+
     
 
 }

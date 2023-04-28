@@ -185,7 +185,7 @@ material Main/title
 }
 
 
-material Main/button
+material Main/OnePlayerbutton
 {
 	technique
 	{
@@ -196,7 +196,43 @@ material Main/button
 			scene_blend alpha_blend
 			texture_unit 
 			{
-				texture Countdown3.png
+				texture onePlayer.png
+				colour_op replace
+			}
+		}
+	}
+}
+
+material Main/TwoPlayerbutton
+{
+	technique
+	{
+		pass
+		{
+			depth_check off
+			lighting off
+			scene_blend alpha_blend
+			texture_unit 
+			{
+				texture twoPlayer.png
+				colour_op replace
+			}
+		}
+	}
+}
+
+material Main/Quitbutton
+{
+	technique
+	{
+		pass
+		{
+			depth_check off
+			lighting off
+			scene_blend alpha_blend
+			texture_unit 
+			{
+				texture quitbutton.png
 				colour_op replace
 			}
 		}

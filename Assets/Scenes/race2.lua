@@ -49,7 +49,7 @@ Entities = {
 
 	CarOne = {
         Transform = {
-            position = { x= 0, y = 10, z = -30 },
+            position = { x= 0, y = 10, z = -28 },
             scale = { x = 1, y = 1, z = 1 },
             rotation = {x = 0, y = 180, z = 0}
         },
@@ -97,10 +97,69 @@ Entities = {
             zorder = 0,
             overlayenable = false,
             backgroundcolor = { r = .72, g = .92, b = 1, a = 1  },
-            viewport = { left = 0.0, right = 0.0, width = 1.0, height =1.0 }
+            viewport = { left = 0.0, right = 0.0, width = 0.5, height =1.0 }
         },
 		camerafollow = {
 			target = "carone",
+			offset = { x= 20, y = 10, z = -10 }
+		}
+    },
+
+
+    CarTwo = {
+        Transform = {
+            position = { x= 0, y = 10, z = -34 },
+            scale = { x = 1, y = 1, z = 1 },
+            rotation = {x = 0, y = 180, z = 0}
+        },
+        RigidBody = {
+            colShape = 1,
+            mvType = 0,
+            mass = 1,
+            group = 2,
+            mask = 7,
+            colliderscale = {x = 1, y = 1, z = 1},
+            restitution = .5,
+            friction = 0.5,
+            isTrigger = false
+        },
+        vehicleController = {
+            speed = 1000,
+            rotationspeed = 200,
+            driftFactor = 1,
+            playerNumber = 1
+        },
+        collider = {
+            
+        },
+        powerupuiwheel = {
+            spinspeed = 0.1;
+            linkedsprite = "insideroundedsquare"
+        },
+        meshrenderer = {
+            mesh = "karttwo",
+            meshName = "Car.mesh",
+            --materialName = "Material/roja"
+        }
+	},
+    
+    cameraTwo = {
+        transform = {
+            position = { x = -90, y = 100, z = 0 } -- -104 70 0 / 20 10 -10
+        },
+        camera = {
+            lookat = { x = -9, y = 1, z = 0 }, -- -104 10 0 / -20 10 -10
+            name = "playerTwo",
+            neardistance = 0.5,
+            fardistance = 100000,
+            autoratio = true,
+            zorder = 1,
+            overlayenable = false,
+            backgroundcolor = { r = .72, g = .92, b = 1, a = 1  },
+            viewport = { left = 0.5, top = 0.0, width = 0.5, height =1.0 }
+        },
+		camerafollow = {
+			target = "cartwo",
 			offset = { x= 20, y = 10, z = -10 }
 		}
     },
