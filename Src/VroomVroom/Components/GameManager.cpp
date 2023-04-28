@@ -42,7 +42,7 @@ void GameManager::start()
 void GameManager::changeState(std::string newScene) {
 	if (newScene == "mainmenu.lua")
 		mGameState = GAMESTATE_MAINMENU;
-	else if (newScene == "race.lua")
+	else if (newScene == "race.lua"|| newScene == "race2.lua")
 		mGameState = GAMESTATE_INGAME;
 	else if (newScene == "results.lua")
 		mGameState = GAMESTATE_RESULTS;

@@ -29,6 +29,22 @@ Entities = {
         }
 	},
     
+    camera = {
+        transform = {
+            position = { x = 0, y = 200, z = 0 } -- -104 70 0 / 20 10 -10
+        },
+        camera = {
+            lookat = { x = 0, y = 1, z = 0 }, -- -104 10 0 / -20 10 -10
+            name = "main",
+            neardistance = 0.5,
+            fardistance = 1,
+            autoratio = true,
+            zorder = 3,
+            overlayenable = true,
+            backgroundcolor = { r = .72, g = .92, b = 1, a = 1  },
+            viewport = { left = 0.0, right = 0.0, width = 1.0, height =1.0 }
+        }
+    },
 
 
 	CarOne = {
@@ -74,11 +90,12 @@ Entities = {
         },
         camera = {
             lookat = { x = -9, y = 1, z = 0 }, -- -104 10 0 / -20 10 -10
-            name = "mainOne",
+            name = "playerOne",
             neardistance = 0.5,
             fardistance = 100000,
             autoratio = true,
             zorder = 0,
+            overlayenable = false,
             backgroundcolor = { r = .72, g = .92, b = 1, a = 1  },
             viewport = { left = 0.0, right = 0.0, width = 0.5, height =1.0 }
         },
@@ -132,11 +149,12 @@ Entities = {
         },
         camera = {
             lookat = { x = -9, y = 1, z = 0 }, -- -104 10 0 / -20 10 -10
-            name = "mainTwo",
+            name = "playerTwo",
             neardistance = 0.5,
             fardistance = 100000,
             autoratio = true,
             zorder = 1,
+            overlayenable = false,
             backgroundcolor = { r = .72, g = .92, b = 1, a = 1  },
             viewport = { left = 0.5, top = 0.0, width = 0.5, height =1.0 }
         },

@@ -326,7 +326,7 @@ void VehicleController::update(const double& dt)
     //}
     if (mPowerUpUIWheel->isAnimEnd() && useObject) {
         
-        me::Entity* powerUPEntity = new me::Entity();
+        //me::Entity* powerUPEntity = new me::Entity();
         
         switch (mPowerUpType)
         {
