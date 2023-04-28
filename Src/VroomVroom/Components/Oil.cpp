@@ -1,5 +1,6 @@
 #include "Oil.h"
 #include "EntityComponent/Components/RigidBody.h"
+#include "EntityComponent/Components/MeshRenderer.h"
 #include "VehicleController.h"
 #include "EntityComponent/Entity.h"
 
@@ -49,7 +50,19 @@ void Oil::onCollisionExit(me::Entity* other)
 		// Restore the player's previous friction value
 		other->getComponent<me::RigidBody>("Rigidbody")->setFriction(mPlayerFriction);
 		// Destroy the oil object from the scene
-		mEntity->destroy();
+		//mEntity->destroy();
 	}
 	
+}
+
+void VroomVroom::Oil::use(me::Entity* other)
+{
+
+	me::Vector3 v = other->getComponent<Transform>("transform")->getPosition();
+	me::Vector3 offset(-2, 2, 0);
+
+	mEntity->getComponent<RigidBody>("rigidbody")->activeBody();
+	mEntity->getComponent<MeshRenderer>("meshrenderer")->activeMesh();
+	//mEntity->getComponent<Transform>("transform")->setPosition(v +offset);
+
 }

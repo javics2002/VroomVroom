@@ -10,6 +10,8 @@
 namespace me {
 	class Transform;
 	class RigidBody;
+	class Collider;
+	class MeshRenderer;
 }
 
 namespace VroomVroom {
@@ -48,6 +50,7 @@ namespace VroomVroom {
 		me::RigidBody* mRigidBody;
 		CircuitInfo* mCircuitInfo;
 		PowerUpUIWheel* mPowerUpUIWheel;
+		me::Entity* mPowerUpEntity;
 
 		bool mControllable;
 
@@ -73,7 +76,7 @@ namespace VroomVroom {
 		// Initializes the speed, rotation speed, and drift factor variables
 		void setSpeedAndDrift(float speed, float angularSpeed, float driftFactor);
 
-		void setPowerUp(PowerUpType powerUpType);
+		void setPowerUp(PowerUpType powerUpType, me::Entity * powerUpEntity);
 
 		void setPowerUpUI();
 

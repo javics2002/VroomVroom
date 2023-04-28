@@ -52,10 +52,17 @@ namespace VroomVroom {
 		*/
 		void onCollisionEnter(me::Entity* other) override;
 
+		/*
+		return the entity of the picked power up
+		*/
+		me::Entity* createOilEntity();
+		me::Entity* createNerfEntity();
+
 	private:
 		PowerUpType mPowerUp; // the type of power-up that this object represents
-		me::Transform* mTransform;
+		me::Entity* mPowerUpEntity;
 
+		me::Transform* mTransform;
 		me::Timer* mTimer;
 		float mReviveTime; // the time it takes for the power-up object to respawn after being picked up
 		bool mPicked; // whether the power-up object has been picked up by a player

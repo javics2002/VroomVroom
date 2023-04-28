@@ -6,6 +6,8 @@
 #include "EntityComponent//Components/Transform.h"
 #include "EntityComponent/Components/MeshRenderer.h"
 #include "EntityComponent/Components/Rigidbody.h"
+#include "EntityComponent/Scene.h"
+#include "GameManager.h"
 
 using namespace me;
 using namespace VroomVroom;
@@ -25,6 +27,7 @@ void PowerUpObject::start()
 	mTimer = new Timer(false);
 	mTransform = mEntity->getComponent<Transform>("transform");
 	mReviveTime = 4; // Set the time it takes for the power-up object to respawn after being picked up
+	mPowerUpEntity = nullptr;
 }
 
 void PowerUpObject::update(const double& dt)
@@ -67,7 +70,17 @@ void PowerUpObject::onCollisionEnter(me::Entity* other)
 		// Deactivate the MeshRenderer and RigidBody components of the power-up object when it is picked up by a player
 		mEntity->getComponent<MeshRenderer>("meshrenderer")->desactiveMesh(); // Desactivamos el MeshRenderer para que no se vea por pantalla
 		mEntity->getComponent<RigidBody>("rigidbody")->desactiveBody(); // Desactivamos las colisiones
-		other->getComponent<VehicleController>("vehiclecontroller")->setPowerUp(mPowerUp);
+		
+		switch (mPowerUp)
+		{
+		case NERF:
+			break;
+		case OIL:
+			mPowerUpEntity = createOilEntity();
+			break;
+		}
+
+		other->getComponent<VehicleController>("vehiclecontroller")->setPowerUp(mPowerUp, mPowerUpEntity);
 		other->getComponent<VehicleController>("vehiclecontroller")->setPowerUpUI();
 		mPicked = true;
 		mTimer->resume();
@@ -76,4 +89,50 @@ void PowerUpObject::onCollisionEnter(me::Entity* other)
 
 	//TODO: ACTIVATE THE SPIN ANIMATION OF THE UI ROULETTE
 
+}
+
+me::Entity* VroomVroom::PowerUpObject::createOilEntity()
+{
+	me::Entity* oil = mEntity->getScene()->addEntity("Oil" + std::to_string(gameManager()->getContPowerUps())).get();
+	me::Transform* tr;
+	me::RigidBody* rb;
+	me::Collider* col;
+	me::MeshRenderer* mesh;
+	Oil* o;
+
+	tr = oil->addComponent<me::Transform>("transform");
+	tr->setPosition(me::Vector3(0,6,0));
+	tr->setRotation(me::Vector3(0, 0, 0));
+	tr->setScale(me::Vector3(0.5, 0.5, 0.5));
+
+	col = oil->addComponent<me::Collider>("collider");
+
+	rb = oil->addComponent<me::RigidBody>("rigidbody");
+	rb->setColShape(SHAPES_BOX);
+	rb->setMomeventType(MOVEMENT_TYPE_DYNAMIC);
+	rb->setMass(1);
+	rb->setGroup(2);
+	rb->setMask(7);
+	rb->setColliderScale(me::Vector3(4, 2, 4));
+	rb->setRestitution(0.5);
+	rb->setFriction(0.5);
+	rb->setTrigger(false);
+	rb->desactiveBody();
+
+	mesh = oil->addComponent<me::MeshRenderer>("meshrenderer");
+	mesh->setMeshName("Kart.mesh");
+	mesh->setName("o" + std::to_string(gameManager()->getContPowerUps()));
+	mesh->desactiveMesh();
+
+	o = oil->addComponent<Oil>("oil");
+	o->setFriction(2);
+
+	gameManager()->addPowerUp();
+
+	return oil;
+}
+
+me::Entity* VroomVroom::PowerUpObject::createNerfEntity()
+{
+	return nullptr;
 }

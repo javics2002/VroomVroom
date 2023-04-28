@@ -6,6 +6,8 @@
 
 namespace me {
 	class Entity;
+	class Rigidbody;
+	class MeshRenderer;
 }
 
 namespace VroomVroom {
@@ -34,6 +36,8 @@ makes the first car that drives on it lose control, and then disappears.
 		void onCollisionEnter(me::Entity* other) override;
 		void onCollisionStay(me::Entity* other) override;
 		void onCollisionExit(me::Entity* other) override;
+
+		void use(me::Entity* other) override;
 	};
 }
 #endif

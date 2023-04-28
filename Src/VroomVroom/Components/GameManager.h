@@ -35,6 +35,8 @@ namespace VroomVroom {
 		PlayerInputType mPlayerOneType = PLAYERINPUTTYPE_KEYBOARD;
 		PlayerInputType mPlayerTwoType = PLAYERINPUTTYPE_KEYBOARD;
 
+		int mContPowerUps;
+
 	public:
 		GameManager& operator=(const GameManager& o) = delete;
 		GameManager();
@@ -49,6 +51,11 @@ namespace VroomVroom {
 		void update(const double& dt) override;
 
 		void changeState(std::string newScene);
+
+		int getContPowerUps();
+
+		void addPowerUp();
+
 	};
 
 

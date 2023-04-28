@@ -19,6 +19,15 @@ GameManager::GameManager() {
 
 }
 
+int VroomVroom::GameManager::getContPowerUps() {
+	return mContPowerUps;
+}
+
+void VroomVroom::GameManager::addPowerUp()
+{
+	mContPowerUps++;
+}
+
 GameManager::~GameManager()
 {
 }
@@ -27,6 +36,8 @@ GameManager* VroomVroom::GameManager::Instance()
 {
 	return MInstance;
 }
+
+
 
 void GameManager::start()
 {
@@ -37,13 +48,16 @@ void GameManager::start()
 		sceneManager().getActiveScene()->promoteToGlobal(mEntity);
 		mGameState = GAMESTATE_MAINMENU;
 	}	
+
 }
 
 void GameManager::changeState(std::string newScene) {
 	if (newScene == "mainmenu.lua")
 		mGameState = GAMESTATE_MAINMENU;
-	else if (newScene == "race.lua"|| newScene == "race2.lua")
+	else if (newScene == "race.lua" || newScene == "race2.lua") {
+		mContPowerUps = 0;
 		mGameState = GAMESTATE_INGAME;
+	}
 	else if (newScene == "results.lua")
 		mGameState = GAMESTATE_RESULTS;
 }

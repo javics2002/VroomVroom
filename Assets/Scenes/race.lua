@@ -164,15 +164,29 @@ Entities = {
 		}
     },
 
-    insideRoundedSquare = {
+    container = {
         UITransform = {
             position = { x = 0.04, y = 0.07 },
+            scale = { x = 0.1, y = 0.178 },
+            rotation = 0
+        },
+        UISpriteRenderer = {
+            sprite = "container",     -- Nombre Interno
+            materialName = "container",  -- Nombre en MaterialsResource
+            zorder = 0
+        }
+    },
+
+    insidecontainer = {
+        UITransform = {
+            position = { x = 0.066, y = 0.096 },
             scale = { x = 0.06, y = 0.1 },
             rotation = 0
         },
         UISpriteRenderer = {
-            sprite = "iRoundedSquare",     -- Nombre Interno
-            materialName = "insideRoundedSquare"  -- Nombre en MaterialsResource
+            sprite = "insidecontainer",     -- Nombre Interno
+            materialName = "insidecontainer",  -- Nombre en MaterialsResource
+            zorder = 1
         }
     },
     
