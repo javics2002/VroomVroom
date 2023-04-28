@@ -41,7 +41,7 @@ VehicleController::VehicleController()
     mPowerUp = false;
     mPowerUpType = PowerUpType::NERF;
     mRigidBody = nullptr;
-    mRotationSpeed = 0;
+    //mRotationSpeed = 0;
     mSpeed = Vector2();
     mTransform = nullptr;
 }
@@ -85,7 +85,7 @@ void VehicleController::update(const double& dt)
         mRigidBody->addForce(vForward * mAcceleration * dt);
 
     // If the vertical input axis is negative, add a backward impulse to the vehicle's rigidbody
-    else if (decelerate)
+    else if (decelerate) 
         mRigidBody->addForce(vForward * mDeceleration * dt);
 
     // Rotate the vehicle
@@ -197,12 +197,14 @@ void VroomVroom::VehicleController::applyRotation(const double& dt, float deltaX
         // vector towards the center of the curve
         //Vector3 lateralDirection = mRigidBody->getVelocity().cross(mTransform->up()).normalize();
         Vector3 lateralDirection = mTransform->right().normalize() * deltaX;
-
-        // apply a torque to rotate the body
         float radius = speedFraction * maxRadius;
+        float curveAngle = speedFraction * maxCurveAngle;
+
+        // apply a torque to rotate the 
         Vector3 vRadius = lateralDirection * radius;
-        Vector3 rotationAxis = mTransform->up().normalize() * deltaX;
+        Vector3 rotationAxis = mTransform->up().normalize();
         rotationAxis.translate(mTransform->getPosition(), vRadius);
+        rotationAxis.normalize();
 
         mRigidBody->addTorque(rotationAxis * mRotationForce * dt);
 
@@ -215,10 +217,11 @@ void VroomVroom::VehicleController::applyRotation(const double& dt, float deltaX
         }
 
         // apply a lateral force to the body
-        float curveAngle = speedFraction * maxCurveAngle;
-        float centripetalForce = lateralForceFactor * velocity * sinf(curveAngle);
+        float mass = mRigidBody->getMass();
+        float v_squared = velocity * velocity;
+        float centripetalForce = mass * v_squared / radius;
 
-        mRigidBody->addForce(lateralDirection * centripetalForce * dt);
+        mRigidBody->addForce(lateralDirection * (centripetalForce) * dt);
 
         // update the direction of the velocity
         //mRigidBody->setVelocity();

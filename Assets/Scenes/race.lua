@@ -3,7 +3,7 @@ Entities = {
 	    Transform = {
             position = { x = 0, y = 5, z = 0 },
 			rotation = { x = 0, y = 0, z = 0 },
-            scale = { x = 80, y = 25, z = 20} --80 30 40
+            scale = { x = 200, y = 25, z = 200} --80 30 40
 	    },
 	    RigidBody = {
 		    colShape = 2,
