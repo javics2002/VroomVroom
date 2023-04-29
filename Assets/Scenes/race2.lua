@@ -52,7 +52,7 @@ Entities = {
 
 	CarOne = {
         Transform = {
-            position = { x= 0, y = 10, z = -30 },
+            position = { x= 0, y = 10, z = -28 },
             scale = { x = 1, y = 1, z = 1 },
             rotation = {x = 0, y = 180, z = 0}
         },
@@ -78,12 +78,11 @@ Entities = {
         },
         powerupuiwheel = {
             spinspeed = 0.1;
-            linkedsprite = "container"
+            linkedsprite = "container1"
         },
         meshrenderer = {
             mesh = "kartone",
-            meshName = "Car.mesh",
-            --materialName = "Material/roja"
+            meshName = "Car.mesh"
         }
 	},
 
@@ -100,7 +99,7 @@ Entities = {
             zorder = 0,
             overlayenable = false,
             backgroundcolor = { r = .72, g = .92, b = 1, a = 1  },
-            viewport = { left = 0.0, right = 0.0, width = 1.0, height =1.0 }
+            viewport = { left = 0.0, right = 0.0, width = 0.5, height =1.0 }
         },
 		camerafollow = {
 			target = "carone",
@@ -108,15 +107,14 @@ Entities = {
 		}
     },
 
-
-    container = {
+    container1 = {
         UITransform = {
-            position = { x = 0.04, y = 0.07 },
-            scale = { x = 0.1, y = 0.178 },
+            position = { x = 0.05, y = 0.07 },
+            scale = { x = 0.1, y = 0.177 },
             rotation = 0
         },
         UISpriteRenderer = {
-            sprite = "container",     -- Nombre Interno
+            sprite = "container1",     -- Nombre Interno
             materialName = "container",  -- Nombre en MaterialsResource
             zorder = 0
         }
@@ -135,8 +133,122 @@ Entities = {
         }
     },
 
-    ------------------------------------------------------------------------------------------
-    ------------------------------------------------------------------------------------------
+    
+    place1 = {
+        UITransform = {
+            position = { x = 0.05, y = 0.8 },
+            scale = { x = 0.1, y = 0.177 },
+            rotation = 0
+        },
+        UISpriteRenderer ={
+            sprite = "place1",     -- Nombre Interno
+            materialName = "first"  -- Nombre en MaterialsResource
+        }
+    },
+    -------------------------------------------------------------
+    ---------           segundo jugador                  ---------
+    -------------------------------------------------------------
+
+    CarTwo = {
+        Transform = {
+            position = { x= 0, y = 10, z = -33 },
+            scale = { x = 1, y = 1, z = 1 },
+            rotation = {x = 0, y = 180, z = 0}
+        },
+        RigidBody = {
+            colShape = 1,
+            mvType = 0,
+            mass = 1,
+            group = 2,
+            mask = 7,
+            colliderscale = {x = 1, y = 1, z = 1},
+            restitution = .5,
+            friction = 0.5,
+            isTrigger = false
+        },
+        vehicleController = {
+            speed = 1000,
+            rotationspeed = 200,
+            driftFactor = 1,
+            playerNumber = 1
+        },
+        collider = {
+            
+        },
+        powerupuiwheel = {
+            spinspeed = 0.1;
+            linkedsprite = "container2"
+        },
+        meshrenderer = {
+            mesh = "karttwo",
+            meshName = "Car.mesh"
+        }
+	},
+    
+    cameraTwo = {
+        transform = {
+            position = { x = -90, y = 100, z = 0 } -- -104 70 0 / 20 10 -10
+        },
+        camera = {
+            lookat = { x = -9, y = 1, z = 0 }, -- -104 10 0 / -20 10 -10
+            name = "playerTwo",
+            neardistance = 0.5,
+            fardistance = 100000,
+            autoratio = true,
+            zorder = 1,
+            overlayenable = false,
+            backgroundcolor = { r = .72, g = .92, b = 1, a = 1  },
+            viewport = { left = 0.5, top = 0.0, width = 0.5, height =1.0 }
+        },
+		camerafollow = {
+			target = "cartwo",
+			offset = { x= 20, y = 10, z = -10 }
+		}
+    },
+
+
+
+    container2 = {
+        UITransform = {
+            position = { x = 0.55, y = 0.07 },
+            scale = { x = 0.1, y = 0.177 },
+            rotation = 0
+        },
+        UISpriteRenderer = {
+            sprite = "container2",     -- Nombre Interno
+            materialName = "container",  -- Nombre en MaterialsResource
+            zorder = 0
+        }
+    },
+
+    insidecontainer = {
+        UITransform = {
+            position = { x = 0.066, y = 0.096 },
+            scale = { x = 0.06, y = 0.1 },
+            rotation = 0
+        },
+        UISpriteRenderer = {
+            sprite = "insidecontainer",     -- Nombre Interno
+            materialName = "insidecontainer",  -- Nombre en MaterialsResource
+            zorder = 1
+        }
+    },
+
+
+    place2 = {
+        UITransform = {
+            position = { x = 0.55, y = 0.8 },
+            scale = { x = 0.1, y = 0.177 },
+            rotation = 0
+        },
+        UISpriteRenderer ={
+            sprite = "place2",     -- Nombre Interno
+            materialName = "second"  -- Nombre en MaterialsResource
+        }
+    },
+
+    -----------------------------------------------------------------------------
+    -----------------------------------------------------------------------------
 
     countdownUI = {
         UITransform = {
@@ -150,6 +262,7 @@ Entities = {
         }
     },
 
+    
     -- PowerUp1 = {
     --     Transform = {
     --         position = { x= 90, y = 7.5, z = 0 },

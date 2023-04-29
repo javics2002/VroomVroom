@@ -51,8 +51,10 @@ void UIButtonScene::update(const double& dt)
 		w = window().getWindowWidth();
 		h = window().getWindowHeight();
 
-		if (mousePosition.x >= mUITransform->getPosition().x * w && mousePosition.x <= mUITransform->getPosition().y * w + mUITransform->getScale().x * w  &&
-			mousePosition.y >= mUITransform->getPosition().y * h && mousePosition.y <= mUITransform->getPosition().y * h + mUITransform->getScale().y * h) {
+		if (mousePosition.x > mUITransform->getPosition().x * w && mousePosition.x < mUITransform->getPosition().x * w + mUITransform->getScale().x * w  &&
+			mousePosition.y > mUITransform->getPosition().y * h && mousePosition.y < mUITransform->getPosition().y * h + mUITransform->getScale().y * h) {
+
+
 			execute();
 			
 			gameManager()->changeState(mNewScene);

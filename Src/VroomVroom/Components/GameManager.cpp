@@ -10,6 +10,8 @@
 #include "VehicleController.h"
 #include "CameraFollow.h"
 
+#include <iostream>
+
 using namespace me;
 using namespace VroomVroom;
 
@@ -28,6 +30,10 @@ void VroomVroom::GameManager::addPowerUp()
 	mContPowerUps++;
 }
 
+int GameManager::getNumPlayer()
+{
+	return mNumPlayer;
+}
 GameManager::~GameManager()
 {
 }
@@ -54,9 +60,18 @@ void GameManager::start()
 void GameManager::changeState(std::string newScene) {
 	if (newScene == "mainmenu.lua")
 		mGameState = GAMESTATE_MAINMENU;
-	else if (newScene == "race.lua" || newScene == "race2.lua") {
+	else if (newScene == "race.lua" ) {
 		mContPowerUps = 0;
+		mNumPlayer = 1;
 		mGameState = GAMESTATE_INGAME;
+		std::cout << newScene << std::endl;
+
+	}
+	else if (newScene == "racetwo.lua") {
+		mContPowerUps = 0;
+		mNumPlayer = 2;
+		mGameState = GAMESTATE_INGAME;
+		std::cout << newScene << std::endl;
 	}
 	else if (newScene == "results.lua")
 		mGameState = GAMESTATE_RESULTS;

@@ -22,6 +22,7 @@ namespace VroomVroom {
 		GAMESTATE_GAMEOVER
 	};
 
+
 	/**
 	Class GameManager, component that is singleton, use for control the gamestate
 	Call sceneManager to load the corrsponding map (.lua file) according to current gameState
@@ -32,6 +33,7 @@ namespace VroomVroom {
 		static GameManager* MInstance;
 
 		GameState mGameState = GAMESTATE_MAINMENU;
+		int mNumPlayer = 1;
 		PlayerInputType mPlayerOneType = PLAYERINPUTTYPE_KEYBOARD;
 		PlayerInputType mPlayerTwoType = PLAYERINPUTTYPE_KEYBOARD;
 
@@ -55,6 +57,8 @@ namespace VroomVroom {
 		int getContPowerUps();
 
 		void addPowerUp();
+
+		int getNumPlayer();
 
 	};
 

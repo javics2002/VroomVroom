@@ -5,6 +5,7 @@
 #include "EntityComponent/Components/Transform.h"
 #include "VehicleController.h"
 #include "Checkpoint.h"
+#include "GameManager.h"
 #include <cstdlib> //  rand() y srand()
 #include <ctime> //  time()
 #define _USE_MATH_DEFINES
@@ -72,7 +73,8 @@ void CircuitInfo::update(const double& dt)
 		mCountdownSprite = nullptr;
 	}
 
-	calculatePlaces();
+	if (gameManager()->getNumPlayer() ==2)
+		calculatePlaces();
 }
 
 void CircuitInfo::calculatePlaces()
