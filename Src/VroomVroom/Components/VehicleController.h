@@ -38,6 +38,8 @@ namespace VroomVroom {
 
 		// flags de movimiento
 		bool mDrift = false;
+		me::Vector3 vRadius = me::Vector3();
+		
 
 		// predefine constant parameters
 		float mAcceleration = .0f;
@@ -50,7 +52,7 @@ namespace VroomVroom {
 		float maxCurveAngle = 45.0f;
 
 		//float mSpeed;
-		float mRotationForce;
+		float mRotationFactor;
 		float mDriftFactor;
 		float lateralForceFactor = 100.0f;
 
@@ -108,6 +110,14 @@ namespace VroomVroom {
 		@param DeltaX turn direction
 		*/
 		void applyRotation(const double& dt, float deltaX);
+
+#ifdef _DEBUG
+		me::Entity* mCompass = nullptr;
+		me::Entity* mTurningPoint = nullptr;
+		float mCompassDistance = -15.0f;
+		void updateCompass(me::Vector3 vForward, float deltaX);
+		void updateTurningPoint(float deltaX);
+#endif
 
 	public:
 		VehicleController();

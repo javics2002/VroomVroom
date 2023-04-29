@@ -3,7 +3,7 @@ Entities = {
 	    Transform = {
             position = { x = 0, y = 5, z = 0 },
 			rotation = { x = 0, y = 0, z = 0 },
-            scale = { x = 200, y = 25, z = 200} --80 30 40
+            scale = { x = 80, y = 25, z = 25} --80 30 40
 	    },
 	    RigidBody = {
 		    colShape = 2,
@@ -43,27 +43,51 @@ Entities = {
             friction = 1.5,
             isTrigger = false
         },
-        vehicleController = {
+        VehicleController = {
             speed = 500;
-            rotationspeed = 10;
+            rotationfactor = 0.9;
             driftFactor = 1;
             playerNumber = 0;
         },
-        collider = {
+        Collider = {
             
         },
-        meshrenderer = {
+        MeshRenderer = {
             mesh = "kart",
             meshName = "Kart.mesh",
             --materialName = "Material/roja"
         }
 	},
 
+    TurningPoint = {
+        Transform = {
+            position = { x= 0, y = 6.5, z = -10 },
+            scale = { x = 0.01, y = 0.01, z = 0.01 },
+            rotation = {x = 0, y = 0, z = 0}
+        },
+        MeshRenderer = {
+            mesh = "sphere",
+            meshName = "sphere.mesh"
+        }
+    },
+
+    Compass = {
+        Transform = {
+            position = { x= -30, y = 6.5, z = -10 },
+            scale = { x = 3, y = 0.5, z = 0.5 },
+            rotation = {x = 0, y = 0, z = 0 }
+        },
+        MeshRenderer = {
+            mesh = "fish",
+            meshName = "fish.mesh"
+        }
+    },
+
     PowerUp = {
         Transform = {
-            position = { x= -10, y = 7.5, z = -10 },
-            scale = { x = 0.025, y = 0.025, z = 0.025 },
-            rotation = {x = 0, y = 180, z = 0}
+            position = { x= -25, y = 7.5, z = -10 },
+            scale = { x = 1, y = 1, z = 1 },
+            rotation = {x = 0, y = 90, z = 0 }
         },
         RigidBody = {
             colShape = 1,
@@ -77,8 +101,8 @@ Entities = {
             isTrigger = true
         },
         meshrenderer = {
-            mesh = "cube",
-            meshName = "cube.mesh"
+            mesh = "PowerUp",
+            meshName = "PowerUp.mesh"
         },
         collider = {
             

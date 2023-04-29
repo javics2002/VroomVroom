@@ -34,7 +34,7 @@ Component* FactoryVehicleController::create(Parameters& params)
 {
     VehicleController* vehicleController = new VehicleController();
     vehicleController->setSpeedAndDrift(Value(params, "speed", 0.0f),
-        Value(params, "rotationspeed", 0.0f), Value(params, "driftfactor", 0.0f));
+        Value(params, "rotationfactor", 0.1f), Value(params, "driftfactor", 0.0f));
     vehicleController->setPlayerNumber(PlayerNumber(Value(params, "playerNumber", 0)));
     
     return vehicleController;
