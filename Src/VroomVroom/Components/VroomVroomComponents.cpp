@@ -7,6 +7,7 @@
 #include "Checkpoint.h"
 #include "Oil.h"
 #include "UIButtonScene.h"
+#include "UIButtonQuit.h"
 #include "PowerUpUIWheel.h"
 #include "PowerUpObject.h"
 
@@ -61,7 +62,7 @@ Component* FactoryCheckpoint::create(Parameters& params)
 {
     Checkpoint* checkpoint = new Checkpoint();
 
-    checkpoint->setIndex(Value(params, "index", checkpoint->getNumCheckpoints()));
+    checkpoint->setIndex(Value(params, "index", Checkpoint::GetNumCheckpoints()));
 
     return checkpoint;
 }
@@ -135,6 +136,27 @@ me::Component* FactoryUIButtonScene::create(me::Parameters& params)
 }
 
 void FactoryUIButtonScene::destroy(me::Component* component)
+{
+    delete component;
+}
+
+me::Component* FactoryUIButtonQuit::create(me::Parameters& params)
+{
+    if (params.empty())
+    {
+        return new UIButtonQuit();
+    }
+    std::string sprite = Value(params, "sprite", std::string());
+    std::string materialName = Value(params, "materialname", std::string());
+    int zOrder = Value(params, "zorder", 1);
+
+    UIButtonQuit* button = new UIButtonQuit();
+    button->init(sprite, materialName, zOrder);
+
+    return button;
+}
+
+void FactoryUIButtonQuit::destroy(me::Component* component)
 {
     delete component;
 }

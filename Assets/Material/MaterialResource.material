@@ -344,3 +344,39 @@ material countdown3
 		}
 	}
 }
+
+material first
+{
+	technique
+	{
+		pass
+		{
+			depth_check off
+			lighting off
+			scene_blend alpha_blend
+			texture_unit 
+			{
+				texture FirstPlace.png
+				colour_op replace
+			}
+		}
+	}
+}
+
+material second
+{
+	technique
+	{
+		pass
+		{
+			depth_check off
+			lighting off
+			scene_blend alpha_blend
+			texture_unit 
+			{
+				texture SecondPlace.png
+				colour_op replace
+			}
+		}
+	}
+}

@@ -8,9 +8,11 @@
 #include "Utils/Timer.h"
 #include <string>
 #include <vector>
+#include <map>
 
 namespace VroomVroom {
 	class VehicleController;
+	class Checkpoint;
 
 	/**
 	Stores information about the circuits area
@@ -36,8 +38,11 @@ namespace VroomVroom {
 		me::Timer* mTimer = nullptr;
 
 		std::vector<VehicleController*> mVehicles;
+		std::map<int, Checkpoint*> mCheckpoints;
 
 		me::UISpriteRenderer* mCountdownSprite;
+
+		void calculatePlaces();
 
 	public:
 		CircuitInfo();
@@ -62,6 +67,7 @@ namespace VroomVroom {
 		std::string getFinishTime();
 
 		void addVehicle(VehicleController* newVehicle);
+		void addCheckpoint(Checkpoint* newCheckpoint);
 	};
 }
 #endif

@@ -11,6 +11,8 @@ namespace me {
 }
 
 namespace VroomVroom {
+	class CircuitInfo;
+
 	/*
 	A checkpoint is a cube trigger with an index, that checks the players that go
 	through it and update their circuit progress.
@@ -23,6 +25,7 @@ namespace VroomVroom {
 		int mIndex;
 
 		me::RigidBody* rigidbody = nullptr;
+		CircuitInfo* mCircuitInfo = nullptr;
 
 	public:
 		Checkpoint();
@@ -33,8 +36,8 @@ namespace VroomVroom {
 		void setIndex(int index);
 		int getIndex();
 
-		void setNumCheckpoints(int numCheckpoints);
-		int getNumCheckpoints();
+		static void SetNumCheckpoints(int numCheckpoints);
+		static int GetNumCheckpoints();
 	};
 }
 #endif

@@ -34,6 +34,7 @@ __VROOMVROOM_API void initFactories()
 	componentsFactory().addFactoryComponent("gamemanager", new FactoryGameManager());
 	componentsFactory().addFactoryComponent("checkpoint", new FactoryCheckpoint());
 	componentsFactory().addFactoryComponent("uibuttonscene", new FactoryUIButtonScene());
+	componentsFactory().addFactoryComponent("uibuttonquit", new FactoryUIButtonQuit());
 	componentsFactory().addFactoryComponent("powerupuiwheel", new FactoryPowerUpUIWheel());
 	componentsFactory().addFactoryComponent("powerupobject", new FactoryPowerUpObject());
 	componentsFactory().addFactoryComponent("oil", new FactoryOil());
