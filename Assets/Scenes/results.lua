@@ -43,7 +43,8 @@ Entities = {
         UIButtonScene = {
             sprite = "mainresultsbutton",
             materialName = "Main/ResultsButton",
-            scene = "mainmenu.lua"
+            scene = "mainmenu.lua",
+            zorder = 3
         },
 
         UITransform = {

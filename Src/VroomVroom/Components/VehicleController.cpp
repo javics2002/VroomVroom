@@ -64,8 +64,9 @@ void VehicleController::start()
     mPowerUpUIWheel->addSpriteNameToPool("lightningBolt");
 
     mCircuitInfo = mEntity->getScene()->findEntity("circuit").get()->getComponent<CircuitInfo>("circuitinfo");
+    mCircuitInfo->addVehicle(this);
 
-    mControllable = true;
+    mControllable = false;
 }
 
 void VehicleController::update(const double& dt)

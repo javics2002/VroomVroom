@@ -271,3 +271,76 @@ material insidecontainer // nombre
 		}
 	}
 }
+
+
+material countdownGo
+{
+	technique
+	{
+		pass
+		{
+			depth_check off
+			lighting off
+			scene_blend alpha_blend
+			texture_unit 
+			{
+				texture Go.png
+				colour_op replace
+			}
+		}
+	}
+}
+
+material countdown1
+{
+	technique
+	{
+		pass
+		{
+			depth_check off
+			lighting off
+			scene_blend alpha_blend
+			texture_unit 
+			{
+				texture Countdown1.png
+				colour_op replace
+			}
+		}
+	}
+}
+
+material countdown2
+{
+	technique
+	{
+		pass
+		{
+			depth_check off
+			lighting off
+			scene_blend alpha_blend
+			texture_unit 
+			{
+				texture Countdown2.png
+				colour_op replace
+			}
+		}
+	}
+}
+
+material countdown3
+{
+	technique
+	{
+		pass
+		{
+			depth_check off
+			lighting off
+			scene_blend alpha_blend
+			texture_unit 
+			{
+				texture Countdown3.png
+				colour_op replace
+			}
+		}
+	}
+}
