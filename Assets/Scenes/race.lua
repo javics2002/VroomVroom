@@ -40,11 +40,11 @@ Entities = {
             mask = 7,
             colliderscale = {x = 4, y = 2, z = 4},
             restitution = .5,
-            friction = 1.5,
+            friction = 0.5,
             isTrigger = false
         },
         VehicleController = {
-            speed = 500;
+            speed = 250;
             rotationfactor = 0.9;
             driftFactor = 1;
             playerNumber = 0;

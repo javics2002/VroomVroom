@@ -247,17 +247,13 @@ void VroomVroom::VehicleController::applyRotation(const double& dt, float deltaX
 
     if (minimumSpeedReached && deltaX != 0) {
 
-        if (curveAngleDegrees == 45) {
-            int i = 1 + 1;
-        }
-
         // apply a torque to rotate the body
-        mRigidBody->addTorque(newUp * (angularMomentum) * dt);
+        mRigidBody->addTorque(newUp * (angularMomentum)*dt);
 
         // apply a lateral force to the body
         mRigidBody->addForce(right * (centripetalForce - frictionForce) * dt);
 
-    }
+    }    
 
     // limits angular velocity
     if (w > maxAngularSpeed) {
@@ -307,20 +303,18 @@ void VroomVroom::VehicleController::applyPush(const double& dt, bool accelerate,
     else if (decelerate)
         newVelocity = mDeceleration * dt;
 
-    if (newVelocity > maxSpeed) {
-        newVelocity = maxSpeed;
-    }
-
     // push force, total acelerate force (F = m * a - Fdin)
     float force = mass * newVelocity / dt;
     float totalForce = force - dynamicForce;
-
-    if (newVelocity > maxSpeed) {
-        newVelocity = maxSpeed;
-    }
     
     if (accelerate || decelerate)
         mRigidBody->addForce(vForward * totalForce * dt);
+
+    velocity = mRigidBody->getVelocity().magnitude();
+    if (velocity > maxSpeed) {
+        Vector3 vVelocity = mRigidBody->getVelocity().normalize() * maxSpeed;
+        mRigidBody->setVelocity(vVelocity);
+    }
 }
 
 void VroomVroom::VehicleController::updateCompass(Vector3 vForward, float deltaX)
@@ -353,8 +347,8 @@ void VroomVroom::VehicleController::updateTurningPoint(float deltaX)
 
 void VehicleController::setSpeedAndDrift(float speed, float angularSpeed, float driftFactor)
 {
-    mAcceleration = speed * 2;
-    mDeceleration = -speed;
+    mAcceleration = speed;
+    mDeceleration = -speed / 2;
     mRotationFactor = angularSpeed;
     mDriftFactor = driftFactor;
 }
