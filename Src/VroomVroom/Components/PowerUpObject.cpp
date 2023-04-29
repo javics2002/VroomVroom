@@ -18,6 +18,7 @@ PowerUpObject::PowerUpObject()
 
 PowerUpObject::~PowerUpObject()
 {
+	delete mTimer;
 }
 
 void PowerUpObject::start()

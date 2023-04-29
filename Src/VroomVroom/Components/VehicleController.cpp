@@ -50,6 +50,10 @@ VehicleController::VehicleController()
     mTransform = nullptr;
 }
 
+VehicleController::~VehicleController()
+{
+}
+
 void VehicleController::start()
 {
     mCheckpointIndex = -1;

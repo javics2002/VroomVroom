@@ -13,9 +13,9 @@ PowerUpUIWheel::PowerUpUIWheel()
 
 PowerUpUIWheel::~PowerUpUIWheel()
 {
+	delete mSpriteIntervalTimer;
+	delete mSpinTimer;
 }
-
-
 
 void PowerUpUIWheel::start() {
 	mSpinning = false;

@@ -25,6 +25,7 @@ CircuitInfo::CircuitInfo()
 
 CircuitInfo::~CircuitInfo()
 {
+	delete mTimer;
 }
 
 void CircuitInfo::start()

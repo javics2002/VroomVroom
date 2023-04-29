@@ -70,6 +70,7 @@ namespace VroomVroom {
 
 	public:
 		VehicleController();
+		~VehicleController();
 
 		void start() override;
 		void update(const double& dt) override;
