@@ -84,17 +84,9 @@ void VehicleController::update(const double& dt)
     //If the player is using keyboard
     float deltaX = getPlayerAxis("HORIZONTAL");
 
-    
-
     Vector3 vForward = mTransform->forward().normalize();
 
-    // If the vertical input axis is positive, add a forward impulse to the vehicle's rigidbody
-    if (accelerate)
-        mRigidBody->addForce(vForward * mAcceleration * dt);
-
-    // If the vertical input axis is negative, add a backward impulse to the vehicle's rigidbody
-    else if (decelerate) 
-        mRigidBody->addForce(vForward * mDeceleration * dt);
+    applyPush(dt, accelerate, decelerate);
 
     // Rotate the vehicle
     applyRotation(dt, deltaX);
@@ -208,6 +200,7 @@ void VroomVroom::VehicleController::applyRotation(const double& dt, float deltaX
         fixedDeltaX = 1 - deltaX;*/
 
     // whether if the cruve forces should be apply
+    Vector3 vVelocity = mRigidBody->getVelocity();
     float velocity = mRigidBody->getVelocity().magnitude();
     float speedFraction = clamp(velocity / maxSpeed, 0.0f, 1.0f);
     bool minimumSpeedReached = (speedFraction > minSpeedFraction);
@@ -254,6 +247,10 @@ void VroomVroom::VehicleController::applyRotation(const double& dt, float deltaX
 
     if (minimumSpeedReached && deltaX != 0) {
 
+        if (curveAngleDegrees == 45) {
+            int i = 1 + 1;
+        }
+
         // apply a torque to rotate the body
         mRigidBody->addTorque(newUp * (angularMomentum) * dt);
 
@@ -282,6 +279,48 @@ void VroomVroom::VehicleController::applyRotation(const double& dt, float deltaX
     float angle = vForward.angle(Vector3::forward());
     Vector3 rotatedVelocity = vVelocity.Ry(angle);
     mRigidBody->setVelocity(rotatedVelocity);*/
+}
+
+void VroomVroom::VehicleController::applyPush(const double& dt, bool accelerate, bool decelerate)
+{
+    Vector3 vForward = mTransform->forward().normalize();
+
+    // gravitational force (P = m * g) => (P = N)
+    float mass = mRigidBody->getMass();
+    float velocity = mRigidBody->getVelocity().magnitude();
+    float gravity = mRigidBody->getGravity();
+    float gravitationalForce = mass * gravity;
+
+    // friction force (Fr = k * N) => (k = friction Factor)
+    float frictionFactor = mRigidBody->getFriction();
+    float frictionForce = frictionFactor * gravitationalForce;
+
+    // dynamic force (Fp = N + Fr)
+    float dynamicForce = gravitationalForce + frictionForce;
+
+    float newVelocity = velocity;
+    // If the vertical input axis is positive, add a forward impulse to the vehicle's rigidbody
+    if (accelerate)
+        newVelocity = mAcceleration * dt;
+
+    // If the vertical input axis is negative, add a backward impulse to the vehicle's rigidbody
+    else if (decelerate)
+        newVelocity = mDeceleration * dt;
+
+    if (newVelocity > maxSpeed) {
+        newVelocity = maxSpeed;
+    }
+
+    // push force, total acelerate force (F = m * a - Fdin)
+    float force = mass * newVelocity / dt;
+    float totalForce = force - dynamicForce;
+
+    if (newVelocity > maxSpeed) {
+        newVelocity = maxSpeed;
+    }
+    
+    if (accelerate || decelerate)
+        mRigidBody->addForce(vForward * totalForce * dt);
 }
 
 void VroomVroom::VehicleController::updateCompass(Vector3 vForward, float deltaX)

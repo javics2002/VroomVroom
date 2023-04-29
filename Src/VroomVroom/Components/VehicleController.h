@@ -110,6 +110,13 @@ namespace VroomVroom {
 		@param DeltaX turn direction
 		*/
 		void applyRotation(const double& dt, float deltaX);
+		
+		/**
+		Apply the rotation physics to the car, using angularSpeed.
+		@param Dt the time lapsed from previous frame
+		@param DeltaX turn direction
+		*/
+		void applyPush(const double& dt, bool accelerate, bool decelerate);
 
 #ifdef _DEBUG
 		me::Entity* mCompass = nullptr;
