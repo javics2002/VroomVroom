@@ -126,11 +126,13 @@ me::Component* FactoryUIButtonScene::create(me::Parameters& params)
     std::string sprite = Value(params, "sprite", std::string());
     std::string materialName = Value(params, "materialname", std::string());
     std::string newScene = Value(params, "scene", std::string());
+    std::string playerlook = Value(params, "playerlook", std::string());
     int zOrder= Value(params, "zorder", 1);
 
     UIButtonScene* button = new UIButtonScene();
     button->init(sprite, materialName,zOrder);
     button->setNewScene(newScene);
+    button->setPlayerLook(playerlook);
 
     return button;
 }
@@ -152,6 +154,8 @@ me::Component* FactoryUIButtonQuit::create(me::Parameters& params)
 
     UIButtonQuit* button = new UIButtonQuit();
     button->init(sprite, materialName, zOrder);
+
+
 
     return button;
 }

@@ -9,17 +9,6 @@ material Material/roja
 	}
 }
 
-material BaseWhite
-{
-	technique
-	{
-		pass
-		{
-			diffuse 1.0 1.0 1.0 1.0
-		}
-	}
-}
-
 material Material/marronclaro
 {
 	technique
@@ -188,7 +177,25 @@ material Main/title
 			scene_blend alpha_blend
 			texture_unit 
 			{
-				texture maintitle.png
+				texture VroomVroomLogo.png
+				colour_op replace
+			}
+		}
+	}
+}
+
+material Main/motor
+{
+	technique
+	{
+		pass
+		{
+			depth_check off
+			lighting off
+			scene_blend alpha_blend
+			texture_unit 
+			{
+				texture MotorEngineLogo.png
 				colour_op replace
 			}
 		}

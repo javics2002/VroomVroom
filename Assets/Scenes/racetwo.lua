@@ -3,7 +3,7 @@ Entities = {
 	    Transform = {
             position = { x = 0, y = 5, z = 0 },
 			rotation = { x = 0, y = 0, z = 0 },
-            scale = { x = 1.5, y = 3, z = 4} --80 30 40
+            scale = { x = 1, y = 1, z = 1} --80 30 40
 	    },
 	    RigidBody = {
 		    colShape = 1,
@@ -52,7 +52,7 @@ Entities = {
 
 	CarOne = {
         Transform = {
-            position = { x= 0, y = 10, z = -28 },
+            position = { x=-20, y = 6.1, z = 10 },
             scale = { x = 1, y = 1, z = 1 },
             rotation = {x = 0, y = 180, z = 0}
         },
@@ -82,7 +82,7 @@ Entities = {
         },
         meshrenderer = {
             mesh = "kartone",
-            meshName = "Car.mesh"
+            meshName = "RedCar.mesh"
         }
 	},
 
@@ -151,7 +151,7 @@ Entities = {
 
     CarTwo = {
         Transform = {
-            position = { x= 0, y = 10, z = -33 },
+            position = { x=-20, y = 6.1, z = 5 },
             scale = { x = 1, y = 1, z = 1 },
             rotation = {x = 0, y = 180, z = 0}
         },
@@ -181,7 +181,7 @@ Entities = {
         },
         meshrenderer = {
             mesh = "karttwo",
-            meshName = "Car.mesh"
+            meshName = "BlueCar.mesh"
         }
 	},
     

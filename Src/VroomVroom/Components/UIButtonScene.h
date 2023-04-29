@@ -5,6 +5,7 @@
 
 #include "EntityComponent/Components/Component.h"
 #include <string>
+#include <vector>
 
 namespace Ogre {
 	class TextAreaOverlayElement;
@@ -12,9 +13,11 @@ namespace Ogre {
 
 namespace me {
 	class UITransform;
+	class Transform;
 }
 
 namespace VroomVroom {
+
 	/**
 	The UISpriteRenderer class represents a visual object in 2D space as a screen overlay that will be attached to an entity.
 	*/
@@ -32,9 +35,20 @@ namespace VroomVroom {
 
 		std::string mNewScene;
 
+		std::string mPlayerLook;
+		std::vector<me::Transform*> mPlayerLookTransform;
+		
 		Ogre::TextAreaOverlayElement* mButtonArea;
 
 		int x = 0;
+
+		int windowWidth =0 , windowHeight=0;
+
+		bool toggle = false;
+		bool stopped = true;
+		bool scaled = false;
+
+		float playerRotateAngle = 20.0;
 
 	public:
 		/**
@@ -55,12 +69,16 @@ namespace VroomVroom {
 
 		void setNewScene(std::string newScene);
 
+		void setPlayerLook(std::string playerLook);
+
 		/**
 		Update UITransform info to image
 		*/
 		void update(const double& dt) override;
 
 		void execute();
+
+		void togglePlayerLook(const double&);
 
 		/**
 			Set material.
