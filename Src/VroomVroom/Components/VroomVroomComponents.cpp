@@ -194,3 +194,13 @@ void VroomVroom::FactoryPowerUpObject::destroy(me::Component* component)
 {
     delete component;
 }
+
+me::Component* VroomVroom::FactoryNerf::create(me::Parameters& params)
+{
+    return nullptr;
+}
+
+void VroomVroom::FactoryNerf::destroy(me::Component* component)
+{
+    delete component;
+}

@@ -51,6 +51,12 @@ namespace VroomVroom {
 		void destroy(me::Component* component) override;
 	};
 
+	class FactoryNerf : public me::FactoryComponent {
+	public:
+		me::Component* create(me::Parameters& params) override;
+		void destroy(me::Component* component) override;
+	};
+
 	class FactoryUIButtonScene : public me::FactoryComponent {
 	public:
 		me::Component* create(me::Parameters& params) override;
