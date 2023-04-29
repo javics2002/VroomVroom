@@ -273,7 +273,7 @@ material insidecontainer // nombre
 }
 
 
-material countdownGo
+material countdownGO
 {
 	technique
 	{
