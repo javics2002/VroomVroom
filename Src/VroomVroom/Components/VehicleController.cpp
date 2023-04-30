@@ -44,7 +44,7 @@ void VehicleController::start()
 
     mRigidBody->setGravity(Vector3::zero());
 
-    mCheckpointIndex = 0;
+    mCheckpointIndex = -1;
     mLap = 0;
     mPlace = 0;
 
@@ -237,7 +237,7 @@ void VehicleController::onCollisionEnter(me::Entity* other)
             //Next checkpoint
             mCheckpointIndex++;
 
-            if (mCheckpointIndex == checkpoint->GetNumCheckpoints() - 1) {
+            if (mCheckpointIndex == checkpoint->GetNumCheckpoints()) {
                 //Add lap
                 mCheckpointIndex = -1;
                 mLap++;
@@ -274,17 +274,4 @@ void VehicleController::onCollisionEnter(me::Entity* other)
     }
 
     //else if (other->hasComponent("PowerUpObject"))
-}
-
-void VehicleController::onCollisionExit(me::Entity* other)
-{
-    //TESTEAR SI ESTO HACE FALTA
-    if (other->hasComponent("checkpoint")) {
-        Checkpoint* checkpoint = other->getComponent<Checkpoint>("checkpoint");
-
-        if (checkpoint->getIndex() == mCheckpointIndex + 1)
-            mCheckpointIndex++;
-        else if (checkpoint->getIndex() == mCheckpointIndex)
-            mCheckpointIndex--; //Vas marcha atras por alguna razon
-    }
 }

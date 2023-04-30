@@ -35,8 +35,7 @@ void UIButtonScene::init(std::string name, std::string materialName,int zOrder)
 
 void UIButtonScene::start()
 {
-	mUITransform = getEntity()->getComponent<UITransform>("uitransform");
-	renderManager().setUISpriteTransform(mName, mUITransform->getPosition(), mUITransform->getScale(), mUITransform->getRotation());
+	UIButton::start();
 
 	windowWidth = window().getWindowWidth();
 	windowHeight = window().getWindowHeight();
@@ -157,14 +156,5 @@ void UIButtonScene::execute()
 	sceneManager().change(mNewScene);
 }
 
-std::string UIButtonScene::getName()
-{
-	return mName;
-}
-
-void UIButtonScene::setSpriteMaterial(std::string materialName)
-{
-	renderManager().setUISpriteMaterial(mName, materialName);
-}
 
 

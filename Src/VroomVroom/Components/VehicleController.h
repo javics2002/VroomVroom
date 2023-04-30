@@ -125,7 +125,6 @@ namespace VroomVroom {
 		int getChekpointIndex();
 
 		void onCollisionEnter(me::Entity* other) override;
-		void onCollisionExit(me::Entity* other) override;
 	};
 }
 #endif

@@ -7,9 +7,7 @@
 #include <string>
 #include <vector>
 
-namespace Ogre {
-	class TextAreaOverlayElement;
-}
+#include "EntityComponent/Components/UIButton.h"
 
 namespace me {
 	class UITransform;
@@ -21,17 +19,9 @@ namespace VroomVroom {
 	/**
 	The UISpriteRenderer class represents a visual object in 2D space as a screen overlay that will be attached to an entity.
 	*/
-	class UIButtonScene : public me::Component
+	class UIButtonScene : public me::UIButton
 	{
 	protected:
-		//name for RenderManager map and for entity that attached in node
-		std::string mName;
-		//name of .png file
-		std::string mSpriteName;
-		//componenet transform of this.Entity
-		me::UITransform* mUITransform;
-		//static state of this.Entity 
-		bool mStaticObject = false;
 
 		std::string mNewScene;
 
@@ -76,20 +66,10 @@ namespace VroomVroom {
 		*/
 		void update(const double& dt) override;
 
-		void execute();
+		void execute() override;
 
 		void togglePlayerLook(const double&);
 
-		/**
-			Set material.
-			@param materialName: name of material, as written in MaterialResource.material.
-		*/
-		void setSpriteMaterial(std::string materialName);
-
-		/**
-		Name getter
-		*/
-		std::string getName();
 	};
 }
 #endif
