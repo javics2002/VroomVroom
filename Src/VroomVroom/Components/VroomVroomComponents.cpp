@@ -39,6 +39,8 @@ Component* FactoryVehicleController::create(Parameters& params)
     vehicleController->setAccelerationAndRotation(Value(params, "acceleration", 1.0f),
         Value(params, "rotationspeed", 1.0f), Value(params, "driftfactor", 1.0f));
     vehicleController->setPlayerNumber(PlayerNumber(Value(params, "playerNumber", 0)));
+    vehicleController->setMaxSpeedAndRotationSpeed(Value(params, "maxspeed", 1.0f), Value(params, "maxrotationspeed", 1.0f));
+    vehicleController->setLinearAndAngularDamping(Value(params, "lineardamping", 0.99f), Value(params, "angulardamping", 0.9f));
     
     return vehicleController;
 }
