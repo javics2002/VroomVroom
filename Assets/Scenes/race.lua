@@ -52,17 +52,17 @@ Entities = {
 
 	CarOne = {
         Transform = {
-            position = { x=-37, y = 6.1, z = -10 },
+            position = { x=-50, y = 5.5, z = -10 },
             scale = { x = 1, y = 1, z = 1 },
-            rotation = {x = 0, y = 180, z = 0}
+            rotation = {x = 0, y = 0, z = 0}
         },
         RigidBody = {
-            colShape = 1,
+            colShape = 2,
             mvType = 0,
             mass = 1,
             group = 2,
             mask = 7,
-            colliderscale = {x = 1, y = 1, z = 1},
+            colliderscale = {x = 1, y = .4, z = 1},
             restitution = .5,
             friction = 0.5,
             isTrigger = false
@@ -89,10 +89,10 @@ Entities = {
 
     cameraOne = {
         transform = {
-            position = { x = -90, y = 100, z = 0 } -- -104 70 0 / 20 10 -10
+            position = { x=-55, y = 7.5, z = -10 } -- -104 70 0 / 20 10 -10
         },
         camera = {
-            lookat = { x = -9, y = 1, z = 0 }, -- -104 10 0 / -20 10 -10
+            lookat = { x=-50, y = 6.5, z = -10 }, -- -104 10 0 / -20 10 -10
             name = "playerOne",
             neardistance = 0.5,
             fardistance = 100000,
@@ -104,7 +104,9 @@ Entities = {
         },
 		camerafollow = {
 			target = "carone",
-			offset = { x= 20, y = 10, z = -10 }
+			positionoffset = { x= 0, y = 2, z = -5 },
+            lookoffset = { x= 0, y = 1, z = 0 },
+            smoothing = .3
 		}
     },
 
@@ -132,6 +134,18 @@ Entities = {
             sprite = "insidecontainer",     -- Nombre Interno
             materialName = "insidecontainer",  -- Nombre en MaterialsResource
             zorder = 1
+        }
+    },
+
+    place1 = {
+        UITransform = {
+            position = { x = 2, y = 2 },
+            scale = { x = 0.1, y = 0.177 },
+            rotation = 0
+        },
+        UISpriteRenderer ={
+            sprite = "place1",     -- Nombre Interno
+            materialName = "first"  -- Nombre en MaterialsResource
         }
     },
 
@@ -323,153 +337,9 @@ Entities = {
     --         type = 2
     --     }
     -- },
-    checkpoint9 = {
-        Transform = {
-            position = { x= 35, y = 10, z = -12.5 },
-            scale = { x = 1, y = 1, z = 1 },
-            rotation = {x = 0, y = 180, z = 0}
-        },
-        RigidBody = {
-            colShape = 1,
-            mvType = static,
-            mass = 5,
-            group = 1,
-            mask = 2,
-            colliderscale = {x = 0.01, y = 10, z = 10},
-            restitution = .5,
-            friction = 0.5,
-            isTrigger = true
-        },
-        collider = {
-
-        },
-        Checkpoint={
-            index = 9;
-        }
-    },
-    checkpoint8 = {
-        Transform = {
-            position = { x= 80, y = 10, z = -12.5 },
-            scale = { x = 1, y = 1, z = 1 },
-            rotation = {x = 0, y = 180, z = 0}
-        },
-        RigidBody = {
-            colShape = 1,
-            mvType = static,
-            mass = 5,
-            group = 1,
-            mask = 2,
-            colliderscale = {x = 0.01, y = 10, z = 10},
-            restitution = .5,
-            friction = 0.5,
-            isTrigger = true
-        },
-        collider = {
-
-        },
-        Checkpoint={
-            index = 8;
-        }
-    },
-    checkpoint7 = {
-        Transform = {
-            position = { x= 80, y = 10, z = 12.5 },
-            scale = { x = 1, y = 1, z = 1 },
-            rotation = {x = 0, y = 180, z = 0}
-        },
-        RigidBody = {
-            colShape = 1,
-            mvType = static,
-            mass = 5,
-            group = 1,
-            mask = 2,
-            colliderscale = {x = 0.01, y = 10, z = 10},
-            restitution = .5,
-            friction = 0.5,
-            isTrigger = true
-        },
-        collider = {
-
-        },
-        Checkpoint={
-            index = 7;
-        }
-    },
-    checkpoint6 = {
-        Transform = {
-            position = { x= 40, y = 10, z = 12.5 },
-            scale = { x = 1, y = 1, z = 1 },
-            rotation = {x = 0, y = 180, z = 0}
-        },
-        RigidBody = {
-            colShape = 1,
-            mvType = static,
-            mass = 5,
-            group = 1,
-            mask = 2,
-            colliderscale = {x = 0.01, y = 10, z = 10},
-            restitution = .5,
-            friction = 0.5,
-            isTrigger = true
-        },
-        collider = {
-
-        },
-        Checkpoint={
-            index = 6;
-        }
-    },
-    checkpoint5 = {
-        Transform = {
-            position = { x= 0, y = 10, z = 12.5 },
-            scale = { x = 1, y = 1, z = 1 },
-            rotation = {x = 0, y = 180, z = 0}
-        },
-        RigidBody = {
-            colShape = 1,
-            mvType = static,
-            mass = 5,
-            group = 1,
-            mask = 2,
-            colliderscale = {x = 0.01, y = 10, z = 10},
-            restitution = .5,
-            friction = 0.5,
-            isTrigger = true
-        },
-        collider = {
-
-        },
-        Checkpoint={
-            index = 5;
-        }
-    },
-    checkpoint4 = {
-        Transform = {
-            position = { x= -40, y = 10, z = 12.5 },
-            scale = { x = 1, y = 1, z = 1 },
-            rotation = {x = 0, y = 180, z = 0}
-        },
-        RigidBody = {
-            colShape = 1,
-            mvType = static,
-            mass = 5,
-            group = 1,
-            mask = 2,
-            colliderscale = {x = 0.01, y = 10, z = 10},
-            restitution = .5,
-            friction = 0.5,
-            isTrigger = true
-        },
-        collider = {
-
-        },
-        Checkpoint={
-            index = 4;
-        }
-    },
     checkpoint3 = {
         Transform = {
-            position = { x= -80, y = 10, z = 12.5 },
+            position = { x= -120, y = 0, z = 0 },
             scale = { x = 1, y = 1, z = 1 },
             rotation = {x = 0, y = 180, z = 0}
         },
@@ -479,7 +349,7 @@ Entities = {
             mass = 5,
             group = 1,
             mask = 2,
-            colliderscale = {x = 0.01, y = 10, z = 10},
+            colliderscale = {x = 10, y = 10, z = 1},
             restitution = .5,
             friction = 0.5,
             isTrigger = true
@@ -493,7 +363,7 @@ Entities = {
     },
     checkpoint2 = {
         Transform = {
-            position = { x= -80, y = 10, z = -12.5 },
+            position = { x= -80, y = 0, z = 10 },
             scale = { x = 1, y = 1, z = 1 },
             rotation = {x = 0, y = 180, z = 0}
         },
@@ -503,7 +373,7 @@ Entities = {
             mass = 5,
             group = 1,
             mask = 2,
-            colliderscale = {x = 0.01, y = 10, z = 10},
+            colliderscale = {x = 1, y = 10, z = 10},
             restitution = .5,
             friction = 0.5,
             isTrigger = true
@@ -517,7 +387,7 @@ Entities = {
     },
     checkpoint1 = {
         Transform = {
-            position = { x= -40, y = 10, z = -12.5 },
+            position = { x= -0, y = 0, z = 0 },
             scale = { x = 1, y = 1, z = 1 },
             rotation = {x = 0, y = 180, z = 0}
         },
@@ -527,7 +397,7 @@ Entities = {
             mass = 5,
             group = 1,
             mask = 2,
-            colliderscale = {x = 0.01, y = 10, z = 10},
+            colliderscale = {x = 10, y = 10, z = 1},
             restitution = .5,
             friction = 0.5,
             isTrigger = true
@@ -541,7 +411,7 @@ Entities = {
     },
     checkpoint0 = {
         Transform = {
-            position = { x= 0, y = 10, z = -12.5 },
+            position = { x=-42, y = 0, z = -10 },
             scale = { x = 1, y = 1, z = 1 },
             rotation = {x = 0, y = 180, z = 0}
         },
@@ -551,7 +421,7 @@ Entities = {
             mass = 5,
             group = 1,
             mask = 2,
-            colliderscale = {x = 0.01, y = 10, z = 10},
+            colliderscale = {x = 1, y = 10, z = 10},
             restitution = .5,
             friction = 0.5,
             isTrigger = true
@@ -564,17 +434,6 @@ Entities = {
         }
     },
 
-    -- -- DirectionalLight2 = {
-    -- --     Transform = {
-    -- --         position = { x = 0, y = 500, z = 500 }
-    -- --     },
-    -- --     Light = {
-    -- --         name = "DirectionalLight2",
-    -- --         direction = { x = -1, y = -1, z = -1 },
-    -- --         type = 0
-    -- --     }
-    -- -- }, 
-
     DirectionalLight = {
         Transform = {
             position = { x = 0, y = 500, z = 500 }
@@ -582,51 +441,53 @@ Entities = {
         Light = {
             name = "DirectionalLight",
             direction = { x = 1, y = -1, z = -1 },
-            type = 0
+            type = 0,
+            color = { r = .5, g = .5, b = .5 },
+            ambientColor = { r = .5, g = .5, b = .5 }
         }
     },
 
     -- -- Paredes del centro del circuito
 
-    ParedCentroDerecha = {
-        Transform = {
-            position = { x = -63, y = 5, z = 2.8},
-			rotation = { x = 0, y = 0, z = 0 },
-            scale = { x = 1, y = 1, z = 1}
-	    },
-        RigidBody = {
-		    colShape = 1,
-		    mvType = static,
-		    mass = 5,
-            group = 1,
-            mask = 2,
-            colliderscale = {x = 54, y = 10, z = 0.01},
-		    restitution = .5,
-		    friction = .3,
-		    isTrigger = false
-	    },
-        collider = {}
-    },
+    -- ParedCentroDerecha = {
+    --     Transform = {
+    --         position = { x = -63, y = 5, z = 2.8},
+	-- 		rotation = { x = 0, y = 0, z = 0 },
+    --         scale = { x = 1, y = 1, z = 1}
+	--     },
+    --     RigidBody = {
+	-- 	    colShape = 1,
+	-- 	    mvType = static,
+	-- 	    mass = 5,
+    --         group = 1,
+    --         mask = 2,
+    --         colliderscale = {x = 54, y = 10, z = 0.01},
+	-- 	    restitution = .5,
+	-- 	    friction = .3,
+	-- 	    isTrigger = false
+	--     },
+    --     collider = {}
+    -- },
 
-    ParedCentroIzquierda = {
-        Transform = {
-            position = { x = -63, y = 5, z = -2.8},
-			rotation = { x = 0, y = 0, z = 0 },
-            scale = { x = 1, y = 1, z = 1}
-	    },
-        RigidBody = {
-		    colShape = 1,
-		    mvType = static,
-		    mass = 5,
-            group = 1,
-            mask = 2,
-            colliderscale = {x = 54, y = 10, z = 0.01},
-		    restitution = .5,
-		    friction = .3,
-		    isTrigger = false
-	    },
-        collider = {}
-    },
+    -- ParedCentroIzquierda = {
+    --     Transform = {
+    --         position = { x = -63, y = 5, z = -2.8},
+	-- 		rotation = { x = 0, y = 0, z = 0 },
+    --         scale = { x = 1, y = 1, z = 1}
+	--     },
+    --     RigidBody = {
+	-- 	    colShape = 1,
+	-- 	    mvType = static,
+	-- 	    mass = 5,
+    --         group = 1,
+    --         mask = 2,
+    --         colliderscale = {x = 54, y = 10, z = 0.01},
+	-- 	    restitution = .5,
+	-- 	    friction = .3,
+	-- 	    isTrigger = false
+	--     },
+    --     collider = {}
+    -- },
 
     -- ParedCentro1 = {
     --     Transform = {
@@ -990,45 +851,45 @@ Entities = {
 
     -- --Paredes del exterior del circuito
 
-    ParedDerecha = {
-        Transform = {
-            position = { x = 0, y = 5, z = 13},
-			rotation = { x = 0, y = 0, z = 0 },
-            scale = { x = 1, y = 1, z = 1}
-	    },
-        RigidBody = {
-		    colShape = 1,
-		    mvType = static,
-		    mass = 5,
-            group = 1,
-            mask = 2,
-            colliderscale = {x = 130, y = 10, z = 0.01},
-		    restitution = .5,
-		    friction = .3,
-		    isTrigger = false
-	    },
-        collider = {}
-    },
+    -- ParedDerecha = {
+    --     Transform = {
+    --         position = { x = 0, y = 5, z = 13},
+	-- 		rotation = { x = 0, y = 0, z = 0 },
+    --         scale = { x = 1, y = 1, z = 1}
+	--     },
+    --     RigidBody = {
+	-- 	    colShape = 1,
+	-- 	    mvType = static,
+	-- 	    mass = 5,
+    --         group = 1,
+    --         mask = 2,
+    --         colliderscale = {x = 130, y = 10, z = 0.01},
+	-- 	    restitution = .5,
+	-- 	    friction = .3,
+	-- 	    isTrigger = false
+	--     },
+    --     collider = {}
+    -- },
 
-    ParedIzquierda = {
-        Transform = {
-            position = { x = 0, y = 5, z = -13},
-			rotation = { x = 0, y = 0, z = 0 },
-            scale = { x = 1, y = 1, z = 1}
-	    },
-        RigidBody = {
-		    colShape = 1,
-		    mvType = static,
-		    mass = 5,
-            group = 1,
-            mask = 2,
-            colliderscale = {x = 130, y = 10, z = 0.01},
-		    restitution = .5,
-		    friction = .3,
-		    isTrigger = false
-	    },
-        collider = {}
-    },
+    -- ParedIzquierda = {
+    --     Transform = {
+    --         position = { x = 0, y = 5, z = -13},
+	-- 		rotation = { x = 0, y = 0, z = 0 },
+    --         scale = { x = 1, y = 1, z = 1}
+	--     },
+    --     RigidBody = {
+	-- 	    colShape = 1,
+	-- 	    mvType = static,
+	-- 	    mass = 5,
+    --         group = 1,
+    --         mask = 2,
+    --         colliderscale = {x = 130, y = 10, z = 0.01},
+	-- 	    restitution = .5,
+	-- 	    friction = .3,
+	-- 	    isTrigger = false
+	--     },
+    --     collider = {}
+    -- },
 
     -- ParedFondo1 = {
     --     Transform = {
@@ -1338,31 +1199,6 @@ Entities = {
             -- materialName = "Material/roja"
         }
 	}
-
-
-        -- SpriteTest2 = {
-    --     UITransform = {
-    --         position = { x = 0.8, y = 0.8 },
-    --         scale = { x = 0.1, y = 0.15 },
-    --         rotation = 0
-    --     },
-    --     UISpriteRenderer = {
-    --         sprite = "lightning",     -- Nombre Interno
-    --         materialName = "lightningBolt"  -- Nombre en MaterialsResource
-    --     }
-    -- },
-
-    -- SpriteTest3 = {
-    --     UITransform = {
-    --         position = { x = 0.05, y = 0.8 },
-    --         scale = { x = 0.1, y = 0.15 },
-    --         rotation = 0
-    --     },
-    --     UISpriteRenderer = {
-    --         sprite = "nerf",     -- Nombre Interno
-    --         materialName = "nerf"  -- Nombre en MaterialsResource
-    --     }
-    -- },
 }
 
 

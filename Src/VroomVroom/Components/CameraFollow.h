@@ -19,8 +19,10 @@ namespace VroomVroom {
 	*/
 	class CameraFollow : public me::Component
 	{
-	private:
 	protected:
+		//Smoothing of the camera. Should be between 0 and 1.
+		float mSmooth;
+
 		/*
 		Entity's transform that the camera follows
 		*/
@@ -32,7 +34,8 @@ namespace VroomVroom {
 		*/
 		me::Transform* mCameraTransform;
 		me::Camera* mCamera;
-		me::Vector3 mOffset;
+		me::Vector3 mPositionOffset;
+		me::Vector3 mLookOffset;
 
 	public:
 
@@ -75,7 +78,19 @@ namespace VroomVroom {
 		Sets offset to keep with the target
 		@params target Offset to keep with the target.
 		*/
-		void setOffset(me::Vector3 offset);
+		void setPositionOffset(me::Vector3 offset);
+
+		/**
+		Sets offset to the look point, which is the target at 0, 0, 0
+		@params target Offset to look to the target.
+		*/
+		void setLookOffset(me::Vector3 offset);
+
+		/**
+		Sets smoothing of the camera movement.
+		@params smoothing Smoothing of the camera movement. Should be between 0 and 1.
+		*/
+		void setSmoothing(float smoothing);
 	};
 }
 #endif

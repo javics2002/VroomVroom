@@ -52,17 +52,17 @@ Entities = {
 
 	CarOne = {
         Transform = {
-            position = { x=-39, y = 6.1, z = -10 },
+            position = { x=-50, y = 5.5, z = -10 },
             scale = { x = 1, y = 1, z = 1 },
-            rotation = {x = 0, y = 180, z = 0}
+            rotation = {x = 0, y = 0, z = 0}
         },
         RigidBody = {
-            colShape = 1,
+            colShape = 2,
             mvType = 0,
             mass = 1,
             group = 2,
             mask = 7,
-            colliderscale = {x = 1, y = 1, z = 1},
+            colliderscale = {x = 1, y = .4, z = 1},
             restitution = .5,
             friction = 0.5,
             isTrigger = false
@@ -82,16 +82,17 @@ Entities = {
         },
         meshrenderer = {
             mesh = "kartone",
-            meshName = "RedCar.mesh"
+            meshName = "RedCar.mesh",
+            --materialName = "Material/roja"
         }
 	},
 
     cameraOne = {
         transform = {
-            position = { x = -90, y = 100, z = 0 } -- -104 70 0 / 20 10 -10
+            position = { x=-60, y = 8.5, z = -10 } -- -104 70 0 / 20 10 -10
         },
         camera = {
-            lookat = { x = -9, y = 1, z = 0 }, -- -104 10 0 / -20 10 -10
+            lookat = { x=-50, y = 7.5, z = -10 }, -- -104 10 0 / -20 10 -10
             name = "playerOne",
             neardistance = 0.5,
             fardistance = 100000,
@@ -99,11 +100,13 @@ Entities = {
             zorder = 0,
             overlayenable = false,
             backgroundcolor = { r = .72, g = .92, b = 1, a = 1  },
-            viewport = { left = 0.0, right = 0.0, width = 0.5, height =1.0 }
+            viewport = { left = 0.0, top = 0.0, width = 0.5, height =1.0 }
         },
 		camerafollow = {
 			target = "carone",
-			offset = { x= 20, y = 10, z = -10 }
+			positionoffset = { x= 0, y = 3, z = -10 },
+            lookoffset = { x= 0, y = 2, z = 0 },
+            smoothing = .3
 		}
     },
 
@@ -151,18 +154,17 @@ Entities = {
 
     CarTwo = {
         Transform = {
-            --position = { x=-36, y = 6.1, z = -6 },
-            position = { x=-36, y = 6.1, z = 5 },
+            position = { x=-50, y = 5.5, z = -5 },
             scale = { x = 1, y = 1, z = 1 },
-            rotation = {x = 0, y = 180, z = 0}
+            rotation = {x = 0, y = 0, z = 0}
         },
         RigidBody = {
-            colShape = 1,
+            colShape = 2,
             mvType = 0,
             mass = 1,
             group = 2,
             mask = 7,
-            colliderscale = {x = 1, y = 1, z = 1},
+            colliderscale = {x = 1, y = .4, z = 1},
             restitution = .5,
             friction = 0.5,
             isTrigger = false
@@ -188,10 +190,10 @@ Entities = {
     
     cameraTwo = {
         transform = {
-            position = { x = -90, y = 100, z = 0 } -- -104 70 0 / 20 10 -10
+            position = { x=-60, y = 8.5, z = -5 } -- -104 70 0 / 20 10 -10
         },
         camera = {
-            lookat = { x = -9, y = 1, z = 0 }, -- -104 10 0 / -20 10 -10
+            lookat = { x=-50, y = 7.5, z = -5 }, -- -104 10 0 / -20 10 -10
             name = "playerTwo",
             neardistance = 0.5,
             fardistance = 100000,
@@ -203,7 +205,9 @@ Entities = {
         },
 		camerafollow = {
 			target = "cartwo",
-			offset = { x= 20, y = 10, z = -10 }
+			positionoffset = { x= 0, y = 3, z = -10 },
+            lookoffset = { x= 0, y = 2, z = 0 },
+            smoothing = .3
 		}
     },
 
@@ -222,14 +226,14 @@ Entities = {
         }
     },
 
-    insidecontainer = {
+    insidecontainer2 = {
         UITransform = {
             position = { x = 0.066, y = 0.096 },
             scale = { x = 0.06, y = 0.1 },
             rotation = 0
         },
         UISpriteRenderer = {
-            sprite = "insidecontainer",     -- Nombre Interno
+            sprite = "insidecontainer2",     -- Nombre Interno
             materialName = "insidecontainer",  -- Nombre en MaterialsResource
             zorder = 1
         }

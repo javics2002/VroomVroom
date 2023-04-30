@@ -30,9 +30,17 @@ void CameraFollow::start()
 
 void CameraFollow::update(const double& dt)
 {
-	mCameraTransform->setPosition(mTargetTransform->getPosition() - mTargetTransform->forward() * 20); //Suavizar
-	mCamera->setLookAt(mTargetTransform->getPosition());
-	mCameraTransform->setPosition(mCameraTransform->getPosition() + Vector3(0, 5, 0));
+	mCamera->setLookAt(mTargetTransform->getPosition() 
+		+ mTargetTransform->right() * mLookOffset.x
+		+ mTargetTransform->up() * mLookOffset.y
+		+ mTargetTransform->forward() * mLookOffset.z);
+	Vector3 newPosition = Vector3(mTargetTransform->getPosition() 
+		+ mTargetTransform->right() * mPositionOffset.x
+		+ mTargetTransform->up() * mPositionOffset.y
+		+ mTargetTransform->forward() * mPositionOffset.z);
+	
+	Vector3 lerpedPosition = Vector3::lerp(mCameraTransform->getPosition(), newPosition, mSmooth);
+	mCameraTransform->setPosition(lerpedPosition);
 }
 
 void CameraFollow::setTargetName(std::string targetName)
@@ -50,7 +58,22 @@ void CameraFollow::setTarget(std::string targetName)
 	mTargetTransform = sceneManager().getActiveScene()->findEntity(mTargetName).get()->getComponent<Transform>("transform");
 }
 
-void CameraFollow::setOffset(Vector3 offset)
+void CameraFollow::setPositionOffset(Vector3 offset)
 {
-	mOffset = offset;
+	mPositionOffset = offset;
+}
+
+void CameraFollow::setLookOffset(Vector3 offset)
+{
+	mLookOffset = offset;
+}
+
+void CameraFollow::setSmoothing(float smoothing)
+{
+	if (smoothing < 0)
+		mSmooth = 0;
+	else if (smoothing > 1)
+		mSmooth = 1;
+	else
+		mSmooth = smoothing;
 }

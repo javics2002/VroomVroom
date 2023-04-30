@@ -19,10 +19,12 @@ Component* FactoryCameraFollow::create(Parameters& params)
     CameraFollow* camerafollow = new CameraFollow();
     camerafollow->setTargetName(Value(params, "target", std::string()));
 
-    camerafollow->setOffset(Vector3(Value(params, "offset_x", 0.0f),
-        Value(params, "offset_y", 3.0f), Value(params, "offset_z", 5.0f)));
-
-    //Añadir suavizado
+    camerafollow->setPositionOffset(Vector3(Value(params, "positionoffset_x", 0.0f),
+        Value(params, "positionoffset_y", 3.0f), Value(params, "positionoffset_z", 5.0f)));
+    camerafollow->setLookOffset(Vector3(Value(params, "lookoffset_x", 0.0f),
+        Value(params, "lookoffset_y", 3.0f), Value(params, "lookoffset_z", 5.0f)));
+    
+    camerafollow->setSmoothing(Value(params, "smoothing", 0.2f));
     return camerafollow;
 }
 
