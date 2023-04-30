@@ -24,37 +24,14 @@ namespace VroomVroom {
 	*/
 	class VehicleController : public me::Component {
 	private:
-		// Variables de estado del coche
-		me::Vector2 mSpeed = me::Vector2();
-		float mVelocity = 0;
-		float mDirection = 0;
-		me::Vector2 mPosition = me::Vector2();
-
-		// Variables de física del coche
-		//float mAcceleration = 0;
-		float mFriction = 0;
-		float mGravity = 0;
-		float mRotation = 0;
-
-		// flags de movimiento
-		bool mDrift = false;
-		me::Vector3 vRadius = me::Vector3();
-		
-
 		// predefine constant parameters
-		float mAcceleration = .0f;
-		float mDeceleration = .0f;
-		float maxSpeed = 45.5f;
-		float minSpeed = 8.5f;
-		float minSpeedFraction = 0.2f;
+		float maxSpeed = 10.0f;
 		float maxAngularSpeed = 3.5f;
-		float maxRadius = 20.0f;
-		float maxCurveAngle = 45.0f;
 
-		//float mSpeed;
-		float mRotationFactor;
+		float mAcceleration;
+		float mDeceleration;
+		float mRotationSpeed;
 		float mDriftFactor;
-		float lateralForceFactor = 100.0f;
 
 		//Index of the last valid checkpoint
 		int mCheckpointIndex;
@@ -92,17 +69,13 @@ namespace VroomVroom {
 		*/
 		float getPlayerAxis(std::string axisName);
 
-		void fixedUpdate();
-		void angularSpeed(float deltaX);
-
 		/**
-		Limits a value in a specific range.
+		Limits a value to a max value
 		@param Value the value to be limited
-		@param Min the minimum value that the value can take
 		@param Max the maximum value that the value can take
 		@returns Value of the fitted value
 		*/
-		float clamp(float value, float min, float max);
+		float clampMax(float value, float max);
 
 		/**
 		Apply the rotation physics to the car, using angularSpeed.
@@ -118,14 +91,6 @@ namespace VroomVroom {
 		*/
 		void applyPush(const double& dt, bool accelerate, bool decelerate);
 
-#ifdef _DEBUG
-		me::Entity* mCompass = nullptr;
-		me::Entity* mTurningPoint = nullptr;
-		float mCompassDistance = -15.0f;
-		void updateCompass(me::Vector3 vForward, float deltaX);
-		void updateTurningPoint(float deltaX);
-#endif
-
 	public:
 		VehicleController();
 
@@ -133,19 +98,13 @@ namespace VroomVroom {
 		void update(const double& dt) override;
 
 		// Initializes the speed, rotation speed, and drift factor variables
-		void setSpeedAndDrift(float speed, float angularSpeed, float driftFactor);
+		void setAccelerationAndRotation(float acceleration, float angularSpeed, float driftFactor);
 
 		void setPowerUp(PowerUpType powerUpType);
 
 		inline void setPlayerNumber(PlayerNumber playerNumber) {
 			mPlayerNumber = playerNumber;
 		}
-
-		/**
-		Get the speed value of the Vehicle Controller component.
-		@return A float object representing the speed.
-		*/
-		float getSpeed();
 
 		void onCollisionEnter(me::Entity* other) override;
 		void onCollisionExit(me::Entity* other) override;

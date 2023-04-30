@@ -10,14 +10,15 @@
 #include "Utils/Vector3.h"
 #include "Utils/Vector4.h"
 #include "PowerUpObject.h"
-#include <math.h>
-#ifdef _DEBUG
 #include <iostream>
-#endif
-#define MY_PI 3.14159265358979323846
+#include <math.h>
 
 using namespace me;
 using namespace VroomVroom;
+
+VehicleController::VehicleController()
+{
+}
 
 bool VehicleController::getPlayerButton(std::string buttonName)
 {
@@ -29,41 +30,20 @@ float VehicleController::getPlayerAxis(std::string axisName)
     return inputManager().getAxis(axisName + std::to_string(mPlayerNumber));
 }
 
-VehicleController::VehicleController()
-{
-    mCheckpointIndex = 0;
-    mCircuitInfo = nullptr;
-    mControllable = false;
-    mDriftFactor = 0;
-    mLap = 0;
-    mPlace = 0;
-    mPlayerNumber = PLAYERNUMBER_MAX;
-    mPowerUp = false;
-    mPowerUpType = PowerUpType::NERF;
-    mRigidBody = nullptr;
-    //mRotationSpeed = 0;
-    mSpeed = Vector2();
-    mTransform = nullptr;
-}
-
 void VehicleController::start()
 {
-    mCheckpointIndex = 0;
-    mLap = 0;
-
     mTransform = mEntity->getComponent<Transform>("transform");
     mRigidBody = mEntity->getComponent<RigidBody>("rigidbody");
     mCircuitInfo = mEntity->getScene()->findEntity("circuit").get()->getComponent<CircuitInfo>("circuitinfo");
 
-    mControllable = true;
+    mCheckpointIndex = 0;
+    mLap = 0;
+    mPlace = 0;
+    mPlayerNumber = PLAYERNUMBER_1;
 
-#ifdef _DEBUG
-    mCompass = mEntity->getScene()->findEntity("compass").get();
-    mTurningPoint = mEntity->getScene()->findEntity("turningpoint").get();
-#endif
-    //Transform* trCompass = mCompass->getComponent<Transform>("transform");
-    //mCompassDistance = (trCompass->getPosition() - mTransform->getPosition()).magnitude();
-    //mTransform->addChild(mCompass->getComponent<Transform>("Transform"));
+    mPowerUp = false;
+
+    mControllable = true;
 }
 
 void VehicleController::update(const double& dt)
@@ -91,15 +71,6 @@ void VehicleController::update(const double& dt)
     // Rotate the vehicle
     applyRotation(dt, deltaX);
 
-
-#ifdef _DEBUG
-    // Update debug utilities
-    updateCompass(vForward, deltaX);
-    updateTurningPoint(deltaX);
-#endif
-    
-    
-
     // make use of the power up active if it has anyone
     if (mPowerUp && useObject) {
         switch (mPowerUpType)
@@ -123,233 +94,66 @@ void VehicleController::update(const double& dt)
     }
 }
 
-void VehicleController::fixedUpdate() {
-    // Actualizar la velocidad y la dirección del coche
-    float increase = mAcceleration - mFriction;
-    mVelocity = mVelocity + increase;
-    mDirection += mRotation;
-
-    // Aplicar la gravedad para simular la caída del coche
-    mPosition.y += mGravity;
-
-    // Calcular la velocidad horizontal y vertical a partir de la dirección y la velocidad
-    mSpeed.x = mVelocity * std::cos(mDirection);
-    mSpeed.y = mVelocity * std::sin(mDirection);
-
-    // Mover el coche en la dirección del vector de velocidad
-    mPosition.x += mSpeed.x;
-    mPosition.y += mSpeed.y;
-
-    // Verificar si el coche ha colisionado con un obstáculo y aplicar la lógica de colisión
-
-    // Verificar si el coche está haciendo un derrape y aplicar la lógica de derrape
-    if (mDrift) {
-        // Reducir la fricción del coche para permitir que derrape
-        mFriction -= 0.1;
-        // Aplicar una fuerza lateral para girar mientras se derrapa
-        mDirection += mRotation * 0.5;
-    }
-    else {
-        // Restablecer la fricción normal del coche
-        mFriction = 0.1;
-    }
-}
-
-void VroomVroom::VehicleController::angularSpeed(float deltaX)
+float VroomVroom::VehicleController::clampMax(float value, float max)
 {
-    if (deltaX != 0) {
-        // variables for this method
-        Vector3 vNormal = mTransform->up();
-        Vector3 position = mTransform->getPosition();
-        float tangencialSpeed = mRigidBody->getVelocity().magnitude();
-        float radius = tangencialSpeed * maxRadius / maxSpeed;
-
-        // reference turning point
-        Vector3 right = mTransform->right().normalize();
-        Vector3 turningPoint = position - (right * deltaX * radius); // puede que sea un + en lugar de -
-        Vector3 vRadius = turningPoint - position;
-
-        // rotation axis calculate by cross product between vNormal and vRadius
-        Vector3 rotationAxis = vNormal.cross(vRadius);
-
-        // angular speed in degrees
-        float angularSpeed = tangencialSpeed / radius * (180.0f / MY_PI);
-        Vector3 v_squared = mRigidBody->getVelocity() * mRigidBody->getVelocity();
-
-        // make the final rotation
-        //mTransform->rotate(angularSpeed, rotationAxis);
-        Vector3 centripetalForce = (v_squared / vRadius) * mRigidBody->getMass();
-        mRigidBody->addForce(centripetalForce);
-        //mRigidBody->addTorque(centripetalForce * vRadius);
-    }
-}
-
-float VroomVroom::VehicleController::clamp(float value, float min, float max)
-{
-    if (value < min) return min;
     if (value > max) return max;
     return value;
 }
 
-void VroomVroom::VehicleController::applyRotation(const double& dt, float deltaX)
-{
-    float fixedDeltaX = 0.0f;
-    /*if (deltaX < 0)
-        fixedDeltaX = -1 - deltaX;
-    else if (deltaX > 0)
-        fixedDeltaX = 1 - deltaX;*/
-
-    // whether if the cruve forces should be apply
-    Vector3 vVelocity = mRigidBody->getVelocity();
-    float velocity = mRigidBody->getVelocity().magnitude();
-    float speedFraction = clamp(velocity / maxSpeed, 0.0f, 1.0f);
-    bool minimumSpeedReached = (speedFraction > minSpeedFraction);
-
-    // vector towards the center of the curve
-    Vector3 right = mTransform->right().normalize(); // --> right
-    float curveAngleDegrees = (speedFraction * maxCurveAngle);
-    float curveAngle = curveAngleDegrees * (MY_PI / 180);
-    float radius = (velocity * velocity) / (mRigidBody->getGravity() * tan(curveAngle));
-    vRadius = right * radius;
-    float radiusInput = radius * deltaX;
-    Vector3 vRadiusInput = vRadius * deltaX;
-
-    if (curveAngleDegrees == 45) {
-        int i = 1 + 1;
-    }
-
-    // tangencial velocity = angular velocity * radius
-    Vector3 vW = mRigidBody->getAngularVelocity();
-    float w = vW.magnitude();
-    float tangencialVelocity = w * radius;
-
-    // centripetal force (Fc = m * v^2 / r)
-    float mass = mRigidBody->getMass();
-    float v_squared = tangencialVelocity * tangencialVelocity;
-    float centripetalForce = mass * v_squared / radius;
-
-    // angular momentum (T = Fc * r)
-    float angularMomentum = centripetalForce * radius;
-    std::cout << "radius: " << (radius) << ", velocity: "<< velocity << ", curveAngle: " << curveAngleDegrees << std::endl;
-
-    // gravitational force (P = m * g) => (P = N)
-    float gravity = mRigidBody->getGravity();
-    float gravitationalForce = mass * gravity;
-
-    // friction force (Fr = k * N) => (k = friction Factor)
-    float frictionFactor = v_squared / radius * gravity;
-    float frictionForce = frictionFactor * gravitationalForce;
-
-    // rotation axis positioned at a turning point
-    Vector3 newUp = mTransform->up().normalize();
-    Vector3 rotationAxis = newUp.translate(mTransform->getPosition(), vRadiusInput);
-    Vector3 rotationAxisDir = newUp.normalize();
-
-    if (minimumSpeedReached && deltaX != 0) {
-
-        // apply a torque to rotate the body
-        mRigidBody->addTorque(newUp * (angularMomentum)*dt);
-
-        // apply a lateral force to the body
-        mRigidBody->addForce(right * (centripetalForce - frictionForce) * dt);
-
-    }    
-
-    // limits angular velocity
-    if (w > maxAngularSpeed) {
-        mRigidBody->setAngularVelocity(vW.normalize() * maxAngularSpeed);
-    }
-
-    // limits linear velocity
-    if (velocity > maxSpeed) {
-        mRigidBody->setVelocity(mTransform->forward() * maxSpeed);
-    }
-
-    if (curveAngleDegrees == 45) {
-        int i = 1 + 1;
-    }
-
-    // update the direction of the velocity
-    /*Vector3 vForward = mTransform->forward();
-    Vector3 vVelocity = mRigidBody->getVelocity();
-    float angle = vForward.angle(Vector3::forward());
-    Vector3 rotatedVelocity = vVelocity.Ry(angle);
-    mRigidBody->setVelocity(rotatedVelocity);*/
-}
-
 void VroomVroom::VehicleController::applyPush(const double& dt, bool accelerate, bool decelerate)
 {
-    Vector3 vForward = mTransform->forward().normalize();
+    if (accelerate) {
+        Vector3 vForward = mTransform->forward().normalize();
+        float velocity = mRigidBody->getVelocity().magnitude() + (mAcceleration * dt);
 
-    // gravitational force (P = m * g) => (P = N)
-    float mass = mRigidBody->getMass();
-    float velocity = mRigidBody->getVelocity().magnitude();
-    float gravity = mRigidBody->getGravity();
-    float gravitationalForce = mass * gravity;
+        // Limit velocity
+        clampMax(velocity, maxSpeed);
 
-    // friction force (Fr = k * N) => (k = friction Factor)
-    float frictionFactor = mRigidBody->getFriction();
-    float frictionForce = frictionFactor * gravitationalForce;
+        Vector3 newVelocity = vForward * velocity;
 
-    // dynamic force (Fp = N + Fr)
-    float dynamicForce = gravitationalForce + frictionForce;
+        mRigidBody->setVelocity(newVelocity);
+    }
+    else if (decelerate) {
+        Vector3 vForward = mTransform->forward().normalize();
+        float velocity = mRigidBody->getVelocity().magnitude() + (mAcceleration * dt);
 
-    float newVelocity = velocity;
-    // If the vertical input axis is positive, add a forward impulse to the vehicle's rigidbody
-    if (accelerate)
-        newVelocity = mAcceleration * dt;
+        // Limit velocity
+        // clampMax(velocity, maxSpeed);
 
-    // If the vertical input axis is negative, add a backward impulse to the vehicle's rigidbody
-    else if (decelerate)
-        newVelocity = mDeceleration * dt;
+        Vector3 newVelocity = vForward * -velocity;
 
-    // push force, total acelerate force (F = m * a - Fdin)
-    float force = mass * newVelocity / dt;
-    float totalForce = force - dynamicForce;
+        mRigidBody->setVelocity(newVelocity);
+    }
+    else {
+        //Vector3 vForward = mTransform->forward().normalize();
+        //Vector3 newForce = vForward * mRigidBody->getVelocity().magnitude();
+
+        //mRigidBody->setVelocity(newForce);
+    }
+
     
-    if (accelerate || decelerate)
-        mRigidBody->addForce(vForward * totalForce * dt);
-
-    velocity = mRigidBody->getVelocity().magnitude();
-    if (velocity > maxSpeed) {
-        Vector3 vVelocity = mRigidBody->getVelocity().normalize() * maxSpeed;
-        mRigidBody->setVelocity(vVelocity);
-    }
+    // else if (decelerate)
 }
 
-void VroomVroom::VehicleController::updateCompass(Vector3 vForward, float deltaX)
+void VroomVroom::VehicleController::applyRotation(const double& dt, float deltaX)
 {
-    Transform* trCompass = mCompass->getComponent<Transform>("transform");
-    Vector3 newPosCompass = mTransform->getPosition() + vForward.normalize() * mCompassDistance;
-    trCompass->setPosition(newPosCompass);
-
-    Vector4 rotation = mTransform->getRotation();
-
     if (deltaX != 0) {
-        float theta = mTransform->getVelocity().angle(mTransform->forward());
-        rotation.rotate(theta * deltaX, Vector3::up());
-    }
+        float rotationForce = mDriftFactor * mRotationSpeed;
+        clampMax(rotationForce, maxAngularSpeed);
 
-    trCompass->setRotation(rotation);
+        Vector3 finalForce = Vector3::up() * rotationForce * deltaX * dt;
+
+        mRigidBody->addTorque(finalForce);
+    }
 }
 
-void VroomVroom::VehicleController::updateTurningPoint(float deltaX)
+
+
+void VehicleController::setAccelerationAndRotation(float acceleration, float rotationSpeed, float driftFactor)
 {
-    Transform* trTurningPoint = mTurningPoint->getComponent<Transform>("transform");
-    Vector3 newPosCompass = mTransform->getPosition();
-
-    if (deltaX != 0) {
-        newPosCompass += vRadius;
-    }
-
-    trTurningPoint->setPosition(newPosCompass);
-}
-
-void VehicleController::setSpeedAndDrift(float speed, float angularSpeed, float driftFactor)
-{
-    mAcceleration = speed;
-    mDeceleration = -speed / 2;
-    mRotationFactor = angularSpeed;
+    mAcceleration = acceleration;
+    mDeceleration = -acceleration / 2;
+    mRotationSpeed = rotationSpeed;
     mDriftFactor = driftFactor;
 }
 
@@ -357,11 +161,6 @@ void VehicleController::setPowerUp(PowerUpType powerUpType)
 {
     mPowerUpType = powerUpType;
     mPowerUp = true;
-}
-
-float VehicleController::getSpeed()
-{
-    return mVelocity;
 }
 
 void VehicleController::onCollisionEnter(me::Entity* other)
