@@ -41,12 +41,17 @@ void VehicleController::start()
     mTransform = mEntity->getComponent<Transform>("transform");
     mRigidBody = mEntity->getComponent<RigidBody>("rigidbody");
     mCircuitInfo = mEntity->getScene()->findEntity("circuit").get()->getComponent<CircuitInfo>("circuitinfo");
+    mCircuitInfo->addVehicle(this);
+    mLapsText = mEntity->getScene()->findEntity("laps" + std::to_string((int) mPlayerNumber + 1)).get()
+        ->getComponent<UIText>("uitext");
 
     mRigidBody->setGravity(Vector3::zero());
 
     mCheckpointIndex = -1;
     mLap = 0;
     mPlace = 0;
+
+    mLapsText->setText("Lap " + std::to_string(mLap + 1) + "/" + std::to_string(mCircuitInfo->getLaps()));
 
     mPowerUp = false;
     mControllable = false;
@@ -307,6 +312,8 @@ void VehicleController::onCollisionEnter(me::Entity* other)
                 mCheckpointIndex = -1;
                 mLap++;
 
+                mLapsText->setText("Lap " + std::to_string(mLap + 1) + "/" + std::to_string(mCircuitInfo->getLaps()));
+
 #ifdef _DEBUG
                 std::cout << "Car " << mPlayerNumber << " started lap " << mLap << "\n";
 #endif
@@ -319,9 +326,6 @@ void VehicleController::onCollisionEnter(me::Entity* other)
 #ifdef _DEBUG
                     std::cout << "Car " << mPlayerNumber << " finished the race in " << mFinishTime << "\n";
 #endif
-                    sceneManager().change("results.lua");
-                    gameManager()->changeState("results.lua");
-
                 }
             }
         }

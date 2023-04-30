@@ -150,6 +150,20 @@ Entities = {
             materialName = "first"  -- Nombre en MaterialsResource
         }
     },
+
+    laps1 = {
+        UITransform = {
+            position = { x = 0.7, y = 0.1 },
+            scale = { x = 0.1, y = 0.177 },
+            rotation = 0
+        },
+        UIText ={
+            name = "laps1",
+            text = "LAP 1/3",
+            position = { x = 500, y = 200 },
+            fontname = "Mario"
+        }
+    },
     -------------------------------------------------------------
     ---------           segundo jugador                  --------
     -------------------------------------------------------------
@@ -253,6 +267,34 @@ Entities = {
         UISpriteRenderer ={
             sprite = "place2",     -- Nombre Interno
             materialName = "second"  -- Nombre en MaterialsResource
+        }
+    },
+
+    laps2 = {
+        UITransform = {
+            position = { x = 0.7, y = 0.1 },
+            scale = { x = 0.1, y = 0.177 },
+            rotation = 0
+        },
+        UIText ={
+            name = "laps2",
+            text = "LAP 1/3",
+            position = { x = 500, y = 200 },
+            fontname = "Mario"
+        }
+    },
+
+    chrono = {
+        UITransform = {
+            position = { x = 0.7, y = 0.1 },
+            scale = { x = 0.1, y = 0.177 },
+            rotation = 0
+        },
+        UIText ={
+            name = "chono",
+            text = "00:00.000",
+            position = { x = 500, y = 200 },
+            fontname = "Mario"
         }
     },
 

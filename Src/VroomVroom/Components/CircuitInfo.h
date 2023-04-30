@@ -4,6 +4,7 @@
 
 #include "EntityComponent/Components/Component.h"
 #include "EntityComponent/Components/UISpriteRenderer.h"
+#include "EntityComponent/Components/UIText.h"
 #include "Utils/Vector3.h"
 #include "Utils/Timer.h"
 #include <string>
@@ -35,12 +36,14 @@ namespace VroomVroom {
 		int mLaps;
 
 		bool mRaceStarted = false;
+		int mCarsFinished = 0;
 		me::Timer* mTimer = nullptr;
 
 		std::vector<VehicleController*> mVehicles;
 		std::map<int, Checkpoint*> mCheckpoints;
 
 		me::UISpriteRenderer* mCountdownSprite;
+		me::UIText* mChrono;
 
 		void calculatePlaces();
 

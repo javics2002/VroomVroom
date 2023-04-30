@@ -36,6 +36,8 @@ void CircuitInfo::start()
 
 	mCountdownSprite = sceneManager().getActiveScene()->findEntity("countdownui").get()
 		->getComponent<UISpriteRenderer>("uispriterenderer");
+	mChrono = getEntity()->getScene()->findEntity("chrono").get()
+		->getComponent<UIText>("uitext");
 }
 
 void CircuitInfo::update(const double& dt)
@@ -73,7 +75,9 @@ void CircuitInfo::update(const double& dt)
 		mCountdownSprite = nullptr;
 	}
 
-	if (gameManager()->getNumPlayer() ==2)
+	mChrono->setText(mTimer->getFormattedTime());
+
+	if (gameManager()->getNumPlayer() == 2)
 		calculatePlaces();
 }
 
@@ -83,27 +87,23 @@ void CircuitInfo::calculatePlaces()
 	for (VehicleController* vehicle : mVehicles)
 		vehicle->setPlace(1);
 
-	for (int i = 0; i < mVehicles.size(); i++) {
-		for (int j = i + 1; j < mVehicles.size(); j++) {
+	for (int i = 0; i < mVehicles.size(); i++) 
+		for (int j = i + 1; j < mVehicles.size(); j++) 
 			//First check their lap
-			if (mVehicles[i]->getLap() < mVehicles[j]->getLap()) {
+			if (mVehicles[i]->getLap() < mVehicles[j]->getLap())
 				//i is behind
 				mVehicles[i]->setPlace(mVehicles[i]->getPlace() + 1);
-			}
-			else if (mVehicles[i]->getLap() > mVehicles[j]->getLap()) {
+			else if (mVehicles[i]->getLap() > mVehicles[j]->getLap())
 				//j is behind
 				mVehicles[j]->setPlace(mVehicles[j]->getPlace() + 1);
-			}
 
 			//Then check their checkpoint
-			else if (mVehicles[i]->getChekpointIndex() < mVehicles[j]->getChekpointIndex()) {
+			else if (mVehicles[i]->getChekpointIndex() < mVehicles[j]->getChekpointIndex())
 				//i is behind
 				mVehicles[i]->setPlace(mVehicles[i]->getPlace() + 1);
-			}
-			else if (mVehicles[i]->getChekpointIndex() > mVehicles[j]->getChekpointIndex()) {
+			else if (mVehicles[i]->getChekpointIndex() > mVehicles[j]->getChekpointIndex())
 				//j is behind
 				mVehicles[j]->setPlace(mVehicles[j]->getPlace() + 1);
-			}
 
 			//Lastly check their remaining distance to the next checkpoint
 			else {
@@ -117,17 +117,13 @@ void CircuitInfo::calculatePlaces()
 					->getComponent<Transform>("transform")->getPosition();
 
 				if (nextCheckpointPosition.distance(iVehiclePosition)
-					> nextCheckpointPosition.distance(jVehiclePosition)) {
+					> nextCheckpointPosition.distance(jVehiclePosition))
 					//i is behind
 					mVehicles[i]->setPlace(mVehicles[i]->getPlace() + 1);
-				}
-				else {
+				else
 					//j is behind
 					mVehicles[j]->setPlace(mVehicles[j]->getPlace() + 1);
-				}
 			}
-		}
-	}
 
 	//Update UI place
 	for (VehicleController* vehicle : mVehicles) {
@@ -285,6 +281,11 @@ void CircuitInfo::startRace()
 
 std::string CircuitInfo::getFinishTime()
 {
+	if (++mCarsFinished == mVehicles.size()) {
+		sceneManager().change("results.lua");
+		gameManager()->changeState("results.lua");
+	}
+
 	return mTimer->getFormattedTime();
 }
 

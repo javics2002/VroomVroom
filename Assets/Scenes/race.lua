@@ -91,11 +91,11 @@ Entities = {
 
     cameraOne = {
         transform = {
-            position = { x=-7, y = 40, z = 0}, -- x=-55, y = 7.5, z = -10 / x=-70, y = 100, z = 0
+            position = { x= -55, y = 7.5, z = -10 }, --  x=-70, y = 100, z = 0
             rotation = { x=0, y = 0, z =0}
         },
         camera = {
-            lookat = { x=-7, y = 0, z = 0}, -- x=-50, y = 6.5, z = -10 / x=-70, y = 0, z = 0
+            lookat = { x= -50, y = 6.5, z = -10 }, -- / x=-70, y = 0, z = 0
             name = "playerOne",
             neardistance = 0.5,
             fardistance = 100000,
@@ -109,10 +109,9 @@ Entities = {
 			target = "carone",
 			positionoffset = { x= 0, y = 2, z = -5 },
             lookoffset = { x= 0, y = 1, z = 0 },
-            smoothing = .3
+            smoothing = .2
 		}
     },
-
 
     container = {
         UITransform = {
@@ -149,6 +148,34 @@ Entities = {
         UISpriteRenderer ={
             sprite = "place1",     -- Nombre Interno
             materialName = "first"  -- Nombre en MaterialsResource
+        }
+    },
+
+    laps1 = {
+        UITransform = {
+            position = { x = 0.7, y = 0.1 },
+            scale = { x = 0.1, y = 0.177 },
+            rotation = 0
+        },
+        UIText ={
+            name = "laps1",
+            text = "LAP 1/3",
+            position = { x = 500, y = 200 },
+            fontname = "Mario"
+        }
+    },
+
+    chrono = {
+        UITransform = {
+            position = { x = 0.7, y = 0.1 },
+            scale = { x = 0.1, y = 0.177 },
+            rotation = 0
+        },
+        UIText ={
+            name = "chono",
+            text = "00:00.000",
+            position = { x = 500, y = 200 },
+            fontname = "Mario"
         }
     },
 
