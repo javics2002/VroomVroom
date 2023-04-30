@@ -42,10 +42,11 @@ void VehicleController::start()
     mRigidBody = mEntity->getComponent<RigidBody>("rigidbody");
     mCircuitInfo = mEntity->getScene()->findEntity("circuit").get()->getComponent<CircuitInfo>("circuitinfo");
 
+    mRigidBody->setGravity(Vector3::zero());
+
     mCheckpointIndex = 0;
     mLap = 0;
     mPlace = 0;
-    mPlayerNumber = PLAYERNUMBER_1;
 
     mPowerUp = false;
 
@@ -100,57 +101,57 @@ void VehicleController::update(const double& dt)
     }
 }
 
-float VroomVroom::VehicleController::clampMax(float value, float max)
+void VroomVroom::VehicleController::clamp(float& value, float min, float max)
 {
-    if (value > max) return max;
-    return value;
+    if (value > max) value = max;
+    else if (value < min) value = min;
 }
 
 void VroomVroom::VehicleController::applyPush(const double& dt, bool accelerate, bool decelerate)
 {
-    if (accelerate) {
-        Vector3 vForward = mTransform->forward().normalize();
-        float velocity = mRigidBody->getVelocity().magnitude() + (mAcceleration * dt);
+    Vector3 vForward = mTransform->forward().normalize();
+    float velocity = mRigidBody->getVelocity().magnitude() + (mAcceleration * dt);
 
-        // Limit velocity
-        clampMax(velocity, maxSpeed);
+    // Limit velocity
+    clamp(velocity, -mMaxSpeed, mMaxSpeed);
 
-        Vector3 newVelocity = vForward * velocity;
+    Vector3 newVelocity = vForward * (mRigidBody->getVelocity().magnitude() * mLinearDamping);
+    if(accelerate)
+        newVelocity = vForward * velocity;
+    else if (decelerate)
+        newVelocity = vForward * -velocity;
 
-        mRigidBody->setVelocity(newVelocity);
-    }
-    else if (decelerate) {
-        Vector3 vForward = mTransform->forward().normalize();
-        float velocity = mRigidBody->getVelocity().magnitude() + (mAcceleration * dt);
-
-        // Limit velocity
-        // clampMax(velocity, maxSpeed);
-
-        Vector3 newVelocity = vForward * -velocity;
-
-        mRigidBody->setVelocity(newVelocity);
-    }
-    else {
-        //Vector3 vForward = mTransform->forward().normalize();
-        //Vector3 newForce = vForward * mRigidBody->getVelocity().magnitude();
-
-        //mRigidBody->setVelocity(newForce);
-    }
-
-    
-    // else if (decelerate)
+    mRigidBody->setVelocity(newVelocity);
 }
 
 void VroomVroom::VehicleController::applyRotation(const double& dt, float deltaX)
 {
-    if (deltaX != 0) {
-        float rotationForce = mDriftFactor * mRotationSpeed;
-        clampMax(rotationForce, maxAngularSpeed);
-
-        Vector3 finalForce = Vector3::up() * rotationForce * deltaX * dt;
-
-        mRigidBody->addTorque(finalForce);
+    float velocity = mRigidBody->getVelocity().magnitude();
+    if (velocity < 0.2) {
+        mRigidBody->setAngularVelocity(Vector3::zero());
+        return;
     }
+
+    Vector3 angVel = mRigidBody->getAngularVelocity();
+    float lastAngularVelocity = 0;
+
+    if (angVel.y < 0)
+        lastAngularVelocity = -mRigidBody->getAngularVelocity().magnitude();
+    else if (angVel.y > 0)
+        lastAngularVelocity = mRigidBody->getAngularVelocity().magnitude();
+
+    Vector3 newAngularVelocity = Vector3::up() * (lastAngularVelocity * mAngularDamping);
+    
+    if (deltaX != 0) {
+        float rotationVelocity = lastAngularVelocity + (mDriftFactor * mRotationSpeed * deltaX * dt);
+
+        // Limit angular velocity
+        clamp(rotationVelocity, -mMaxAngularSpeed, mMaxAngularSpeed);
+
+        newAngularVelocity = Vector3::up() * rotationVelocity;
+    }
+
+    mRigidBody->setAngularVelocity(newAngularVelocity);
 }
 
 
@@ -161,6 +162,18 @@ void VehicleController::setAccelerationAndRotation(float acceleration, float rot
     mDeceleration = -acceleration / 2;
     mRotationSpeed = rotationSpeed;
     mDriftFactor = driftFactor;
+}
+
+void VehicleController::setMaxSpeedAndRotationSpeed(float maxSpeed, float maxRotationSpeed)
+{
+    mMaxSpeed = maxSpeed;
+    mMaxAngularSpeed = maxRotationSpeed;
+}
+
+void VehicleController::setLinearAndAngularDamping(float linearDamping, float angularDamping)
+{
+    mLinearDamping = linearDamping;
+    mAngularDamping = angularDamping;
 }
 
 void VehicleController::setPowerUp(PowerUpType powerUpType)

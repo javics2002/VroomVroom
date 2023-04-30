@@ -19,19 +19,21 @@ namespace VroomVroom {
 
 	enum PowerUpType : int;
 
-	/**
+	/*
 	Enables player input for their car.
 	*/
 	class VehicleController : public me::Component {
 	private:
-		// predefine constant parameters
-		float maxSpeed = 10.0f;
-		float maxAngularSpeed = 3.5f;
+		float mMaxSpeed;
+		float mMaxAngularSpeed;
 
 		float mAcceleration;
 		float mDeceleration;
 		float mRotationSpeed;
 		float mDriftFactor;
+
+		float mLinearDamping; 
+		float mAngularDamping;
 
 		//Index of the last valid checkpoint
 		int mCheckpointIndex;
@@ -57,7 +59,7 @@ namespace VroomVroom {
 
 		bool mControllable;
 
-		/**
+		/*
 		Checks if buttonName has been pressed for this playerNumber
 		by calling inputManager().getButton(buttonName + mPlayerNumber).
 		@returns Whether this player has pressed buttonName.
@@ -71,12 +73,11 @@ namespace VroomVroom {
 		float getPlayerAxis(std::string axisName);
 
 		/**
-		Limits a value to a max value
+		Limits a value to a max value or a min value
 		@param Value the value to be limited
 		@param Max the maximum value that the value can take
-		@returns Value of the fitted value
 		*/
-		float clampMax(float value, float max);
+		void clamp(float& value, float min, float max);
 
 		/**
 		Apply the rotation physics to the car, using angularSpeed.
@@ -100,24 +101,26 @@ namespace VroomVroom {
 
 		// Initializes the speed, rotation speed, and drift factor variables
 		void setAccelerationAndRotation(float acceleration, float angularSpeed, float driftFactor);
+		void setMaxSpeedAndRotationSpeed(float maxSpeed, float maxRotationSpeed);
+		void setLinearAndAngularDamping(float linearDrag, float angularDrag);
+
+		void setPlayerNumber(PlayerNumber playerNumber) {
+			mPlayerNumber = playerNumber;
+		}
+
+		void setControllable(bool controllable) {
+			mControllable = controllable;
+		}
 
 		void setPowerUp(PowerUpType powerUpType);
 		void setPowerUpUI();
 
-		inline void setPlayerNumber(PlayerNumber playerNumber) {
-			mPlayerNumber = playerNumber;
-		}
-		inline PlayerNumber getPlayerNumber() {
+		PlayerNumber getPlayerNumber() {
 			return mPlayerNumber;
-		}
-
-		inline void setControllable(bool controllable) {
-			mControllable = controllable;
 		}
 
 		void setPlace(int newPlace);
 		int getPlace();
-
 		int getLap();
 		int getChekpointIndex();
 

@@ -68,8 +68,8 @@ Entities = {
             isTrigger = false
         },
         vehicleController = {
-            speed = 1000,
-            rotationspeed = 200,
+            acceleration = 7,
+            rotationspeed = 3,
             driftFactor = 1,
             playerNumber = 0
         },
@@ -170,8 +170,8 @@ Entities = {
             isTrigger = false
         },
         vehicleController = {
-            speed = 1000,
-            rotationspeed = 200,
+            acceleration = 7,
+            rotationspeed = 3,
             driftFactor = 1,
             playerNumber = 1
         },

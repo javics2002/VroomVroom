@@ -53,7 +53,7 @@ Entities = {
 	CarOne = {
         Transform = {
             position = { x=-50, y = 5.5, z = -10 },
-            scale = { x = 1, y = 1, z = 1 },
+            scale = { x = 0.7, y = 0.7, z = 0.7 },
             rotation = {x = 0, y = 0, z = 0}
         },
         RigidBody = {
@@ -64,12 +64,14 @@ Entities = {
             mask = 7,
             colliderscale = {x = 1, y = .4, z = 1},
             restitution = .5,
-            friction = 0.5,
+            friction = 0,
             isTrigger = false
         },
         vehicleController = {
-            speed = 1000,
-            rotationspeed = 200,
+            acceleration = 4,
+            rotationspeed = 5,
+			maxspeed = 12,
+			maxrotationspeed = 3,
             driftFactor = 1,
             playerNumber = 0
         },
