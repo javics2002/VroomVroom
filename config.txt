@@ -8,5 +8,5 @@ make_stops: false
 run_type: Paralelo
 refresh: false
 ------------------------
-recompile-game: true
-recompile-motor: true
+recompile-game: false
+recompile-motor: false

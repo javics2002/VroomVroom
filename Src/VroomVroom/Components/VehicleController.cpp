@@ -1,28 +1,24 @@
 #include "VehicleController.h"
-#include "GameManager.h"
+
 #include "Input/InputManager.h"
 #include "EntityComponent/Entity.h"
 #include "EntityComponent/Scene.h"
 #include "EntityComponent/Components/Transform.h"
 #include "EntityComponent/Components/RigidBody.h"
-#include "EntityComponent/Components/Collider.h"
-#include "EntityComponent/Components/MeshRenderer.h"
 #include "Checkpoint.h"
 #include "CircuitInfo.h"
-#include "PowerUpUIWheel.h"
-#include "Oil.h"
 #include "Utils/Vector3.h"
 #include "Utils/Vector4.h"
 #include "PowerUpObject.h"
-#define _USE_MATH_DEFINES
-#include <math.h>
-#include "EntityComponent/SceneManager.h"
-#ifdef _DEBUG
 #include <iostream>
-#endif
+#include <math.h>
 
 using namespace me;
 using namespace VroomVroom;
+
+VehicleController::VehicleController()
+{
+}
 
 bool VehicleController::getPlayerButton(std::string buttonName)
 {
@@ -34,50 +30,27 @@ float VehicleController::getPlayerAxis(std::string axisName)
     return inputManager().getAxis(axisName + std::to_string(mPlayerNumber));
 }
 
-VehicleController::VehicleController()
-{
-    mCheckpointIndex = 0;
-    mCircuitInfo = nullptr;
-    mControllable = false;
-    mDriftFactor = 0;
-    mLap = 0;
-    mPlace = 0;
-    mPlayerNumber = PLAYERNUMBER_MAX;
-    mPowerUpType = PowerUpType::NERF;
-    mRigidBody = nullptr;
-    mRotationSpeed = 0;
-    mSpeed = 0;
-    mTransform = nullptr;
-}
-
-VehicleController::~VehicleController()
-{
-}
-
 void VehicleController::start()
 {
-    mCheckpointIndex = -1;
-    mLap = 0;
-
     mTransform = mEntity->getComponent<Transform>("transform");
     mRigidBody = mEntity->getComponent<RigidBody>("rigidbody");
-    mPowerUpUIWheel = mEntity->getComponent<PowerUpUIWheel>("powerupuiwheel");
-
-    mPowerUpUIWheel->addSpriteNameToPool("nerf");
-    mPowerUpUIWheel->addSpriteNameToPool("oil");
-    mPowerUpUIWheel->addSpriteNameToPool("lightningBolt");
-
     mCircuitInfo = mEntity->getScene()->findEntity("circuit").get()->getComponent<CircuitInfo>("circuitinfo");
-    mCircuitInfo->addVehicle(this);
 
-    mControllable = false;
+    mCheckpointIndex = 0;
+    mLap = 0;
+    mPlace = 0;
+    mPlayerNumber = PLAYERNUMBER_1;
+
+    mPowerUp = false;
+
+    mControllable = true;
 }
 
 void VehicleController::update(const double& dt)
 {
     //Respawn if out of bounds
-    if (mTransform->getPosition().y <= mCircuitInfo->getDeathHeight())
-        mTransform->setPosition(mLastCheckpointPosition);
+    /*if (mTransform->getPosition().y <= mCircuitInfo->getDeathHeight())
+        mTransform->setPosition(mLastCheckpointPosition);*/
 
     if (!mControllable)
         return;
@@ -91,41 +64,15 @@ void VehicleController::update(const double& dt)
     //If the player is using keyboard
     float deltaX = getPlayerAxis("HORIZONTAL");
 
-    Vector3 vForward = mTransform->forward();
+    Vector3 vForward = mTransform->forward().normalize();
 
-    // If the vertical input axis is positive, add a forward impulse to the vehicle's rigidbody
-    if (accelerate)
-        mRigidBody->addForce(vForward * mSpeed * dt);
-
-    // If the vertical input axis is negative, add a backward impulse to the vehicle's rigidbody
-    else if (decelerate)
-        mRigidBody->addForce(vForward * -mSpeed * dt);
+    applyPush(dt, accelerate, decelerate);
 
     // Rotate the vehicle
-    Vector3 velocity = mRigidBody->getVelocity(); //Coger velocity solo en vector forward.
+    applyRotation(dt, deltaX);
 
-    Vector3 forwardVector;
-
-    Vector3 vector_radians = velocity;
-    vector_radians.x = velocity.x * M_PI / 180.0;
-    vector_radians.y = velocity.y * M_PI / 180.0;
-    vector_radians.z = velocity.z * M_PI / 180.0;
-
-    forwardVector.x = cos(vector_radians.y);
-    forwardVector.y = -tan(vector_radians.x);
-    forwardVector.z = -sin(vector_radians.y);
-
-    mRigidBody->addForce(mTransform->right() * forwardVector.x * mRotationSpeed * deltaX * dt);
-
-    mRigidBody->addTorque(Vector3::up() * (forwardVector.x * mDriftFactor * deltaX * dt));
-
-    //if (useObject) {
-    //    me::Vector3 v = mPowerUpEntity->getComponent<Transform>("transform")->getPosition();
-    //    std::cout << "POWER UP POS:   " << "  x:  " << v.x << "  y:  " << v.y << "  z:   " << v.z << '\n';
-    //}
-
-    if (mPowerUpUIWheel->isAnimEnd() && useObject) {
-
+    // make use of the power up active if it has anyone
+    if (mPowerUp && useObject) {
         switch (mPowerUpType)
         {
         case NERF:
@@ -133,96 +80,106 @@ void VehicleController::update(const double& dt)
             break;
         case OIL:
             //Create oil entity with Oil Component
-            mPowerUpEntity->getComponent<Oil>("oil")->use(mEntity);
             break;
         case THUNDER:
             // Create thunder entity with thunder Component
-            //mEntity->getComponent<RigidBody>("rigidbody")->addImpulse(mTransform->forward() * mSpeed * 2);
+            std::cout << "PowerUp used: " << "THUNDER" << std::endl;
+            mEntity->getComponent<RigidBody>("rigidbody")->addImpulse(vForward * mAcceleration * 3);
             break;
         default:
             break;
         }
 
-        mPowerUpUIWheel->resetLinkSprite();
+        mPowerUp = false;
     }
 }
 
-void VehicleController::setSpeedAndDrift(float speed, float angularSpeed, float driftFactor)
+float VroomVroom::VehicleController::clampMax(float value, float max)
 {
-    mSpeed = speed;
-    mRotationSpeed = angularSpeed;
+    if (value > max) return max;
+    return value;
+}
+
+void VroomVroom::VehicleController::applyPush(const double& dt, bool accelerate, bool decelerate)
+{
+    if (accelerate) {
+        Vector3 vForward = mTransform->forward().normalize();
+        float velocity = mRigidBody->getVelocity().magnitude() + (mAcceleration * dt);
+
+        // Limit velocity
+        clampMax(velocity, maxSpeed);
+
+        Vector3 newVelocity = vForward * velocity;
+
+        mRigidBody->setVelocity(newVelocity);
+    }
+    else if (decelerate) {
+        Vector3 vForward = mTransform->forward().normalize();
+        float velocity = mRigidBody->getVelocity().magnitude() + (mAcceleration * dt);
+
+        // Limit velocity
+        // clampMax(velocity, maxSpeed);
+
+        Vector3 newVelocity = vForward * -velocity;
+
+        mRigidBody->setVelocity(newVelocity);
+    }
+    else {
+        //Vector3 vForward = mTransform->forward().normalize();
+        //Vector3 newForce = vForward * mRigidBody->getVelocity().magnitude();
+
+        //mRigidBody->setVelocity(newForce);
+    }
+
+    
+    // else if (decelerate)
+}
+
+void VroomVroom::VehicleController::applyRotation(const double& dt, float deltaX)
+{
+    if (deltaX != 0) {
+        float rotationForce = mDriftFactor * mRotationSpeed;
+        clampMax(rotationForce, maxAngularSpeed);
+
+        Vector3 finalForce = Vector3::up() * rotationForce * deltaX * dt;
+
+        mRigidBody->addTorque(finalForce);
+    }
+}
+
+
+
+void VehicleController::setAccelerationAndRotation(float acceleration, float rotationSpeed, float driftFactor)
+{
+    mAcceleration = acceleration;
+    mDeceleration = -acceleration / 2;
+    mRotationSpeed = rotationSpeed;
     mDriftFactor = driftFactor;
 }
 
-void VehicleController::setPowerUp(PowerUpType powerUpType, me::Entity* powerUpEntity)
+void VehicleController::setPowerUp(PowerUpType powerUpType)
 {
     mPowerUpType = powerUpType;
-    mPowerUpEntity = powerUpEntity;
-}
-
-void VroomVroom::VehicleController::setPowerUpUI()
-{
-
-    std::string name;
-
-    switch (mPowerUpType)
-    {
-    case NERF:
-        name = "nerf";
-        break;
-    case OIL:
-        name = "oil";
-        break;
-    case THUNDER:
-        name = "lightningBolt";
-        break;
-    }
-
-    mPowerUpUIWheel->spinForSecondsAndLandOnSprite(3, name);
-}
-
-float VehicleController::getSpeed()
-{
-    return mSpeed;
-}
-
-void VehicleController::setPlace(int newPlace)
-{
-    mPlace = newPlace;
-}
-
-int VehicleController::getPlace()
-{
-    return mPlace;
-}
-
-int VehicleController::getLap()
-{
-    return mLap;
-}
-
-int VehicleController::getChekpointIndex()
-{
-    return mCheckpointIndex;
+    mPowerUp = true;
 }
 
 void VehicleController::onCollisionEnter(me::Entity* other)
 {
-    if (other->hasComponent("checkpoint")) {
-        Checkpoint* checkpoint = other->getComponent<Checkpoint>("checkpoint");
+    if (other->hasComponent("Checkpoint")) {
+        Checkpoint* checkpoint = other->getComponent<Checkpoint>("Checkpoint");
         mLastCheckpointPosition = checkpoint->getEntity()->getComponent<Transform>("transform")->getPosition();
 
 #ifdef _DEBUG
         std::cout << "Car " << mPlayerNumber << " has reached checkpoint " << checkpoint->getIndex() << "\n";
 #endif
 
-        if (checkpoint->getIndex() == (mCheckpointIndex + 1) % checkpoint->GetNumCheckpoints()) {
+        if (checkpoint->getIndex() == (mCheckpointIndex + 1) % checkpoint->getNumCheckpoints()) {
             //Next checkpoint
-            mCheckpointIndex++;
+            mCheckpointIndex++; 
 
-            if (mCheckpointIndex == checkpoint->GetNumCheckpoints()-1) {
+            if (mCheckpointIndex == checkpoint->getNumCheckpoints()) {
                 //Add lap
-                mCheckpointIndex = -1;   
+                mCheckpointIndex = 0;   
                 mLap++;
 
 #ifdef _DEBUG
@@ -237,20 +194,17 @@ void VehicleController::onCollisionEnter(me::Entity* other)
 #ifdef _DEBUG
                     std::cout << "Car " << mPlayerNumber << " finished the race in " << mFinishTime << "\n";
 #endif
-                    sceneManager().change("results.lua");
-                    gameManager()->changeState("results.lua");
-
                 }
             }
         }
-        else if (checkpoint->getIndex() == (mCheckpointIndex + 1) % checkpoint->GetNumCheckpoints())
+        else if (checkpoint->getIndex() == (mCheckpointIndex + 1) % checkpoint->getNumCheckpoints())
         {
             //Previous checkpoint (you are in the wrong direction)
-            mCheckpointIndex--;
+            mCheckpointIndex--; 
 
             if (mCheckpointIndex == -1) {
                 //Remove lap
-                mCheckpointIndex += checkpoint->GetNumCheckpoints();
+                mCheckpointIndex += checkpoint->getNumCheckpoints();
                 mLap--;
             }
         }
@@ -262,8 +216,8 @@ void VehicleController::onCollisionEnter(me::Entity* other)
 void VehicleController::onCollisionExit(me::Entity* other)
 {
     //TESTEAR SI ESTO HACE FALTA
-    if (other->hasComponent("checkpoint")) {
-        Checkpoint* checkpoint = other->getComponent<Checkpoint>("checkpoint");
+    if (other->hasComponent("Checkpoint")) {
+        Checkpoint* checkpoint = other->getComponent<Checkpoint>("Checkpoint");
 
         if (checkpoint->getIndex() == mCheckpointIndex + 1)
             mCheckpointIndex++;
