@@ -28,7 +28,7 @@ void CameraFollow::start()
 	renderManager().setCameraFixedY(mCamera->getName(), true);
 }
 
-void CameraFollow::update(const double& dt)
+void CameraFollow::lateUpdate(const double& dt)
 {
 	mCamera->setLookAt(mTargetTransform->getPosition() 
 		+ mTargetTransform->right() * mLookOffset.x
