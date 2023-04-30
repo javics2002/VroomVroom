@@ -81,8 +81,10 @@ void UIButtonScene::update(const double& dt)
 {
 	Vector2 mousePosition = me::inputManager().getMousePositon();
 
-	if (mousePosition.x > mUITransform->getPosition().x * windowWidth && mousePosition.x < mUITransform->getPosition().x * windowWidth + mUITransform->getScale().x * windowWidth &&
-		mousePosition.y > mUITransform->getPosition().y * windowHeight && mousePosition.y < mUITransform->getPosition().y * windowHeight + mUITransform->getScale().y * windowHeight) {
+	if (mousePosition.x > mUITransform->getPosition().x * windowWidth && 
+		mousePosition.x < mUITransform->getPosition().x * windowWidth + mUITransform->getScale().x * windowWidth &&
+		mousePosition.y > mUITransform->getPosition().y * windowHeight && 
+		mousePosition.y < mUITransform->getPosition().y * windowHeight + mUITransform->getScale().y * windowHeight) {
 
 		if (inputManager().getButton("LEFTCLICK" + std::to_string(0))) {
 			execute();

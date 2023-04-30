@@ -1,10 +1,15 @@
 material Material/roja
 {
+	receive_shadows on
 	technique
 	{
 		pass
 		{
 			diffuse 1.0 0.0 0.0 1.0
+			rtshader_system {
+                lighting_stage metal_roughness
+                texturing_stage late_add_blend
+            }
 		}
 	}
 }
@@ -148,24 +153,6 @@ material Material/dust // nombre
 	}
 }
 
-material Main/background
-{
-	technique
-	{
-		pass
-		{
-			depth_check off
-			lighting off
-			scene_blend alpha_blend
-			texture_unit 
-			{
-				texture mainbackground.png
-				colour_op replace
-			}
-		}
-	}
-}
-
 material Main/title
 {
 	technique
@@ -183,6 +170,61 @@ material Main/title
 		}
 	}
 }
+
+material Main/bandera1
+{
+	technique
+	{
+		pass
+		{
+			depth_check off
+			lighting off
+			scene_blend alpha_blend
+			texture_unit 
+			{
+				texture bandera1.png
+				colour_op replace
+			}
+		}
+	}
+}
+
+material Main/bandera2
+{
+	technique
+	{
+		pass
+		{
+			depth_check off
+			lighting off
+			scene_blend alpha_blend
+			texture_unit 
+			{
+				texture bandera2.png
+				colour_op replace
+			}
+		}
+	}
+}
+
+material Main/background
+{
+    technique
+    {
+        pass
+        {
+            depth_check on
+            lighting off
+            scene_blend alpha_blend
+            texture_unit 
+            {
+                texture MenuBG.png
+                colour_op modulate
+            }
+        }
+    }
+}
+
 
 material Main/motor
 {
