@@ -19,39 +19,44 @@ namespace VroomVroom {
 
 	enum PowerUpType : int;
 
-	/*
-	Enables player input for their car.
-	*/
 	class VehicleController : public me::Component {
 	private:
+		/*
+		* Parameters for the vehicleController.
+		*/
 		float mMaxSpeed;
 		float mMaxAngularSpeed;
 
 		float mAcceleration;
-		float mDeceleration;
 		float mRotationSpeed;
 		float mDriftFactor;
 
 		float mLinearDamping; 
 		float mAngularDamping;
 
-		//Index of the last valid checkpoint
-		int mCheckpointIndex;
+		float mAccelerationBoost;
+		float mSteeringBoost;
+		float mSpeedBasedRotationMultiplier;
+		
+		/*
+		* Information about the checkpoints and lap counter
+		*/
+		int mCheckpointIndex; //Index of the last valid checkpoint
 		me::Vector3 mLastCheckpointPosition;
-
-		//Current lap of this vehicle
-		int mLap;
+		int mLap; //Current lap of this vehicle
+		int mPlace; //Current place of the vehicle in the race.
 
 		bool mPowerUp;
 		PowerUpType mPowerUpType;
-
 		PlayerNumber mPlayerNumber;
 
-		//Current place of the vehicle in the race.
-		int mPlace;
-		//Stores the final timer when the vehicle reaches the finish line.
-		std::string mFinishTime;
 
+		std::string mFinishTime; // Stores the final timer when the vehicle reaches the finish line.
+
+
+		/*
+		* Information about entity's components
+		*/
 		me::Transform* mTransform;
 		me::RigidBody* mRigidBody;
 		CircuitInfo* mCircuitInfo;
@@ -66,18 +71,32 @@ namespace VroomVroom {
 		*/
 		bool getPlayerButton(std::string buttonName);
 
-		/**
+		/*
 		Checks axisName value by calling inputManager().getButton(axisName + mPlayerNumber).
 		@returns Value of axisName of this player
 		*/
 		float getPlayerAxis(std::string axisName);
 
-		/**
-		Limits a value to a max value or a min value
+		/*
+		Takes a float reference "value" and two float parameters "min" and "max". 
+		Its purpose is to limit the value of "value" to be within the range specified by "min" and "max".
+		If "value" is smaller than "min", "value" is set to "min". If "value" is larger than "max", "value" is set to "max".
+		If "value" is already within the range, it is left unchanged.
 		@param Value the value to be limited
-		@param Max the maximum value that the value can take
+		@param Max: the maximum value that the "value" can take
+		@param Min: the minimum value that the "value" can take
 		*/
 		void clamp(float& value, float min, float max);
+
+		/*
+		Returns a boolean value that indicates whether an object is currently moving backwards or not.
+		It does this by checking the object's current velocity or direction vector and determining whether it is pointing in the opposite direction of its forward vector.
+		If the velocity vector points in the opposite direction of the forward vector, then the object is considered to be moving backwards, and the method returns "true". 
+		Otherwise, if the velocity vector is pointing in the same direction as the forward vector or if the object is stationary, the method returns "false".
+
+		@returns Whether the vehicle is going backwards or not
+		*/ 
+		bool isMovingBackwards();
 
 		/**
 		Apply the rotation physics to the car, using angularSpeed.
@@ -99,31 +118,29 @@ namespace VroomVroom {
 		void start() override;
 		void update(const double& dt) override;
 
-		// Initializes the speed, rotation speed, and drift factor variables
 		void setAccelerationAndRotation(float acceleration, float angularSpeed, float driftFactor);
 		void setMaxSpeedAndRotationSpeed(float maxSpeed, float maxRotationSpeed);
 		void setLinearAndAngularDamping(float linearDrag, float angularDrag);
+		void setAccelerationAndSteeringBoost(float accelerationBoost, float steeringBoost);
+		void setSpeedBasedRotationMultiplier(float speedBasedFactor);
 
-		void setPlayerNumber(PlayerNumber playerNumber) {
-			mPlayerNumber = playerNumber;
-		}
-
-		void setControllable(bool controllable) {
-			mControllable = controllable;
-		}
-
+		void setPlayerNumber(PlayerNumber playerNumber);
+		void setControllable(bool controllable);
 		void setPowerUp(PowerUpType powerUpType);
 		void setPowerUpUI();
 
-		PlayerNumber getPlayerNumber() {
-			return mPlayerNumber;
-		}
+		PlayerNumber getPlayerNumber();
 
 		void setPlace(int newPlace);
 		int getPlace();
 		int getLap();
 		int getChekpointIndex();
 
+
+		/*
+		Its purpose is to handle collision events that occur when the entity collides with another entity in the game world.
+		@param other The method takes a pointer to the other entity involved in the collision as a parameter.
+		*/
 		void onCollisionEnter(me::Entity* other) override;
 	};
 }

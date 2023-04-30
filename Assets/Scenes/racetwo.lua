@@ -56,7 +56,7 @@ Entities = {
             scale = { x = 1, y = 1, z = 1 },
             rotation = {x = 0, y = 0, z = 0}
         },
-        RigidBody = {
+		RigidBody = {
             colShape = 2,
             mvType = 0,
             mass = 1,
@@ -64,12 +64,14 @@ Entities = {
             mask = 7,
             colliderscale = {x = 1, y = .4, z = 1},
             restitution = .5,
-            friction = 0.5,
+            friction = 0,
             isTrigger = false
         },
         vehicleController = {
-            acceleration = 7,
-            rotationspeed = 3,
+            acceleration = 4,
+            rotationspeed = 5,
+			maxspeed = 12,
+			maxrotationspeed = 3,
             driftFactor = 1,
             playerNumber = 0
         },
@@ -166,12 +168,14 @@ Entities = {
             mask = 7,
             colliderscale = {x = 1, y = .4, z = 1},
             restitution = .5,
-            friction = 0.5,
+            friction = 0,
             isTrigger = false
         },
         vehicleController = {
-            acceleration = 7,
-            rotationspeed = 3,
+            acceleration = 4,
+            rotationspeed = 5,
+			maxspeed = 12,
+			maxrotationspeed = 3,
             driftFactor = 1,
             playerNumber = 1
         },
