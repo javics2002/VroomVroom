@@ -81,7 +81,7 @@ void PowerUpObject::onCollisionEnter(me::Entity* other)
 			break;
 		}
 
-		other->getComponent<VehicleController>("vehiclecontroller")->setPowerUp(mPowerUp, mPowerUpEntity);
+		other->getComponent<VehicleController>("vehiclecontroller")->setPowerUp(mPowerUp);
 		other->getComponent<VehicleController>("vehiclecontroller")->setPowerUpUI();
 		mPicked = true;
 		mTimer->resume();

@@ -5,7 +5,6 @@
 #include "EntityComponent/Components/Component.h"
 #include "VroomVroom/VroomVroomInput.h"
 #include "Utils/Vector3.h"
-#include "Utils/Vector2.h"
 #include <string>
 
 namespace me {
@@ -16,6 +15,7 @@ namespace me {
 namespace VroomVroom {
 	class Checkpoint;
 	class CircuitInfo;
+	class PowerUpUIWheel;
 
 	enum PowerUpType : int;
 
@@ -53,6 +53,7 @@ namespace VroomVroom {
 		me::Transform* mTransform;
 		me::RigidBody* mRigidBody;
 		CircuitInfo* mCircuitInfo;
+		PowerUpUIWheel* mPowerUpUIWheel;
 
 		bool mControllable;
 
@@ -101,10 +102,24 @@ namespace VroomVroom {
 		void setAccelerationAndRotation(float acceleration, float angularSpeed, float driftFactor);
 
 		void setPowerUp(PowerUpType powerUpType);
+		void setPowerUpUI();
 
 		inline void setPlayerNumber(PlayerNumber playerNumber) {
 			mPlayerNumber = playerNumber;
 		}
+		inline PlayerNumber getPlayerNumber() {
+			return mPlayerNumber;
+		}
+
+		inline void setControllable(bool controllable) {
+			mControllable = controllable;
+		}
+
+		void setPlace(int newPlace);
+		int getPlace();
+
+		int getLap();
+		int getChekpointIndex();
 
 		void onCollisionEnter(me::Entity* other) override;
 		void onCollisionExit(me::Entity* other) override;

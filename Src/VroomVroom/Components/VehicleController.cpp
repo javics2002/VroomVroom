@@ -1,15 +1,21 @@
 #include "VehicleController.h"
 
 #include "Input/InputManager.h"
+#include "EntityComponent/SceneManager.h"
+#include "GameManager.h"
+
 #include "EntityComponent/Entity.h"
 #include "EntityComponent/Scene.h"
 #include "EntityComponent/Components/Transform.h"
 #include "EntityComponent/Components/RigidBody.h"
+
 #include "Checkpoint.h"
 #include "CircuitInfo.h"
+#include "PowerUpUIWheel.h"
+#include "PowerUpObject.h"
+
 #include "Utils/Vector3.h"
 #include "Utils/Vector4.h"
-#include "PowerUpObject.h"
 #include <iostream>
 #include <math.h>
 
@@ -163,23 +169,64 @@ void VehicleController::setPowerUp(PowerUpType powerUpType)
     mPowerUp = true;
 }
 
+void VroomVroom::VehicleController::setPowerUpUI()
+{
+
+    std::string name;
+
+    switch (mPowerUpType)
+    {
+    case NERF:
+        name = "nerf";
+        break;
+    case OIL:
+        name = "oil";
+        break;
+    case THUNDER:
+        name = "lightningBolt";
+        break;
+    }
+
+    mPowerUpUIWheel->spinForSecondsAndLandOnSprite(3, name);
+}
+
+void VehicleController::setPlace(int newPlace)
+{
+    mPlace = newPlace;
+}
+
+int VehicleController::getPlace()
+{
+    return mPlace;
+}
+
+int VehicleController::getLap()
+{
+    return mLap;
+}
+
+int VehicleController::getChekpointIndex()
+{
+    return mCheckpointIndex;
+}
+
 void VehicleController::onCollisionEnter(me::Entity* other)
 {
-    if (other->hasComponent("Checkpoint")) {
-        Checkpoint* checkpoint = other->getComponent<Checkpoint>("Checkpoint");
+    if (other->hasComponent("checkpoint")) {
+        Checkpoint* checkpoint = other->getComponent<Checkpoint>("checkpoint");
         mLastCheckpointPosition = checkpoint->getEntity()->getComponent<Transform>("transform")->getPosition();
 
 #ifdef _DEBUG
         std::cout << "Car " << mPlayerNumber << " has reached checkpoint " << checkpoint->getIndex() << "\n";
 #endif
 
-        if (checkpoint->getIndex() == (mCheckpointIndex + 1) % checkpoint->getNumCheckpoints()) {
+        if (checkpoint->getIndex() == (mCheckpointIndex + 1) % checkpoint->GetNumCheckpoints()) {
             //Next checkpoint
-            mCheckpointIndex++; 
+            mCheckpointIndex++;
 
-            if (mCheckpointIndex == checkpoint->getNumCheckpoints()) {
+            if (mCheckpointIndex == checkpoint->GetNumCheckpoints() - 1) {
                 //Add lap
-                mCheckpointIndex = 0;   
+                mCheckpointIndex = -1;
                 mLap++;
 
 #ifdef _DEBUG
@@ -194,17 +241,20 @@ void VehicleController::onCollisionEnter(me::Entity* other)
 #ifdef _DEBUG
                     std::cout << "Car " << mPlayerNumber << " finished the race in " << mFinishTime << "\n";
 #endif
+                    sceneManager().change("results.lua");
+                    gameManager()->changeState("results.lua");
+
                 }
             }
         }
-        else if (checkpoint->getIndex() == (mCheckpointIndex + 1) % checkpoint->getNumCheckpoints())
+        else if (checkpoint->getIndex() == (mCheckpointIndex + 1) % checkpoint->GetNumCheckpoints())
         {
             //Previous checkpoint (you are in the wrong direction)
-            mCheckpointIndex--; 
+            mCheckpointIndex--;
 
             if (mCheckpointIndex == -1) {
                 //Remove lap
-                mCheckpointIndex += checkpoint->getNumCheckpoints();
+                mCheckpointIndex += checkpoint->GetNumCheckpoints();
                 mLap--;
             }
         }
@@ -216,8 +266,8 @@ void VehicleController::onCollisionEnter(me::Entity* other)
 void VehicleController::onCollisionExit(me::Entity* other)
 {
     //TESTEAR SI ESTO HACE FALTA
-    if (other->hasComponent("Checkpoint")) {
-        Checkpoint* checkpoint = other->getComponent<Checkpoint>("Checkpoint");
+    if (other->hasComponent("checkpoint")) {
+        Checkpoint* checkpoint = other->getComponent<Checkpoint>("checkpoint");
 
         if (checkpoint->getIndex() == mCheckpointIndex + 1)
             mCheckpointIndex++;
