@@ -34,7 +34,6 @@ Entities = {
     },
  
 
-
     Title = {
         UISpriteRenderer = {
             sprite = "maintitle",
@@ -76,35 +75,6 @@ Entities = {
         }
     },
 
-    YourTime = {
-        UITransform = {
-            position = { x = 220, y = 220 },
-            scale = { x = 0.3, y = 0.3 },
-            rotation = 0
-        },
-        UIText ={
-            name = "yourtime",
-            text = "YOUR TIME WAS ",
-            colour = { x = 1, y = 0 , z = 0},
-            charheight = 35,
-            fontname = "Mario"
-        }
-    },
-
-    CarOneText = {
-        UITransform = {
-            position = { x = 290, y = 260 },
-            scale = { x = 0.3, y = 0.3 },
-            rotation = 0
-        },
-        UIText ={
-            name = "caronetext",
-            text = "00:00:00",
-            colour = { x = 1, y = 0 , z = 0},
-            charheight = 35,
-            fontname = "Mario"
-        }
-    },
 
     Motor = {
 
@@ -164,15 +134,83 @@ Entities = {
 
     CarOne = {
         Transform = {
-            position = { x = 6, y = -1, z = -1.5 },
-            scale = { x = 0.9, y = 0.9, z = 0.9 },
-            rotation = {x = -2, y = 193, z = 0}
+            position = { x = 6, y = -1, z = -2.5 },
+            scale = { x = 0.8, y = 0.8, z = 0.8 },
+            rotation = {x = -2, y = 200, z = 0}
         },
         meshrenderer = {
             mesh = "kartone",
             meshName = "RedCar.mesh",
         }
-	}
+	},
+    YourTime = {
+        UITransform = {
+            position = { x = 140, y = 220 },
+            scale = { x = 0.3, y = 0.3 },
+            rotation = 0
+        },
+        UIText ={
+            name = "yourtime",
+            text = "PLAYER ONE",
+            colour = { x = 1, y = 0 , z = 0},
+            charheight = 35,
+            fontname = "Mario"
+        }
+    },
+    YourTime1 = {
+        UITransform = {
+            position = { x = 365, y = 220 },
+            scale = { x = 0.3, y = 0.3 },
+            rotation = 0
+        },
+        UIText ={
+            name = "yourtime1",
+            text = "PLAYER TWO",
+            colour = { x = 0, y = 0 , z = 1},
+            charheight = 35,
+            fontname = "Mario"
+        }
+    },
+    CarTwo = {
+        Transform = {
+            position = { x = 6.2, y = -1.16, z = -0.5 },
+            scale = { x = 0.8, y = 0.8, z = 0.8 },
+            rotation = {x = 0, y = 178, z = 0}
+        },
+        meshrenderer = {
+            mesh = "karttwo",
+            meshName = "BlueCar.mesh",
+        }
+	},
+
+    CarOneText = {
+        UITransform = {
+            position = { x = 150, y = 260 },
+            scale = { x = 0.3, y = 0.3 },
+            rotation = 0
+        },
+        UIText ={
+            name = "caronetext",
+            text = "00:00:00",
+            colour = { x = 1, y = 0 , z = 0},
+            charheight = 35,
+            fontname = "Mario"
+        }
+    },
+    CarTwoText = {
+        UITransform = {
+            position = { x = 400, y = 260 },
+            scale = { x = 0.3, y = 0.3 },
+            rotation = 0
+        },
+        UIText ={
+            name = "cartwotext",
+            text = "00:00:00",
+            colour = { x = 0, y = 0 , z = 1},
+            charheight = 35,
+            fontname = "Mario"
+        }
+    },
     
 
 }

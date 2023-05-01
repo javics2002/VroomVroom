@@ -25,7 +25,7 @@ Entities = {
             -- materialName = "Material/roja"
         },
         CircuitInfo = {
-            laps = 3
+            laps = 1
         }
 	},
     

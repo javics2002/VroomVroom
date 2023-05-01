@@ -338,7 +338,11 @@ void VehicleController::onCollisionEnter(me::Entity* other)
                     mFinishTime = mCircuitInfo->getFinishTime();
                     mChrono->setText(mFinishTime);
                     mControllable = false;
-                    
+                    int x = mCircuitInfo->getCarFinished();
+                    if (x == 1)
+                        gameManager()->setWinnerTime(mFinishTime, mPlayerNumber);
+                    else gameManager()->setLoserTime(mFinishTime);
+
                     mEntity->getScene()->findEntity("finish" + std::to_string(mPlayerNumber)).get()->getComponent<UIText>("uitext")->setActive(true);
 #ifdef _DEBUG
                     std::cout << "Car " << mPlayerNumber << " finished the race in " << mFinishTime << "\n";

@@ -6,6 +6,7 @@
 #include "EntityComponent/Components/Transform.h"
 #include "EntityComponent/Components/ParticleSystem.h"
 #include "Input/InputManager.h"
+#include "EntityComponent/Components/UIText.h"
 
 #include "VehicleController.h"
 #include "CameraFollow.h"
@@ -73,7 +74,7 @@ void GameManager::changeState(std::string newScene) {
 		mGameState = GAMESTATE_INGAME;
 		std::cout << newScene << std::endl;
 	}
-	else if (newScene == "results.lua")
+	else if (newScene == "results.lua" || newScene == "resultstwo.lua")
 		mGameState = GAMESTATE_RESULTS;
 }
 
@@ -93,11 +94,37 @@ void GameManager::update(const double& dt)
 		break;
 	case GameState::GAMESTATE_MAINMENU:
 	case GameState::GAMESTATE_GAMEOVER:
+		break;
 	case GameState::GAMESTATE_RESULTS:
-		//sceneManager().update();
-		//processInput();
+		if (sceneManager().getActiveScene()->getName() == "results.lua" || sceneManager().getActiveScene()->getName() == "resultstwo.lua") {
+			if (mNumPlayer>1) {
+				if (mWinner == 0) {
+
+					sceneManager().getActiveScene()->findEntity("caronetext")->getComponent<UIText>("uitext")->setText(mWinnerTime);
+					sceneManager().getActiveScene()->findEntity("cartwotext")->getComponent<UIText>("uitext")->setText(mLoserTime);
+				}
+				else {
+					sceneManager().getActiveScene()->findEntity("caronetext")->getComponent<UIText>("uitext")->setText(mLoserTime);
+					sceneManager().getActiveScene()->findEntity("cartwotext")->getComponent<UIText>("uitext")->setText(mWinnerTime);
+				}
+			}
+			else {
+				sceneManager().getActiveScene()->findEntity("caronetext")->getComponent<UIText>("uitext")->setText(mWinnerTime);
+			}
+		}
 		break;
 	default:
 		break;
 	}
+}
+
+void VroomVroom::GameManager::setLoserTime(std::string loserTime)
+{
+	mLoserTime = loserTime;
+}
+
+void VroomVroom::GameManager::setWinnerTime(std::string winnerTime, int winner)
+{
+	mWinner = winner;
+	mWinnerTime = winnerTime;
 }

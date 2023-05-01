@@ -64,6 +64,7 @@ namespace VroomVroom {
 		void setLaps(int laps);
 		int getLaps();
 
+		int getCarFinished();
 
 
 		void setDeathHeight(float deathHeight);

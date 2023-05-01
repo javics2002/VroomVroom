@@ -37,6 +37,12 @@ namespace VroomVroom {
 		PlayerInputType mPlayerOneType = PLAYERINPUTTYPE_KEYBOARD;
 		PlayerInputType mPlayerTwoType = PLAYERINPUTTYPE_KEYBOARD;
 
+		int mWinner;
+
+		std::string mWinnerTime;
+		std::string mLoserTime;
+
+
 		int mContPowerUps;
 
 	public:
@@ -59,6 +65,9 @@ namespace VroomVroom {
 		void addPowerUp();
 
 		int getNumPlayer();
+
+		void setWinnerTime(std::string winnerTime, int winner);
+		void setLoserTime(std::string loserTime);
 
 	};
 

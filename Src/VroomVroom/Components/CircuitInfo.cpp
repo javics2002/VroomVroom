@@ -81,8 +81,14 @@ void CircuitInfo::update(const double& dt)
 	else if (mRaceFinished && mRaceStarted) {
 		mFinishTimer->update(dt);
 		if (mFinishTimer->getRawSeconds() > 3) {
-			sceneManager().change("results.lua");
-			gameManager()->changeState("results.lua");
+			if (gameManager()->getNumPlayer() > 1) {
+				sceneManager().change("resultstwo.lua");
+				gameManager()->changeState("resultstwo.lua");
+			}
+			else {
+				sceneManager().change("results.lua");
+				gameManager()->changeState("results.lua");
+			}
 		}
 	}
 	
@@ -302,6 +308,11 @@ std::string CircuitInfo::getFinishTime()
 	}
 
 	return mTimer->getFormattedTime();
+}
+
+int VroomVroom::CircuitInfo::getCarFinished()
+{
+	return mCarsFinished;
 }
 
 void CircuitInfo::addVehicle(VehicleController* newVehicle)
