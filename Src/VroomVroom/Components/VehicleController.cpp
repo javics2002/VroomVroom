@@ -41,6 +41,10 @@ void VehicleController::start()
 {
     mTransform = mEntity->getComponent<Transform>("transform");
     mRigidBody = mEntity->getComponent<RigidBody>("rigidbody");
+    mPowerUpUIWheel = mEntity->getComponent<PowerUpUIWheel>("powerupuiwheel");
+    mPowerUpUIWheel->addSpriteNameToPool("nerf");
+    mPowerUpUIWheel->addSpriteNameToPool("oil");
+    mPowerUpUIWheel->addSpriteNameToPool("lightningBolt");
     mCircuitInfo = mEntity->getScene()->findEntity("circuit").get()->getComponent<CircuitInfo>("circuitinfo");
     mEntity->getScene()->findEntity("finish" + std::to_string(mPlayerNumber)).get()->getComponent<UIText>("uitext")->setActive(false);
     mCircuitInfo->addVehicle(this);
@@ -60,7 +64,6 @@ void VehicleController::start()
 
     mLapsText->setText("Lap " + std::to_string(mLap + 1) + "/" + std::to_string(mCircuitInfo->getLaps()));
 
-    mPowerUp = false;
     mControllable = false;
 }
 
@@ -94,7 +97,7 @@ void VehicleController::update(const double& dt)
     applyRotation(dt, deltaX);
 
     // make use of the power up active if it has anyone
-    if (mPowerUp && useObject) {
+    if (mPowerUpUIWheel->isAnimEnd() && useObject) {
         switch (mPowerUpType)
         {
         case NERF:
@@ -106,13 +109,14 @@ void VehicleController::update(const double& dt)
         case THUNDER:
             // Create thunder entity with thunder Component
             std::cout << "PowerUp used: " << "THUNDER" << std::endl;
-            mEntity->getComponent<RigidBody>("rigidbody")->addImpulse(vForward * mAcceleration * 3);
+            mEntity->getComponent<RigidBody>("rigidbody")->addImpulse(vForward * mAcceleration * 5);
             break;
         default:
             break;
         }
 
-        mPowerUp = false;
+        mPowerUpUIWheel->resetLinkSprite();
+
     }
 }
 
@@ -256,7 +260,6 @@ void VehicleController::setControllable(bool controllable) {
 void VehicleController::setPowerUp(PowerUpType powerUpType)
 {
     mPowerUpType = powerUpType;
-    mPowerUp = true;
 }
 
 PlayerNumber VehicleController::getPlayerNumber() {

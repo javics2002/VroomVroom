@@ -49,7 +49,6 @@ namespace VroomVroom {
 		int mLap; //Current lap of this vehicle
 		int mPlace; //Current place of the vehicle in the race.
 
-		bool mPowerUp;
 		PowerUpType mPowerUpType;
 		PlayerNumber mPlayerNumber;
 
