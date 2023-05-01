@@ -36,14 +36,15 @@ namespace VroomVroom {
 		int mLaps;
 
 		bool mRaceStarted = false;
+		bool mRaceFinished = false;
 		int mCarsFinished = 0;
 		me::Timer* mTimer = nullptr;
+		me::Timer* mFinishTimer = nullptr;
 
 		std::vector<VehicleController*> mVehicles;
 		std::map<int, Checkpoint*> mCheckpoints;
 
 		me::UISpriteRenderer* mCountdownSprite;
-		me::UIText* mChrono;
 
 		void calculatePlaces();
 
@@ -63,10 +64,14 @@ namespace VroomVroom {
 		void setLaps(int laps);
 		int getLaps();
 
+
+
 		void setDeathHeight(float deathHeight);
 		float getDeathHeight();
 
 		void startRace();
+
+		std::string getElapsedTime();
 		std::string getFinishTime();
 
 		void addVehicle(VehicleController* newVehicle);

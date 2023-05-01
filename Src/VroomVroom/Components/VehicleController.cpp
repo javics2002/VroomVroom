@@ -42,13 +42,17 @@ void VehicleController::start()
     mTransform = mEntity->getComponent<Transform>("transform");
     mRigidBody = mEntity->getComponent<RigidBody>("rigidbody");
     mCircuitInfo = mEntity->getScene()->findEntity("circuit").get()->getComponent<CircuitInfo>("circuitinfo");
+    mEntity->getScene()->findEntity("finish" + std::to_string(mPlayerNumber)).get()->getComponent<UIText>("uitext")->setActive(false);
     mCircuitInfo->addVehicle(this);
-    mLapsText = mEntity->getScene()->findEntity("laps" + std::to_string((int) mPlayerNumber + 1)).get()
+    mLapsText = mEntity->getScene()->findEntity("laps" + std::to_string(mPlayerNumber)).get()
         ->getComponent<UIText>("uitext");
 
     // Lock in axis (X-Z)
     mRigidBody->setLinearFactor(Vector3(1, 0, 1));
     mRigidBody->setAngularFactor(Vector3(0, 1, 0));
+
+    mChrono = getEntity()->getScene()->findEntity("chrono" + std::to_string(mPlayerNumber)).get()
+        ->getComponent<UIText>("uitext");
 
     mCheckpointIndex = -1;
     mLap = 0;
@@ -66,8 +70,12 @@ void VehicleController::update(const double& dt)
     /*if (mTransform->getPosition().y <= mCircuitInfo->getDeathHeight())
         mTransform->setPosition(mLastCheckpointPosition);*/
 
-    if (!mControllable)
+    if (!mControllable) {
+        applyPush(dt, false, false);
         return;
+    }
+
+    mChrono->setText(mCircuitInfo->getElapsedTime());
 
     // Get the input
     bool accelerate = getPlayerButton("ACCELERATE");
@@ -242,6 +250,7 @@ void VehicleController::setPlayerNumber(PlayerNumber playerNumber) {
 
 void VehicleController::setControllable(bool controllable) {
     mControllable = controllable;
+
 }
 
 void VehicleController::setPowerUp(PowerUpType powerUpType)
@@ -311,10 +320,11 @@ void VehicleController::onCollisionEnter(me::Entity* other)
 
             if (mCheckpointIndex == checkpoint->GetNumCheckpoints()) {
                 //Add lap
-                mCheckpointIndex = -1;
+                mCheckpointIndex = 0;
                 mLap++;
 
-                mLapsText->setText("Lap " + std::to_string(mLap + 1) + "/" + std::to_string(mCircuitInfo->getLaps()));
+                if(mLap != mCircuitInfo->getLaps())
+                    mLapsText->setText("Lap " + std::to_string(mLap + 1) + "/" + std::to_string(mCircuitInfo->getLaps()));
 
 #ifdef _DEBUG
                 std::cout << "Car " << mPlayerNumber << " started lap " << mLap << "\n";
@@ -323,8 +333,10 @@ void VehicleController::onCollisionEnter(me::Entity* other)
                 if (mLap == mCircuitInfo->getLaps()) {
                     //Finish race
                     mFinishTime = mCircuitInfo->getFinishTime();
+                    mChrono->setText(mFinishTime);
                     mControllable = false;
-
+                    
+                    mEntity->getScene()->findEntity("finish" + std::to_string(mPlayerNumber)).get()->getComponent<UIText>("uitext")->setActive(true);
 #ifdef _DEBUG
                     std::cout << "Car " << mPlayerNumber << " finished the race in " << mFinishTime << "\n";
 #endif

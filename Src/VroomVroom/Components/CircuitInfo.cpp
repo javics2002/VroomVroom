@@ -27,6 +27,7 @@ CircuitInfo::CircuitInfo()
 CircuitInfo::~CircuitInfo()
 {
 	delete mTimer;
+	delete mFinishTimer;
 }
 
 void CircuitInfo::start()
@@ -36,15 +37,14 @@ void CircuitInfo::start()
 
 	mCountdownSprite = sceneManager().getActiveScene()->findEntity("countdownui").get()
 		->getComponent<UISpriteRenderer>("uispriterenderer");
-	mChrono = getEntity()->getScene()->findEntity("chrono").get()
-		->getComponent<UIText>("uitext");
+
 }
 
 void CircuitInfo::update(const double& dt)
 {
 	mTimer->update(dt);
 
-	if (!mRaceStarted) {
+	if (!mRaceStarted && !mRaceFinished) {
 		if (mTimer->getRawSeconds() > 3) {
 			mRaceStarted = true;
 			//GO!
@@ -69,16 +69,23 @@ void CircuitInfo::update(const double& dt)
 
 		return;
 	}
+	else if (mRaceStarted && !mRaceFinished) {
+		if (mTimer->getRawSeconds() > 1 && mCountdownSprite != nullptr) {
+			mCountdownSprite->getEntity()->destroy();
+			mCountdownSprite = nullptr;
+		}
 
-	if (mTimer->getRawSeconds() > 1 && mCountdownSprite != nullptr) {
-		mCountdownSprite->getEntity()->destroy();
-		mCountdownSprite = nullptr;
+		if (gameManager()->getNumPlayer() == 2)
+			calculatePlaces();
 	}
-
-	mChrono->setText(mTimer->getFormattedTime());
-
-	if (gameManager()->getNumPlayer() == 2)
-		calculatePlaces();
+	else if (mRaceFinished && mRaceStarted) {
+		mFinishTimer->update(dt);
+		if (mFinishTimer->getRawSeconds() > 3) {
+			sceneManager().change("results.lua");
+			gameManager()->changeState("results.lua");
+		}
+	}
+	
 }
 
 void CircuitInfo::calculatePlaces()
@@ -108,7 +115,7 @@ void CircuitInfo::calculatePlaces()
 			//Lastly check their remaining distance to the next checkpoint
 			else {
 				Vector3 nextCheckpointPosition =
-					mCheckpoints[mVehicles[i]->getChekpointIndex() + 1 % Checkpoint::GetNumCheckpoints()]
+					mCheckpoints[(mVehicles[i]->getChekpointIndex() + 1) % Checkpoint::GetNumCheckpoints()]
 					->getEntity()->getComponent<Transform>("transform")->getPosition();
 
 				Vector3 iVehiclePosition = mVehicles[i]->getEntity()
@@ -279,11 +286,19 @@ void CircuitInfo::startRace()
 	mTimer->resume();
 }
 
+
+std::string CircuitInfo::getElapsedTime()
+{
+	return mTimer->getFormattedTime();
+}
 std::string CircuitInfo::getFinishTime()
 {
+
 	if (++mCarsFinished == mVehicles.size()) {
-		sceneManager().change("results.lua");
-		gameManager()->changeState("results.lua");
+
+		mRaceFinished = true;
+		mTimer->pause();
+		mFinishTimer = new Timer(true);
 	}
 
 	return mTimer->getFormattedTime();

@@ -39,6 +39,8 @@ namespace VroomVroom {
 		float mSteeringBoost;
 		float mSpeedBasedRotationMultiplier;
 		
+		me::UIText* mChrono;
+
 		/*
 		* Information about the checkpoints and lap counter
 		*/

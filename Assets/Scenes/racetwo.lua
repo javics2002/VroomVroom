@@ -25,7 +25,7 @@ Entities = {
             -- materialName = "Material/roja"
         },
         CircuitInfo = {
-            laps = 3
+            laps = 1
         }
 	},
     
@@ -151,16 +151,16 @@ Entities = {
         }
     },
 
-    laps1 = {
+    laps0 = {
         UITransform = {
-            position = { x = 0.7, y = 0.1 },
+            position = { x = 350, y = 540.1 },
             scale = { x = 0.1, y = 0.177 },
             rotation = 0
         },
         UIText ={
-            name = "laps1",
+            name = "laps0",
             text = "LAP 1/3",
-            position = { x = 500, y = 200 },
+            position = { x = 350, y = 540 },
             fontname = "Mario"
         }
     },
@@ -191,7 +191,7 @@ Entities = {
 			maxspeed = 12,
 			maxrotationspeed = 3,
             driftFactor = 1,
-            playerNumber = 1
+            playernumber = 1
         },
         collider = {
             
@@ -270,34 +270,70 @@ Entities = {
         }
     },
 
-    laps2 = {
+    laps1 = {
         UITransform = {
-            position = { x = 0.7, y = 0.1 },
+            position = { x = 900, y = 540 },
             scale = { x = 0.1, y = 0.177 },
             rotation = 0
         },
         UIText ={
-            name = "laps2",
+            name = "laps1",
             text = "LAP 1/3",
-            position = { x = 500, y = 200 },
+            position = { x = 900, y = 540 },
+            fontname = "Mario"
+        }
+    },
+    finish0 = {
+        UITransform = {
+            position = { x = 150, y = 250 },
+            scale = { x = 0.5, y = 0.6 },
+            rotation = 0
+        },
+        UIText ={
+            name = "finish0",
+            text = "FINISH!",
+            charheight = 70,
+            fontname = "Mario"
+        }
+    },
+    finish1 = {
+        UITransform = {
+            position = { x = 670, y = 250 },
+            scale = { x = 0.5, y = 0.6 },
+            rotation = 0
+        },
+        UIText ={
+            name = "finish1",
+            text = "FINISH!",
+            charheight = 70,
             fontname = "Mario"
         }
     },
 
-    chrono = {
+    chrono0 = {
         UITransform = {
-            position = { x = 0.7, y = 0.1 },
+            position = { x = 300, y = 20 },
             scale = { x = 0.1, y = 0.177 },
             rotation = 0
         },
         UIText ={
             name = "chono",
             text = "00:00.000",
-            position = { x = 500, y = 200 },
             fontname = "Mario"
         }
     },
-
+    chrono1 = {
+        UITransform = {
+            position = { x = 850, y = 20 },
+            scale = { x = 0.1, y = 0.177 },
+            rotation = 0
+        },
+        UIText ={
+            name = "chono1",
+            text = "00:00.000",
+            fontname = "Mario"
+        }
+    },
     -----------------------------------------------------------------------------
     -----------------------------------------------------------------------------
 
@@ -487,153 +523,9 @@ Entities = {
     --         type = 2
     --     }
     -- },
-    checkpoint9 = {
-        Transform = {
-            position = { x= 35, y = 10, z = -12.5 },
-            scale = { x = 1, y = 1, z = 1 },
-            rotation = {x = 0, y = 180, z = 0}
-        },
-        RigidBody = {
-            colShape = 1,
-            mvType = static,
-            mass = 5,
-            group = 1,
-            mask = 2,
-            colliderscale = {x = 0.01, y = 10, z = 10},
-            restitution = .5,
-            friction = 0.5,
-            isTrigger = true
-        },
-        collider = {
-
-        },
-        Checkpoint={
-            index = 9;
-        }
-    },
-    checkpoint8 = {
-        Transform = {
-            position = { x= 80, y = 10, z = -12.5 },
-            scale = { x = 1, y = 1, z = 1 },
-            rotation = {x = 0, y = 180, z = 0}
-        },
-        RigidBody = {
-            colShape = 1,
-            mvType = static,
-            mass = 5,
-            group = 1,
-            mask = 2,
-            colliderscale = {x = 0.01, y = 10, z = 10},
-            restitution = .5,
-            friction = 0.5,
-            isTrigger = true
-        },
-        collider = {
-
-        },
-        Checkpoint={
-            index = 8;
-        }
-    },
-    checkpoint7 = {
-        Transform = {
-            position = { x= 80, y = 10, z = 12.5 },
-            scale = { x = 1, y = 1, z = 1 },
-            rotation = {x = 0, y = 180, z = 0}
-        },
-        RigidBody = {
-            colShape = 1,
-            mvType = static,
-            mass = 5,
-            group = 1,
-            mask = 2,
-            colliderscale = {x = 0.01, y = 10, z = 10},
-            restitution = .5,
-            friction = 0.5,
-            isTrigger = true
-        },
-        collider = {
-
-        },
-        Checkpoint={
-            index = 7;
-        }
-    },
-    checkpoint6 = {
-        Transform = {
-            position = { x= 40, y = 10, z = 12.5 },
-            scale = { x = 1, y = 1, z = 1 },
-            rotation = {x = 0, y = 180, z = 0}
-        },
-        RigidBody = {
-            colShape = 1,
-            mvType = static,
-            mass = 5,
-            group = 1,
-            mask = 2,
-            colliderscale = {x = 0.01, y = 10, z = 10},
-            restitution = .5,
-            friction = 0.5,
-            isTrigger = true
-        },
-        collider = {
-
-        },
-        Checkpoint={
-            index = 6;
-        }
-    },
-    checkpoint5 = {
-        Transform = {
-            position = { x= 0, y = 10, z = 12.5 },
-            scale = { x = 1, y = 1, z = 1 },
-            rotation = {x = 0, y = 180, z = 0}
-        },
-        RigidBody = {
-            colShape = 1,
-            mvType = static,
-            mass = 5,
-            group = 1,
-            mask = 2,
-            colliderscale = {x = 0.01, y = 10, z = 10},
-            restitution = .5,
-            friction = 0.5,
-            isTrigger = true
-        },
-        collider = {
-
-        },
-        Checkpoint={
-            index = 5;
-        }
-    },
-    checkpoint4 = {
-        Transform = {
-            position = { x= -40, y = 10, z = 12.5 },
-            scale = { x = 1, y = 1, z = 1 },
-            rotation = {x = 0, y = 180, z = 0}
-        },
-        RigidBody = {
-            colShape = 1,
-            mvType = static,
-            mass = 5,
-            group = 1,
-            mask = 2,
-            colliderscale = {x = 0.01, y = 10, z = 10},
-            restitution = .5,
-            friction = 0.5,
-            isTrigger = true
-        },
-        collider = {
-
-        },
-        Checkpoint={
-            index = 4;
-        }
-    },
     checkpoint3 = {
         Transform = {
-            position = { x= -80, y = 10, z = 12.5 },
+            position = { x= -120, y = 0, z = 0 },
             scale = { x = 1, y = 1, z = 1 },
             rotation = {x = 0, y = 180, z = 0}
         },
@@ -643,7 +535,7 @@ Entities = {
             mass = 5,
             group = 1,
             mask = 2,
-            colliderscale = {x = 0.01, y = 10, z = 10},
+            colliderscale = {x = 10, y = 10, z = 1},
             restitution = .5,
             friction = 0.5,
             isTrigger = true
@@ -657,7 +549,7 @@ Entities = {
     },
     checkpoint2 = {
         Transform = {
-            position = { x= -80, y = 10, z = -12.5 },
+            position = { x= -80, y = 0, z = 10 },
             scale = { x = 1, y = 1, z = 1 },
             rotation = {x = 0, y = 180, z = 0}
         },
@@ -667,7 +559,7 @@ Entities = {
             mass = 5,
             group = 1,
             mask = 2,
-            colliderscale = {x = 0.01, y = 10, z = 10},
+            colliderscale = {x = 1, y = 10, z = 10},
             restitution = .5,
             friction = 0.5,
             isTrigger = true
@@ -681,7 +573,7 @@ Entities = {
     },
     checkpoint1 = {
         Transform = {
-            position = { x= -40, y = 10, z = -12.5 },
+            position = { x= -0, y = 0, z = 0 },
             scale = { x = 1, y = 1, z = 1 },
             rotation = {x = 0, y = 180, z = 0}
         },
@@ -691,7 +583,7 @@ Entities = {
             mass = 5,
             group = 1,
             mask = 2,
-            colliderscale = {x = 0.01, y = 10, z = 10},
+            colliderscale = {x = 10, y = 10, z = 1},
             restitution = .5,
             friction = 0.5,
             isTrigger = true
@@ -705,7 +597,7 @@ Entities = {
     },
     checkpoint0 = {
         Transform = {
-            position = { x= 0, y = 10, z = -12.5 },
+            position = { x=-42, y = 0, z = -10 },
             scale = { x = 1, y = 1, z = 1 },
             rotation = {x = 0, y = 180, z = 0}
         },
@@ -715,7 +607,7 @@ Entities = {
             mass = 5,
             group = 1,
             mask = 2,
-            colliderscale = {x = 0.01, y = 10, z = 10},
+            colliderscale = {x = 1, y = 10, z = 10},
             restitution = .5,
             friction = 0.5,
             isTrigger = true

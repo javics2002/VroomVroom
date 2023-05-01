@@ -29,6 +29,21 @@ Entities = {
         }
 	},
     
+    laps0 = {
+        UITransform = {
+            position = { x = 900, y = 540.1 },
+            scale = { x = 0.1, y = 0.177 },
+            rotation = 0
+        },
+        UIText ={
+            name = "laps0",
+            text = "LAP 1/3",
+            position = { x = 350, y = 540 },
+            fontname = "Mario"
+        }
+    },
+
+
     camera = {
         transform = {
             position = { x = 0, y = 200, z = 0 } -- -104 70 0 / 20 10 -10
@@ -151,23 +166,24 @@ Entities = {
         }
     },
 
-    laps1 = {
+
+    finish0 = {
         UITransform = {
-            position = { x = 0.7, y = 0.1 },
-            scale = { x = 0.1, y = 0.177 },
+            position = { x = 450, y = 250 },
+            scale = { x = 0.3, y = 0.4 },
             rotation = 0
         },
         UIText ={
-            name = "laps1",
-            text = "LAP 1/3",
-            position = { x = 500, y = 200 },
+            name = "finish0",
+            text = "FINISH!",
+            charheight = 90,
             fontname = "Mario"
         }
     },
 
-    chrono = {
+    chrono0 = {
         UITransform = {
-            position = { x = 0.7, y = 0.1 },
+            position = { x = 10, y = 540 },
             scale = { x = 0.1, y = 0.177 },
             rotation = 0
         },
