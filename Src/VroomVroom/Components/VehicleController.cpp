@@ -13,6 +13,7 @@
 #include "CircuitInfo.h"
 #include "PowerUpUIWheel.h"
 #include "PowerUpObject.h"
+#include "Oil.h"
 
 #include "Utils/Vector3.h"
 #include "Utils/Vector4.h"
@@ -105,6 +106,7 @@ void VehicleController::update(const double& dt)
             break;
         case OIL:
             //Create oil entity with Oil Component
+            mPowerUpEntity->getComponent<Oil>("oil")->use(mEntity);
             break;
         case THUNDER:
             // Create thunder entity with thunder Component
@@ -218,8 +220,6 @@ void VroomVroom::VehicleController::applyRotation(const double& dt, float deltaX
     mRigidBody->setAngularVelocity(newAngularVelocity);
 }
 
-
-
 void VehicleController::setAccelerationAndRotation(float acceleration, float rotationSpeed, float driftFactor)
 {
     mAcceleration = acceleration;
@@ -257,9 +257,10 @@ void VehicleController::setControllable(bool controllable) {
 
 }
 
-void VehicleController::setPowerUp(PowerUpType powerUpType)
+void VehicleController::setPowerUp(PowerUpType powerUpType, me::Entity* powerUpEntity)
 {
     mPowerUpType = powerUpType;
+    mPowerUpEntity = powerUpEntity;
 }
 
 PlayerNumber VehicleController::getPlayerNumber() {

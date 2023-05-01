@@ -27,12 +27,22 @@ void Oil::setFriction(float friction)
 	mFriction = friction;
 }
 
+void VroomVroom::Oil::setOffset(float offset)
+{
+	mOffset = offset;
+}
+
+void VroomVroom::Oil::setPosYOil(float posYOil)
+{
+	mPosYOil = posYOil;
+}
+
 void Oil::onCollisionEnter(me::Entity* other)
 {
 	if (other->getName() == "carone" || other->getName() == "cartwo") {
 		// Save the player's current friction value to be restored later
-		mPlayerFriction = other->getComponent<me::RigidBody>("Rigidbody")->getFriction();
-		other->getComponent<me::RigidBody>("Rigidbody")->setFriction(mFriction);
+		mPlayerFriction = other->getComponent<me::RigidBody>("rigidbody")->getFriction();
+		other->getComponent<me::RigidBody>("rigidbody")->setFriction(mFriction);
 	}
 }
 
@@ -40,7 +50,7 @@ void Oil::onCollisionStay(me::Entity* other)
 {
 	if (other->getName() == "carone" || other->getName() == "cartwo") {
 		// Apply the oil's friction to the player
-		other->getComponent<me::RigidBody>("Rigidbody")->setFriction(mFriction);
+		other->getComponent<me::RigidBody>("rigidbody")->setFriction(mFriction);
 	}
 }
 
@@ -48,9 +58,9 @@ void Oil::onCollisionExit(me::Entity* other)
 {
 	if (other->getName() == "carone" || other->getName() == "cartwo") {
 		// Restore the player's previous friction value
-		other->getComponent<me::RigidBody>("Rigidbody")->setFriction(mPlayerFriction);
+		other->getComponent<me::RigidBody>("rigidbody")->setFriction(mPlayerFriction);
 		// Destroy the oil object from the scene
-		//mEntity->destroy();
+		mEntity->destroy();
 	}
 	
 }
@@ -58,11 +68,11 @@ void Oil::onCollisionExit(me::Entity* other)
 void VroomVroom::Oil::use(me::Entity* other)
 {
 
-	me::Vector3 v = other->getComponent<Transform>("transform")->getPosition();
-	me::Vector3 offset(-2, 2, 0);
+	Transform* carTr = other->getComponent<Transform>("transform");
+	Transform *tr = mEntity->getComponent<Transform>("transform");
 
-	mEntity->getComponent<RigidBody>("rigidbody")->activeBody();
-	mEntity->getComponent<MeshRenderer>("meshrenderer")->activeMesh();
-	//mEntity->getComponent<Transform>("transform")->setPosition(v +offset);
-
+	tr->setPosition(carTr->getPosition() + (carTr->forward().normalize() * -mOffset));
+	me::Vector3 posOil = tr->getPosition();
+	posOil.y = mPosYOil;
+	tr->setPosition(posOil);
 }

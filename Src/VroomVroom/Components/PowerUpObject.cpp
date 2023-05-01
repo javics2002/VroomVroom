@@ -81,7 +81,7 @@ void PowerUpObject::onCollisionEnter(me::Entity* other)
 			break;
 		}
 
-		other->getComponent<VehicleController>("vehiclecontroller")->setPowerUp(mPowerUp);
+		other->getComponent<VehicleController>("vehiclecontroller")->setPowerUp(mPowerUp, mPowerUpEntity);
 		other->getComponent<VehicleController>("vehiclecontroller")->setPowerUpUI();
 		mPicked = true;
 		mTimer->resume();
@@ -94,7 +94,7 @@ void PowerUpObject::onCollisionEnter(me::Entity* other)
 
 me::Entity* VroomVroom::PowerUpObject::createOilEntity()
 {
-	me::Entity* oil = mEntity->getScene()->addEntity("Oil" + std::to_string(gameManager()->getContPowerUps())).get();
+    me::Entity* oil = mEntity->getScene()->addEntity("Oil" + std::to_string(gameManager()->getContPowerUps())).get();
 	me::Transform* tr;
 	me::RigidBody* rb;
 	me::Collider* col;
@@ -102,31 +102,32 @@ me::Entity* VroomVroom::PowerUpObject::createOilEntity()
 	Oil* o;
 
 	tr = oil->addComponent<me::Transform>("transform");
-	tr->setPosition(me::Vector3(0,6,0));
+	tr->setPosition(me::Vector3(-70,-100,-10));
 	tr->setRotation(me::Vector3(0, 0, 0));
-	tr->setScale(me::Vector3(0.5, 0.5, 0.5));
+	tr->setScale(me::Vector3(2, 1.5, 2));
 
 	col = oil->addComponent<me::Collider>("collider");
 
 	rb = oil->addComponent<me::RigidBody>("rigidbody");
 	rb->setColShape(SHAPES_BOX);
-	rb->setMomeventType(MOVEMENT_TYPE_DYNAMIC);
+	rb->setMomeventType(MOVEMENT_TYPE_KINEMATIC);
 	rb->setMass(1);
-	rb->setGroup(2);
-	rb->setMask(7);
-	rb->setColliderScale(me::Vector3(4, 2, 4));
+	rb->setGroup(1);
+	rb->setMask(6);
+	rb->setColliderScale(me::Vector3(0.5,1,0.5));
 	rb->setRestitution(0.5);
 	rb->setFriction(0.5);
-	rb->setTrigger(false);
-	rb->desactiveBody();
+	rb->setTrigger(true);
 
 	mesh = oil->addComponent<me::MeshRenderer>("meshrenderer");
-	mesh->setMeshName("Kart.mesh");
+	mesh->setMeshName("Oil.mesh");
 	mesh->setName("o" + std::to_string(gameManager()->getContPowerUps()));
-	mesh->desactiveMesh();
+	mesh->init();
 
 	o = oil->addComponent<Oil>("oil");
 	o->setFriction(2);
+	o->setOffset(2);
+	o->setPosYOil(5.2);
 
 	gameManager()->addPowerUp();
 

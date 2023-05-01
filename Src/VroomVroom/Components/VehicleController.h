@@ -50,6 +50,7 @@ namespace VroomVroom {
 		int mPlace; //Current place of the vehicle in the race.
 
 		PowerUpType mPowerUpType;
+		me::Entity* mPowerUpEntity;
 		PlayerNumber mPlayerNumber;
 
 
@@ -129,7 +130,7 @@ namespace VroomVroom {
 
 		void setPlayerNumber(PlayerNumber playerNumber);
 		void setControllable(bool controllable);
-		void setPowerUp(PowerUpType powerUpType);
+		void setPowerUp(PowerUpType powerUpType, me::Entity* powerUpEntity);
 		void setPowerUpUI();
 
 		PlayerNumber getPlayerNumber();
