@@ -19,6 +19,7 @@
 #include <iostream>
 #include <math.h>
 
+
 using namespace me;
 using namespace VroomVroom;
 
@@ -45,7 +46,9 @@ void VehicleController::start()
     mLapsText = mEntity->getScene()->findEntity("laps" + std::to_string((int) mPlayerNumber + 1)).get()
         ->getComponent<UIText>("uitext");
 
-    mRigidBody->setGravity(Vector3::zero());
+    // Lock in axis (X-Z)
+    mRigidBody->setLinearFactor(Vector3(1, 0, 1));
+    mRigidBody->setAngularFactor(Vector3(0, 1, 0));
 
     mCheckpointIndex = -1;
     mLap = 0;
@@ -112,7 +115,7 @@ void VroomVroom::VehicleController::clamp(float& value, float min, float max)
 }
 
 bool VroomVroom::VehicleController::isMovingBackwards() {
-    // Normaliza los vectores para obtener la dirección del movimiento
+    // Normaliza los vectores para obtener la direcciï¿½n del movimiento
     Vector3 vForward = mTransform->forward().normalize();
     Vector3 normalizedVel = mRigidBody->getVelocity().normalize();
 
@@ -156,7 +159,6 @@ void VroomVroom::VehicleController::applyPush(const double& dt, bool accelerate,
         clamp(velocity, -mMaxSpeed, mMaxSpeed);
         newVelocity = vForward * velocity;
     }
-
 
     mRigidBody->setVelocity(newVelocity);
 }
