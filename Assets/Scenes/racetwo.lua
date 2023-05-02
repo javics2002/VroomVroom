@@ -53,7 +53,7 @@ Entities = {
 	CarOne = {
         Transform = {
             position = { x=-50, y = 5.5, z = -10 },
-            scale = { x = 1, y = 1, z = 1 },
+            scale = { x = 0.7, y = 0.7, z = 0.7 },
             rotation = {x = 0, y = 0, z = 0}
         },
 		RigidBody = {
@@ -173,7 +173,7 @@ Entities = {
     CarTwo = {
         Transform = {
             position = { x=-50, y = 5.5, z = -5 },
-            scale = { x = 1, y = 1, z = 1 },
+            scale = { x = 0.7, y = 0.7, z = 0.7 },
             rotation = {x = 0, y = 0, z = 0}
         },
         RigidBody = {
@@ -248,7 +248,7 @@ Entities = {
 
     insidecontainer2 = {
         UITransform = {
-            position = { x = 0.066, y = 0.096 },
+            position = { x = 0.57, y = 0.096 },
             scale = { x = 0.06, y = 0.1 },
             rotation = 0
         },
