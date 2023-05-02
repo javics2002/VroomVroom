@@ -79,6 +79,8 @@ void UIButtonScene::setPlayerLook(std::string playerLook) {
 void UIButtonScene::update(const double& dt)
 {
 	Vector2 mousePosition = me::inputManager().getMousePositon();
+	windowWidth = window().getWindowWidth();
+	windowHeight = window().getWindowHeight();
 
 	if (mousePosition.x > mUITransform->getPosition().x * windowWidth && 
 		mousePosition.x < mUITransform->getPosition().x * windowWidth + mUITransform->getScale().x * windowWidth &&

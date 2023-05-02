@@ -298,6 +298,24 @@ material Main/Quitbutton
 	}
 }
 
+material Main/ResultsButton
+{
+	technique
+	{
+		pass
+		{
+			depth_check off
+			lighting off
+			scene_blend alpha_blend
+			texture_unit 
+			{
+				texture returnmenubutton.png
+				colour_op replace
+			}
+		}
+	}
+}
+
 
 
 material container // nombre
