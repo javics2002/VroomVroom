@@ -11,6 +11,7 @@ namespace VroomVroom {
 	*/
 	class UIButtonQuit : public me::UIButton
 	{
+		int windowWidth = 0, windowHeight = 0;
 
 	public:
 		/**

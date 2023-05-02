@@ -153,7 +153,9 @@ Entities = {
             name = "yourtime",
             text = "PLAYER ONE",
             colour = { x = 1, y = 0 , z = 0},
-            charheight = 35,
+            position = { x = 0.25, y = 0.37 },
+            dimension = { x = 0.3, y = 0.3 },
+            charheight = 0.06,
             fontname = "Mario"
         }
     },
@@ -167,7 +169,9 @@ Entities = {
             name = "yourtime1",
             text = "PLAYER TWO",
             colour = { x = 0, y = 0 , z = 1},
-            charheight = 35,
+            position = { x = 0.47, y = 0.37 },
+            dimension = { x = 0.3, y = 0.3 },
+            charheight = 0.06,
             fontname = "Mario"
         }
     },
@@ -193,7 +197,9 @@ Entities = {
             name = "caronetext",
             text = "00:00:00",
             colour = { x = 1, y = 0 , z = 0},
-            charheight = 35,
+            position = { x = 0.25, y = 0.45 },
+            dimension = { x = 0.3, y = 0.3 },
+            charheight = 0.06,
             fontname = "Mario"
         }
     },
@@ -207,7 +213,9 @@ Entities = {
             name = "cartwotext",
             text = "00:00:00",
             colour = { x = 0, y = 0 , z = 1},
-            charheight = 35,
+            position = { x = 0.47, y = 0.45 },
+            dimension = { x = 0.3, y = 0.3 },
+            charheight = 0.06,
             fontname = "Mario"
         }
     },

@@ -160,7 +160,9 @@ Entities = {
         UIText ={
             name = "laps0",
             text = "LAP 1/3",
-            position = { x = 350, y = 540 },
+            position = { x = 0.4, y = 0.9 },
+            dimension = { x = 0.3, y = 0.3 },
+            charheight = 0.07,
             fontname = "Mario"
         }
     },
@@ -279,7 +281,9 @@ Entities = {
         UIText ={
             name = "laps1",
             text = "LAP 1/3",
-            position = { x = 900, y = 540 },
+            position = { x = 0.9, y = 0.9 },
+            dimension = { x = 0.3, y = 0.3 },
+            charheight = 0.07,
             fontname = "Mario"
         }
     },
@@ -291,8 +295,10 @@ Entities = {
         },
         UIText ={
             name = "finish0",
+            position = { x = 0.250, y = 0.4 },
+            dimension = { x = 0.3, y = 0.3 },
             text = "FINISH!",
-            charheight = 70,
+            charheight = 0.2,
             fontname = "Mario"
         }
     },
@@ -304,8 +310,10 @@ Entities = {
         },
         UIText ={
             name = "finish1",
+            position = { x = 0.750, y = 0.4 },
+            dimension = { x = 0.3, y = 0.3 },
             text = "FINISH!",
-            charheight = 70,
+            charheight = 0.2,
             fontname = "Mario"
         }
     },
@@ -319,6 +327,9 @@ Entities = {
         UIText ={
             name = "chono",
             text = "00:00.000",
+            position = { x = 0.4, y = 0.05 },
+            dimension = { x = 0.3, y = 0.3 },
+            charheight = 0.07,
             fontname = "Mario"
         }
     },
@@ -331,6 +342,9 @@ Entities = {
         UIText ={
             name = "chono1",
             text = "00:00.000",
+            position = { x = 0.9, y = 0.05 },
+            dimension = { x = 0.3, y = 0.3 },
+            charheight = 0.07,
             fontname = "Mario"
         }
     },

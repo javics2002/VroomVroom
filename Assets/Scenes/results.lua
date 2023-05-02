@@ -86,7 +86,9 @@ Entities = {
             name = "yourtime",
             text = "YOUR TIME WAS ",
             colour = { x = 1, y = 0 , z = 0},
-            charheight = 35,
+            position = { x = 0.36, y = 0.37 },
+            dimension = { x = 0.3, y = 0.3 },
+            charheight = 0.07,
             fontname = "Mario"
         }
     },
@@ -101,7 +103,9 @@ Entities = {
             name = "caronetext",
             text = "00:00:00",
             colour = { x = 1, y = 0 , z = 0},
-            charheight = 35,
+            position = { x = 0.36, y = 0.45 },
+            dimension = { x = 0.3, y = 0.3 },
+            charheight = 0.07,
             fontname = "Mario"
         }
     },

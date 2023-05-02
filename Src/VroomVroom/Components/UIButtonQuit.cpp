@@ -22,20 +22,18 @@ UIButtonQuit::~UIButtonQuit()
 
 void UIButtonQuit::update(const double& dt)
 {
+	Vector2 mousePosition = me::inputManager().getMousePositon();
+	windowWidth = window().getWindowWidth();
+	windowHeight = window().getWindowHeight();
 
-
-	if (inputManager().getButton("LEFTCLICK" + std::to_string(0))) {
-		Vector2 mousePosition = me::inputManager().getMousePositon();
-
-		int w, h;
-		w = window().getWindowWidth();
-		h = window().getWindowHeight();
-
-		if (mousePosition.x >= mUITransform->getPosition().x * w && 
-			mousePosition.x <= mUITransform->getPosition().x * w + mUITransform->getScale().x * w  &&
-			mousePosition.y >= mUITransform->getPosition().y * h && 
-			mousePosition.y <= mUITransform->getPosition().y * h + mUITransform->getScale().y * h)
+	if (mousePosition.x >= mUITransform->getPosition().x * windowWidth &&
+		mousePosition.x <= mUITransform->getPosition().x * windowWidth + mUITransform->getScale().x * windowWidth &&
+		mousePosition.y >= mUITransform->getPosition().y * windowHeight &&
+		mousePosition.y <= mUITransform->getPosition().y * windowHeight + mUITransform->getScale().y * windowHeight){
+		
+		if (inputManager().getButton("LEFTCLICK" + std::to_string(0))) {
 			execute();
+		}
 	}
 }
 
