@@ -67,30 +67,30 @@ void PowerUpObject::setPower(PowerUpType type)
 void PowerUpObject::onCollisionEnter(me::Entity* other)
 {
 	// Pass the power-up type to the player's vehicle controller component
-	if (other->getName() == "carone" || other->getName() == "cartwo") {
+	if ((other->getName() == "carone" || other->getName() == "cartwo")) {
+
 		// Deactivate the MeshRenderer and RigidBody components of the power-up object when it is picked up by a player
 		mEntity->getComponent<MeshRenderer>("meshrenderer")->desactiveMesh(); // Desactivamos el MeshRenderer para que no se vea por pantalla
 		mEntity->getComponent<RigidBody>("rigidbody")->desactiveBody(); // Desactivamos las colisiones
-		
-		switch (mPowerUp)
-		{
-		case NERF:
-			mPowerUpEntity = createNerfEntity();
-			break;
-		case OIL:
-			mPowerUpEntity = createOilEntity();
-			break;
-		}
-
-		other->getComponent<VehicleController>("vehiclecontroller")->setPowerUp(mPowerUp, mPowerUpEntity);
-		other->getComponent<VehicleController>("vehiclecontroller")->setPowerUpUI();
 		mPicked = true;
 		mTimer->resume();
-		std::cout << "PowerUp picked: " << mPowerUp << std::endl;
+
+		if (!other->getComponent<VehicleController>("vehiclecontroller")->isPowerUpPicked()) {
+			switch (mPowerUp)
+			{
+			case NERF:
+				mPowerUpEntity = createNerfEntity();
+				break;
+			case OIL:
+				mPowerUpEntity = createOilEntity();
+				break;
+			}
+
+			other->getComponent<VehicleController>("vehiclecontroller")->setPowerUp(mPowerUp, mPowerUpEntity);
+			other->getComponent<VehicleController>("vehiclecontroller")->setPowerUpUI();
+
+		}
 	}
-
-	//TODO: ACTIVATE THE SPIN ANIMATION OF THE UI ROULETTE
-
 }
 
 me::Entity* VroomVroom::PowerUpObject::createOilEntity()

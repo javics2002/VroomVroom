@@ -57,6 +57,7 @@ namespace VroomVroom {
 		PowerUpType mPowerUpType;
 		me::Entity* mPowerUpEntity;
 		PlayerNumber mPlayerNumber;
+		bool mPowerUpPicked;
 
 		std::string mFinishTime; // Stores the final timer when the vehicle reaches the finish line.
 
@@ -148,6 +149,10 @@ namespace VroomVroom {
 
 		void startOilTimer();
 
+		/*
+		Returns true if the car has a power up
+		*/
+		bool isPowerUpPicked();
 
 		/*
 		Its purpose is to handle collision events that occur when the entity collides with another entity in the game world.

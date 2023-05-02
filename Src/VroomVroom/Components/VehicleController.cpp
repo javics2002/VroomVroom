@@ -143,6 +143,7 @@ void VehicleController::update(const double& dt)
         }
 
         mPowerUpUIWheel->resetLinkSprite();
+        mPowerUpPicked = false;
     }
 }
 
@@ -273,6 +274,11 @@ void VehicleController::setSpeedBasedRotationMultiplier(float speedBaseFactor) {
     mSpeedBasedRotationMultiplier = speedBaseFactor;
 }
 
+bool VroomVroom::VehicleController::isPowerUpPicked()
+{
+    return mPowerUpPicked;
+}
+
 void VehicleController::setLinearAndAngularDamping(float linearDamping, float angularDamping)
 {
     mLinearDamping = linearDamping;
@@ -291,6 +297,7 @@ void VehicleController::setPowerUp(PowerUpType powerUpType, me::Entity* powerUpE
 {
     mPowerUpType = powerUpType;
     mPowerUpEntity = powerUpEntity;
+    mPowerUpPicked = true;
 }
 
 PlayerNumber VehicleController::getPlayerNumber() {
