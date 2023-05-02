@@ -83,13 +83,9 @@ void GameManager::update(const double& dt)
 	switch (mGameState)
 	{
 	case GameState::GAMESTATE_INGAME:
-		if (inputManager().getButton("CLOSE" + std::to_string(0))) {
+		if (inputManager().getButton("CLOSE")) {
 			sceneManager().change("mainmenu.lua");
 			mGameState = GAMESTATE_MAINMENU;
-		}
-		else if (inputManager().getButton("RESULTS" + std::to_string(0))) {
-			sceneManager().change("results.lua");
-			mGameState = GAMESTATE_RESULTS;
 		}
 		break;
 	case GameState::GAMESTATE_MAINMENU:

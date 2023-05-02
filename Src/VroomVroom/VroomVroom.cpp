@@ -11,8 +11,6 @@
 #include "Input/InputCode.h"
 #include "VroomVroom/VroomVroomInput.h"
 
-#define CREATE_PLAYER_BUTTON(buttonName) inputManager().addButton(playerButtonName(buttonName, playerI), playerI)
-
 using namespace me;
 using namespace VroomVroom;
 
@@ -43,116 +41,114 @@ __VROOMVROOM_API void initFactories()
 
 __VROOMVROOM_API void initInput()
 {
-	inputManager().addButton(playerButtonName("LEFTCLICK", 0), 0);
+	// --- Global input
+	//Left click
 	Input mouseClick;
 	mouseClick.type = INPUTTYPE_MOUSE_CLICK;
 	mouseClick.which = MOUSE_LEFTCLICK;
-	inputManager().addBinding(playerButtonName("LEFTCLICK", 0), mouseClick);
+	inputManager().addButton("LEFTCLICK", mouseClick);
 
+	//Return to main menu
+	Input keyboardEscape, gamepadStart;
+	keyboardEscape.type = INPUTTYPE_KEYBOARD;
+	keyboardEscape.which = KEYBOARDCODE_ESCAPE;
+	gamepadStart.type = INPUTTYPE_GAMEPAD_BUTTON;
+	gamepadStart.which = GAMEPAD_BUTTONCODE_START;
+	inputManager().addButton("CLOSE", keyboardEscape);
+	inputManager().addBinding("CLOSE", gamepadStart);
 
+	// --- Player input
+	//Horizonal axis
+	AxisInput keyboardHorizontal[PLAYERNUMBER_MAX];
+	keyboardHorizontal[0].type = INPUTTYPE_KEYBOARD;
+	keyboardHorizontal[0].positive = KEYBOARDCODE_D;
+	keyboardHorizontal[0].negative = KEYBOARDCODE_A;
 
-	inputManager().addButton(playerButtonName("CLOSE", 0), 0);
-	Input escape;
-	escape.type = INPUTTYPE_KEYBOARD;
-	escape.which = KEYBOARDCODE_1;
-	inputManager().addBinding(playerButtonName("CLOSE", 0), escape);
+	keyboardHorizontal[1].type = INPUTTYPE_KEYBOARD;
+	keyboardHorizontal[1].positive = KEYBOARDCODE_RIGHT; 
+	keyboardHorizontal[1].negative = KEYBOARDCODE_LEFT;
 
-
-	inputManager().addButton(playerButtonName("RESULTS", 0), 0);
-	Input results;
-	results.type = INPUTTYPE_KEYBOARD;
-	results.which = KEYBOARDCODE_2;
-	inputManager().addBinding(playerButtonName("RESULTS", 0), results);
-
-
-	int playerI = 0;
-
-
-	AxisInput horizontal;
-	horizontal.type = INPUTTYPE_KEYBOARD;
-	horizontal.positive = KEYBOARDCODE_A;
-	horizontal.negative = KEYBOARDCODE_D;
+	AxisInput gamepadLeftHorizontal;
+	gamepadLeftHorizontal.type = INPUTTYPE_GAMEPAD_AXIS;
+	gamepadLeftHorizontal.which = GAMEPAD_AXISCODE_LEFTX;
 
 	AxisInfo horizontalInfo;
 	horizontalInfo.dead = .1f;
 	horizontalInfo.gravity = .4f;
 
-	inputManager().addAxis(playerButtonName("HORIZONTAL", playerI), horizontalInfo, horizontal);
+	//Accelerate
+	Input keyboardAccelerate[PLAYERNUMBER_MAX];
+	keyboardAccelerate[0].type = INPUTTYPE_KEYBOARD;
+	keyboardAccelerate[0].which = KEYBOARDCODE_W;
 
-	CREATE_PLAYER_BUTTON("ACCELERATE");
-	CREATE_PLAYER_BUTTON("DECELERATE");
-	CREATE_PLAYER_BUTTON("DRIFT");
-	CREATE_PLAYER_BUTTON("USEOBJECT");
+	keyboardAccelerate[1].type = INPUTTYPE_KEYBOARD;
+	keyboardAccelerate[1].which = KEYBOARDCODE_UP;
 
+	Input gamepadA[PLAYERNUMBER_MAX];
 
-	Input keyboardS;
-	keyboardS.type = INPUTTYPE_KEYBOARD;
-	keyboardS.which = KEYBOARDCODE_S;
+	//Decelerate
+	Input keyboardDecelerate[PLAYERNUMBER_MAX];
+	keyboardDecelerate[0].type = INPUTTYPE_KEYBOARD;
+	keyboardDecelerate[0].which = KEYBOARDCODE_S;
 
-	inputManager().addBinding(playerButtonName("DECELERATE", playerI), keyboardS);
+	keyboardDecelerate[1].type = INPUTTYPE_KEYBOARD;
+	keyboardDecelerate[1].which = KEYBOARDCODE_DOWN;
 
-	Input keyboardW;
-	keyboardW.type = INPUTTYPE_KEYBOARD;
-	keyboardW.which = KEYBOARDCODE_W;
+	Input gamepadB[PLAYERNUMBER_MAX];
 
-	inputManager().addBinding(playerButtonName("ACCELERATE", playerI), keyboardW);
+	//Use object
+	Input keyboardUseObject[PLAYERNUMBER_MAX];
+	keyboardUseObject[0].type = INPUTTYPE_KEYBOARD;
+	keyboardUseObject[0].which = KEYBOARDCODE_SPACE;
 
-	Input keyboardSpace;
-	keyboardSpace.type = INPUTTYPE_KEYBOARD;
-	keyboardSpace.which = KEYBOARDCODE_SPACE;
+	keyboardUseObject[1].type = INPUTTYPE_KEYBOARD;
+	keyboardUseObject[1].which = KEYBOARDCODE_P;
 
-	inputManager().addBinding(playerButtonName("USEOBJECT", playerI), keyboardSpace);
+	Input keyboardUseObjectAlt[PLAYERNUMBER_MAX];
+	keyboardUseObjectAlt[0].type = INPUTTYPE_KEYBOARD;
+	keyboardUseObjectAlt[0].which = KEYBOARDCODE_E;
 
-	Input keyboardDrift;
-	keyboardDrift.type = INPUTTYPE_KEYBOARD;
-	keyboardDrift.which = KEYBOARDCODE_B;
+	keyboardUseObjectAlt[1].type = INPUTTYPE_KEYBOARD;
+	keyboardUseObjectAlt[1].which = KEYBOARDCODE_RCTRL;
 
-	inputManager().addBinding(playerButtonName("DRIFT", playerI), keyboardDrift);
+	Input gamepadX[PLAYERNUMBER_MAX];
+	Input gamepadY[PLAYERNUMBER_MAX];
+	Input gamepadL[PLAYERNUMBER_MAX];
+	Input gamepadR[PLAYERNUMBER_MAX];
 
+	for (int playerI = PLAYERNUMBER_1; playerI != PLAYERNUMBER_MAX; playerI++) {
+		//Create gamepad buttons
+		gamepadB[playerI].type = INPUTTYPE_GAMEPAD_BUTTON;
+		gamepadB[playerI].which = GAMEPAD_BUTTONCODE_B;
+		gamepadA[playerI].type = INPUTTYPE_GAMEPAD_BUTTON;
+		gamepadA[playerI].which = GAMEPAD_BUTTONCODE_A;
+		gamepadX[playerI].type = INPUTTYPE_GAMEPAD_BUTTON;
+		gamepadX[playerI].which = GAMEPAD_BUTTONCODE_X;
+		gamepadY[playerI].type = INPUTTYPE_GAMEPAD_BUTTON;
+		gamepadY[playerI].which = GAMEPAD_BUTTONCODE_Y;
+		gamepadL[playerI].type = INPUTTYPE_GAMEPAD_BUTTON;
+		gamepadL[playerI].which = GAMEPAD_BUTTONCODE_LEFT_SHOULDER;
+		gamepadR[playerI].type = INPUTTYPE_GAMEPAD_BUTTON;
+		gamepadR[playerI].which = GAMEPAD_BUTTONCODE_RIGHT_SHOULDER;
 
+		//Horizontal movement axis with keyboard and controller
+		inputManager().addAxis(playerButtonName("HORIZONTAL", playerI), horizontalInfo, keyboardHorizontal[playerI]);
+		inputManager().addBinding(playerButtonName("HORIZONTAL", playerI), gamepadLeftHorizontal);
 
+		//Accelerate with keyboard and controller
+		inputManager().addButton(playerButtonName("ACCELERATE", playerI), keyboardAccelerate[playerI], playerI);
+		inputManager().addBinding(playerButtonName("ACCELERATE", playerI), gamepadA[playerI]);
 
-	playerI = 1;
+		//Decelerate with keyboard and controller
+		inputManager().addButton(playerButtonName("DECELERATE", playerI), keyboardDecelerate[playerI], playerI);
+		inputManager().addBinding(playerButtonName("DECELERATE", playerI), gamepadB[playerI]);
 
-	horizontal.type = INPUTTYPE_KEYBOARD;
-	horizontal.positive = KEYBOARDCODE_LEFT;
-	horizontal.negative = KEYBOARDCODE_RIGHT;
-
-	horizontalInfo.dead = .1f;
-	horizontalInfo.gravity = .4f;
-
-	inputManager().addAxis(playerButtonName("HORIZONTAL", playerI), horizontalInfo, horizontal);
-
-	CREATE_PLAYER_BUTTON("ACCELERATE");
-	CREATE_PLAYER_BUTTON("DECELERATE");
-	CREATE_PLAYER_BUTTON("DRIFT");
-	CREATE_PLAYER_BUTTON("USEOBJECT");
-
-
-	Input keyboardDown;
-	keyboardDown.type = INPUTTYPE_KEYBOARD;
-	keyboardDown.which = KEYBOARDCODE_DOWN;
-
-	inputManager().addBinding(playerButtonName("DECELERATE", playerI), keyboardDown);
-
-	Input keyboardUp;
-	keyboardUp.type = INPUTTYPE_KEYBOARD;
-	keyboardUp.which = KEYBOARDCODE_UP;
-
-	inputManager().addBinding(playerButtonName("ACCELERATE", playerI), keyboardUp);
-
-	Input keyboardP;
-	keyboardP.type = INPUTTYPE_KEYBOARD;
-	keyboardP.which = KEYBOARDCODE_P;
-
-	inputManager().addBinding(playerButtonName("USEOBJECT", playerI), keyboardP);
-
-
-	keyboardDrift.type = INPUTTYPE_KEYBOARD;
-	keyboardDrift.which = KEYBOARDCODE_O;
-
-	inputManager().addBinding(playerButtonName("DRIFT", playerI), keyboardDrift);
-
-
-
+		//Use object with keyboard and controller
+		inputManager().addButton(playerButtonName("USEOBJECT", playerI), keyboardUseObject[playerI], playerI);
+		inputManager().addBinding(playerButtonName("USEOBJECT", playerI), keyboardUseObjectAlt[playerI]);
+		inputManager().addBinding(playerButtonName("USEOBJECT", playerI), gamepadX[playerI]);
+		inputManager().addBinding(playerButtonName("USEOBJECT", playerI), gamepadY[playerI]);
+		inputManager().addBinding(playerButtonName("USEOBJECT", playerI), gamepadL[playerI]);
+		inputManager().addBinding(playerButtonName("USEOBJECT", playerI), gamepadR[playerI]);
+	}
 }

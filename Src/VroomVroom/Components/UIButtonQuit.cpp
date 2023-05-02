@@ -26,15 +26,12 @@ void UIButtonQuit::update(const double& dt)
 	windowWidth = window().getWindowWidth();
 	windowHeight = window().getWindowHeight();
 
-	if (mousePosition.x >= mUITransform->getPosition().x * windowWidth &&
+	if (inputManager().getButton("LEFTCLICK") &&
+		mousePosition.x >= mUITransform->getPosition().x * windowWidth &&
 		mousePosition.x <= mUITransform->getPosition().x * windowWidth + mUITransform->getScale().x * windowWidth &&
 		mousePosition.y >= mUITransform->getPosition().y * windowHeight &&
-		mousePosition.y <= mUITransform->getPosition().y * windowHeight + mUITransform->getScale().y * windowHeight){
-		
-		if (inputManager().getButton("LEFTCLICK" + std::to_string(0))) {
-			execute();
-		}
-	}
+		mousePosition.y <= mUITransform->getPosition().y * windowHeight + mUITransform->getScale().y * windowHeight)
+		execute();
 }
 
 void UIButtonQuit::execute()

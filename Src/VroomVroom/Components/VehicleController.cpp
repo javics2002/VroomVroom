@@ -17,7 +17,6 @@
 
 #include "Utils/Vector3.h"
 #include "Utils/Vector4.h"
-#include <iostream>
 #include <math.h>
 
 
@@ -84,10 +83,7 @@ void VehicleController::update(const double& dt)
     // Get the input
     bool accelerate = getPlayerButton("ACCELERATE");
     bool decelerate = getPlayerButton("DECELERATE");
-    bool drift = getPlayerButton("DRIFT");
     bool useObject = getPlayerButton("USEOBJECT");
-
-    //If the player is using keyboard
     float deltaX = getPlayerAxis("HORIZONTAL");
 
     Vector3 vForward = mTransform->forward().normalize();
@@ -118,17 +114,18 @@ void VehicleController::update(const double& dt)
         }
 
         mPowerUpUIWheel->resetLinkSprite();
-
     }
 }
 
-void VroomVroom::VehicleController::clamp(float& value, float min, float max)
+void VehicleController::clamp(float& value, float min, float max)
 {
-    if (value > max) value = max;
-    else if (value < min) value = min;
+    if (value > max) 
+        value = max;
+    else if (value < min) 
+        value = min;
 }
 
-bool VroomVroom::VehicleController::isMovingBackwards() {
+bool VehicleController::isMovingBackwards() {
     // Normaliza los vectores para obtener la direcci�n del movimiento
     Vector3 vForward = mTransform->forward().normalize();
     Vector3 normalizedVel = mRigidBody->getVelocity().normalize();
@@ -140,12 +137,14 @@ bool VroomVroom::VehicleController::isMovingBackwards() {
     return dotProduct < 0;
 }
 
-void VroomVroom::VehicleController::applyPush(const double& dt, bool accelerate, bool decelerate)
+void VehicleController::applyPush(const double& dt, bool accelerate, bool decelerate)
 {
     Vector3 vForward = mTransform->forward().normalize();
     Vector3 lastVelocity;
 
-    if (isMovingBackwards())
+    bool movingBackwards = isMovingBackwards();
+
+    if (movingBackwards)
         lastVelocity =  vForward * -(mRigidBody->getVelocity().magnitude() * mLinearDamping);
     else
         lastVelocity =  vForward * (mRigidBody->getVelocity().magnitude() * mLinearDamping);
@@ -154,7 +153,7 @@ void VroomVroom::VehicleController::applyPush(const double& dt, bool accelerate,
     float velocity;
 
     if (accelerate) {
-        if (isMovingBackwards())
+        if (movingBackwards)
             velocity = -mRigidBody->getVelocity().magnitude() + (mAcceleration * mAccelerationBoost * dt);
         else
             velocity = mRigidBody->getVelocity().magnitude() + (mAcceleration * dt);
@@ -164,7 +163,7 @@ void VroomVroom::VehicleController::applyPush(const double& dt, bool accelerate,
         newVelocity = vForward * velocity;
     }
     else if (decelerate) {
-        if (isMovingBackwards())
+        if (movingBackwards)
             velocity = -mRigidBody->getVelocity().magnitude() - (mAcceleration * dt);
         else
             velocity = mRigidBody->getVelocity().magnitude() - (mAcceleration * mAccelerationBoost * dt);
@@ -177,9 +176,9 @@ void VroomVroom::VehicleController::applyPush(const double& dt, bool accelerate,
     mRigidBody->setVelocity(newVelocity);
 }
 
-void VroomVroom::VehicleController::applyRotation(const double& dt, float deltaX)
+void VehicleController::applyRotation(const double& dt, float deltaX)
 {
-    // Limt movement
+    // Limit movement
     float rotationMultiplier = mRigidBody->getVelocity().magnitude() / mMaxSpeed * mSpeedBasedRotationMultiplier;
     clamp(rotationMultiplier, 0, 1);
 
@@ -194,22 +193,25 @@ void VroomVroom::VehicleController::applyRotation(const double& dt, float deltaX
     Vector3 newAngularVelocity = Vector3::up() * (lastAngularVelocity * mAngularDamping);
     float rotationVelocity;
 
-    if (deltaX < 0) { // Derecha
+    if (isMovingBackwards())
+        deltaX = -deltaX;
+
+    if (deltaX > 0) { // Derecha
         if (angVel.y < 0)
-            rotationVelocity = lastAngularVelocity + (mDriftFactor * mRotationSpeed * deltaX * dt);
+            rotationVelocity = lastAngularVelocity - (mDriftFactor * mRotationSpeed * deltaX * dt);
         else
-            rotationVelocity = lastAngularVelocity + (mDriftFactor * mRotationSpeed * mSteeringBoost * deltaX * dt);
+            rotationVelocity = lastAngularVelocity - (mDriftFactor * mRotationSpeed * mSteeringBoost * deltaX * dt);
 
         // Limit angular velocity
         clamp(rotationVelocity, -mMaxAngularSpeed, mMaxAngularSpeed);
 
         newAngularVelocity = Vector3::up() * rotationVelocity * rotationMultiplier;
     }
-    else if (deltaX > 0) { // Izquierda
+    else if (deltaX < 0) { // Izquierda
         if (angVel.y < 0)
-            rotationVelocity = lastAngularVelocity + (mDriftFactor * mRotationSpeed * mSteeringBoost * deltaX * dt);
+            rotationVelocity = lastAngularVelocity - (mDriftFactor * mRotationSpeed * mSteeringBoost * deltaX * dt);
         else 
-            rotationVelocity = lastAngularVelocity + (mDriftFactor * mRotationSpeed * deltaX * dt);
+            rotationVelocity = lastAngularVelocity - (mDriftFactor * mRotationSpeed * deltaX * dt);
 
         // Limit angular velocity
         clamp(rotationVelocity, -mMaxAngularSpeed, mMaxAngularSpeed);
@@ -254,7 +256,6 @@ void VehicleController::setPlayerNumber(PlayerNumber playerNumber) {
 
 void VehicleController::setControllable(bool controllable) {
     mControllable = controllable;
-
 }
 
 void VehicleController::setPowerUp(PowerUpType powerUpType, me::Entity* powerUpEntity)
@@ -267,9 +268,8 @@ PlayerNumber VehicleController::getPlayerNumber() {
     return mPlayerNumber;
 }
 
-void VroomVroom::VehicleController::setPowerUpUI()
+void VehicleController::setPowerUpUI()
 {
-
     std::string name;
 
     switch (mPowerUpType)
@@ -363,6 +363,4 @@ void VehicleController::onCollisionEnter(me::Entity* other)
             }
         }
     }
-
-    //else if (other->hasComponent("PowerUpObject"))
 }

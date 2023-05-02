@@ -110,7 +110,7 @@ namespace VroomVroom {
 		void applyRotation(const double& dt, float deltaX);
 		
 		/**
-		Apply the rotation physics to the car, using angularSpeed.
+		Apply the push physics to the car, using linearSpeed.
 		@param Dt the time lapsed from previous frame
 		@param DeltaX turn direction
 		*/

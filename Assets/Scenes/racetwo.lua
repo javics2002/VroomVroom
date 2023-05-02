@@ -652,7 +652,9 @@ Entities = {
         Light = {
             name = "DirectionalLight",
             direction = { x = 1, y = -1, z = -1 },
-            type = 0
+            type = 0,
+            color = { r = .5, g = .5, b = .5 },
+            ambientColor = { r = .5, g = .5, b = .5 }
         }
     },
 

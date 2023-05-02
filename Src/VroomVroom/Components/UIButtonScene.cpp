@@ -21,14 +21,14 @@ UIButtonScene::~UIButtonScene()
 	renderManager().destroyUISprite(mName);
 }
 
-void UIButtonScene::init(std::string name, std::string materialName,int zOrder) 
+void UIButtonScene::init(std::string name, std::string materialName, int zOrder)
 {
 	mName = name;
 	mSpriteName = materialName;
 
 	if (mSpriteName.size() > 0)
 	{
-		renderManager().createSprite(mName, mSpriteName,zOrder);
+		renderManager().createSprite(mName, mSpriteName, zOrder);
 	}
 
 }
@@ -82,45 +82,31 @@ void UIButtonScene::update(const double& dt)
 	windowWidth = window().getWindowWidth();
 	windowHeight = window().getWindowHeight();
 
-	if (mousePosition.x > mUITransform->getPosition().x * windowWidth && 
+	if (mousePosition.x > mUITransform->getPosition().x * windowWidth &&
 		mousePosition.x < mUITransform->getPosition().x * windowWidth + mUITransform->getScale().x * windowWidth &&
-		mousePosition.y > mUITransform->getPosition().y * windowHeight && 
+		mousePosition.y > mUITransform->getPosition().y * windowHeight &&
 		mousePosition.y < mUITransform->getPosition().y * windowHeight + mUITransform->getScale().y * windowHeight) {
-
-		if (inputManager().getButton("LEFTCLICK" + std::to_string(0))) {
+		if (inputManager().getButton("LEFTCLICK")) {
 			execute();
 			gameManager()->changeState(mNewScene);
 		}
-		else
-		{
-			if (stopped)
-			{
-				toggle = true;
-				stopped = false;
-			}
+		else if (stopped) {
+			toggle = true;
+			stopped = false;
 		}
 	}
 	else
-	{
 		toggle = false;
 
-	}
-
-
 	if (!mPlayerLook.empty())
-	{
 		togglePlayerLook(dt);
-	}
-
-
-
 }
 
 void UIButtonScene::togglePlayerLook(const double& dt)
 {
 	if (toggle)
 	{
-		if (mPlayerLookTransform[0]->getScale().x <=1.0)
+		if (mPlayerLookTransform[0]->getScale().x <= 1.0)
 		{
 			for (Transform* tr : mPlayerLookTransform)
 			{
@@ -139,7 +125,7 @@ void UIButtonScene::togglePlayerLook(const double& dt)
 	{
 		if (!stopped)
 		{
-			
+
 
 			for (Transform* tr : mPlayerLookTransform)
 			{
