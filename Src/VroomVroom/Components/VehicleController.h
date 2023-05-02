@@ -11,6 +11,7 @@
 namespace me {
 	class Transform;
 	class RigidBody;
+	class Timer;
 }
 
 namespace VroomVroom {
@@ -25,7 +26,8 @@ namespace VroomVroom {
 		/*
 		* Parameters for the vehicleController.
 		*/
-		float mMaxSpeed;
+		float mOriginalMaxSpeed;
+		float mActualMaxSpeed;
 		float mMaxAngularSpeed;
 
 		float mAcceleration;
@@ -38,6 +40,9 @@ namespace VroomVroom {
 		float mAccelerationBoost;
 		float mSteeringBoost;
 		float mSpeedBasedRotationMultiplier;
+
+		me::Timer* mSpeedBoostTimer;
+		me::Timer* mSpeedSlowTimer;
 		
 		me::UIText* mChrono;
 
@@ -53,9 +58,7 @@ namespace VroomVroom {
 		me::Entity* mPowerUpEntity;
 		PlayerNumber mPlayerNumber;
 
-
 		std::string mFinishTime; // Stores the final timer when the vehicle reaches the finish line.
-
 
 		/*
 		* Information about entity's components
@@ -118,6 +121,7 @@ namespace VroomVroom {
 
 	public:
 		VehicleController();
+		~VehicleController();
 
 		void start() override;
 		void update(const double& dt) override;
@@ -139,6 +143,10 @@ namespace VroomVroom {
 		int getPlace();
 		int getLap();
 		int getChekpointIndex();
+		float getOrigMaxSpeed();
+		float getMaxAngularSpeed();
+
+		void startOilTimer();
 
 
 		/*

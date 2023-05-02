@@ -36,7 +36,7 @@ __VROOMVROOM_API void initFactories()
 	componentsFactory().addFactoryComponent("powerupuiwheel", new FactoryPowerUpUIWheel());
 	componentsFactory().addFactoryComponent("powerupobject", new FactoryPowerUpObject());
 	componentsFactory().addFactoryComponent("oil", new FactoryOil());
-	componentsFactory().addFactoryComponent("nerfpowerup", new FactoryNerf());
+	componentsFactory().addFactoryComponent("nerf", new FactoryNerf());
 }
 
 __VROOMVROOM_API void initInput()

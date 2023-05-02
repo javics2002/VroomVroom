@@ -1,5 +1,6 @@
 #include "PowerUpObject.h"
 #include "Oil.h"
+#include "Nerf.h"
 #include <math.h>
 #include "VehicleController.h"
 #include "Utils/Timer.h"
@@ -65,7 +66,6 @@ void PowerUpObject::setPower(PowerUpType type)
 
 void PowerUpObject::onCollisionEnter(me::Entity* other)
 {
-
 	// Pass the power-up type to the player's vehicle controller component
 	if (other->getName() == "carone" || other->getName() == "cartwo") {
 		// Deactivate the MeshRenderer and RigidBody components of the power-up object when it is picked up by a player
@@ -75,6 +75,7 @@ void PowerUpObject::onCollisionEnter(me::Entity* other)
 		switch (mPowerUp)
 		{
 		case NERF:
+			mPowerUpEntity = createNerfEntity();
 			break;
 		case OIL:
 			mPowerUpEntity = createOilEntity();
@@ -104,7 +105,7 @@ me::Entity* VroomVroom::PowerUpObject::createOilEntity()
 	tr = oil->addComponent<me::Transform>("transform");
 	tr->setPosition(me::Vector3(-70,-100,-10));
 	tr->setRotation(me::Vector3(0, 0, 0));
-	tr->setScale(me::Vector3(2, 1.5, 2));
+	tr->setScale(me::Vector3(6, 1, 6));
 
 	col = oil->addComponent<me::Collider>("collider");
 
@@ -114,7 +115,7 @@ me::Entity* VroomVroom::PowerUpObject::createOilEntity()
 	rb->setMass(1);
 	rb->setGroup(1);
 	rb->setMask(6);
-	rb->setColliderScale(me::Vector3(0.5,1,0.5));
+	rb->setColliderScale(me::Vector3(0.25,1,0.25));
 	rb->setRestitution(0.5);
 	rb->setFriction(0.5);
 	rb->setTrigger(true);
@@ -126,7 +127,7 @@ me::Entity* VroomVroom::PowerUpObject::createOilEntity()
 
 	o = oil->addComponent<Oil>("oil");
 	o->setFriction(2);
-	o->setOffset(2);
+	o->setOffset(3);
 	o->setPosYOil(5.2);
 
 	gameManager()->addPowerUp();
@@ -136,5 +137,39 @@ me::Entity* VroomVroom::PowerUpObject::createOilEntity()
 
 me::Entity* VroomVroom::PowerUpObject::createNerfEntity()
 {
-	return nullptr;
+	me::Entity* nerf = mEntity->getScene()->addEntity("Nerf" + std::to_string(gameManager()->getContPowerUps())).get();
+	me::Transform* tr;
+	me::RigidBody* rb;
+	me::Collider* col;
+	me::MeshRenderer* mesh;
+	Nerf* n;
+
+	tr = nerf->addComponent<me::Transform>("transform");
+	tr->setPosition(me::Vector3(-70, -90, -10));
+	tr->setRotation(me::Vector3(0, 0, 0));
+	tr->setScale(me::Vector3(1, 1, 1));
+
+	col = nerf->addComponent<me::Collider>("collider");
+
+	rb = nerf->addComponent<me::RigidBody>("rigidbody");
+	rb->setColShape(SHAPES_BOX);
+	rb->setMomeventType(MOVEMENT_TYPE_DYNAMIC);
+	rb->setMass(1);
+	rb->setGroup(1);
+	rb->setMask(6);
+	rb->setColliderScale(me::Vector3(1, 1, 1));
+	rb->setRestitution(0.5);
+	rb->setFriction(0.5);
+	rb->setTrigger(true);
+
+	mesh = nerf->addComponent<me::MeshRenderer>("meshrenderer");
+	mesh->setMeshName("Nerf.mesh");
+	mesh->setName("n" + std::to_string(gameManager()->getContPowerUps()));
+	mesh->init();
+
+	n = nerf->addComponent<Nerf>("nerf");
+
+	gameManager()->addPowerUp();
+
+	return nerf;
 }

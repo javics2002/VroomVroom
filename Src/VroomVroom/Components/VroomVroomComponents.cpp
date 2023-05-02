@@ -6,6 +6,7 @@
 #include "GameManager.h"
 #include "Checkpoint.h"
 #include "Oil.h"
+#include "Nerf.h"
 #include "UIButtonScene.h"
 #include "UIButtonQuit.h"
 #include "PowerUpUIWheel.h"
@@ -207,7 +208,8 @@ void VroomVroom::FactoryPowerUpObject::destroy(me::Component* component)
 
 me::Component* VroomVroom::FactoryNerf::create(me::Parameters& params)
 {
-    return nullptr;
+    Nerf* nerf = new Nerf();
+    return nerf;
 }
 
 void VroomVroom::FactoryNerf::destroy(me::Component* component)

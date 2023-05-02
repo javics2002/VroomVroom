@@ -40,28 +40,22 @@ void VroomVroom::Oil::setPosYOil(float posYOil)
 void Oil::onCollisionEnter(me::Entity* other)
 {
 	if (other->getName() == "carone" || other->getName() == "cartwo") {
-		// Save the player's current friction value to be restored later
-		mPlayerFriction = other->getComponent<me::RigidBody>("rigidbody")->getFriction();
-		other->getComponent<me::RigidBody>("rigidbody")->setFriction(mFriction);
+		// Reduce player's velocity
+		float maxSpeed = other->getComponent<VroomVroom::VehicleController>("vehiclecontroller")->getOrigMaxSpeed();
+		float maxAngularSpeed = other->getComponent<VroomVroom::VehicleController>("vehiclecontroller")->getMaxAngularSpeed();
+		other->getComponent<VroomVroom::VehicleController>("vehiclecontroller")->setMaxSpeedAndRotationSpeed(maxSpeed / 2, maxAngularSpeed);
+		other->getComponent<VroomVroom::VehicleController>("vehiclecontroller")->startOilTimer();
 	}
 }
 
 void Oil::onCollisionStay(me::Entity* other)
 {
-	if (other->getName() == "carone" || other->getName() == "cartwo") {
-		// Apply the oil's friction to the player
-		other->getComponent<me::RigidBody>("rigidbody")->setFriction(mFriction);
-	}
 }
 
 void Oil::onCollisionExit(me::Entity* other)
 {
-	if (other->getName() == "carone" || other->getName() == "cartwo") {
-		// Restore the player's previous friction value
-		other->getComponent<me::RigidBody>("rigidbody")->setFriction(mPlayerFriction);
-		// Destroy the oil object from the scene
+	if (other->getName() == "carone" || other->getName() == "cartwo")
 		mEntity->destroy();
-	}
 	
 }
 

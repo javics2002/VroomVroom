@@ -22,6 +22,8 @@ makes the first car that drives on it lose control, and then disappears.
 	class Nerf : public PowerUp
 	{
 	private:
+		bool isActive;
+
 		me::Transform* mTransform;
 		me::RigidBody* mRigidBody;
 		me::Vector3 vForward;

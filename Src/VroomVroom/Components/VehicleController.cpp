@@ -14,6 +14,7 @@
 #include "PowerUpUIWheel.h"
 #include "PowerUpObject.h"
 #include "Oil.h"
+#include "Nerf.h"
 
 #include "Utils/Vector3.h"
 #include "Utils/Vector4.h"
@@ -25,6 +26,12 @@ using namespace VroomVroom;
 
 VehicleController::VehicleController()
 {
+}
+
+VehicleController::~VehicleController()
+{
+    delete mSpeedBoostTimer;
+    delete mSpeedSlowTimer;
 }
 
 bool VehicleController::getPlayerButton(std::string buttonName)
@@ -65,6 +72,11 @@ void VehicleController::start()
     mLapsText->setText("Lap " + std::to_string(mLap + 1) + "/" + std::to_string(mCircuitInfo->getLaps()));
 
     mControllable = false;
+
+    mSpeedBoostTimer = new Timer(false);
+    mSpeedSlowTimer = new Timer(false);
+
+    mOriginalMaxSpeed = mActualMaxSpeed;
 }
 
 void VehicleController::update(const double& dt)
@@ -93,12 +105,28 @@ void VehicleController::update(const double& dt)
     // Rotate the vehicle
     applyRotation(dt, deltaX);
 
+    mSpeedBoostTimer->update(dt);
+    mSpeedSlowTimer->update(dt);
+
+    if (mSpeedBoostTimer->getRawSeconds() >= 1.0f) {
+        setMaxSpeedAndRotationSpeed(mOriginalMaxSpeed, mMaxAngularSpeed);
+        mSpeedBoostTimer->reset();
+        mSpeedBoostTimer->pause();
+    }
+
+    if (mSpeedSlowTimer->getRawSeconds() >= 3.0f) {
+        setMaxSpeedAndRotationSpeed(mOriginalMaxSpeed, mMaxAngularSpeed);
+        mSpeedSlowTimer->reset();
+        mSpeedSlowTimer->pause();
+    }
+
     // make use of the power up active if it has anyone
     if (mPowerUpUIWheel->isAnimEnd() && useObject) {
         switch (mPowerUpType)
         {
         case NERF:
             // Create nerf entity  with nerf Component
+            mPowerUpEntity->getComponent<Nerf>("nerf")->use(mEntity);
             break;
         case OIL:
             //Create oil entity with Oil Component
@@ -106,8 +134,9 @@ void VehicleController::update(const double& dt)
             break;
         case THUNDER:
             // Create thunder entity with thunder Component
-            std::cout << "PowerUp used: " << "THUNDER" << std::endl;
+            setMaxSpeedAndRotationSpeed(mOriginalMaxSpeed * 2, mMaxAngularSpeed);
             mEntity->getComponent<RigidBody>("rigidbody")->addImpulse(vForward * mAcceleration * 5);
+            mSpeedBoostTimer->resume();
             break;
         default:
             break;
@@ -159,7 +188,7 @@ void VehicleController::applyPush(const double& dt, bool accelerate, bool decele
             velocity = mRigidBody->getVelocity().magnitude() + (mAcceleration * dt);
 
 
-        clamp(velocity, -mMaxSpeed, mMaxSpeed);
+        clamp(velocity, -mActualMaxSpeed, mActualMaxSpeed);
         newVelocity = vForward * velocity;
     }
     else if (decelerate) {
@@ -169,7 +198,7 @@ void VehicleController::applyPush(const double& dt, bool accelerate, bool decele
             velocity = mRigidBody->getVelocity().magnitude() - (mAcceleration * mAccelerationBoost * dt);
 
 
-        clamp(velocity, -mMaxSpeed, mMaxSpeed);
+        clamp(velocity, -mActualMaxSpeed, mActualMaxSpeed);
         newVelocity = vForward * velocity;
     }
 
@@ -179,7 +208,7 @@ void VehicleController::applyPush(const double& dt, bool accelerate, bool decele
 void VehicleController::applyRotation(const double& dt, float deltaX)
 {
     // Limit movement
-    float rotationMultiplier = mRigidBody->getVelocity().magnitude() / mMaxSpeed * mSpeedBasedRotationMultiplier;
+    float rotationMultiplier = mRigidBody->getVelocity().magnitude() / mActualMaxSpeed * mSpeedBasedRotationMultiplier;
     clamp(rotationMultiplier, 0, 1);
 
     Vector3 angVel = mRigidBody->getAngularVelocity();
@@ -231,7 +260,7 @@ void VehicleController::setAccelerationAndRotation(float acceleration, float rot
 
 void VehicleController::setMaxSpeedAndRotationSpeed(float maxSpeed, float maxRotationSpeed)
 {
-    mMaxSpeed = maxSpeed;
+    mActualMaxSpeed = maxSpeed;
     mMaxAngularSpeed = maxRotationSpeed;
 }
 
@@ -306,6 +335,21 @@ int VehicleController::getLap()
 int VehicleController::getChekpointIndex()
 {
     return mCheckpointIndex;
+}
+
+float VehicleController::getOrigMaxSpeed()
+{
+    return mOriginalMaxSpeed;
+}
+
+float VehicleController::getMaxAngularSpeed()
+{
+    return mMaxAngularSpeed;
+}
+
+void VehicleController::startOilTimer()
+{
+    mSpeedSlowTimer->resume();
 }
 
 void VehicleController::onCollisionEnter(me::Entity* other)
