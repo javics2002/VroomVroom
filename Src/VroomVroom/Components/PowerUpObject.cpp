@@ -127,8 +127,8 @@ me::Entity* VroomVroom::PowerUpObject::createOilEntity()
 	rb->setColShape(SHAPES_BOX);
 	rb->setMomeventType(MOVEMENT_TYPE_KINEMATIC);
 	rb->setMass(1);
-	rb->setGroup(1);
-	rb->setMask(6);
+	rb->setGroup(6);
+	rb->setMask(1);
 	rb->setColliderScale(me::Vector3(0.25,1,0.25));
 	rb->setRestitution(0.5);
 	rb->setFriction(0.5);
@@ -152,53 +152,42 @@ me::Entity* VroomVroom::PowerUpObject::createOilEntity()
 me::Entity* VroomVroom::PowerUpObject::createNerfEntity()
 {
 	me::Entity* nerf = mEntity->getScene()->addEntity("Nerf" + std::to_string(gameManager()->getContPowerUps())).get();
-	me::Transform* tr;
-	me::RigidBody* rb;
-	me::Collider* col;
-	me::MeshRenderer* mesh;
-	me::AudioSource* audio;
-	Nerf* n;
 
-	tr = nerf->addComponent<me::Transform>("transform");
-	tr->setPosition(me::Vector3(-70, -90 - gameManager()->getContPowerUps(), -10));
-	tr->setRotation(me::Vector3(0, 0, 0));
-	tr->setScale(me::Vector3(1, 1, 1));
+	me::Transform* nerfTransfrom = nerf->addComponent<me::Transform>("transform");
+	nerfTransfrom->setPosition(me::Vector3(0, -500, 0));
+	nerfTransfrom->setScale(me::Vector3(1, 1, 1));
+	
+	me::AudioSource* nerfAudio = nerf->addComponent<me::AudioSource>("audiosource");
+	nerfAudio->setSourceName("nerfSound" + std::to_string(gameManager()->getContPowerUps()));
+	nerfAudio->setSourcePath("throwNerf.mp3");
+	nerfAudio->setPlayOnStart(false);
+	nerfAudio->setGroupChannelName("effects");
+	nerfAudio->setVolume(1.0f);
+	nerfAudio->setIsThreeD(true);
+	nerfAudio->setLoop(false);
+	nerfAudio->setMinDistance(1.0f);
+	nerfAudio->setMaxDistance(20.0f);
 
-	audio = nerf->addComponent<me::AudioSource>("audiosource");
-	audio->setSourceName("nerfSound" + std::to_string(gameManager()->getContPowerUps()));
-	audio->setSourcePath("throwNerf.mp3");
-	audio->setPlayOnStart(false);
-	audio->setGroupChannelName("effects");
-	audio->setVolume(1.0f);
-	audio->setIsThreeD(true);
-	audio->setLoop(false);
-	audio->setMinDistance(1.0f);
-	audio->setMaxDistance(20.0f);
+	me::Collider* nerfCol = nerf->addComponent<me::Collider>("collider");
 
-	col = nerf->addComponent<me::Collider>("collider");
+	me::RigidBody* nerfRigidbody = nerf->addComponent<me::RigidBody>("rigidbody");
+	nerfRigidbody->setColShape(SHAPES_BOX);
+	nerfRigidbody->setMomeventType(MOVEMENT_TYPE_KINEMATIC);
+	nerfRigidbody->setMass(1);
+	nerfRigidbody->setGroup(2);
+	nerfRigidbody->setMask(7);
+	nerfRigidbody->setColliderScale(me::Vector3(1, .25, 1));
+	nerfRigidbody->setTrigger(true);
 
-	rb = nerf->addComponent<me::RigidBody>("rigidbody");
-	rb->setColShape(SHAPES_BOX);
-	rb->setMomeventType(MOVEMENT_TYPE_KINEMATIC);
-	rb->setMass(1);
-	rb->setGroup(2);
-	rb->setMask(7);
-	rb->setColliderScale(me::Vector3(1, .25, 1));
-	rb->setRestitution(0.5);
-	rb->setFriction(0.5);
-	rb->setTrigger(true);
-
-	mesh = nerf->addComponent<me::MeshRenderer>("meshrenderer");
-	mesh->setMeshName("Nerf.mesh");
-	mesh->setName("n" + std::to_string(gameManager()->getContPowerUps()));
-	mesh->init();
-
-	n = nerf->addComponent<Nerf>("nerf");
-	n->setSpeed(30);
+	me::MeshRenderer* meshNerf = nerf->addComponent<me::MeshRenderer>("meshrenderer");
+	meshNerf->setMeshName("Nerf.mesh");
+	meshNerf->setName("n" + std::to_string(gameManager()->getContPowerUps()));
+	meshNerf->init();
+	
+	Nerf* nerfComp = nerf->addComponent<Nerf>("nerf");
+	nerfComp->setSpeed(30);
 
 	gameManager()->addPowerUp();
-
-	std::cout << "Hago el nerf\n";
 
 	return nerf;
 }

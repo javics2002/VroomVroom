@@ -9,8 +9,6 @@
 
 namespace me {
 	class Entity;
-	class Transform;
-	class RigidBody;
 	class Timer;
 	class AudioSource;
 }
@@ -23,14 +21,7 @@ makes the first car that drives on it lose control, and then disappears.
 	class Nerf : public PowerUp
 	{
 	private:
-		me::Transform* mTransform;
-		me::RigidBody* mRigidBody;
-		me::Vector3 vForward;
 		me::Timer* mTimer;
-		float mLostControl;
-		bool mHit;
-		me::Entity* mHitCar;
-		me::Entity* mUsedCar;
 		float mSpeed;
 
 		me::AudioSource* mNerfSound;
@@ -43,8 +34,6 @@ makes the first car that drives on it lose control, and then disappears.
 		void update(const double& dt) override;
 
 		void setSpeed(float speed);
-
-		void setLostControl(float lost);
 
 		// Overrides the PowerUp class functions
 		void onCollisionEnter(me::Entity* other) override;
