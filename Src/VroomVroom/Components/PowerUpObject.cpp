@@ -11,6 +11,8 @@
 #include "EntityComponent/Scene.h"
 #include "GameManager.h"
 
+#include <iostream>
+
 using namespace me;
 using namespace VroomVroom;
 
@@ -36,7 +38,6 @@ void PowerUpObject::start()
 
 void PowerUpObject::update(const double& dt)
 {
-
 	if (mPicked) {
 		mTimer->update(dt);
 		if (mTimer->getRawSeconds() >= mReviveTime) {
@@ -69,15 +70,13 @@ void PowerUpObject::setPower(PowerUpType type)
 void PowerUpObject::onCollisionEnter(me::Entity* other)
 {
 	// Pass the power-up type to the player's vehicle controller component
-	if ((other->getName() == "carone" || other->getName() == "cartwo")) {
-
-		
+	if (other->hasComponent("vehiclecontroller")) {
 		// Deactivate the MeshRenderer and RigidBody components of the power-up object when it is picked up by a player
 		mEntity->getComponent<MeshRenderer>("meshrenderer")->desactiveMesh(); // Desactivamos el MeshRenderer para que no se vea por pantalla
 		mEntity->getComponent<RigidBody>("rigidbody")->desactiveBody(); // Desactivamos las colisiones
 		mPicked = true;
 		mTimer->resume();
-
+		
 		if (!other->getComponent<VehicleController>("vehiclecontroller")->isPowerUpPicked()) {
 			mTakePowerAudio->play();
 			switch (mPowerUp)
@@ -92,7 +91,6 @@ void PowerUpObject::onCollisionEnter(me::Entity* other)
 
 			other->getComponent<VehicleController>("vehiclecontroller")->setPowerUp(mPowerUp, mPowerUpEntity);
 			other->getComponent<VehicleController>("vehiclecontroller")->setPowerUpUI();
-
 		}
 	}
 }
@@ -110,12 +108,12 @@ me::Entity* VroomVroom::PowerUpObject::createOilEntity()
 	tr = oil->addComponent<me::Transform>("transform");
 	tr->setPosition(me::Vector3(-70,-100,-10));
 	tr->setRotation(me::Vector3(0, 0, 0));
-	tr->setScale(me::Vector3(6, 1, 6));
+	tr->setScale(me::Vector3(3, 1, 3));
 
 	col = oil->addComponent<me::Collider>("collider");
 
 	audio = oil->addComponent<me::AudioSource>("audiosource");
-	audio->setSourceName("oilSound");
+	audio->setSourceName("oilSound" + std::to_string(gameManager()->getContPowerUps()));
 	audio->setSourcePath("throwOil.mp3");
 	audio->setPlayOnStart(false);
 	audio->setGroupChannelName("effects");
@@ -158,22 +156,34 @@ me::Entity* VroomVroom::PowerUpObject::createNerfEntity()
 	me::RigidBody* rb;
 	me::Collider* col;
 	me::MeshRenderer* mesh;
+	me::AudioSource* audio;
 	Nerf* n;
 
 	tr = nerf->addComponent<me::Transform>("transform");
-	tr->setPosition(me::Vector3(-70, -90, -10));
+	tr->setPosition(me::Vector3(-70, -90 - gameManager()->getContPowerUps(), -10));
 	tr->setRotation(me::Vector3(0, 0, 0));
 	tr->setScale(me::Vector3(1, 1, 1));
+
+	audio = nerf->addComponent<me::AudioSource>("audiosource");
+	audio->setSourceName("nerfSound" + std::to_string(gameManager()->getContPowerUps()));
+	audio->setSourcePath("throwNerf.mp3");
+	audio->setPlayOnStart(false);
+	audio->setGroupChannelName("effects");
+	audio->setVolume(1.0f);
+	audio->setIsThreeD(true);
+	audio->setLoop(false);
+	audio->setMinDistance(1.0f);
+	audio->setMaxDistance(20.0f);
 
 	col = nerf->addComponent<me::Collider>("collider");
 
 	rb = nerf->addComponent<me::RigidBody>("rigidbody");
 	rb->setColShape(SHAPES_BOX);
-	rb->setMomeventType(MOVEMENT_TYPE_DYNAMIC);
+	rb->setMomeventType(MOVEMENT_TYPE_KINEMATIC);
 	rb->setMass(1);
-	rb->setGroup(1);
-	rb->setMask(6);
-	rb->setColliderScale(me::Vector3(1, 1, 1));
+	rb->setGroup(2);
+	rb->setMask(7);
+	rb->setColliderScale(me::Vector3(1, .25, 1));
 	rb->setRestitution(0.5);
 	rb->setFriction(0.5);
 	rb->setTrigger(true);
@@ -184,8 +194,11 @@ me::Entity* VroomVroom::PowerUpObject::createNerfEntity()
 	mesh->init();
 
 	n = nerf->addComponent<Nerf>("nerf");
+	n->setSpeed(30);
 
 	gameManager()->addPowerUp();
+
+	std::cout << "Hago el nerf\n";
 
 	return nerf;
 }

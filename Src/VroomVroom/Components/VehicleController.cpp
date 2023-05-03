@@ -16,6 +16,7 @@
 #include "PowerUpObject.h"
 #include "Oil.h"
 #include "Nerf.h"
+#include "CameraFollow.h"
 
 #include "Utils/Vector3.h"
 #include "Utils/Vector4.h"
@@ -33,6 +34,7 @@ VehicleController::~VehicleController()
 {
     delete mSpeedBoostTimer;
     delete mSpeedSlowTimer;
+    delete mControllableTimer;
 }
 
 bool VehicleController::getPlayerButton(std::string buttonName)
@@ -77,6 +79,7 @@ void VehicleController::start()
 
     mSpeedBoostTimer = new Timer(false);
     mSpeedSlowTimer = new Timer(false);
+    mControllableTimer = new Timer(false);
 
     mOriginalMaxSpeed = mActualMaxSpeed;
 }
@@ -91,8 +94,28 @@ void VehicleController::update(const double& dt)
         mFinishAudio = mTransform->getChild(0)->getEntity()->getComponent<AudioSource>("audiosource");
         finishGot = true;
     }
+    
+    mSpeedBoostTimer->update(dt);
+    mSpeedSlowTimer->update(dt);
+    mControllableTimer->update(dt);
+
     if (!mControllable) {
+        if (mControllableTimer->getRawSeconds() >= 2.0f) {
+            mControllableTimer->reset();
+            mControllableTimer->pause();
+            mControllable = true;
+            mRigidBody->setAngularVelocity(Vector3::zero());
+            mTransform->setRotation(mLastOrientation);
+            sceneManager().getActiveScene()->findEntity("camera" + std::to_string(mPlayerNumber + 1)).get()
+                ->getComponent<CameraFollow>("camerafollow")->enabled = true;
+        }
+        else if (mControllableTimer->getRawSeconds() > 0) {
+            mRigidBody->setVelocity(mTransform->forward().normalize());
+            return;
+        }
+
         applyPush(dt, false, false);
+        applyRotation(dt, 0);
         return;
     }
 
@@ -110,9 +133,6 @@ void VehicleController::update(const double& dt)
 
     // Rotate the vehicle
     applyRotation(dt, deltaX);
-
-    mSpeedBoostTimer->update(dt);
-    mSpeedSlowTimer->update(dt);
 
     if (mSpeedBoostTimer->getRawSeconds() >= 1.0f) {
         setMaxSpeedAndRotationSpeed(mOriginalMaxSpeed, mMaxAngularSpeed);
@@ -364,6 +384,16 @@ float VehicleController::getMaxAngularSpeed()
 void VehicleController::startOilTimer()
 {
     mSpeedSlowTimer->resume();
+}
+
+void VehicleController::startNerfTimer()
+{
+    mControllableTimer->resume();
+    mRigidBody->setAngularVelocity(Vector3::up() * 10);
+    sceneManager().getActiveScene()->findEntity("camera" + std::to_string(mPlayerNumber + 1)).get()
+        ->getComponent<CameraFollow>("camerafollow")->enabled = false;
+    mControllable = false;
+    mLastOrientation = mTransform->getRotation().toEuler();
 }
 
 void VehicleController::onCollisionEnter(me::Entity* other)

@@ -45,8 +45,6 @@ GameManager* VroomVroom::GameManager::Instance()
 	return MInstance;
 }
 
-
-
 void GameManager::start()
 {
 	if (MInstance != nullptr)

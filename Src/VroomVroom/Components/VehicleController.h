@@ -44,6 +44,7 @@ namespace VroomVroom {
 
 		me::Timer* mSpeedBoostTimer;
 		me::Timer* mSpeedSlowTimer;
+		me::Timer* mControllableTimer;
 		
 		me::UIText* mChrono;
 
@@ -59,6 +60,7 @@ namespace VroomVroom {
 		me::Entity* mPowerUpEntity;
 		PlayerNumber mPlayerNumber;
 		bool mPowerUpPicked;
+		me::Vector3 mLastOrientation;
 
 		std::string mFinishTime; // Stores the final timer when the vehicle reaches the finish line.
 
@@ -152,6 +154,7 @@ namespace VroomVroom {
 		float getMaxAngularSpeed();
 
 		void startOilTimer();
+		void startNerfTimer();
 
 		/*
 		Returns true if the car has a power up

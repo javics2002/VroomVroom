@@ -134,9 +134,7 @@ void UIButtonScene::togglePlayerLook(const double& dt)
 		for (Transform* tr : mPlayerLookTransform)
 		{
 			tr->rotate(playerRotateAngle * dt, { 0,1,0 });
-
 		}
-
 	}
 	else
 	{

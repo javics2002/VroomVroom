@@ -36,54 +36,6 @@ Entities = {
             groupchannel = "music"
         }
 	},
-    
-    -- a = {
-    --     Transform = {
-    --         position = { x=-50, y = 5.5, z = -10 },
-    --         scale = { x = 1, y = 1, z = 1 },
-    --         rotation = {x = 0, y = 0, z = 0}
-    --     },
-    --     -- audiosource = {
-    --     --         name = "prueba",
-    --     --         path = "wave.mp3",
-    --     --         onstart = true,
-    --     --         loop = true,
-    --     --         threed = true
-    --     -- },
-    --     meshrenderer = {
-    --         mesh = "a",
-    --         meshName = "Power_Up_Box.mesh"
-    --     },
-    --     RigidBody = {
-    --         colShape = 0,
-    --         mvType = 1,
-    --         mass = 1,
-    --         group = 2,
-    --         mask = 0,
-    --         colliderscale = {x = 30, y = 30, z = 30},
-    --         restitution = 0,
-    --         friction = 0,
-    --         isTrigger = true
-    --     },
-    --     collider = {
-            
-    --     }
-    -- },
-    -- b = {
-    --     Transform = {
-    --         position = { x=-60, y = 5, z = -10 },
-    --         scale = { x = 0.1, y = 0.1, z =0.1 },
-    --         rotation = {x = 0, y = 0, z = 0},
-    --         parentname = "carone"
-    --     }
-    --     -- particlesystem = {
-    --     --     particle = "carspark",
-    --     --     particlename = "Particle/chispa",
-    --     --     emitted = true
-           
-    --     -- }
-
-    -- },
 
     laps0 = {
         UITransform = {
@@ -123,14 +75,14 @@ Entities = {
     ---------           primer jugador                  ---------
     -------------------------------------------------------------
 
-	CarOne = {
+	Car1 = {
         Transform = {
             position = { x=-50, y = 5.5, z = -10 },
             scale = { x = 0.7, y = 0.7, z = 0.7 },
             rotation = {x = 0, y = 0, z = 0}
         },
         RigidBody = {
-            colShape = 1,
+            colShape = 2,
             mvType = 0,
             mass = 1,
             group = 2,
@@ -173,9 +125,9 @@ Entities = {
         }
 	},
 
-    FinishAudio ={
+    FinishAudio1 ={
         transform={
-            parentname = "carone";
+            parentname = "car1";
         },
         audiosource={
             name = "finishCarOne",
@@ -187,7 +139,7 @@ Entities = {
         }
     },
 
-    cameraOne = {
+    camera1 = {
         transform = {
             position = { x= -55, y = 7.5, z = -10 }, --  x=-70, y = 100, z = 0
             rotation = { x=0, y = 0, z =0}
@@ -204,7 +156,7 @@ Entities = {
             viewport = { left = 0.0, right = 0.0, width = 1.0, height =1.0 }
         },
 		camerafollow = {
-			target = "carone",
+			target = "car1",
 			positionoffset = { x= 0, y = 2, z = -5 },
             lookoffset = { x= 0, y = 1, z = 0 },
             smoothing = .2
@@ -305,225 +257,7 @@ Entities = {
             groupchannel = "music"
         }
     },
-
-    PowerUp1 = {
-        Transform = {
-            position = { x= 0, y = 5.8, z = 0 },
-            scale = { x = 1, y = 1, z = 1},
-            rotation = {x = 0, y = 180, z = 0}
-        },
-        RigidBody = {
-            colShape = 1,
-            mvType = 2,
-            mass = 0,
-            group = 2,
-            mask = 7,
-            colliderscale = {x = 0.5, y = 0.5, z = 0.5},
-            restitution = .5,
-            friction = 0.5,
-            isTrigger = true
-        },
-        meshrenderer = {
-            mesh = "powerUp1",
-            meshName = "Power_Up_Box.mesh"
-        },
-        collider = {
-        },
-        PowerUpObject = {
-            type = 2
-        },
-        audiosource = {
-            name = "powerUp1Sound",
-            path = "pickPowerUpBox.mp3",
-            onstart = false,
-            loop = false,
-            threed = false,
-            groupchannel = "effects"
-        }
-    },
-
-    PowerUp2 = {
-        Transform = {
-            position = { x= -3, y = 5.8, z = 0 },
-            scale = { x = 1, y = 1, z = 1 },
-            rotation = {x = 0, y = 180, z = 0}
-        },
-        RigidBody = {
-            colShape = 1,
-            mvType = 2,
-            mass = 0,
-            group = 2,
-            mask = 7,
-            colliderscale = {x = 0.5, y = 0.5, z = 0.5},
-            restitution = .5,
-            friction = 0.5,
-            isTrigger = true
-        },
-        meshrenderer = {
-            mesh = "powerUp2",
-            meshName = "Power_Up_Box.mesh"
-        },
-        collider = {
-        },
-        PowerUpObject = {
-            type = 2
-        },
-        audiosource = {
-            name = "powerUp2Sound",
-            path = "pickPowerUpBox.mp3",
-            onstart = false,
-            loop = false,
-            threed = false,
-            groupchannel = "effects"
-        }
-    },
-
-    PowerUp3 = {
-        Transform = {
-            position = { x= -6, y = 5.8, z = 0 },
-            scale = { x = 1, y= 1, z = 1 },
-            rotation = {x = 0, y = 180, z = 0}
-        },
-        RigidBody = {
-            colShape = 1,
-            mvType = 2,
-            mass = 0,
-            group = 2,
-            mask = 7,
-            colliderscale = {x = 0.5, y = 0.5, z = 0.5},
-            restitution = .5,
-            friction = 0.5,
-            isTrigger = true
-        },
-        meshrenderer = {
-            mesh = "powerUp3",
-            meshName = "Power_Up_Box.mesh"
-        },
-        collider = {
-        },
-        PowerUpObject = {
-            type = 2
-        },
-        audiosource = {
-            name = "powerUp3Sound",
-            path = "pickPowerUpBox.mp3",
-            onstart = false,
-            loop = false,
-            threed = false,
-            groupchannel = "effects"
-        }
-    },
-
-    PowerUp4 = {
-        Transform = {
-            position = { x= -121, y = 5.8, z = 0 },
-            scale = { x = 1, y = 1, z = 1 },
-            rotation = {x = 0, y = 180, z = 0}
-        },
-        RigidBody = {
-            colShape = 1,
-            mvType = 2,
-            mass = 1,
-            group = 2,
-            mask = 7,
-            colliderscale = {x = 0.5, y = 0.5, z = 0.5},
-            restitution = .5,
-            friction = 0.5,
-            isTrigger = true
-        },
-        meshrenderer = {
-            mesh = "powerUp4",
-            meshName = "Power_Up_Box.mesh"
-        },
-        collider = {
-            
-        },
-        PowerUpObject = {
-            type = 2
-        },
-        audiosource = {
-            name = "powerUp4Sound",
-            path = "pickPowerUpBox.mp3",
-            onstart = false,
-            loop = false,
-            threed = false,
-            groupchannel = "effects"
-        }
-    },
-
-    PowerUp5 = {
-        Transform = {
-            position = { x= -124, y = 5.8, z = 0 },
-            scale = { x = 1, y = 1, z = 1},
-            rotation = {x = 0, y = 180, z = 0}
-        },
-        RigidBody = {
-            colShape = 1,
-            mvType = 2,
-            mass = 1,
-            group = 2,
-            mask = 7,
-            colliderscale = {x = 0.5, y = 0.5, z = 0.5},
-            restitution = .5,
-            friction = 0.5,
-            isTrigger = true
-        },
-        meshrenderer = {
-            mesh = "powerUp5",
-            meshName = "Power_Up_Box.mesh"
-        },
-        collider = {
-            
-        },
-        PowerUpObject = {
-            type = 2
-        },
-        audiosource = {
-            name = "powerUp5Sound",
-            path = "pickPowerUpBox.mp3",
-            onstart = false,
-            loop = false,
-            threed = false,
-            groupchannel = "effects"
-        }
-    },
-
-    PowerUp6 = {
-        Transform = {
-            position = { x= -127, y = 5.8, z = 0 },
-            scale = { x = 1, y =1, z = 1},
-            rotation = {x = 0, y = 180, z = 0}
-        },
-        RigidBody = {
-            colShape = 1,
-            mvType = 2,
-            mass = 1,
-            group = 2,
-            mask = 7,
-            colliderscale = {x = 0.5, y = 0.5, z = 0.5},
-            restitution = .5,
-            friction = 0.5,
-            isTrigger = true
-        },
-        meshrenderer = {
-            mesh = "powerUp6",
-            meshName = "Power_Up_Box.mesh"
-        },
-        collider = {
-            
-        },
-        PowerUpObject = {
-            type = 2
-        },
-        audiosource = {
-            name = "powerUp6Sound",
-            path = "pickPowerUpBox.mp3",
-            onstart = false,
-            loop = false,
-            threed = false,
-            groupchannel = "effects"
-        }
-    },
+    
     checkpoint3 = {
         Transform = {
             position = { x= -120, y = 0, z = 0 },

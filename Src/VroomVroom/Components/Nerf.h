@@ -12,6 +12,7 @@ namespace me {
 	class Transform;
 	class RigidBody;
 	class Timer;
+	class AudioSource;
 }
 
 namespace VroomVroom {
@@ -22,8 +23,6 @@ makes the first car that drives on it lose control, and then disappears.
 	class Nerf : public PowerUp
 	{
 	private:
-		bool isActive;
-
 		me::Transform* mTransform;
 		me::RigidBody* mRigidBody;
 		me::Vector3 vForward;
@@ -33,6 +32,8 @@ makes the first car that drives on it lose control, and then disappears.
 		me::Entity* mHitCar;
 		me::Entity* mUsedCar;
 		float mSpeed;
+
+		me::AudioSource* mNerfSound;
 
 	public:
 		Nerf();

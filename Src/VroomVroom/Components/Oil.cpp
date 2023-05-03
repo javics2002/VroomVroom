@@ -40,12 +40,13 @@ void VroomVroom::Oil::setPosYOil(float posYOil)
 
 void Oil::onCollisionEnter(me::Entity* other)
 {
-	if (other->getName() == "carone" || other->getName() == "cartwo") {
+	if (other->hasComponent("vehiclecontroller")) {
+		VehicleController* vehiclecontroller = other->getComponent<VroomVroom::VehicleController>("vehiclecontroller");
 		// Reduce player's velocity
-		float maxSpeed = other->getComponent<VroomVroom::VehicleController>("vehiclecontroller")->getOrigMaxSpeed();
-		float maxAngularSpeed = other->getComponent<VroomVroom::VehicleController>("vehiclecontroller")->getMaxAngularSpeed();
-		other->getComponent<VroomVroom::VehicleController>("vehiclecontroller")->setMaxSpeedAndRotationSpeed(maxSpeed / 2, maxAngularSpeed);
-		other->getComponent<VroomVroom::VehicleController>("vehiclecontroller")->startOilTimer();
+		float maxSpeed = vehiclecontroller->getOrigMaxSpeed();
+		float maxAngularSpeed = vehiclecontroller->getMaxAngularSpeed();
+		vehiclecontroller->setMaxSpeedAndRotationSpeed(maxSpeed / 2, maxAngularSpeed);
+		vehiclecontroller->startOilTimer();
 	}
 }
 
@@ -55,9 +56,8 @@ void Oil::onCollisionStay(me::Entity* other)
 
 void Oil::onCollisionExit(me::Entity* other)
 {
-	if (other->getName() == "carone" || other->getName() == "cartwo")
+	if (other->hasComponent("vehiclecontroller"))
 		mEntity->destroy();
-	
 }
 
 void VroomVroom::Oil::use(me::Entity* other)
