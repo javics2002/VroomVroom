@@ -8,6 +8,7 @@
 namespace me {
 	class Timer;
 	class Transform;
+	class AudioSource;
 }
 
 namespace VroomVroom {
@@ -61,6 +62,7 @@ namespace VroomVroom {
 	private:
 		PowerUpType mPowerUp; // the type of power-up that this object represents
 		me::Entity* mPowerUpEntity;
+		me::AudioSource* mTakePowerAudio;
 
 		me::Transform* mTransform;
 		me::Timer* mTimer;

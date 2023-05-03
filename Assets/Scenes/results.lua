@@ -45,6 +45,18 @@ Entities = {
             position = { x = 0.39, y = .01 },
             scale = { x = 0.2, y = .35},
             rotation = 0
+        }, 
+        transform = {
+
+        },
+        audiosource = {
+            name = "bgResultsMusic",
+            path = "resultsMenu.mp3",
+            onstart = true,
+            loop = true,
+            threed = false,
+            groupchannel = "music",
+            volume = 0.2
         }
     },
 
@@ -163,6 +175,17 @@ Entities = {
             position = { x = 0.66, y = 0.8 },
             scale = { x = 0.3, y = 0.135 },
             rotation = 0
+        },
+        transform = {
+
+        },
+        audiosource = {
+            name = "quitResultsSound",
+            path = "mouseOverButton.mp3",
+            onstart = false,
+            loop = false,
+            threed = false,
+            groupchannel = "effects"
         }
     },
 

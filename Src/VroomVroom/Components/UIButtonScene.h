@@ -12,6 +12,7 @@
 namespace me {
 	class UITransform;
 	class Transform;
+	class AudioSource;
 }
 
 namespace VroomVroom {
@@ -27,6 +28,12 @@ namespace VroomVroom {
 
 		std::string mPlayerLook;
 		std::vector<me::Transform*> mPlayerLookTransform;
+
+		me::AudioSource* mHoverAudio;
+		/*me::AudioSource* mClickAudio;
+		me::Transform* mTransform;
+		me::Transform* mChildTransform;*/
+		
 		
 		Ogre::TextAreaOverlayElement* mButtonArea;
 
@@ -34,9 +41,10 @@ namespace VroomVroom {
 
 		int windowWidth =0 , windowHeight=0;
 
-		bool toggle = false;
-		bool stopped = true;
 		bool scaled = false;
+		bool toggleSound = false;
+		bool stoppedSound = true;
+		/*bool clickGot = false;*/
 
 		float playerRotateAngle = 20.0;
 
@@ -69,6 +77,8 @@ namespace VroomVroom {
 		void execute() override;
 
 		void togglePlayerLook(const double&);
+
+		void toggleHover();
 
 	};
 }

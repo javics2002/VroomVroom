@@ -1,9 +1,11 @@
 #include "UIButtonQuit.h"
 #include "Input/InputManager.h"
 #include "Render/RenderManager.h"
+#include "Audio/SoundManager.h"
 #include "EntityComponent/SceneManager.h"
 #include "GameManager.h"
 #include "EntityComponent/Components/UITransform.h"
+#include "EntityComponent/Components/AudioSource.h"
 #include "EntityComponent/Entity.h"
 #include "Render/Window.h"
 
@@ -19,6 +21,14 @@ UIButtonQuit::~UIButtonQuit()
 	renderManager().destroyUISprite(mName);
 }
 
+void VroomVroom::UIButtonQuit::start()
+{
+	UIButton::start();
+
+	mButtonAudio = mEntity->getComponent<AudioSource>("audiosource");
+	std::cout << "audio asignado" << "\n";
+}
+
 
 void UIButtonQuit::update(const double& dt)
 {
@@ -26,17 +36,38 @@ void UIButtonQuit::update(const double& dt)
 	windowWidth = window().getWindowWidth();
 	windowHeight = window().getWindowHeight();
 
-	if (inputManager().getButton("LEFTCLICK") &&
-		mousePosition.x >= mUITransform->getPosition().x * windowWidth &&
+	if (mousePosition.x >= mUITransform->getPosition().x * windowWidth &&
 		mousePosition.x <= mUITransform->getPosition().x * windowWidth + mUITransform->getScale().x * windowWidth &&
 		mousePosition.y >= mUITransform->getPosition().y * windowHeight &&
-		mousePosition.y <= mUITransform->getPosition().y * windowHeight + mUITransform->getScale().y * windowHeight)
-		execute();
+		mousePosition.y <= mUITransform->getPosition().y * windowHeight + mUITransform->getScale().y * windowHeight){ 
+		if (inputManager().getButton("LEFTCLICK")) {
+			execute();
+		}
+		else if (stoppedSound) {
+			toggleSound = true;
+			stoppedSound = false;
+			if(mButtonAudio != nullptr)
+			mButtonAudio->play();
+		}
+	}
+	else
+		toggleSound = false;
+
+	toggleHover();
 }
 
 void UIButtonQuit::execute()
 {
+	soundManager().stopEverySound();
 	sceneManager().quit();
+}
+
+void VroomVroom::UIButtonQuit::toggleHover()
+{
+	if(!toggleSound && !stoppedSound)
+	{
+		stoppedSound = true;
+	}
 }
 
 

@@ -7,6 +7,7 @@
 #include "EntityComponent//Components/Transform.h"
 #include "EntityComponent/Components/MeshRenderer.h"
 #include "EntityComponent/Components/Rigidbody.h"
+#include "EntityComponent/Components/AudioSource.h"
 #include "EntityComponent/Scene.h"
 #include "GameManager.h"
 
@@ -28,6 +29,7 @@ void PowerUpObject::start()
 	//mPowerUp = PowerUpType(rand() % 3);
 	mTimer = new Timer(false);
 	mTransform = mEntity->getComponent<Transform>("transform");
+	mTakePowerAudio = mEntity->getComponent<AudioSource>("audiosource");
 	mReviveTime = 4; // Set the time it takes for the power-up object to respawn after being picked up
 	mPowerUpEntity = nullptr;
 }
@@ -69,6 +71,7 @@ void PowerUpObject::onCollisionEnter(me::Entity* other)
 	// Pass the power-up type to the player's vehicle controller component
 	if ((other->getName() == "carone" || other->getName() == "cartwo")) {
 
+		
 		// Deactivate the MeshRenderer and RigidBody components of the power-up object when it is picked up by a player
 		mEntity->getComponent<MeshRenderer>("meshrenderer")->desactiveMesh(); // Desactivamos el MeshRenderer para que no se vea por pantalla
 		mEntity->getComponent<RigidBody>("rigidbody")->desactiveBody(); // Desactivamos las colisiones
@@ -76,6 +79,7 @@ void PowerUpObject::onCollisionEnter(me::Entity* other)
 		mTimer->resume();
 
 		if (!other->getComponent<VehicleController>("vehiclecontroller")->isPowerUpPicked()) {
+			mTakePowerAudio->play();
 			switch (mPowerUp)
 			{
 			case NERF:
@@ -100,6 +104,7 @@ me::Entity* VroomVroom::PowerUpObject::createOilEntity()
 	me::RigidBody* rb;
 	me::Collider* col;
 	me::MeshRenderer* mesh;
+	me::AudioSource* audio;
 	Oil* o;
 
 	tr = oil->addComponent<me::Transform>("transform");
@@ -108,6 +113,17 @@ me::Entity* VroomVroom::PowerUpObject::createOilEntity()
 	tr->setScale(me::Vector3(6, 1, 6));
 
 	col = oil->addComponent<me::Collider>("collider");
+
+	audio = oil->addComponent<me::AudioSource>("audiosource");
+	audio->setSourceName("oilSound");
+	audio->setSourcePath("throwOil.mp3");
+	audio->setPlayOnStart(false);
+	audio->setGroupChannelName("effects");
+	audio->setVolume(1.0f);
+	audio->setIsThreeD(true);
+	audio->setLoop(false);
+	audio->setMinDistance(1.0f);
+	audio->setMaxDistance(20.0f);
 
 	rb = oil->addComponent<me::RigidBody>("rigidbody");
 	rb->setColShape(SHAPES_BOX);

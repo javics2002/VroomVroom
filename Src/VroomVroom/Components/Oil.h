@@ -8,6 +8,7 @@ namespace me {
 	class Entity;
 	class Rigidbody;
 	class MeshRenderer;
+	class AudioSource;
 }
 
 namespace VroomVroom {
@@ -22,6 +23,8 @@ makes the first car that drives on it lose control, and then disappears.
 		int mFriction; // The friction value that the Oil sets when a vehicle collides with it
 		float mOffset; // The distance behind the car
 		float mPosYOil; // The pos 'y' of the oil
+
+		me::AudioSource* mOilSound;
 
 	public:
 		Oil();

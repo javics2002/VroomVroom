@@ -12,6 +12,7 @@ namespace me {
 	class Transform;
 	class RigidBody;
 	class Timer;
+	class AudioSource;
 }
 
 namespace VroomVroom {
@@ -66,11 +67,14 @@ namespace VroomVroom {
 		*/
 		me::Transform* mTransform;
 		me::RigidBody* mRigidBody;
+		me::AudioSource* mThunderAudio;
+		me::AudioSource* mFinishAudio;
 		CircuitInfo* mCircuitInfo;
 		PowerUpUIWheel* mPowerUpUIWheel;
 		me::UIText* mLapsText;
 
 		bool mControllable;
+		bool finishGot = false;
 
 		/*
 		Checks if buttonName has been pressed for this playerNumber

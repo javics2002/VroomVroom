@@ -26,9 +26,65 @@ Entities = {
         },
         CircuitInfo = {
             laps = 1
+        },
+        audiosource = {
+            name = "bgRaceMusic",
+            path = "musicaCircuito.mp3",
+            onstart = true,
+            loop = false,
+            threed = false,
+            groupchannel = "music"
         }
 	},
     
+    -- a = {
+    --     Transform = {
+    --         position = { x=-50, y = 5.5, z = -10 },
+    --         scale = { x = 1, y = 1, z = 1 },
+    --         rotation = {x = 0, y = 0, z = 0}
+    --     },
+    --     -- audiosource = {
+    --     --         name = "prueba",
+    --     --         path = "wave.mp3",
+    --     --         onstart = true,
+    --     --         loop = true,
+    --     --         threed = true
+    --     -- },
+    --     meshrenderer = {
+    --         mesh = "a",
+    --         meshName = "Power_Up_Box.mesh"
+    --     },
+    --     RigidBody = {
+    --         colShape = 0,
+    --         mvType = 1,
+    --         mass = 1,
+    --         group = 2,
+    --         mask = 0,
+    --         colliderscale = {x = 30, y = 30, z = 30},
+    --         restitution = 0,
+    --         friction = 0,
+    --         isTrigger = true
+    --     },
+    --     collider = {
+            
+    --     }
+    -- },
+    -- b = {
+    --     Transform = {
+    --         position = { x=-60, y = 5, z = -10 },
+    --         scale = { x = 0.1, y = 0.1, z =0.1 },
+    --         rotation = {x = 0, y = 0, z = 0},
+    --         parentname = "carone"
+    --     }
+    --     -- particlesystem = {
+    --     --     particle = "carspark",
+    --     --     particlename = "Particle/chispa",
+    --     --     emitted = true
+           
+    --     -- }
+
+    -- },
+
     laps0 = {
         UITransform = {
             position = { x = 0.35, y = 0.8 },
@@ -103,8 +159,33 @@ Entities = {
             mesh = "kartone",
             meshName = "RedCar.mesh",
             --materialName = "Material/roja"
+        },
+        audiolistener = {
+
+        },
+        audiosource = {
+            name = "thunderCarOne",
+            path = "posibleAumentoDeVel.mp3",
+            onstart = false,
+            loop = false,
+            threed = true,
+            groupchannel = "effects"
         }
 	},
+
+    FinishAudio ={
+        transform={
+            parentname = "carone";
+        },
+        audiosource={
+            name = "finishCarOne",
+            path = "endRace.mp3",
+            onstart = false,
+            loop = false,
+            threed = false,
+            groupchannel = "effects"
+        }
+    },
 
     cameraOne = {
         transform = {
@@ -211,6 +292,17 @@ Entities = {
         UISpriteRenderer ={
             sprite = "countdown",     -- Nombre Interno
             materialName = "countdown3"  -- Nombre en MaterialsResource
+        },
+        transform = {
+
+        },
+        audiosource = {
+            name = "countDownSound",
+            path = "comienzoCarrera.mp3",
+            onstart = true,
+            loop = false,
+            threed = false,
+            groupchannel = "music"
         }
     },
 
@@ -239,6 +331,14 @@ Entities = {
         },
         PowerUpObject = {
             type = 2
+        },
+        audiosource = {
+            name = "powerUp1Sound",
+            path = "pickPowerUpBox.mp3",
+            onstart = false,
+            loop = false,
+            threed = false,
+            groupchannel = "effects"
         }
     },
 
@@ -267,6 +367,14 @@ Entities = {
         },
         PowerUpObject = {
             type = 2
+        },
+        audiosource = {
+            name = "powerUp2Sound",
+            path = "pickPowerUpBox.mp3",
+            onstart = false,
+            loop = false,
+            threed = false,
+            groupchannel = "effects"
         }
     },
 
@@ -295,6 +403,14 @@ Entities = {
         },
         PowerUpObject = {
             type = 2
+        },
+        audiosource = {
+            name = "powerUp3Sound",
+            path = "pickPowerUpBox.mp3",
+            onstart = false,
+            loop = false,
+            threed = false,
+            groupchannel = "effects"
         }
     },
 
@@ -324,6 +440,14 @@ Entities = {
         },
         PowerUpObject = {
             type = 2
+        },
+        audiosource = {
+            name = "powerUp4Sound",
+            path = "pickPowerUpBox.mp3",
+            onstart = false,
+            loop = false,
+            threed = false,
+            groupchannel = "effects"
         }
     },
 
@@ -353,6 +477,14 @@ Entities = {
         },
         PowerUpObject = {
             type = 2
+        },
+        audiosource = {
+            name = "powerUp5Sound",
+            path = "pickPowerUpBox.mp3",
+            onstart = false,
+            loop = false,
+            threed = false,
+            groupchannel = "effects"
         }
     },
 
@@ -382,6 +514,14 @@ Entities = {
         },
         PowerUpObject = {
             type = 2
+        },
+        audiosource = {
+            name = "powerUp6Sound",
+            path = "pickPowerUpBox.mp3",
+            onstart = false,
+            loop = false,
+            threed = false,
+            groupchannel = "effects"
         }
     },
     checkpoint3 = {
