@@ -98,7 +98,7 @@ void VehicleController::update(const double& dt)
     mControllableTimer->update(dt);
 
     if (!mControllable) {
-        if (mControllableTimer->getRawSeconds() >= 2.0f) {
+        if (mControllableTimer->getRawSeconds() >= NERF_HIT_TIME) {
             mControllableTimer->reset();
             mControllableTimer->pause();
             mControllable = true;
@@ -132,13 +132,13 @@ void VehicleController::update(const double& dt)
     // Rotate the vehicle
     applyRotation(dt, deltaX);
 
-    if (mSpeedBoostTimer->getRawSeconds() >= 1.0f) {
+    if (mSpeedBoostTimer->getRawSeconds() >= THUNDER_BOOST_TIME) {
         setMaxSpeedAndRotationSpeed(mOriginalMaxSpeed, mMaxAngularSpeed);
         mSpeedBoostTimer->reset();
         mSpeedBoostTimer->pause();
     }
 
-    if (mSpeedSlowTimer->getRawSeconds() >= 3.0f) {
+    if (mSpeedSlowTimer->getRawSeconds() >= OIL_HINDER_TIME) {
         setMaxSpeedAndRotationSpeed(mOriginalMaxSpeed, mMaxAngularSpeed);
         mSpeedSlowTimer->reset();
         mSpeedSlowTimer->pause();
@@ -209,9 +209,9 @@ void VehicleController::applyPush(const double& dt, bool accelerate, bool decele
 
     if (accelerate) {
         if (movingBackwards)
-            velocity = -mRigidBody->getVelocity().magnitude() + (mAcceleration * mAccelerationBoost * dt);
+            velocity = -mRigidBody->getVelocity().magnitude() + (mAcceleration * mAccelerationBoost);
         else
-            velocity = mRigidBody->getVelocity().magnitude() + (mAcceleration * dt);
+            velocity = mRigidBody->getVelocity().magnitude() + mAcceleration;
 
 
         clamp(velocity, -mActualMaxSpeed, mActualMaxSpeed);
@@ -219,9 +219,9 @@ void VehicleController::applyPush(const double& dt, bool accelerate, bool decele
     }
     else if (decelerate) {
         if (movingBackwards)
-            velocity = -mRigidBody->getVelocity().magnitude() - (mAcceleration * dt);
+            velocity = -mRigidBody->getVelocity().magnitude() - mAcceleration;
         else
-            velocity = mRigidBody->getVelocity().magnitude() - (mAcceleration * mAccelerationBoost * dt);
+            velocity = mRigidBody->getVelocity().magnitude() - (mAcceleration * mAccelerationBoost);
 
 
         clamp(velocity, -mActualMaxSpeed, mActualMaxSpeed);
@@ -253,9 +253,9 @@ void VehicleController::applyRotation(const double& dt, float deltaX)
 
     if (deltaX > 0) { // Derecha
         if (angVel.y < 0)
-            rotationVelocity = lastAngularVelocity - (mDriftFactor * mRotationSpeed * deltaX * dt);
+            rotationVelocity = lastAngularVelocity - (mDriftFactor * mRotationSpeed * deltaX);
         else
-            rotationVelocity = lastAngularVelocity - (mDriftFactor * mRotationSpeed * mSteeringBoost * deltaX * dt);
+            rotationVelocity = lastAngularVelocity - (mDriftFactor * mRotationSpeed * mSteeringBoost * deltaX);
 
         // Limit angular velocity
         clamp(rotationVelocity, -mMaxAngularSpeed, mMaxAngularSpeed);
@@ -264,9 +264,9 @@ void VehicleController::applyRotation(const double& dt, float deltaX)
     }
     else if (deltaX < 0) { // Izquierda
         if (angVel.y < 0)
-            rotationVelocity = lastAngularVelocity - (mDriftFactor * mRotationSpeed * mSteeringBoost * deltaX * dt);
+            rotationVelocity = lastAngularVelocity - (mDriftFactor * mRotationSpeed * mSteeringBoost * deltaX);
         else 
-            rotationVelocity = lastAngularVelocity - (mDriftFactor * mRotationSpeed * deltaX * dt);
+            rotationVelocity = lastAngularVelocity - (mDriftFactor * mRotationSpeed * deltaX);
 
         // Limit angular velocity
         clamp(rotationVelocity, -mMaxAngularSpeed, mMaxAngularSpeed);

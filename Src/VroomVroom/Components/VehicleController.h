@@ -78,6 +78,10 @@ namespace VroomVroom {
 		bool mControllable;
 		bool finishGot = false;
 
+		const float NERF_HIT_TIME = 2.0f;
+		const float THUNDER_BOOST_TIME = 1.0f;
+		const float OIL_HINDER_TIME = 3.0f;
+
 		/*
 		Checks if buttonName has been pressed for this playerNumber
 		by calling inputManager().getButton(buttonName + mPlayerNumber).
