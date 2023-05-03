@@ -8,6 +8,7 @@
 #include "EntityComponent/Scene.h"
 #include "EntityComponent/Components/Transform.h"
 #include "EntityComponent/Components/RigidBody.h"
+#include "EntityComponent/Components/AudioSource.h"
 
 #include "Checkpoint.h"
 #include "CircuitInfo.h"
@@ -48,6 +49,7 @@ void VehicleController::start()
 {
     mTransform = mEntity->getComponent<Transform>("transform");
     mRigidBody = mEntity->getComponent<RigidBody>("rigidbody");
+    mThunderAudio = mEntity->getComponent<AudioSource>("audiosource");
     mPowerUpUIWheel = mEntity->getComponent<PowerUpUIWheel>("powerupuiwheel");
     mPowerUpUIWheel->addSpriteNameToPool("nerf");
     mPowerUpUIWheel->addSpriteNameToPool("oil");
@@ -85,6 +87,10 @@ void VehicleController::update(const double& dt)
     /*if (mTransform->getPosition().y <= mCircuitInfo->getDeathHeight())
         mTransform->setPosition(mLastCheckpointPosition);*/
 
+    if (!finishGot) {
+        mFinishAudio = mTransform->getChild(0)->getEntity()->getComponent<AudioSource>("audiosource");
+        finishGot = true;
+    }
     if (!mControllable) {
         applyPush(dt, false, false);
         return;
@@ -135,6 +141,7 @@ void VehicleController::update(const double& dt)
         case THUNDER:
             // Create thunder entity with thunder Component
             setMaxSpeedAndRotationSpeed(mOriginalMaxSpeed * 2, mMaxAngularSpeed);
+            mThunderAudio->play();
             mEntity->getComponent<RigidBody>("rigidbody")->addImpulse(vForward * mAcceleration * 5);
             mSpeedBoostTimer->resume();
             break;
@@ -143,6 +150,7 @@ void VehicleController::update(const double& dt)
         }
 
         mPowerUpUIWheel->resetLinkSprite();
+        mPowerUpPicked = false;
     }
 }
 
@@ -273,6 +281,11 @@ void VehicleController::setSpeedBasedRotationMultiplier(float speedBaseFactor) {
     mSpeedBasedRotationMultiplier = speedBaseFactor;
 }
 
+bool VroomVroom::VehicleController::isPowerUpPicked()
+{
+    return mPowerUpPicked;
+}
+
 void VehicleController::setLinearAndAngularDamping(float linearDamping, float angularDamping)
 {
     mLinearDamping = linearDamping;
@@ -291,6 +304,7 @@ void VehicleController::setPowerUp(PowerUpType powerUpType, me::Entity* powerUpE
 {
     mPowerUpType = powerUpType;
     mPowerUpEntity = powerUpEntity;
+    mPowerUpPicked = true;
 }
 
 PlayerNumber VehicleController::getPlayerNumber() {
@@ -383,6 +397,7 @@ void VehicleController::onCollisionEnter(me::Entity* other)
                     mFinishTime = mCircuitInfo->getFinishTime();
                     mChrono->setText(mFinishTime);
                     mControllable = false;
+                    mFinishAudio->play();
                     int x = mCircuitInfo->getCarFinished();
                     if (x == 1)
                         gameManager()->setWinnerTime(mFinishTime, mPlayerNumber);

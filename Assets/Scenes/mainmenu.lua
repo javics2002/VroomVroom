@@ -45,6 +45,18 @@ Entities = {
             position = { x = 0.25, y = .08 },
             scale = { x = 0.2, y = .35},
             rotation = 0
+        }, 
+        transform = {
+
+        },
+        audiosource = {
+            name = "bgMenuMusic",
+            path = "CancionMenu.mp3",
+            onstart = true,
+            loop = true,
+            threed = false,
+            groupchannel = "music",
+            volume = 0.2
         }
     },
 
@@ -154,8 +166,33 @@ Entities = {
             position = { x = 0.13, y = 0.5 },
             scale = { x = 0.095, y = 0.168 },
             rotation = 0
+        },
+        transform = {
+
+        },
+        audiosource = {
+            name = "playerOneSound",
+            path = "mouseOverButton.mp3",
+            onstart = false,
+            loop = false,
+            threed = false,
+            groupchannel = "effects"
         }
     },
+    -- PlayerOneClick = {
+    --     transform = {
+    --             parentname = "PlayOneButton";
+    --     },
+    --     audiosource = {
+    --         name = "playerOneCLick",
+    --         path = "pressButton.mp3",
+    --         onstart = false,
+    --         loop = false,
+    --         threed = false,
+    --         groupchannel = "effects"
+    --     }
+    -- },
+    
     
     PlayTwoButton = {
 	
@@ -171,8 +208,32 @@ Entities = {
             position = { x = 0.205, y = 0.497 },
             scale = { x = 0.095, y = 0.169 },
             rotation = 0
+        },
+        transform = {
+
+        },
+        audiosource = {
+            name = "playerTwoSound",
+            path = "mouseOverButton.mp3",
+            onstart = false,
+            loop = false,
+            threed = false,
+            groupchannel = "effects"
         }
     },
+    -- PlayerTwoClick = {
+    --     transform = {
+    --             parentname = "PlayTwoButton";
+    --     },
+    --     audiosource = {
+    --         name = "playerTwoCLick",
+    --         path = "pressButton.mp3",
+    --         onstart = false,
+    --         loop = false,
+    --         threed = false,
+    --         groupchannel = "effects"
+    --     }
+    -- },
 
     QuitButton = {
 	
@@ -186,9 +247,19 @@ Entities = {
             position = { x = 0.13, y = 0.68 },
             scale = { x = 0.168, y = 0.135 },
             rotation = 0
+        },
+        transform = {
+
+        },
+        audiosource = {
+            name = "quitSound",
+            path = "mouseOverButton.mp3",
+            onstart = false,
+            loop = false,
+            threed = false,
+            groupchannel = "effects"
         }
     }
-    
 
 }
 

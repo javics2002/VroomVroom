@@ -12,6 +12,7 @@ namespace me {
 	class Transform;
 	class RigidBody;
 	class Timer;
+	class AudioSource;
 }
 
 namespace VroomVroom {
@@ -57,6 +58,7 @@ namespace VroomVroom {
 		PowerUpType mPowerUpType;
 		me::Entity* mPowerUpEntity;
 		PlayerNumber mPlayerNumber;
+		bool mPowerUpPicked;
 
 		std::string mFinishTime; // Stores the final timer when the vehicle reaches the finish line.
 
@@ -65,11 +67,14 @@ namespace VroomVroom {
 		*/
 		me::Transform* mTransform;
 		me::RigidBody* mRigidBody;
+		me::AudioSource* mThunderAudio;
+		me::AudioSource* mFinishAudio;
 		CircuitInfo* mCircuitInfo;
 		PowerUpUIWheel* mPowerUpUIWheel;
 		me::UIText* mLapsText;
 
 		bool mControllable;
+		bool finishGot = false;
 
 		/*
 		Checks if buttonName has been pressed for this playerNumber
@@ -148,6 +153,10 @@ namespace VroomVroom {
 
 		void startOilTimer();
 
+		/*
+		Returns true if the car has a power up
+		*/
+		bool isPowerUpPicked();
 
 		/*
 		Its purpose is to handle collision events that occur when the entity collides with another entity in the game world.

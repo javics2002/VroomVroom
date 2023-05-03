@@ -1,10 +1,12 @@
 #include "UIButtonScene.h"
 #include "Input/InputManager.h"
 #include "Render/RenderManager.h"
+#include "Audio/SoundManager.h"
 #include "EntityComponent/SceneManager.h"
 #include "GameManager.h"
 #include "EntityComponent/Components/UITransform.h"
 #include "EntityComponent/Components/Transform.h"
+#include "EntityComponent/Components/AudioSource.h"
 #include "EntityComponent/Entity.h"
 #include "Render/Window.h"
 #include "EntityComponent/Scene.h"
@@ -39,6 +41,11 @@ void UIButtonScene::start()
 
 	windowWidth = window().getWindowWidth();
 	windowHeight = window().getWindowHeight();
+
+	//mTransform = mEntity->getComponent<Transform>("transform");
+	mHoverAudio = mEntity->getComponent<AudioSource>("audiosource");
+	std::cout << "audio asignado" << "\n";
+
 
 	if (!mPlayerLook.empty())
 	{
@@ -78,6 +85,10 @@ void UIButtonScene::setPlayerLook(std::string playerLook) {
 
 void UIButtonScene::update(const double& dt)
 {
+	/*if (!clickGot) {
+		mClickAudio = mTransform->getChild(0)->getEntity()->getComponent<AudioSource>("audiosource");
+		clickGot = true;
+	}*/
 	Vector2 mousePosition = me::inputManager().getMousePositon();
 	windowWidth = window().getWindowWidth();
 	windowHeight = window().getWindowHeight();
@@ -87,24 +98,30 @@ void UIButtonScene::update(const double& dt)
 		mousePosition.y > mUITransform->getPosition().y * windowHeight &&
 		mousePosition.y < mUITransform->getPosition().y * windowHeight + mUITransform->getScale().y * windowHeight) {
 		if (inputManager().getButton("LEFTCLICK")) {
+			//mClickAudio->play();
 			execute();
 			gameManager()->changeState(mNewScene);
 		}
-		else if (stopped) {
-			toggle = true;
-			stopped = false;
+		else if (stoppedSound) {
+			toggleSound = true;
+			stoppedSound = false;
+			if (mHoverAudio != nullptr)
+			mHoverAudio->play();
 		}
 	}
 	else
-		toggle = false;
+		toggleSound = false;
 
 	if (!mPlayerLook.empty())
 		togglePlayerLook(dt);
+	else {
+		toggleHover();
+	}
 }
 
 void UIButtonScene::togglePlayerLook(const double& dt)
 {
-	if (toggle)
+	if (toggleSound)
 	{
 		if (mPlayerLookTransform[0]->getScale().x <= 1.0)
 		{
@@ -123,7 +140,7 @@ void UIButtonScene::togglePlayerLook(const double& dt)
 	}
 	else
 	{
-		if (!stopped)
+		if (!stoppedSound)
 		{
 
 
@@ -133,14 +150,23 @@ void UIButtonScene::togglePlayerLook(const double& dt)
 				tr->setScale({ 1,1,1 });
 
 			}
-			stopped = true;
+			stoppedSound = true;
 		}
 
 
 	}
 }
+void VroomVroom::UIButtonScene::toggleHover()
+{
+	if (!toggleSound && !stoppedSound)
+	{
+		stoppedSound = true;
+	}
+}
+
 void UIButtonScene::execute()
 {
+	soundManager().stopEverySound();
 	sceneManager().change(mNewScene);
 }
 

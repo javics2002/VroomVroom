@@ -1,6 +1,7 @@
 #include "Oil.h"
 #include "EntityComponent/Components/RigidBody.h"
 #include "EntityComponent/Components/MeshRenderer.h"
+#include "EntityComponent/Components/AudioSource.h"
 #include "VehicleController.h"
 #include "EntityComponent/Entity.h"
 
@@ -61,7 +62,8 @@ void Oil::onCollisionExit(me::Entity* other)
 
 void VroomVroom::Oil::use(me::Entity* other)
 {
-
+	mOilSound = mEntity->getComponent<AudioSource>("audiosource");
+	mOilSound->play();
 	Transform* carTr = other->getComponent<Transform>("transform");
 	Transform *tr = mEntity->getComponent<Transform>("transform");
 

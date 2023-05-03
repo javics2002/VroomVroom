@@ -5,6 +5,10 @@
 
 #include "EntityComponent/Components/UIButton.h"
 
+namespace me {
+	class AudioSource;
+}
+
 namespace VroomVroom {
 	/**
 	The UISpriteRenderer class represents a visual object in 2D space as a screen overlay that will be attached to an entity.
@@ -24,11 +28,22 @@ namespace VroomVroom {
 		~UIButtonQuit();
 
 		/**
+		Get info for mButtonAudio
+		*/
+		void start() override;
+
+		/**
 		Update UITransform info to image
 		*/
 		void update(const double& dt) override;
 
 		void execute() override;
+
+		void toggleHover();
+	private:
+		me::AudioSource* mButtonAudio;
+		bool toggleSound = false;
+		bool stoppedSound = true;
 	};
 }
 #endif

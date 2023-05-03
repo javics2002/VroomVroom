@@ -3,6 +3,7 @@
 #include "EntityComponent/Entity.h"
 #include "EntityComponent/Scene.h"
 #include "EntityComponent/SceneManager.h"
+#include "Audio/SoundManager.h"
 #include "EntityComponent/Components/Transform.h"
 #include "EntityComponent/Components/ParticleSystem.h"
 #include "Input/InputManager.h"
@@ -84,6 +85,7 @@ void GameManager::update(const double& dt)
 	{
 	case GameState::GAMESTATE_INGAME:
 		if (inputManager().getButton("CLOSE")) {
+			soundManager().stopEverySound();
 			sceneManager().change("mainmenu.lua");
 			mGameState = GAMESTATE_MAINMENU;
 		}

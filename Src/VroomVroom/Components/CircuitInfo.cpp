@@ -3,6 +3,7 @@
 #include "EntityComponent/Entity.h"
 #include "EntityComponent/SceneManager.h"
 #include "EntityComponent/Components/Transform.h"
+#include "Audio/SoundManager.h"
 #include "VehicleController.h"
 #include "Checkpoint.h"
 #include "GameManager.h"
@@ -83,10 +84,12 @@ void CircuitInfo::update(const double& dt)
 		if (mFinishTimer->getRawSeconds() > 3) {
 			if (gameManager()->getNumPlayer() > 1) {
 				sceneManager().change("resultstwo.lua");
+				soundManager().stopEverySound();
 				gameManager()->changeState("resultstwo.lua");
 			}
 			else {
 				sceneManager().change("results.lua");
+				soundManager().stopEverySound();
 				gameManager()->changeState("results.lua");
 			}
 		}
