@@ -5,6 +5,8 @@
 #include "VehicleController.h"
 #include "EntityComponent/Entity.h"
 
+#include "EntityComponent/Components/Transform.h"
+
 using namespace me;
 using namespace VroomVroom;
 

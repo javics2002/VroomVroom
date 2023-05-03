@@ -104,7 +104,7 @@ void VehicleController::update(const double& dt)
             mControllableTimer->reset();
             mControllableTimer->pause();
             mControllable = true;
-            mRigidBody->setAngularVelocity(Vector3::zero());
+            mRigidBody->setAngularVelocity(Vector3::Zero());
             mTransform->setRotation(mLastOrientation);
             sceneManager().getActiveScene()->findEntity("camera" + std::to_string(mPlayerNumber + 1)).get()
                 ->getComponent<CameraFollow>("camerafollow")->enabled = true;
@@ -247,7 +247,7 @@ void VehicleController::applyRotation(const double& dt, float deltaX)
     else if (angVel.y > 0)
         lastAngularVelocity = mRigidBody->getAngularVelocity().magnitude();
 
-    Vector3 newAngularVelocity = Vector3::up() * (lastAngularVelocity * mAngularDamping);
+    Vector3 newAngularVelocity = Vector3::Up() * (lastAngularVelocity * mAngularDamping);
     float rotationVelocity;
 
     if (isMovingBackwards())
@@ -262,7 +262,7 @@ void VehicleController::applyRotation(const double& dt, float deltaX)
         // Limit angular velocity
         clamp(rotationVelocity, -mMaxAngularSpeed, mMaxAngularSpeed);
 
-        newAngularVelocity = Vector3::up() * rotationVelocity * rotationMultiplier;
+        newAngularVelocity = Vector3::Up() * rotationVelocity * rotationMultiplier;
     }
     else if (deltaX < 0) { // Izquierda
         if (angVel.y < 0)
@@ -273,7 +273,7 @@ void VehicleController::applyRotation(const double& dt, float deltaX)
         // Limit angular velocity
         clamp(rotationVelocity, -mMaxAngularSpeed, mMaxAngularSpeed);
 
-        newAngularVelocity = Vector3::up() * rotationVelocity * rotationMultiplier;
+        newAngularVelocity = Vector3::Up() * rotationVelocity * rotationMultiplier;
     }
 
     mRigidBody->setAngularVelocity(newAngularVelocity);
@@ -389,7 +389,7 @@ void VehicleController::startOilTimer()
 void VehicleController::startNerfTimer()
 {
     mControllableTimer->resume();
-    mRigidBody->setAngularVelocity(Vector3::up() * 10);
+    mRigidBody->setAngularVelocity(Vector3::Up() * 10);
     sceneManager().getActiveScene()->findEntity("camera" + std::to_string(mPlayerNumber + 1)).get()
         ->getComponent<CameraFollow>("camerafollow")->enabled = false;
     mControllable = false;

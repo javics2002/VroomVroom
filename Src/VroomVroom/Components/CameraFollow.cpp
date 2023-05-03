@@ -39,7 +39,7 @@ void CameraFollow::lateUpdate(const double& dt)
 		+ mTargetTransform->up() * mPositionOffset.y
 		+ mTargetTransform->forward() * mPositionOffset.z);
 	
-	Vector3 lerpedPosition = Vector3::lerp(mCameraTransform->getPosition(), newPosition, mSmooth);
+	Vector3 lerpedPosition = Vector3::Lerp(mCameraTransform->getPosition(), newPosition, mSmooth);
 	mCameraTransform->setPosition(lerpedPosition);
 }
 
