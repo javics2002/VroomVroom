@@ -3,9 +3,6 @@
 #define __VROOMVROOM_NERF
 
 #include "PowerUp.h"
-#include "EntityComponent/Components/Component.h"
-#include "Utils/Vector3.h"
-
 
 namespace me {
 	class Entity;

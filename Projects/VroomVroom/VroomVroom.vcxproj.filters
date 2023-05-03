@@ -39,9 +39,6 @@
     <ClCompile Include="..\..\Src\VroomVroom\Components\Checkpoint.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Src\VroomVroom\Components\WheelController.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Src\VroomVroom\Components\Oil.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -93,9 +90,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Src\VroomVroom\Components\Checkpoint.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\VroomVroom\Components\WheelController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Src\VroomVroom\Components\Oil.h">

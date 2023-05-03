@@ -1,8 +1,6 @@
 #include "Checkpoint.h"
 #include "EntityComponent/Entity.h"
 #include "EntityComponent/Scene.h"
-#include "EntityComponent/Components/RigidBody.h"
-#include "EntityComponent/Components/Collider.h"
 #include "CircuitInfo.h"
 
 using namespace me;

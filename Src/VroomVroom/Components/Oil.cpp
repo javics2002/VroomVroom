@@ -1,6 +1,5 @@
 #include "Oil.h"
-#include "EntityComponent/Components/RigidBody.h"
-#include "EntityComponent/Components/MeshRenderer.h"
+
 #include "EntityComponent/Components/AudioSource.h"
 #include "VehicleController.h"
 #include "EntityComponent/Entity.h"
@@ -12,12 +11,10 @@ using namespace VroomVroom;
 
 Oil::Oil()
 {
-
 }
 
 Oil::~Oil()
 {
-
 }
 
 void Oil::start()
@@ -30,20 +27,20 @@ void Oil::setFriction(float friction)
 	mFriction = friction;
 }
 
-void VroomVroom::Oil::setOffset(float offset)
+void Oil::setOffset(float offset)
 {
 	mOffset = offset;
 }
 
-void VroomVroom::Oil::setPosYOil(float posYOil)
+void Oil::setPosYOil(float posYOil)
 {
 	mPosYOil = posYOil;
 }
 
-void Oil::onCollisionEnter(me::Entity* other)
+void Oil::onCollisionEnter(Entity* other)
 {
 	if (other->hasComponent("vehiclecontroller")) {
-		VehicleController* vehiclecontroller = other->getComponent<VroomVroom::VehicleController>("vehiclecontroller");
+		VehicleController* vehiclecontroller = other->getComponent<VehicleController>("vehiclecontroller");
 		// Reduce player's velocity
 		float maxSpeed = vehiclecontroller->getOrigMaxSpeed();
 		float maxAngularSpeed = vehiclecontroller->getMaxAngularSpeed();
@@ -52,17 +49,17 @@ void Oil::onCollisionEnter(me::Entity* other)
 	}
 }
 
-void Oil::onCollisionStay(me::Entity* other)
+void Oil::onCollisionStay(Entity* other)
 {
 }
 
-void Oil::onCollisionExit(me::Entity* other)
+void Oil::onCollisionExit(Entity* other)
 {
 	if (other->hasComponent("vehiclecontroller"))
 		mEntity->destroy();
 }
 
-void VroomVroom::Oil::use(me::Entity* other)
+void VroomVroom::Oil::use(Entity* other)
 {
 	mOilSound = mEntity->getComponent<AudioSource>("audiosource");
 	mOilSound->play();

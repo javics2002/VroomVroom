@@ -2,7 +2,6 @@
 #include "CameraFollow.h"
 #include "VehicleController.h"
 #include "CircuitInfo.h"
-#include "WheelController.h"
 #include "GameManager.h"
 #include "Checkpoint.h"
 #include "Oil.h"
@@ -49,18 +48,6 @@ Component* FactoryVehicleController::create(Parameters& params)
 }
 
 void FactoryVehicleController::destroy(me::Component* component)
-{
-    delete component;
-}
-
-Component* FactoryWheelController::create(Parameters& params)
-{
-    WheelController* wheelController = new WheelController();
-
-    return wheelController;
-}
-
-void FactoryWheelController::destroy(me::Component* component)
 {
     delete component;
 }

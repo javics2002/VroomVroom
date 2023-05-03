@@ -46,13 +46,4 @@ void WheelController::update(const double& dt)
 	bool decelerate = inputManager().getButton("DECELERATE");
 
 	//Rotación en Z para la aceleracion
-
-	//mSpeed = mEntity->getComponent<VehicleController>("vehiclecontroller")->getSpeed();
-	//if (acelerate) {
-	//	mEntity->getComponent<Transform>("transform")->rotate(mSpeed * Z_ROTATION_FACTOR, { 0, 0, 1 });
-	//}
-	//else if (decelerate) {
-	//	mEntity->getComponent<Transform>("transform")->rotate(-mSpeed * Z_ROTATION_FACTOR, { 0, 0, 1 });
-	//}
-
 }

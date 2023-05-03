@@ -3,13 +3,16 @@
 #define __VROOMVROOM_CIRCUITOINFO
 
 #include "EntityComponent/Components/Component.h"
-#include "EntityComponent/Components/UISpriteRenderer.h"
-#include "EntityComponent/Components/UIText.h"
 #include "Utils/Vector3.h"
-#include "Utils/Timer.h"
+
 #include <string>
 #include <vector>
 #include <map>
+
+namespace me {
+	class Timer;
+	class UISpriteRenderer;
+}
 
 namespace VroomVroom {
 	class VehicleController;

@@ -19,9 +19,7 @@
 #include "CameraFollow.h"
 
 #include "Utils/Vector3.h"
-#include "Utils/Vector4.h"
-#include <math.h>
-
+#include "Utils/Timer.h"
 
 using namespace me;
 using namespace VroomVroom;

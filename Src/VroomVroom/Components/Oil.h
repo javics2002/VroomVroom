@@ -13,9 +13,9 @@ namespace me {
 
 namespace VroomVroom {
 	/**
-Throws an oil barrel that makes an oil puddle behind the player and
-makes the first car that drives on it lose control, and then disappears.
-*/
+	Throws an oil barrel that makes an oil puddle behind the player and
+	makes the first car that drives on it lose control, and then disappears.
+	*/
 	class Oil : public PowerUp
 	{
 	private:

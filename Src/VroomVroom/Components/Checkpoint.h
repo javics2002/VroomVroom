@@ -4,7 +4,6 @@
 #define __VROOMVROOM_CHECKPOINT
 
 #include "EntityComponent/Components/Component.h"
-#include "Utils/Vector3.h"
 
 namespace me {
 	class RigidBody;

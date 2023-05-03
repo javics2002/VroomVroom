@@ -2,13 +2,14 @@
 #ifndef __VROOMVROOM_POWER_UP_OBJECT
 #define __VROOMVROOM_POWER_UP_OBJECT
 
-#include "EntityComponent/Entity.h"
+
 #include "EntityComponent/Components/Component.h"
 
 namespace me {
 	class Timer;
 	class Transform;
 	class AudioSource;
+	class Entity;
 }
 
 namespace VroomVroom {

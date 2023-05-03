@@ -4,7 +4,8 @@
 #include <math.h>
 #include "VehicleController.h"
 #include "Utils/Timer.h"
-#include "EntityComponent//Components/Transform.h"
+#include "EntityComponent/Entity.h"
+#include "EntityComponent/Components/Transform.h"
 #include "EntityComponent/Components/MeshRenderer.h"
 #include "EntityComponent/Components/Rigidbody.h"
 #include "EntityComponent/Components/AudioSource.h"
@@ -95,24 +96,24 @@ void PowerUpObject::onCollisionEnter(me::Entity* other)
 	}
 }
 
-me::Entity* VroomVroom::PowerUpObject::createOilEntity()
+Entity* PowerUpObject::createOilEntity()
 {
-    me::Entity* oil = mEntity->getScene()->addEntity("Oil" + std::to_string(gameManager()->getContPowerUps())).get();
-	me::Transform* tr;
-	me::RigidBody* rb;
-	me::Collider* col;
-	me::MeshRenderer* mesh;
-	me::AudioSource* audio;
+    Entity* oil = mEntity->getScene()->addEntity("Oil" + std::to_string(gameManager()->getContPowerUps())).get();
+	Transform* tr;
+	RigidBody* rb;
+	Collider* col;
+	MeshRenderer* mesh;
+	AudioSource* audio;
 	Oil* o;
 
-	tr = oil->addComponent<me::Transform>("transform");
-	tr->setPosition(me::Vector3(-70,-100,-10));
-	tr->setRotation(me::Vector3(0, 0, 0));
-	tr->setScale(me::Vector3(3, 1, 3));
+	tr = oil->addComponent<Transform>("transform");
+	tr->setPosition(Vector3(-70,-100,-10));
+	tr->setRotation(Vector3(0, 0, 0));
+	tr->setScale(Vector3(3, 1, 3));
 
-	col = oil->addComponent<me::Collider>("collider");
+	col = oil->addComponent<Collider>("collider");
 
-	audio = oil->addComponent<me::AudioSource>("audiosource");
+	audio = oil->addComponent<AudioSource>("audiosource");
 	audio->setSourceName("oilSound" + std::to_string(gameManager()->getContPowerUps()));
 	audio->setSourcePath("throwOil.mp3");
 	audio->setPlayOnStart(false);
@@ -123,18 +124,18 @@ me::Entity* VroomVroom::PowerUpObject::createOilEntity()
 	audio->setMinDistance(1.0f);
 	audio->setMaxDistance(60.0f);
 
-	rb = oil->addComponent<me::RigidBody>("rigidbody");
+	rb = oil->addComponent<RigidBody>("rigidbody");
 	rb->setColShape(SHAPES_BOX);
 	rb->setMomeventType(MOVEMENT_TYPE_KINEMATIC);
 	rb->setMass(1);
 	rb->setGroup(6);
 	rb->setMask(1);
-	rb->setColliderScale(me::Vector3(0.25,1,0.25));
+	rb->setColliderScale(Vector3(0.25,1,0.25));
 	rb->setRestitution(0.5);
 	rb->setFriction(0.5);
 	rb->setTrigger(true);
 
-	mesh = oil->addComponent<me::MeshRenderer>("meshrenderer");
+	mesh = oil->addComponent<MeshRenderer>("meshrenderer");
 	mesh->setMeshName("Oil.mesh");
 	mesh->setName("o" + std::to_string(gameManager()->getContPowerUps()));
 	mesh->init();
@@ -149,15 +150,15 @@ me::Entity* VroomVroom::PowerUpObject::createOilEntity()
 	return oil;
 }
 
-me::Entity* VroomVroom::PowerUpObject::createNerfEntity()
+Entity* PowerUpObject::createNerfEntity()
 {
-	me::Entity* nerf = mEntity->getScene()->addEntity("Nerf" + std::to_string(gameManager()->getContPowerUps())).get();
+	Entity* nerf = mEntity->getScene()->addEntity("Nerf" + std::to_string(gameManager()->getContPowerUps())).get();
 
-	me::Transform* nerfTransfrom = nerf->addComponent<me::Transform>("transform");
-	nerfTransfrom->setPosition(me::Vector3(0, -500, 0));
-	nerfTransfrom->setScale(me::Vector3(1, 1, 1));
+	Transform* nerfTransfrom = nerf->addComponent<Transform>("transform");
+	nerfTransfrom->setPosition(Vector3(0, -500, 0));
+	nerfTransfrom->setScale(Vector3(1, 1, 1));
 	
-	me::AudioSource* nerfAudio = nerf->addComponent<me::AudioSource>("audiosource");
+	AudioSource* nerfAudio = nerf->addComponent<AudioSource>("audiosource");
 	nerfAudio->setSourceName("nerfSound" + std::to_string(gameManager()->getContPowerUps()));
 	nerfAudio->setSourcePath("throwRocket.mp3");
 	nerfAudio->setPlayOnStart(false);
@@ -168,9 +169,9 @@ me::Entity* VroomVroom::PowerUpObject::createNerfEntity()
 	nerfAudio->setMinDistance(1.0f);
 	nerfAudio->setMaxDistance(60.0f);
 
-	me::Collider* nerfCol = nerf->addComponent<me::Collider>("collider");
+	Collider* nerfCol = nerf->addComponent<Collider>("collider");
 
-	me::RigidBody* nerfRigidbody = nerf->addComponent<me::RigidBody>("rigidbody");
+	RigidBody* nerfRigidbody = nerf->addComponent<RigidBody>("rigidbody");
 	nerfRigidbody->setColShape(SHAPES_BOX);
 	nerfRigidbody->setMomeventType(MOVEMENT_TYPE_KINEMATIC);
 	nerfRigidbody->setMass(1);
@@ -179,7 +180,7 @@ me::Entity* VroomVroom::PowerUpObject::createNerfEntity()
 	nerfRigidbody->setColliderScale(me::Vector3(1, .25, 1));
 	nerfRigidbody->setTrigger(true);
 
-	me::MeshRenderer* meshNerf = nerf->addComponent<me::MeshRenderer>("meshrenderer");
+	MeshRenderer* meshNerf = nerf->addComponent<MeshRenderer>("meshrenderer");
 	meshNerf->setMeshName("Nerf.mesh");
 	meshNerf->setName("n" + std::to_string(gameManager()->getContPowerUps()));
 	meshNerf->init();

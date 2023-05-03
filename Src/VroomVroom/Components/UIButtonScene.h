@@ -3,11 +3,10 @@
 #ifndef __VROOMVROOM_UIBUTTON_SCENE
 #define __VROOMVROOM_UIBUTTON_SCENE
 
-#include "EntityComponent/Components/Component.h"
+#include "EntityComponent/Components/UIButton.h"
+
 #include <string>
 #include <vector>
-
-#include "EntityComponent/Components/UIButton.h"
 
 namespace me {
 	class UITransform;

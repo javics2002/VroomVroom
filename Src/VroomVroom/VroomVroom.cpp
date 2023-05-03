@@ -27,7 +27,6 @@ __VROOMVROOM_API void initFactories()
 {
 	componentsFactory().addFactoryComponent("camerafollow", new FactoryCameraFollow());
 	componentsFactory().addFactoryComponent("vehiclecontroller", new FactoryVehicleController());
-	componentsFactory().addFactoryComponent("wheelcontroller", new FactoryWheelController());
 	componentsFactory().addFactoryComponent("circuitinfo", new FactoryCirtuitInfo());
 	componentsFactory().addFactoryComponent("gamemanager", new FactoryGameManager());
 	componentsFactory().addFactoryComponent("checkpoint", new FactoryCheckpoint());

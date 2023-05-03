@@ -1,12 +1,10 @@
 #include "Nerf.h"
+
 #include "VehicleController.h"
 #include "EntityComponent/Components/Transform.h"
-#include "EntityComponent/Components/RigidBody.h"
-#include "EntityComponent/Components/MeshRenderer.h"
 #include "EntityComponent/Components/AudioSource.h"
 #include "EntityComponent/Entity.h"
 #include "Utils/Timer.h"
-#include <iostream>
 
 using namespace me;
 using namespace VroomVroom;
@@ -31,12 +29,12 @@ void Nerf::update(const double& dt)
 	mEntity->getComponent<Transform>("transform")->translate(mEntity->getComponent<Transform>("transform")->forward().normalize() * mSpeed * dt);
 }
 
-void VroomVroom::Nerf::setSpeed(float speed)
+void Nerf::setSpeed(float speed)
 {
 	mSpeed = speed;
 }
 
-void Nerf::onCollisionEnter(me::Entity* other)
+void Nerf::onCollisionEnter(Entity* other)
 {
 	if (other->hasComponent("vehiclecontroller"))
 		other->getComponent<VehicleController>("vehiclecontroller")->startNerfTimer();
@@ -44,7 +42,7 @@ void Nerf::onCollisionEnter(me::Entity* other)
 	mEntity->destroy();
 }
 
-void Nerf::use(me::Entity* other)
+void Nerf::use(Entity* other)
 {
 	mNerfSound = mEntity->getComponent<AudioSource>("audiosource");
 	mNerfSound->play();

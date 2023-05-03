@@ -4,15 +4,8 @@
 #include "EntityComponent/Scene.h"
 #include "EntityComponent/SceneManager.h"
 #include "Audio/SoundManager.h"
-#include "EntityComponent/Components/Transform.h"
-#include "EntityComponent/Components/ParticleSystem.h"
 #include "Input/InputManager.h"
 #include "EntityComponent/Components/UIText.h"
-
-#include "VehicleController.h"
-#include "CameraFollow.h"
-
-#include <iostream>
 
 using namespace me;
 using namespace VroomVroom;
@@ -23,11 +16,11 @@ GameManager::GameManager() {
 
 }
 
-int VroomVroom::GameManager::getContPowerUps() {
+int GameManager::getContPowerUps() {
 	return mContPowerUps;
 }
 
-void VroomVroom::GameManager::addPowerUp()
+void GameManager::addPowerUp()
 {
 	mContPowerUps++;
 }
@@ -40,7 +33,7 @@ GameManager::~GameManager()
 {
 }
 
-GameManager* VroomVroom::GameManager::Instance()
+GameManager* GameManager::Instance()
 {
 	return MInstance;
 }
@@ -64,14 +57,11 @@ void GameManager::changeState(std::string newScene) {
 		mContPowerUps = 0;
 		mNumPlayer = 1;
 		mGameState = GAMESTATE_INGAME;
-		std::cout << newScene << std::endl;
-
 	}
 	else if (newScene == "racetwo.lua") {
 		mContPowerUps = 0;
 		mNumPlayer = 2;
 		mGameState = GAMESTATE_INGAME;
-		std::cout << newScene << std::endl;
 	}
 	else if (newScene == "results.lua" || newScene == "resultstwo.lua")
 		mGameState = GAMESTATE_RESULTS;
@@ -114,12 +104,12 @@ void GameManager::update(const double& dt)
 	}
 }
 
-void VroomVroom::GameManager::setLoserTime(std::string loserTime)
+void GameManager::setLoserTime(std::string loserTime)
 {
 	mLoserTime = loserTime;
 }
 
-void VroomVroom::GameManager::setWinnerTime(std::string winnerTime, int winner)
+void GameManager::setWinnerTime(std::string winnerTime, int winner)
 {
 	mWinner = winner;
 	mWinnerTime = winnerTime;

@@ -7,8 +7,10 @@
 #include "VehicleController.h"
 #include "Checkpoint.h"
 #include "GameManager.h"
-#include <cstdlib> //  rand() y srand()
-#include <ctime> //  time()
+
+#include "Utils/Timer.h"
+#include "EntityComponent/Components/UISpriteRenderer.h"
+
 #define _USE_MATH_DEFINES
 #include <math.h>
 
