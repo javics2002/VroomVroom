@@ -117,11 +117,11 @@ me::Entity* VroomVroom::PowerUpObject::createOilEntity()
 	audio->setSourcePath("throwOil.mp3");
 	audio->setPlayOnStart(false);
 	audio->setGroupChannelName("effects");
-	audio->setVolume(1.0f);
+	audio->setVolume(4.0f);
 	audio->setIsThreeD(true);
 	audio->setLoop(false);
 	audio->setMinDistance(1.0f);
-	audio->setMaxDistance(20.0f);
+	audio->setMaxDistance(60.0f);
 
 	rb = oil->addComponent<me::RigidBody>("rigidbody");
 	rb->setColShape(SHAPES_BOX);
@@ -159,14 +159,14 @@ me::Entity* VroomVroom::PowerUpObject::createNerfEntity()
 	
 	me::AudioSource* nerfAudio = nerf->addComponent<me::AudioSource>("audiosource");
 	nerfAudio->setSourceName("nerfSound" + std::to_string(gameManager()->getContPowerUps()));
-	nerfAudio->setSourcePath("throwNerf.mp3");
+	nerfAudio->setSourcePath("throwRocket.mp3");
 	nerfAudio->setPlayOnStart(false);
 	nerfAudio->setGroupChannelName("effects");
-	nerfAudio->setVolume(1.0f);
+	nerfAudio->setVolume(4.0f);
 	nerfAudio->setIsThreeD(true);
 	nerfAudio->setLoop(false);
 	nerfAudio->setMinDistance(1.0f);
-	nerfAudio->setMaxDistance(20.0f);
+	nerfAudio->setMaxDistance(60.0f);
 
 	me::Collider* nerfCol = nerf->addComponent<me::Collider>("collider");
 
