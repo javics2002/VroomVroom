@@ -41,15 +41,25 @@ makes the first car that drives on it lose control, and then disappears.
 		*/
 		void setOffset(float offset);
 		/*
-		Sets the posY  of the oil that will have in the circuit
+		Sets the posY of the oil that will have in the circuit
 		*/
 		void setPosYOil(float posYOil);
 
-		// Overrides the PowerUp class functions
+		/*
+		Called when the Oil collides with another entity
+		*/
 		void onCollisionEnter(me::Entity* other) override;
+		/*
+		Called while the Oil is colliding with another entity
+		*/
 		void onCollisionStay(me::Entity* other) override;
+		/*
+		Called when the Oil stops colliding with another entity
+		*/
 		void onCollisionExit(me::Entity* other) override;
-
+		/*
+		Uses the Oil, throwing it behind the player's vehicle
+		*/
 		void use(me::Entity* other) override;
 	};
 }

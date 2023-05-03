@@ -33,10 +33,28 @@ namespace VroomVroom {
 
 		void start() override;
 
+		/**
+		* Sets the index of the checkpoint.
+		* @param index The index of the checkpoint.
+		*/
 		void setIndex(int index);
+
+		/**
+		* Gets the index of the checkpoint.
+		* @return The index of the checkpoint.
+		*/
 		int getIndex();
 
+		/**
+		* Sets the total number of checkpoints.
+		* @param numCheckpoints The total number of checkpoints.
+		*/
 		static void SetNumCheckpoints(int numCheckpoints);
+
+		/**
+		* Gets the total number of checkpoints.
+		* @return The total number of checkpoints.
+		*/
 		static int GetNumCheckpoints();
 	};
 }

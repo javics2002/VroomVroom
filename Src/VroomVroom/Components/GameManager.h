@@ -57,16 +57,35 @@ namespace VroomVroom {
 
 		//Call sceneManger loading map or update entities
 		void update(const double& dt) override;
-
+		/**
+		  * Changes the game state.
+		  * @param newScene - name of the new game state.
+		  */
 		void changeState(std::string newScene);
-
+		/**
+		 * Gets the number of power-ups collected.
+		 * @return - the number of power-ups collected.
+		 */
 		int getContPowerUps();
-
+		/**
+		 * Adds a power-up to the count.
+		 */
 		void addPowerUp();
-
+		/**
+		 * Gets the number of players.
+		 * @return - the number of players.
+		 */
 		int getNumPlayer();
-
+		/**
+		 * Sets the time for the winner and their position.
+		 * @param winnerTime - the time for the winner.
+		 * @param winner - the position of the winner.
+		 */
 		void setWinnerTime(std::string winnerTime, int winner);
+		/**
+		 * Sets the time for the loser.
+		 * @param loserTime - the time for the loser.
+		 */
 		void setLoserTime(std::string loserTime);
 
 	};
