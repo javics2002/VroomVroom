@@ -36,9 +36,13 @@ namespace VroomVroom {
 		Update UITransform info to image
 		*/
 		void update(const double& dt) override;
-
+		/*
+		* Exits the game itself.
+		*/
 		void execute() override;
-
+		/*
+		*Changes certain values to allow a sound to be playied only ione time when hovwering a button
+		*/
 		void toggleHover();
 	private:
 		me::AudioSource* mButtonAudio;

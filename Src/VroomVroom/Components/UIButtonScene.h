@@ -49,15 +49,16 @@ namespace VroomVroom {
 		float playerRotateAngle = 20.0;
 
 	public:
-		/**
-		Construct a new UISpriteRenderer component and save necesary info
-		@param name: name saved in RenderManager map and used for entity that attached in node
-		@param meshName: name of .png file
-		*/
 		UIButtonScene();
 		//Destroy RenderManager map saved image
 		~UIButtonScene();
 
+		/*
+		* Creates the sprite of the button.
+		* @param name: the name of the value saved on the sprites map..
+		* @param material: the name of the sprite file.
+		* @param zOrder: a value that stablishes if a button is in front or behind something.
+		*/
 		void init(std::string name, std::string materialName, int zOrder);
 
 		/**
@@ -65,19 +66,36 @@ namespace VroomVroom {
 		*/
 		void start() override;
 
+		/*
+		* Sets the next scene that will be switched to.
+		* @param newScene: the name of the scene.
+		*/
 		void setNewScene(std::string newScene);
 
+		/*
+		* Sets the player that will rotate when hovering over this button.
+		* @param playerLook: Which player will rotate.
+		*/
 		void setPlayerLook(std::string playerLook);
 
-		/**
-		Update UITransform info to image
+		/*
+		*Update UITransform info to image
 		*/
 		void update(const double& dt) override;
 
+		/*
+		* Changes the current scene to the new set scene.
+		*/
 		void execute() override;
 
+		/*
+		*Makes a the player rotate in the main menu screen.
+		*/
 		void togglePlayerLook(const double&);
 
+		/*
+		*Changes certain values to allow a sound to be playied only ione time when hovwering a button
+		*/
 		void toggleHover();
 
 	};

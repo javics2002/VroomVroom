@@ -31,10 +31,13 @@ namespace VroomVroom {
 		~PowerUpObject();
 
 		/**
-		* Called when the power-up object is spawned in the game.
+		* Called when the power-up object is spawned in the game to initialize its variables.
 		*/
 		void start() override;
 
+		/**
+		* Checks if the object is picked up to deactivate its mesh or to make it rotate if it is not picked.
+		*/
 		void update(const double& dt) override;
 
 		/**
@@ -44,6 +47,7 @@ namespace VroomVroom {
 
 		/**
 		* Sets a specific power-up
+		* @param type: the power up type to be set.
 		*/
 		void setPower(PowerUpType type);
 
@@ -54,7 +58,7 @@ namespace VroomVroom {
 		void onCollisionEnter(me::Entity* other) override;
 
 		/*
-		return the entity of the picked power up
+		* Return the entity of the picked power up (oil or nerf)
 		*/
 		me::Entity* createOilEntity();
 		me::Entity* createNerfEntity();
@@ -62,7 +66,7 @@ namespace VroomVroom {
 	private:
 		PowerUpType mPowerUp; // the type of power-up that this object represents
 		me::Entity* mPowerUpEntity;
-		me::AudioSource* mTakePowerAudio;
+		me::AudioSource* mTakePowerAudio; 
 
 		me::Transform* mTransform;
 		me::Timer* mTimer;

@@ -24,7 +24,13 @@ namespace VroomVroom {
 		PowerUpUIWheel();
 		~PowerUpUIWheel();
 
+		/**
+		* Called when the power-up object is spawned in the game.
+		*/
 		void start() override;
+		/**
+		* Called every frame to update the component's behaviour.
+		*/
 		void update(const double& dt) override;
 
 		/*
@@ -45,12 +51,25 @@ namespace VroomVroom {
 		*/
 		void addSpriteNameToPool(std::string materialName);
 
+		/*
+		Sets the spin velocity to which the wheel will spin.
+		@param spinSpeed: velocity of spin
+		*/
 		void setSpinSpeed(float spinSpeed);
+
+		/*
+		Sets the sprite linked to the wheel.
+		@param linkedUISpriteName: The name of the sprite to link.
+		*/
 		void setLinked(std::string linkedUISpriteName);
 
 		//set the original sprite to the link
 		void resetLinkSprite();
 
+		/*
+		Asserts whether or not the spin animation has ended.
+		@return bool: True if the animation has ended.
+		*/
 		bool isAnimEnd();
 
 	private:

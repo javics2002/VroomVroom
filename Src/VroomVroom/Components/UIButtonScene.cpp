@@ -76,10 +76,7 @@ void UIButtonScene::setNewScene(std::string newScene) {
 }
 
 void UIButtonScene::setPlayerLook(std::string playerLook) {
-
 	mPlayerLook = playerLook;
-
-
 }
 
 

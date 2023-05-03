@@ -133,12 +133,18 @@ namespace VroomVroom {
 		void start() override;
 		void update(const double& dt) override;
 
+		/*
+		* Set parameters needed to drive the car correctly. 
+		*/
 		void setAccelerationAndRotation(float acceleration, float angularSpeed, float driftFactor);
 		void setMaxSpeedAndRotationSpeed(float maxSpeed, float maxRotationSpeed);
 		void setLinearAndAngularDamping(float linearDrag, float angularDrag);
 		void setAccelerationAndSteeringBoost(float accelerationBoost, float steeringBoost);
 		void setSpeedBasedRotationMultiplier(float speedBasedFactor);
 
+		/*
+		* Sets parameters needed to differentiate each car, the power up to use and if the player can control it.
+		*/
 		void setPlayerNumber(PlayerNumber playerNumber);
 		void setControllable(bool controllable);
 		void setPowerUp(PowerUpType powerUpType, me::Entity* powerUpEntity);
@@ -146,10 +152,18 @@ namespace VroomVroom {
 
 		PlayerNumber getPlayerNumber();
 
+
+		/*
+		* Set paramaters needed to assert each player's position, checking it's place, current lap and current checkpoint.
+		*/
 		void setPlace(int newPlace);
 		int getPlace();
 		int getLap();
 		int getChekpointIndex();
+
+		/*
+		* Get the values of each speed.
+		*/
 		float getOrigMaxSpeed();
 		float getMaxAngularSpeed();
 
