@@ -33,7 +33,8 @@ Entities = {
             onstart = true,
             loop = false,
             threed = false,
-            groupchannel = "music"
+            groupchannel = "music",
+            volume = 0.3
         }
 	},
 

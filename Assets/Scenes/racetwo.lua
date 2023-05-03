@@ -33,7 +33,8 @@ Entities = {
             onstart = true,
             loop = false,
             threed = false,
-            groupchannel = "music"
+            groupchannel = "music",
+            volume = 0.3
         }
 	},
     
@@ -102,6 +103,9 @@ Entities = {
             loop = false,
             threed = true,
             groupchannel = "effects"
+        },
+        audiolistener={
+
         }
 	},
 
@@ -244,6 +248,9 @@ Entities = {
             loop = false,
             threed = true,
             groupchannel = "effects"
+        },
+        audiolistener={
+
         }
 	},
     
