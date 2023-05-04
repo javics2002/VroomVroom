@@ -38,5 +38,4 @@ rem CREAR BUILD DE RELEASE
 set "source=.\MotorEngine\Exe\Main\x64\Release\
 %zip% a -t7z -m0=lzma -mx=9 -mfb=64 -md=32m -ms=on Vroom_Vroom_x64_Release.zip %source%/ %VROOM_VROOM_ASSETS_DIR%
 
-pause
 exit
