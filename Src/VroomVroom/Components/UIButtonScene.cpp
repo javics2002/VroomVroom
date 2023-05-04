@@ -42,9 +42,7 @@ void UIButtonScene::start()
 	windowWidth = window().getWindowWidth();
 	windowHeight = window().getWindowHeight();
 
-	//mTransform = mEntity->getComponent<Transform>("transform");
 	mHoverAudio = mEntity->getComponent<AudioSource>("audiosource");
-	std::cout << "audio asignado" << "\n";
 
 
 	if (!mPlayerLook.empty())

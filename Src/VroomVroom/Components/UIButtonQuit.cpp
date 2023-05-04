@@ -26,7 +26,6 @@ void VroomVroom::UIButtonQuit::start()
 	UIButton::start();
 
 	mButtonAudio = mEntity->getComponent<AudioSource>("audiosource");
-	std::cout << "audio asignado" << "\n";
 }
 
 
