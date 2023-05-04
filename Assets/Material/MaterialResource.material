@@ -1,0 +1,461 @@
+material Material/roja
+{
+	receive_shadows on
+	technique
+	{
+		pass
+		{
+			diffuse 1.0 0.0 0.0 1.0
+			rtshader_system {
+                lighting_stage metal_roughness
+                texturing_stage late_add_blend
+            }
+		}
+	}
+}
+
+material Material/marronclaro
+{
+	technique
+	{
+		pass
+		{
+			diffuse 0.9 0.5 0.0 1.0
+		}
+	}
+}
+material Material/amarillo
+{
+	technique
+	{
+		pass
+		{
+			diffuse 1.0 1.0 0.0
+		}
+	}
+}
+material Material/cian
+{
+	technique
+	{
+		pass
+		{
+			diffuse 0.0 1.0 1.0
+		}
+	}
+}
+material Material/marronoscuro
+{
+	technique
+	{
+		pass
+		{
+			diffuse 0.5 0.3 0.0
+		}
+	}
+}
+material Material/naranja
+{
+	technique
+	{
+		pass
+		{
+			diffuse 1.0 0.7 0.0
+		}
+	}
+}
+
+material oil // nombre
+{
+	technique // al menos una
+	{
+		pass // al menos uno
+		{
+			depth_check off
+			lighting off
+			scene_blend alpha_blend
+			texture_unit {
+				texture OilSprite.png
+				colour_op replace
+			}
+		}
+	}
+}
+
+material lightningBolt // nombre
+{
+	technique // al menos una
+	{
+		pass // al menos uno
+		{
+			depth_check off
+			lighting off
+			scene_blend alpha_blend
+			texture_unit {
+				texture LightningBoltSprite.png
+				colour_op replace
+			}
+		}
+	}
+}
+
+material nerf // nombre
+{
+	technique // al menos una
+	{
+		pass // al menos uno
+		{
+			depth_check off
+			lighting off
+			scene_blend alpha_blend
+			texture_unit {
+				texture NerfSprite.png
+				colour_op replace
+			}
+		}
+	}
+}
+
+material Material/spark // nombre
+{
+	technique // al menos una
+	{
+		pass // al menos uno
+		{
+			lighting off
+			scene_blend alpha_blend
+			depth_write off
+			diffuse vertexcolour
+			texture_unit 
+			{
+				texture chispa.png
+				tex_address_mode clamp
+			}
+		}
+	}
+}
+material Material/dust // nombre
+{
+	technique // al menos una
+	{
+		pass // al menos uno
+		{
+			lighting off
+			scene_blend alpha_blend
+			depth_write off
+			diffuse vertexcolour
+			texture_unit 
+			{
+				texture dust.png
+				tex_address_mode clamp
+			}
+		}
+	}
+}
+
+material Main/title
+{
+	technique
+	{
+		pass
+		{
+			depth_check off
+			lighting off
+			scene_blend alpha_blend
+			texture_unit 
+			{
+				texture VroomVroomLogo.png
+				colour_op replace
+			}
+		}
+	}
+}
+
+material Main/bandera1
+{
+	technique
+	{
+		pass
+		{
+			depth_check off
+			lighting off
+			scene_blend alpha_blend
+			texture_unit 
+			{
+				texture bandera1.png
+				colour_op replace
+			}
+		}
+	}
+}
+
+material Main/bandera2
+{
+	technique
+	{
+		pass
+		{
+			depth_check off
+			lighting off
+			scene_blend alpha_blend
+			texture_unit 
+			{
+				texture bandera2.png
+				colour_op replace
+			}
+		}
+	}
+}
+
+material Main/background
+{
+    technique
+    {
+        pass
+        {
+            depth_check on
+            lighting off
+            scene_blend alpha_blend
+            texture_unit 
+            {
+                texture MenuBG.png
+                colour_op modulate
+            }
+        }
+    }
+}
+
+
+material Main/motor
+{
+	technique
+	{
+		pass
+		{
+			depth_check off
+			lighting off
+			scene_blend alpha_blend
+			texture_unit 
+			{
+				texture MotorEngineLogo.png
+				colour_op replace
+			}
+		}
+	}
+}
+
+material Main/OnePlayerbutton
+{
+	technique
+	{
+		pass
+		{
+			depth_check off
+			lighting off
+			scene_blend alpha_blend
+			texture_unit 
+			{
+				texture playerbutton1.png
+				colour_op replace
+			}
+		}
+	}
+}
+
+material Main/TwoPlayerbutton
+{
+	technique
+	{
+		pass
+		{
+			depth_check off
+			lighting off
+			scene_blend alpha_blend
+			texture_unit 
+			{
+				texture playerbutton2.png
+				colour_op replace
+			}
+		}
+	}
+}
+
+material Main/Quitbutton
+{
+	technique
+	{
+		pass
+		{
+			depth_check off
+			lighting off
+			scene_blend alpha_blend
+			texture_unit 
+			{
+				texture quitbutton.png
+				colour_op replace
+			}
+		}
+	}
+}
+
+material Main/ResultsButton
+{
+	technique
+	{
+		pass
+		{
+			depth_check off
+			lighting off
+			scene_blend alpha_blend
+			texture_unit 
+			{
+				texture returnmenubutton.png
+				colour_op replace
+			}
+		}
+	}
+}
+
+
+
+material container // nombre
+{
+	technique // al menos una
+	{
+		pass // al menos uno
+		{
+			depth_check off
+			lighting off
+			scene_blend alpha_blend
+			texture_unit {
+				texture CircleShadowed.png
+				colour_op_ex modulate src_texture src_manual 0.5 0.5 0.6
+			}
+		}
+	}
+}
+
+material insidecontainer // nombre
+{
+	technique // al menos una
+	{
+		pass // al menos uno
+		{
+			depth_check off
+			lighting off
+			scene_blend alpha_blend
+			texture_unit {
+				texture Transparente.png
+			}
+		}
+	}
+}
+
+
+material countdownGO
+{
+	technique
+	{
+		pass
+		{
+			depth_check off
+			lighting off
+			scene_blend alpha_blend
+			texture_unit 
+			{
+				texture Go.png
+				colour_op replace
+			}
+		}
+	}
+}
+
+material countdown1
+{
+	technique
+	{
+		pass
+		{
+			depth_check off
+			lighting off
+			scene_blend alpha_blend
+			texture_unit 
+			{
+				texture Countdown1.png
+				colour_op replace
+			}
+		}
+	}
+}
+
+material countdown2
+{
+	technique
+	{
+		pass
+		{
+			depth_check off
+			lighting off
+			scene_blend alpha_blend
+			texture_unit 
+			{
+				texture Countdown2.png
+				colour_op replace
+			}
+		}
+	}
+}
+
+material countdown3
+{
+	technique
+	{
+		pass
+		{
+			depth_check off
+			lighting off
+			scene_blend alpha_blend
+			texture_unit 
+			{
+				texture Countdown3.png
+				colour_op replace
+			}
+		}
+	}
+}
+
+material first
+{
+	technique
+	{
+		pass
+		{
+			depth_check off
+			lighting off
+			scene_blend alpha_blend
+			texture_unit 
+			{
+				texture FirstPlace.png
+				colour_op replace
+			}
+		}
+	}
+}
+
+material second
+{
+	technique
+	{
+		pass
+		{
+			depth_check off
+			lighting off
+			scene_blend alpha_blend
+			texture_unit 
+			{
+				texture SecondPlace.png
+				colour_op replace
+			}
+		}
+	}
+}
