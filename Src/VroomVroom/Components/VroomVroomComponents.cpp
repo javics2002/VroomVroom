@@ -36,13 +36,14 @@ void FactoryCameraFollow::destroy(me::Component* component)
 Component* FactoryVehicleController::create(Parameters& params)
 {
     VehicleController* vehicleController = new VehicleController();
-    vehicleController->setAccelerationAndRotation(Value(params, "acceleration", 1.0f),
-        Value(params, "rotationspeed", 1.0f), Value(params, "driftfactor", 1.0f));
+    vehicleController->setAccelerationAndRotation(Value(params, "acceleration", 0.2f),
+        Value(params, "rotationspeed", 0.07f));
     vehicleController->setPlayerNumber(PlayerNumber(Value(params, "playernumber", 0)));
-    vehicleController->setMaxSpeedAndRotationSpeed(Value(params, "maxspeed", 1.0f), Value(params, "maxrotationspeed", 1.0f));
-    vehicleController->setLinearAndAngularDamping(Value(params, "lineardamping", 0.99f), Value(params, "angulardamping", 0.9f));
-    vehicleController->setAccelerationAndSteeringBoost(Value(params, "accelerationboost", 3.0f), Value(params, "steeringboost", 3.0f));
+    vehicleController->setMaxSpeedAndRotationSpeed(Value(params, "maxspeed", 12.0f), Value(params, "maxrotationspeed", 3.0f));
+    vehicleController->setLinearAndAngularDamping(Value(params, "lineardamping", 0.987f), Value(params, "angulardamping", 0.9f));
+    vehicleController->setAccelerationAndSteeringBoost(Value(params, "accelerationboost", 1.0f), Value(params, "steeringboost", 2.1f));
     vehicleController->setSpeedBasedRotationMultiplier(Value(params, "speedbasedfactor", 5.0f));
+    vehicleController->setThunderSpeedBoost(Value(params, "thunderspeed", 23.0f));
     
     return vehicleController;
 }

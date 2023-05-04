@@ -33,7 +33,8 @@ namespace VroomVroom {
 
 		float mAcceleration;
 		float mRotationSpeed;
-		float mDriftFactor;
+
+		float mThunderSpeedBoost;
 
 		float mLinearDamping; 
 		float mAngularDamping;
@@ -76,10 +77,10 @@ namespace VroomVroom {
 		me::UIText* mLapsText;
 
 		bool mControllable;
-		bool finishGot = false;
+		bool hasFinished = false;
 
 		const float NERF_HIT_TIME = 2.0f;
-		const float THUNDER_BOOST_TIME = 1.0f;
+		const float THUNDER_BOOST_TIME = 1.5f;
 		const float OIL_HINDER_TIME = 3.0f;
 
 		/*
@@ -130,6 +131,11 @@ namespace VroomVroom {
 		*/
 		void applyPush(const double& dt, bool accelerate, bool decelerate);
 
+		/*
+		* Update power up timer values
+		*/
+		void updatePowerUpTimerValues(const double& dt);
+
 	public:
 		VehicleController();
 		~VehicleController();
@@ -140,11 +146,12 @@ namespace VroomVroom {
 		/*
 		* Set parameters needed to drive the car correctly. 
 		*/
-		void setAccelerationAndRotation(float acceleration, float angularSpeed, float driftFactor);
+		void setAccelerationAndRotation(float acceleration, float angularSpeed);
 		void setMaxSpeedAndRotationSpeed(float maxSpeed, float maxRotationSpeed);
 		void setLinearAndAngularDamping(float linearDrag, float angularDrag);
 		void setAccelerationAndSteeringBoost(float accelerationBoost, float steeringBoost);
 		void setSpeedBasedRotationMultiplier(float speedBasedFactor);
+		void setThunderSpeedBoost(float thunderBoost);
 
 		/*
 		* Sets parameters needed to differentiate each car, the power up to use and if the player can control it.
