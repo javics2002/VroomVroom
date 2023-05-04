@@ -175,6 +175,29 @@ stateDiagram
     Main_Menu-->Exit
 ```
 
+## <p align="center">*Problemas conocidos/Known Issues*</p>
+La ejecución de buildAll.bat falla en los laboratorios, creemos que se debe a las multillamadas a call "%VS_PATH%\Common7\Tools\VsDevCmd.bat", 
+que interrumpen la ejecucion del .bat.
+
+Posible solución: 
+- Quitar estas lineas de codigo de los archivos build_SDL.bat, build_LuaBridge.bat y build_Bullet.bat (ya que se ha confirmado que ejecutando sin estas líneas, el funcionamiento del .bat continúa normalmente)
+
+```
+rem Configuración del shell de Visual Studio 
+if not exist "%temp%\VSWhereOutput.txt" (
+
+    echo: && echo "> Buscando la version mas actualizada de Visual Studio DCP..." && echo:
+
+    rem Búsqueda y ejecución del shell Developer command prompt for Visual Studio 2022 más actualizado
+    call "%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe" -latest -property installationPath > "%temp%\VSWhereOutput.txt"
+
+) else ( echo: && echo "> Arranque instantaneo!!" && echo: )
+
+set /p VS_PATH=<"%temp%\VSWhereOutput.txt"
+call "%VS_PATH%\Common7\Tools\VsDevCmd.bat"
+```
+De esta manera , se llama en orden a ogre (donde hace la llamada a VsDevCmd de una sola vez), SDL, Bullet, LuaBridge.
+
 ## <p align="center">*Referencias y contexto cultural*</p>
  * Saga Mario Kart
  <div align="center">
