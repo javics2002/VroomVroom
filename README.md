@@ -12,10 +12,10 @@
 * José Miguel Villacañas, josemv03@ucm.es 
 * Pablo Arredondo Nowak, pablarre@ucm.es
 * Rodrigo Cabello Hernández, rodricab@ucm.es
+* Liyuan Li, liyli@ucm.es
 * Alfonso Rodulfo Guío, arodulfo@ucm.es
 * Diego Rol Sánchez, drol@ucm.es 
 * Pedro Pablo Cubells Talavera, pablocub@ucm.es 
-* Liyuan Li, liyli@ucm.es
 
 ## <p align="center">**LINKS DE INTERÉS**</p>
 
@@ -152,7 +152,6 @@ En la parte superior derecha podremos ver el tiempo que tardamos en dar cada vue
 **Menú principal :**  En el menú principal podremos encontrar distintos botones
  * **1J/2J :**  Al pulsar alguno de estos botones dará comienzo al juego, ya sea al modo “Contrarreloj / Un Jugador” (1J) como al modo “Dos jugadores” (2J). Al pasar el ratón por encima de alguno de los botones, se resaltará un jugador ( En caso de estar encima del botón 1J) o los dos jugadores ( En el otro caso)
  * **Quit :** Este botón cerrará el juego directamente.
- * **Controller info :** Un par de imágenes pequeñas en la esquina inferior derecha muestran el controlador usado por cada jugador. Si hay mandos conectados, se asigna automáticamente al mando. Si solo hay uno, se le da al jugador 1. A falta de mandos, jugarán con teclado.
  
 <div align="center">
     <img src="readme_assets/title_window.png" alt="title" width="703" height="361">
