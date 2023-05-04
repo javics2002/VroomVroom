@@ -94,11 +94,10 @@ Entities = {
             isTrigger = false
         },
         vehicleController = {
-            acceleration = 4,
-            rotationspeed = 5,
+            acceleration = 0.2,
+            rotationspeed = 0.07,
 			maxspeed = 12,
 			maxrotationspeed = 3,
-            driftFactor = 1,
             playerNumber = 0
         },
         collider = {

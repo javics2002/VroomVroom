@@ -84,39 +84,44 @@ void VehicleController::start()
 
 void VehicleController::update(const double& dt)
 {
-    //Respawn if out of bounds
-    /*if (mTransform->getPosition().y <= mCircuitInfo->getDeathHeight())
-        mTransform->setPosition(mLastCheckpointPosition);*/
+    // Respawn if out of bounds
+    // Uncomment this if your game has gravity and the car can fall offtrack
+    //if (mTransform->getPosition().y <= mCircuitInfo->getDeathHeight())
+    //    mTransform->setPosition(mLastCheckpointPosition);
 
-    if (!finishGot) {
-        mFinishAudio = mTransform->getChild(0)->getEntity()->getComponent<AudioSource>("audiosource");
-        finishGot = true;
-    }
-    
     mSpeedBoostTimer->update(dt);
     mSpeedSlowTimer->update(dt);
     mControllableTimer->update(dt);
+
+    if (!hasFinished) {
+        mFinishAudio = mTransform->getChild(0)->getEntity()->getComponent<AudioSource>("audiosource");
+        hasFinished = true;
+    }
 
     if (!mControllable) {
         if (mControllableTimer->getRawSeconds() >= NERF_HIT_TIME) {
             mControllableTimer->reset();
             mControllableTimer->pause();
-            mControllable = true;
+
             mRigidBody->setAngularVelocity(Vector3::Zero());
             mTransform->setRotation(mLastOrientation);
             sceneManager().getActiveScene()->findEntity("camera" + std::to_string(mPlayerNumber + 1)).get()
                 ->getComponent<CameraFollow>("camerafollow")->enabled = true;
+
+            mControllable = true;
         }
         else if (mControllableTimer->getRawSeconds() > 0) {
             mRigidBody->setVelocity(mTransform->forward().normalize());
             return;
         }
 
+        // Apply damping
         applyPush(dt, false, false);
         applyRotation(dt, 0);
         return;
     }
 
+    // Update the chrono UI value
     mChrono->setText(mCircuitInfo->getElapsedTime());
 
     // Get the input
@@ -127,22 +132,14 @@ void VehicleController::update(const double& dt)
 
     Vector3 vForward = mTransform->forward().normalize();
 
+    // Move forward or backwards
     applyPush(dt, accelerate, decelerate);
 
     // Rotate the vehicle
     applyRotation(dt, deltaX);
 
-    if (mSpeedBoostTimer->getRawSeconds() >= THUNDER_BOOST_TIME) {
-        setMaxSpeedAndRotationSpeed(mOriginalMaxSpeed, mMaxAngularSpeed);
-        mSpeedBoostTimer->reset();
-        mSpeedBoostTimer->pause();
-    }
-
-    if (mSpeedSlowTimer->getRawSeconds() >= OIL_HINDER_TIME) {
-        setMaxSpeedAndRotationSpeed(mOriginalMaxSpeed, mMaxAngularSpeed);
-        mSpeedSlowTimer->reset();
-        mSpeedSlowTimer->pause();
-    }
+    // Update time values
+    updatePowerUpTimerValues(dt);
 
     // make use of the power up active if it has anyone
     if (mPowerUpUIWheel->isAnimEnd() && useObject) {
@@ -160,7 +157,7 @@ void VehicleController::update(const double& dt)
             // Create thunder entity with thunder Component
             setMaxSpeedAndRotationSpeed(mOriginalMaxSpeed * 2, mMaxAngularSpeed);
             mThunderAudio->play();
-            mEntity->getComponent<RigidBody>("rigidbody")->addImpulse(vForward * mAcceleration * 5);
+            mEntity->getComponent<RigidBody>("rigidbody")->addImpulse(vForward * mThunderSpeedBoost);
             mSpeedBoostTimer->resume();
             break;
         default:
@@ -253,9 +250,9 @@ void VehicleController::applyRotation(const double& dt, float deltaX)
 
     if (deltaX > 0) { // Derecha
         if (angVel.y < 0)
-            rotationVelocity = lastAngularVelocity - (mDriftFactor * mRotationSpeed * deltaX);
+            rotationVelocity = lastAngularVelocity - (mRotationSpeed * deltaX);
         else
-            rotationVelocity = lastAngularVelocity - (mDriftFactor * mRotationSpeed * mSteeringBoost * deltaX);
+            rotationVelocity = lastAngularVelocity - (mRotationSpeed * mSteeringBoost * deltaX);
 
         // Limit angular velocity
         clamp(rotationVelocity, -mMaxAngularSpeed, mMaxAngularSpeed);
@@ -264,9 +261,9 @@ void VehicleController::applyRotation(const double& dt, float deltaX)
     }
     else if (deltaX < 0) { // Izquierda
         if (angVel.y < 0)
-            rotationVelocity = lastAngularVelocity - (mDriftFactor * mRotationSpeed * mSteeringBoost * deltaX);
+            rotationVelocity = lastAngularVelocity - (mRotationSpeed * mSteeringBoost * deltaX);
         else 
-            rotationVelocity = lastAngularVelocity - (mDriftFactor * mRotationSpeed * deltaX);
+            rotationVelocity = lastAngularVelocity - (mRotationSpeed * deltaX);
 
         // Limit angular velocity
         clamp(rotationVelocity, -mMaxAngularSpeed, mMaxAngularSpeed);
@@ -277,11 +274,10 @@ void VehicleController::applyRotation(const double& dt, float deltaX)
     mRigidBody->setAngularVelocity(newAngularVelocity);
 }
 
-void VehicleController::setAccelerationAndRotation(float acceleration, float rotationSpeed, float driftFactor)
+void VehicleController::setAccelerationAndRotation(float acceleration, float rotationSpeed)
 {
     mAcceleration = acceleration;
     mRotationSpeed = rotationSpeed;
-    mDriftFactor = driftFactor;
 }
 
 void VehicleController::setMaxSpeedAndRotationSpeed(float maxSpeed, float maxRotationSpeed)
@@ -316,6 +312,21 @@ void VehicleController::setPlayerNumber(PlayerNumber playerNumber) {
 
 void VehicleController::setControllable(bool controllable) {
     mControllable = controllable;
+}
+
+void VehicleController::updatePowerUpTimerValues(const double& dt)
+{
+    if (mSpeedBoostTimer->getRawSeconds() >= THUNDER_BOOST_TIME) {
+        setMaxSpeedAndRotationSpeed(mOriginalMaxSpeed, mMaxAngularSpeed);
+        mSpeedBoostTimer->reset();
+        mSpeedBoostTimer->pause();
+    }
+
+    if (mSpeedSlowTimer->getRawSeconds() >= OIL_HINDER_TIME) {
+        setMaxSpeedAndRotationSpeed(mOriginalMaxSpeed, mMaxAngularSpeed);
+        mSpeedSlowTimer->reset();
+        mSpeedSlowTimer->pause();
+    }
 }
 
 void VehicleController::setPowerUp(PowerUpType powerUpType, me::Entity* powerUpEntity)
@@ -382,6 +393,11 @@ float VehicleController::getMaxAngularSpeed()
 void VehicleController::startOilTimer()
 {
     mSpeedSlowTimer->resume();
+}
+
+void VehicleController::setThunderSpeedBoost(float thunderBoost)
+{
+    mThunderSpeedBoost = thunderBoost;
 }
 
 void VehicleController::startNerfTimer()
