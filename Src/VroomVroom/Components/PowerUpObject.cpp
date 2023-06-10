@@ -13,6 +13,7 @@
 #include "GameManager.h"
 
 #include <iostream>
+#include <cassert>
 
 using namespace me;
 using namespace VroomVroom;
@@ -107,13 +108,16 @@ Entity* PowerUpObject::createOilEntity()
 	Oil* o;
 
 	tr = oil->addComponent<Transform>("transform");
+	assert(tr);
 	tr->setPosition(Vector3(-70,-100,-10));
 	tr->setRotation(Vector3(0, 0, 0));
 	tr->setScale(Vector3(3, 1, 3));
 
 	col = oil->addComponent<Collider>("collider");
+	assert(col);
 
 	audio = oil->addComponent<AudioSource>("audiosource");
+	assert(audio);
 	audio->setSourceName("oilSound" + std::to_string(gameManager()->getContPowerUps()));
 	audio->setSourcePath("throwOil.mp3");
 	audio->setPlayOnStart(false);
@@ -125,6 +129,7 @@ Entity* PowerUpObject::createOilEntity()
 	audio->setMaxDistance(60.0f);
 
 	rb = oil->addComponent<RigidBody>("rigidbody");
+	assert(rb);
 	rb->setColShape(SHAPES_BOX);
 	rb->setMomeventType(MOVEMENT_TYPE_KINEMATIC);
 	rb->setMass(1);
@@ -136,11 +141,13 @@ Entity* PowerUpObject::createOilEntity()
 	rb->setTrigger(true);
 
 	mesh = oil->addComponent<MeshRenderer>("meshrenderer");
+	assert(mesh);
 	mesh->setMeshName("Oil.mesh");
 	mesh->setName("o" + std::to_string(gameManager()->getContPowerUps()));
 	mesh->init();
 
 	o = oil->addComponent<Oil>("oil");
+	assert(o);
 	o->setFriction(2);
 	o->setOffset(3);
 	o->setPosYOil(5.2);
@@ -155,10 +162,12 @@ Entity* PowerUpObject::createNerfEntity()
 	Entity* nerf = mEntity->getScene()->addEntity("Nerf" + std::to_string(gameManager()->getContPowerUps())).get();
 
 	Transform* nerfTransfrom = nerf->addComponent<Transform>("transform");
+	assert(nerfTransfrom);
 	nerfTransfrom->setPosition(Vector3(0, -500, 0));
 	nerfTransfrom->setScale(Vector3(1, 1, 1));
 	
 	AudioSource* nerfAudio = nerf->addComponent<AudioSource>("audiosource");
+	assert(nerfAudio);
 	nerfAudio->setSourceName("nerfSound" + std::to_string(gameManager()->getContPowerUps()));
 	nerfAudio->setSourcePath("throwRocket.mp3");
 	nerfAudio->setPlayOnStart(false);
@@ -170,6 +179,7 @@ Entity* PowerUpObject::createNerfEntity()
 	nerfAudio->setMaxDistance(60.0f);
 
 	Collider* nerfCol = nerf->addComponent<Collider>("collider");
+	assert(nerfCol);
 
 	RigidBody* nerfRigidbody = nerf->addComponent<RigidBody>("rigidbody");
 	nerfRigidbody->setColShape(SHAPES_BOX);
@@ -179,13 +189,16 @@ Entity* PowerUpObject::createNerfEntity()
 	nerfRigidbody->setMask(7);
 	nerfRigidbody->setColliderScale(me::Vector3(1, .25, 1));
 	nerfRigidbody->setTrigger(true);
+	assert(nerfRigidbody);
 
 	MeshRenderer* meshNerf = nerf->addComponent<MeshRenderer>("meshrenderer");
 	meshNerf->setMeshName("Nerf.mesh");
 	meshNerf->setName("n" + std::to_string(gameManager()->getContPowerUps()));
 	meshNerf->init();
+	assert(meshNerf);
 	
 	Nerf* nerfComp = nerf->addComponent<Nerf>("nerf");
+	assert(nerfComp);
 	nerfComp->setSpeed(30);
 
 	gameManager()->addPowerUp();
