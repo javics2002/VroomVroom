@@ -144,7 +144,8 @@ Entity* PowerUpObject::createOilEntity()
 	assert(mesh);
 	mesh->setMeshName("Oil.mesh");
 	mesh->setName("o" + std::to_string(gameManager()->getContPowerUps()));
-	mesh->init();
+	if (!mesh->createMesh())
+		return nullptr;
 
 	o = oil->addComponent<Oil>("oil");
 	assert(o);
@@ -182,6 +183,7 @@ Entity* PowerUpObject::createNerfEntity()
 	assert(nerfCol);
 
 	RigidBody* nerfRigidbody = nerf->addComponent<RigidBody>("rigidbody");
+	assert(nerfRigidbody);
 	nerfRigidbody->setColShape(SHAPES_BOX);
 	nerfRigidbody->setMomeventType(MOVEMENT_TYPE_KINEMATIC);
 	nerfRigidbody->setMass(1);
@@ -189,13 +191,13 @@ Entity* PowerUpObject::createNerfEntity()
 	nerfRigidbody->setMask(7);
 	nerfRigidbody->setColliderScale(me::Vector3(1, .25, 1));
 	nerfRigidbody->setTrigger(true);
-	assert(nerfRigidbody);
 
 	MeshRenderer* meshNerf = nerf->addComponent<MeshRenderer>("meshrenderer");
+	assert(meshNerf);
 	meshNerf->setMeshName("Nerf.mesh");
 	meshNerf->setName("n" + std::to_string(gameManager()->getContPowerUps()));
-	meshNerf->init();
-	assert(meshNerf);
+	if (!meshNerf->createMesh())
+		return nullptr;
 	
 	Nerf* nerfComp = nerf->addComponent<Nerf>("nerf");
 	assert(nerfComp);
