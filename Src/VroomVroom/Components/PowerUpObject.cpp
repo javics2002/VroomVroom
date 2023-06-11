@@ -9,7 +9,7 @@
 #include "EntityComponent/Components/MeshRenderer.h"
 #include "EntityComponent/Components/Rigidbody.h"
 #include "EntityComponent/Components/AudioSource.h"
-#include "EntityComponent/Scene.h"
+#include "MotorEngine/Scene.h"
 #include "GameManager.h"
 
 #include <iostream>

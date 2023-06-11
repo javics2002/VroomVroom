@@ -1,8 +1,8 @@
 #include "CameraFollow.h"
 #include "EntityComponent/Components/Transform.h"
 #include "EntityComponent/Entity.h"
-#include "EntityComponent/Scene.h"
-#include "EntityComponent/SceneManager.h"
+#include "MotorEngine/Scene.h"
+#include "MotorEngine/SceneManager.h"
 #include "Render/RenderManager.h"
 #include "EntityComponent/Components/Camera.h"
 

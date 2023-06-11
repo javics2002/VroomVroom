@@ -1,8 +1,8 @@
 #include "GameManager.h"
 
 #include "EntityComponent/Entity.h"
-#include "EntityComponent/Scene.h"
-#include "EntityComponent/SceneManager.h"
+#include "MotorEngine/Scene.h"
+#include "MotorEngine/SceneManager.h"
 #include "Audio/SoundManager.h"
 #include "Input/InputManager.h"
 #include "EntityComponent/Components/UIText.h"

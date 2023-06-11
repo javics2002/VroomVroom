@@ -2,7 +2,7 @@
 #include "Utils/Timer.h"
 #include "EntityComponent/Components/UISpriteRenderer.h"
 #include "EntityComponent/Entity.h"
-#include "EntityComponent/Scene.h"
+#include "MotorEngine/Scene.h"
 
 using namespace me;
 using namespace VroomVroom;
