@@ -160,7 +160,11 @@ void VroomVroom::UIButtonScene::toggleHover()
 void UIButtonScene::execute()
 {
 	soundManager().stopEverySound();
-	sceneManager().change(mNewScene);
+
+	std::list<std::string> awake;
+	awake.push_back("createCheckpoints");
+
+	sceneManager().change(mNewScene, awake);
 }
 
 

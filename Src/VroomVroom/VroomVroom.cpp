@@ -20,7 +20,8 @@ __VROOMVROOM_API const char* name()
 }
 
 __VROOMVROOM_API bool init() {
-	return sceneManager().loadScene("mainmenu.lua");
+	sceneManager().change("mainmenu.lua");
+	return sceneManager().loadScene();
 }
 
 __VROOMVROOM_API void initFactories()
