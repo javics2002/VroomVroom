@@ -2,7 +2,7 @@
 #ifndef __VROOMVROOM_CAMERAFOLLOW
 #define __VROOMVROOM_CAMERAFOLLOW
 
-#include "EntityComponent/Components/Component.h"
+#include "EntityComponent/Component.h"
 #include "Utils/Vector3.h"
 #include <string>
 

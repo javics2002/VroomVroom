@@ -5,7 +5,7 @@
 #include "MotorEngine/SceneManager.h"
 #include "Audio/SoundManager.h"
 #include "Input/InputManager.h"
-#include "EntityComponent/Components/UIText.h"
+#include "Render/UIComponents/UIText.h"
 
 using namespace me;
 using namespace VroomVroom;

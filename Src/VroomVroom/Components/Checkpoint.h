@@ -3,7 +3,7 @@
 #ifndef __VROOMVROOM_CHECKPOINT
 #define __VROOMVROOM_CHECKPOINT
 
-#include "EntityComponent/Components/Component.h"
+#include "EntityComponent/Component.h"
 
 namespace me {
 	class RigidBody;

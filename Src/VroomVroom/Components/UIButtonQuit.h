@@ -3,7 +3,7 @@
 #ifndef __VROOMVROOM_UIBUTTON_QUIT
 #define __VROOMVROOM_UIBUTTON_QUIT
 
-#include "EntityComponent/Components/UIButton.h"
+#include "Render/UIComponents/UIButton.h"
 
 namespace me {
 	class AudioSource;

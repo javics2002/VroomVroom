@@ -1,10 +1,10 @@
 #include "Oil.h"
 
-#include "EntityComponent/Components/AudioSource.h"
+#include "Audio/AudioComponents/AudioSource.h"
 #include "VehicleController.h"
 #include "EntityComponent/Entity.h"
 
-#include "EntityComponent/Components/Transform.h"
+#include "EntityComponent/Transform.h"
 
 using namespace me;
 using namespace VroomVroom;

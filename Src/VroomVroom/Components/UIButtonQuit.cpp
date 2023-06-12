@@ -4,15 +4,15 @@
 #include "Audio/SoundManager.h"
 #include "MotorEngine/SceneManager.h"
 #include "GameManager.h"
-#include "EntityComponent/Components/UITransform.h"
-#include "EntityComponent/Components/AudioSource.h"
+#include "Render/UIComponents/UITransform.h"
+#include "Audio/AudioComponents/AudioSource.h"
 #include "EntityComponent/Entity.h"
 #include "Render/Window.h"
 
 using namespace me;
 using namespace VroomVroom;
 
-UIButtonQuit::UIButtonQuit() 
+UIButtonQuit::UIButtonQuit()
 {
 }
 

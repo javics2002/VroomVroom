@@ -2,7 +2,7 @@
 #ifndef __VROOMVROOM_POWER_UP_UI_WHEEL
 #define __VROOMVROOM_POWER_UP_UI_WHEEL
 
-#include "EntityComponent/Components/Component.h"
+#include "EntityComponent/Component.h"
 #include <string>
 #include <list>
 

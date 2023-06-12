@@ -2,14 +2,14 @@
 #include "MotorEngine/Scene.h"
 #include "EntityComponent/Entity.h"
 #include "MotorEngine/SceneManager.h"
-#include "EntityComponent/Components/Transform.h"
+#include "EntityComponent/Transform.h"
 #include "Audio/SoundManager.h"
 #include "VehicleController.h"
 #include "Checkpoint.h"
 #include "GameManager.h"
 
 #include "Utils/Timer.h"
-#include "EntityComponent/Components/UISpriteRenderer.h"
+#include "Render/UIComponents/UISpriteRenderer.h"
 
 #define _USE_MATH_DEFINES
 #include <math.h>

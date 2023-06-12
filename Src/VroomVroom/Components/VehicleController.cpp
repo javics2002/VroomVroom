@@ -6,9 +6,9 @@
 
 #include "EntityComponent/Entity.h"
 #include "MotorEngine/Scene.h"
-#include "EntityComponent/Components/Transform.h"
-#include "EntityComponent/Components/RigidBody.h"
-#include "EntityComponent/Components/AudioSource.h"
+#include "EntityComponent/Transform.h"
+#include "Physics/PhysicsComponents/RigidBody.h"
+#include "Audio/AudioComponents/AudioSource.h"
 
 #include "Checkpoint.h"
 #include "CircuitInfo.h"

@@ -1,8 +1,8 @@
 #include "Nerf.h"
 
 #include "VehicleController.h"
-#include "EntityComponent/Components/Transform.h"
-#include "EntityComponent/Components/AudioSource.h"
+#include "EntityComponent/Transform.h"
+#include "Audio/AudioComponents/AudioSource.h"
 #include "EntityComponent/Entity.h"
 #include "Utils/Timer.h"
 

@@ -3,7 +3,7 @@
 #ifndef __VROOMVROOM_UIBUTTON_SCENE
 #define __VROOMVROOM_UIBUTTON_SCENE
 
-#include "EntityComponent/Components/UIButton.h"
+#include "Render/UIComponents/UIButton.h"
 
 #include <string>
 #include <vector>

@@ -2,7 +2,7 @@
 #ifndef __VROOMVROOM_GAMEMANAGER
 #define __VROOMVROOM_GAMEMANAGER
 
-#include "EntityComponent/Components/Component.h"
+#include "EntityComponent/Component.h"
 #include "VroomVroom/VroomVroomInput.h"
 #include "Utils/Singleton.h"
 

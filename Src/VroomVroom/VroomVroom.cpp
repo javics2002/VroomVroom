@@ -1,6 +1,6 @@
 #include "VroomVroom/VroomVroom.h"
 #include "framework.h"
-#include "EntityComponent/Components/ComponentsFactory.h"
+#include "EntityComponent/ComponentsFactory.h"
 #include "Components/VroomVroomComponents.h"
 #include "Components/GameManager.h"
 #include "MotorEngine/SceneManager.h"

@@ -2,7 +2,7 @@
 #ifndef __VROOMVROOM_VROOMVROOMCOMPONENTS
 #define __VROOMVROOM_VROOMVROOMCOMPONENTS
 
-#include "EntityComponent/Components/FactoryComponent.h"
+#include "EntityComponent/FactoryComponent.h"
 
 namespace VroomVroom {
 	/**

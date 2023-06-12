@@ -2,7 +2,7 @@
 #ifndef __VROOMVROOM_POWER_UP
 #define __VROOMVROOM_POWER_UP
 
-#include "EntityComponent/Components/Component.h"
+#include "EntityComponent/Component.h"
 
 namespace VroomVroom {
 	/**

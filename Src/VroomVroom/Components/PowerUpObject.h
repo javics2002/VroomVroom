@@ -3,7 +3,7 @@
 #define __VROOMVROOM_POWER_UP_OBJECT
 
 
-#include "EntityComponent/Components/Component.h"
+#include "EntityComponent/Component.h"
 
 namespace me {
 	class Timer;

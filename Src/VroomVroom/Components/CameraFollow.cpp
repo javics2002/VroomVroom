@@ -1,10 +1,10 @@
 #include "CameraFollow.h"
-#include "EntityComponent/Components/Transform.h"
+#include "EntityComponent/Transform.h"
 #include "EntityComponent/Entity.h"
 #include "MotorEngine/Scene.h"
 #include "MotorEngine/SceneManager.h"
 #include "Render/RenderManager.h"
-#include "EntityComponent/Components/Camera.h"
+#include "Render/RenderComponents/Camera.h"
 
 using namespace me;
 using namespace VroomVroom;

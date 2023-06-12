@@ -1,6 +1,6 @@
 #include "PowerUpUIWheel.h"
 #include "Utils/Timer.h"
-#include "EntityComponent/Components/UISpriteRenderer.h"
+#include "Render/UIComponents/UISpriteRenderer.h"
 #include "EntityComponent/Entity.h"
 #include "MotorEngine/Scene.h"
 
