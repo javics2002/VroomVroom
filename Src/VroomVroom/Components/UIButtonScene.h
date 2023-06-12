@@ -52,14 +52,6 @@ namespace VroomVroom {
 		//Destroy RenderManager map saved image
 		~UIButtonScene();
 
-		/*
-		* Creates the sprite of the button.
-		* @param name: the name of the value saved on the sprites map..
-		* @param material: the name of the sprite file.
-		* @param zOrder: a value that stablishes if a button is in front or behind something.
-		*/
-		void init(std::string name, std::string materialName, int zOrder);
-
 		/**
 		Get info for UITransform, create the Sprite and set the start pos
 		*/

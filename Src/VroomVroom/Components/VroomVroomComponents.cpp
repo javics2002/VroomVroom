@@ -125,7 +125,7 @@ me::Component* FactoryUIButtonScene::create(me::Parameters& params)
     int zOrder= Value(params, "zorder", 1);
 
     UIButtonScene* button = new UIButtonScene();
-    button->init(sprite, materialName,zOrder);
+    button->createSprite(sprite, materialName,zOrder);
     button->setNewScene(newScene);
     button->setPlayerLook(playerlook);
 
@@ -148,9 +148,7 @@ me::Component* FactoryUIButtonQuit::create(me::Parameters& params)
     int zOrder = Value(params, "zorder", 1);
 
     UIButtonQuit* button = new UIButtonQuit();
-    button->init(sprite, materialName, zOrder);
-
-
+    button->createSprite(sprite, materialName, zOrder);
 
     return button;
 }

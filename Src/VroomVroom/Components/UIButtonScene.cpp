@@ -23,18 +23,6 @@ UIButtonScene::~UIButtonScene()
 	renderManager().destroyUISprite(mName);
 }
 
-void UIButtonScene::init(std::string name, std::string materialName, int zOrder)
-{
-	mName = name;
-	mSpriteName = materialName;
-
-	if (mSpriteName.size() > 0)
-	{
-		renderManager().createSprite(mName, mSpriteName, zOrder);
-	}
-
-}
-
 void UIButtonScene::start()
 {
 	UIButton::start();
