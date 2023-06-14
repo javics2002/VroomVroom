@@ -10,6 +10,7 @@
 #include "UIButtonQuit.h"
 #include "PowerUpUIWheel.h"
 #include "PowerUpObject.h"
+#include "MotorEngine/MotorEngineError.h"
 
 using namespace me;
 using namespace VroomVroom;
@@ -125,7 +126,11 @@ me::Component* FactoryUIButtonScene::create(me::Parameters& params)
     int zOrder= Value(params, "zorder", 1);
 
     UIButtonScene* button = new UIButtonScene();
-    button->createSprite(sprite, materialName,zOrder);
+    if (button->createSprite(sprite, materialName,zOrder)) {
+        throwMotorEngineError("Scene Button Factory Error", "A sprite with that name already exists.");
+        delete button;
+        return nullptr;
+    }
     button->setNewScene(newScene);
     button->setPlayerLook(playerlook);
 
@@ -148,7 +153,11 @@ me::Component* FactoryUIButtonQuit::create(me::Parameters& params)
     int zOrder = Value(params, "zorder", 1);
 
     UIButtonQuit* button = new UIButtonQuit();
-    button->createSprite(sprite, materialName, zOrder);
+    if (button->createSprite(sprite, materialName, zOrder)) {
+        throwMotorEngineError("Quit Button Factory Error", "A sprite with that name already exists.");
+        delete button;
+        return nullptr;
+    }
 
     return button;
 }
