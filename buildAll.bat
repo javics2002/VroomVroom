@@ -22,7 +22,7 @@ git submodule update
 
 cd %ENGINE_DIR%
 
-call deleteDependencies.bat
+call delete-dependencies.bat
 
 call compile-all.bat
 
