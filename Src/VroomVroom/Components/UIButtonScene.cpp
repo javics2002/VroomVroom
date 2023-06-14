@@ -151,6 +151,7 @@ void UIButtonScene::execute()
 
 	std::list<std::string> awake;
 	awake.push_back("createCheckpoints");
+	awake.push_back("createWalls");
 
 	sceneManager().change(mNewScene, awake);
 }
