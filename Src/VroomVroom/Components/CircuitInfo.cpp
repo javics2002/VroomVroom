@@ -64,7 +64,7 @@ void CircuitInfo::start()
 		->getComponent<UISpriteRenderer>("uispriterenderer");
 
 	if (!mCountdownSprite) {
-		throwMotorEngineError("CircuitInfo error", "CountdownUI entity doesn't have UISpriteRenderer component");
+		errorManager().throwMotorEngineError("CircuitInfo error", "CountdownUI entity doesn't have UISpriteRenderer component");
 		sceneManager().quit();
 	}
 

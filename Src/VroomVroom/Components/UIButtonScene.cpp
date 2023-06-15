@@ -29,7 +29,7 @@ me::Component* FactoryUIButtonScene::create(me::Parameters& params)
 
 	UIButtonScene* button = new UIButtonScene();
 	if (button->createSprite(sprite, materialName, zOrder)) {
-		throwMotorEngineError("Scene Button Factory Error", "A sprite with that name already exists.");
+		errorManager().throwMotorEngineError("Scene Button Factory Error", "A sprite with that name already exists.");
 		delete button;
 		return nullptr;
 	}
@@ -63,7 +63,7 @@ void UIButtonScene::start()
 
 	mHoverAudio = mEntity->getComponent<AudioSource>("audiosource");
 	if (!mHoverAudio) {
-		throwMotorEngineError("UIButtonScene error", "An entity doesn't have AudioSource component");
+		errorManager().throwMotorEngineError("UIButtonScene error", "An entity doesn't have AudioSource component");
 		sceneManager().quit();
 	}
 
@@ -80,7 +80,7 @@ void UIButtonScene::start()
 			token = aux.substr(0, pos);
 			Transform* tr = sceneManager().getActiveScene()->findEntity(token).get()->getComponent<Transform>("transform");
 			if (!tr) {
-				throwMotorEngineError("UIButtonScene error", "Token entity doesn't have transform component");
+				errorManager().throwMotorEngineError("UIButtonScene error", "Token entity doesn't have transform component");
 				sceneManager().quit();
 			}
 			mPlayerLookTransform.push_back(tr);
@@ -88,7 +88,7 @@ void UIButtonScene::start()
 		}
 		Transform* tr = sceneManager().getActiveScene()->findEntity(aux).get()->getComponent<Transform>("transform");
 		if (!tr) {
-			throwMotorEngineError("UIButtonScene error", "Aux entity doesn't have transform component");
+			errorManager().throwMotorEngineError("UIButtonScene error", "Aux entity doesn't have transform component");
 			sceneManager().quit();
 		}
 		mPlayerLookTransform.push_back(tr);

@@ -74,22 +74,22 @@ void VehicleController::start()
 {
     mTransform = mEntity->getComponent<Transform>("transform");
     if (!mTransform) {
-        throwMotorEngineError("VehicleController error", "Entity doesn't have transform component");
+        errorManager().throwMotorEngineError("VehicleController error", "Entity doesn't have transform component");
         sceneManager().quit();
     }
     mRigidBody = mEntity->getComponent<RigidBody>("rigidbody");
     if (!mRigidBody) {
-        throwMotorEngineError("VehicleController error", "Entity doesn't have rigidbody component");
+        errorManager().throwMotorEngineError("VehicleController error", "Entity doesn't have rigidbody component");
         sceneManager().quit();
     }
     mThunderAudio = mEntity->getComponent<AudioSource>("audiosource");
     if (!mThunderAudio) {
-        throwMotorEngineError("VehicleController error", "Entity doesn't have AudioSource component");
+        errorManager().throwMotorEngineError("VehicleController error", "Entity doesn't have AudioSource component");
         sceneManager().quit();
     }
     mPowerUpUIWheel = mEntity->getComponent<PowerUpUIWheel>("powerupuiwheel");
     if (!mPowerUpUIWheel) {
-        throwMotorEngineError("VehicleController error", "Entity doesn't have PowerUpUIWheel component");
+        errorManager().throwMotorEngineError("VehicleController error", "Entity doesn't have PowerUpUIWheel component");
         sceneManager().quit();
     }
     mPowerUpUIWheel->addSpriteNameToPool("nerf");
@@ -98,25 +98,25 @@ void VehicleController::start()
 
 
     if (!mEntity->getScene()->findEntity("circuit")) {
-        throwMotorEngineError("VehicleController error", "Circuit entity was not found");
+        errorManager().throwMotorEngineError("VehicleController error", "Circuit entity was not found");
         sceneManager().quit();
     }
 
     mCircuitInfo = mEntity->getScene()->findEntity("circuit").get()->getComponent<CircuitInfo>("circuitinfo");
     if (!mCircuitInfo) {
-        throwMotorEngineError("VehicleController error", "Entity doesn't have CircuitInfo component");
+        errorManager().throwMotorEngineError("VehicleController error", "Entity doesn't have CircuitInfo component");
         sceneManager().quit();
     }
 
     if (!mEntity->getScene()->findEntity("finish" + std::to_string(mPlayerNumber))) {
-        throwMotorEngineError("VehicleController error", "Finish entity was not found");
+        errorManager().throwMotorEngineError("VehicleController error", "Finish entity was not found");
         sceneManager().quit();
     }
     mEntity->getScene()->findEntity("finish" + std::to_string(mPlayerNumber)).get()->getComponent<UIText>("uitext")->setActive(false);
     mCircuitInfo->addVehicle(this);
 
     if (!mEntity->getScene()->findEntity("laps" + std::to_string(mPlayerNumber))) {
-        throwMotorEngineError("VehicleController error", "Laps entity was not fuond");
+        errorManager().throwMotorEngineError("VehicleController error", "Laps entity was not fuond");
         sceneManager().quit();
     }
 
@@ -124,7 +124,7 @@ void VehicleController::start()
         ->getComponent<UIText>("uitext");
 
     if (!mLapsText) {
-        throwMotorEngineError("VehicleController error", "Entity doesn't have UIText component");
+        errorManager().throwMotorEngineError("VehicleController error", "Entity doesn't have UIText component");
         sceneManager().quit();
     }
 
@@ -133,7 +133,7 @@ void VehicleController::start()
     mRigidBody->setAngularFactor(Vector3(0, 1, 0));
 
     if (!mEntity->getScene()->findEntity("chrono" + std::to_string(mPlayerNumber))) {
-        throwMotorEngineError("VehicleController error", "Chrono entity was not fuond");
+        errorManager().throwMotorEngineError("VehicleController error", "Chrono entity was not fuond");
         sceneManager().quit();
     }
 
@@ -141,7 +141,7 @@ void VehicleController::start()
         ->getComponent<UIText>("uitext");
 
     if (!mChrono) {
-        throwMotorEngineError("VehicleController error", "Entity doesn't have UIText component");
+        errorManager().throwMotorEngineError("VehicleController error", "Entity doesn't have UIText component");
         sceneManager().quit();
     }
 

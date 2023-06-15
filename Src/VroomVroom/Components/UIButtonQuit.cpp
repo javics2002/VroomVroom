@@ -13,7 +13,6 @@
 using namespace me;
 using namespace VroomVroom;
 
-
 me::Component* FactoryUIButtonQuit::create(me::Parameters& params)
 {
 	if (params.empty())
@@ -26,7 +25,7 @@ me::Component* FactoryUIButtonQuit::create(me::Parameters& params)
 
 	UIButtonQuit* button = new UIButtonQuit();
 	if (button->createSprite(sprite, materialName, zOrder)) {
-		throwMotorEngineError("Quit Button Factory Error", "A sprite with that name already exists.");
+		errorManager().throwMotorEngineError("Quit Button Factory Error", "A sprite with that name already exists.");
 		delete button;
 		return nullptr;
 	}
@@ -55,7 +54,7 @@ void VroomVroom::UIButtonQuit::start()
 
 	mButtonAudio = mEntity->getComponent<AudioSource>("audiosource");
 	if (!mButtonAudio) {
-		throwMotorEngineError("UIButtonQuit error", "An entity doesn't have AudioSource component");
+		errorManager().throwMotorEngineError("UIButtonQuit error", "An entity doesn't have AudioSource component");
 		sceneManager().quit();
 	}
 }

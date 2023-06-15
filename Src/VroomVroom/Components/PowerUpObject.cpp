@@ -49,12 +49,12 @@ void PowerUpObject::start()
 	mTimer = new Timer(false);
 	mTransform = mEntity->getComponent<Transform>("transform");
 	if (!mTransform) {
-		throwMotorEngineError("PowerUpObject error", "PowerUpObject entity doesn't have transform component");
+		errorManager().throwMotorEngineError("PowerUpObject error", "PowerUpObject entity doesn't have transform component");
 		sceneManager().quit();
 	}
 	mTakePowerAudio = mEntity->getComponent<AudioSource>("audiosource");
 	if (!mTakePowerAudio) {
-		throwMotorEngineError("PowerUpObject error", "PowerUpObject entity doesn't have AudioSource component");
+		errorManager().throwMotorEngineError("PowerUpObject error", "PowerUpObject entity doesn't have AudioSource component");
 		sceneManager().quit();
 	}
 	mReviveTime = 4; // Set the time it takes for the power-up object to respawn after being picked up
