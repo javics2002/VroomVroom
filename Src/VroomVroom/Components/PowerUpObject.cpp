@@ -13,6 +13,7 @@
 #include "GameManager.h"
 #include "MotorEngine/SceneManager.h"
 #include "MotorEngine/MotorEngineError.h"
+#include "MotorEngine/InfoScene.h"
 
 #include <iostream>
 #include <cassert>
@@ -51,11 +52,13 @@ void PowerUpObject::start()
 	if (!mTransform) {
 		errorManager().throwMotorEngineError("PowerUpObject error", "PowerUpObject entity doesn't have transform component");
 		sceneManager().quit();
+        return;
 	}
 	mTakePowerAudio = mEntity->getComponent<AudioSource>("audiosource");
 	if (!mTakePowerAudio) {
 		errorManager().throwMotorEngineError("PowerUpObject error", "PowerUpObject entity doesn't have AudioSource component");
 		sceneManager().quit();
+        return;
 	}
 	mReviveTime = 4; // Set the time it takes for the power-up object to respawn after being picked up
 	mPowerUpEntity = nullptr;
@@ -68,8 +71,21 @@ void PowerUpObject::update(const double& dt)
 		if (mTimer->getRawSeconds() >= mReviveTime) {
 
 			// Reactivate the MeshRenderer and RigidBody components of the power-up object after the respawn time has elapsed
-			mEntity->getComponent<MeshRenderer>("meshrenderer")->activeMesh(); // Activamos de nuevo el componente MeshRenderer
-			mEntity->getComponent<RigidBody>("rigidbody")->activeBody();
+			MeshRenderer* meshRenderer = mEntity->getComponent<MeshRenderer>("meshrenderer");
+			if (!meshRenderer) {
+				errorManager().throwMotorEngineError("PowerUpObject error", "PowerUpObject entity doesn't have MeshRenderer component");
+				sceneManager().quit();
+				return;
+			}
+			meshRenderer->activeMesh(); // Activamos de nuevo el componente MeshRenderer
+
+			RigidBody* rigidBody = mEntity->getComponent<RigidBody>("rigidbody");
+			if (!rigidBody) {
+				errorManager().throwMotorEngineError("PowerUpObject error", "PowerUpObject entity doesn't have RigidBody component");
+				sceneManager().quit();
+				return;
+			}
+			rigidBody->activeBody();
 
 			mPicked = false; // Reset the picked flag to allow the power-up object to be picked up again
 			mTimer->reset();
@@ -97,12 +113,32 @@ void PowerUpObject::onCollisionEnter(me::Entity* other)
 	// Pass the power-up type to the player's vehicle controller component
 	if (other->hasComponent("vehiclecontroller")) {
 		// Deactivate the MeshRenderer and RigidBody components of the power-up object when it is picked up by a player
-		mEntity->getComponent<MeshRenderer>("meshrenderer")->desactiveMesh(); // Desactivamos el MeshRenderer para que no se vea por pantalla
-		mEntity->getComponent<RigidBody>("rigidbody")->desactiveBody(); // Desactivamos las colisiones
+		MeshRenderer* meshRenderer = mEntity->getComponent<MeshRenderer>("meshrenderer");
+		if (!meshRenderer) {
+			errorManager().throwMotorEngineError("PowerUpObject error", "PowerUpObject entity doesn't have MeshRenderer component");
+			sceneManager().quit();
+			return;
+		}
+		meshRenderer->desactiveMesh(); // Desactivamos el MeshRenderer para que no se vea por pantalla
+		RigidBody* rigidBody = mEntity->getComponent<RigidBody>("rigidbody");
+		if (!rigidBody) {
+			errorManager().throwMotorEngineError("PowerUpObject error", "PowerUpObject entity doesn't have RigidBody component");
+			sceneManager().quit();
+			return;
+		}
+		rigidBody->desactiveBody(); // Desactivamos las colisiones
 		mPicked = true;
 		mTimer->resume();
+
+		VehicleController* vehicleController = other->getComponent<VehicleController>("vehiclecontroller");
+		if (!vehicleController) {
+			errorManager().throwMotorEngineError("PowerUpObject error", 
+				other->getName() + " entity doesn't have VehicleController component");
+			sceneManager().quit();
+			return;
+		}
 		
-		if (!other->getComponent<VehicleController>("vehiclecontroller")->isPowerUpPicked()) {
+		if (!vehicleController->isPowerUpPicked()) {
 			mTakePowerAudio->play();
 			switch (mPowerUp)
 			{
@@ -114,8 +150,8 @@ void PowerUpObject::onCollisionEnter(me::Entity* other)
 				break;
 			}
 
-			other->getComponent<VehicleController>("vehiclecontroller")->setPowerUp(mPowerUp, mPowerUpEntity);
-			other->getComponent<VehicleController>("vehiclecontroller")->setPowerUpUI();
+			vehicleController->setPowerUp(mPowerUp, mPowerUpEntity);
+			vehicleController->setPowerUpUI();
 		}
 	}
 }
@@ -163,11 +199,11 @@ Entity* PowerUpObject::createOilEntity()
 	rb->setFriction(0.5);
 	rb->setTrigger(true);
 
-	mesh = oil->addComponent<MeshRenderer>("meshrenderer");
-	assert(mesh);
-	mesh->setMeshName("Oil.mesh");
-	mesh->setName("o" + std::to_string(gameManager()->getContPowerUps()));
-	if (!mesh->createMesh())
+	Parameters meshRendererParameters;
+	meshRendererParameters["mesh"] = "o" + std::to_string(gameManager()->getContPowerUps());
+	meshRendererParameters["meshname"] = "Oil.mesh";
+	mesh = static_cast<MeshRenderer*>(oil->addComponent("meshrenderer", meshRendererParameters));
+	if (!mesh)
 		return nullptr;
 
 	o = oil->addComponent<Oil>("oil");
@@ -215,11 +251,11 @@ Entity* PowerUpObject::createNerfEntity()
 	nerfRigidbody->setColliderScale(me::Vector3(1, .25, 1));
 	nerfRigidbody->setTrigger(true);
 
-	MeshRenderer* meshNerf = nerf->addComponent<MeshRenderer>("meshrenderer");
-	assert(meshNerf);
-	meshNerf->setMeshName("Nerf.mesh");
-	meshNerf->setName("n" + std::to_string(gameManager()->getContPowerUps()));
-	if (!meshNerf->createMesh())
+	Parameters meshRendererParameters;
+	meshRendererParameters["mesh"] = "n" + std::to_string(gameManager()->getContPowerUps());
+	meshRendererParameters["meshname"] = "Nerf.mesh";
+	MeshRenderer* meshNerf = static_cast<MeshRenderer*>(nerf->addComponent("meshrenderer", meshRendererParameters));
+	if (!meshNerf)
 		return nullptr;
 	
 	Nerf* nerfComp = nerf->addComponent<Nerf>("nerf");

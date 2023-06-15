@@ -42,13 +42,23 @@ void Checkpoint::start()
 	if (!mEntity->getScene()->findEntity("circuit").get()) {
 		errorManager().throwMotorEngineError("Checkpoint error", "Circuit entity was not found");
 		sceneManager().quit();
+        return;
 	}
 
-	mCircuitInfo = mEntity->getScene()->findEntity("circuit").get()->getComponent<CircuitInfo>("circuitinfo");
+
+	Entity* circuitEntity = mEntity->getScene()->findEntity("circuit").get();
+	if (!circuitEntity) {
+		errorManager().throwMotorEngineError("Checkpoint error", "Circuit entity doesn't exist.");
+		sceneManager().quit();
+		return;
+	}
+
+	mCircuitInfo = circuitEntity->getComponent<CircuitInfo>("circuitinfo");
 
 	if (!mCircuitInfo) {
 		errorManager().throwMotorEngineError("Checkpoint error", "Circuit entity doesn't have CircuitInfo component");
 		sceneManager().quit();
+        return;
 	}
 
 	mCircuitInfo->addCheckpoint(this);

@@ -76,73 +76,91 @@ void VehicleController::start()
     if (!mTransform) {
         errorManager().throwMotorEngineError("VehicleController error", "Entity doesn't have transform component");
         sceneManager().quit();
+        return;
     }
     mRigidBody = mEntity->getComponent<RigidBody>("rigidbody");
     if (!mRigidBody) {
         errorManager().throwMotorEngineError("VehicleController error", "Entity doesn't have rigidbody component");
         sceneManager().quit();
+        return;
     }
     mThunderAudio = mEntity->getComponent<AudioSource>("audiosource");
     if (!mThunderAudio) {
         errorManager().throwMotorEngineError("VehicleController error", "Entity doesn't have AudioSource component");
         sceneManager().quit();
+        return;
     }
     mPowerUpUIWheel = mEntity->getComponent<PowerUpUIWheel>("powerupuiwheel");
     if (!mPowerUpUIWheel) {
         errorManager().throwMotorEngineError("VehicleController error", "Entity doesn't have PowerUpUIWheel component");
         sceneManager().quit();
+        return;
     }
     mPowerUpUIWheel->addSpriteNameToPool("nerf");
     mPowerUpUIWheel->addSpriteNameToPool("oil");
     mPowerUpUIWheel->addSpriteNameToPool("lightningBolt");
 
-
-    if (!mEntity->getScene()->findEntity("circuit")) {
+    Entity* circuitEntity = mEntity->getScene()->findEntity("circuit").get();
+    if (!circuitEntity) {
         errorManager().throwMotorEngineError("VehicleController error", "Circuit entity was not found");
         sceneManager().quit();
+        return;
     }
 
-    mCircuitInfo = mEntity->getScene()->findEntity("circuit").get()->getComponent<CircuitInfo>("circuitinfo");
+    mCircuitInfo = circuitEntity->getComponent<CircuitInfo>("circuitinfo");
     if (!mCircuitInfo) {
         errorManager().throwMotorEngineError("VehicleController error", "Entity doesn't have CircuitInfo component");
         sceneManager().quit();
+        return;
     }
 
-    if (!mEntity->getScene()->findEntity("finish" + std::to_string(mPlayerNumber))) {
-        errorManager().throwMotorEngineError("VehicleController error", "Finish entity was not found");
+    Entity* finishEntity = mEntity->getScene()->findEntity("finish" + std::to_string(mPlayerNumber)).get();
+    if (!finishEntity) {
+        errorManager().throwMotorEngineError("VehicleController error", "Finish entity was not found.");
         sceneManager().quit();
+        return;
     }
-    mEntity->getScene()->findEntity("finish" + std::to_string(mPlayerNumber)).get()->getComponent<UIText>("uitext")->setActive(false);
+    UIText* finishUIText = finishEntity->getComponent<UIText>("uitext");
+    if (!finishUIText) {
+        errorManager().throwMotorEngineError("VehicleController error", "Finish entity doesn't have UIText component.");
+        sceneManager().quit();
+        return;
+    }
+    finishUIText->setActive(false);
     mCircuitInfo->addVehicle(this);
 
-    if (!mEntity->getScene()->findEntity("laps" + std::to_string(mPlayerNumber))) {
+    Entity* lapsEntity = mEntity->getScene()->findEntity("laps" + std::to_string(mPlayerNumber)).get();
+    if (!lapsEntity) {
         errorManager().throwMotorEngineError("VehicleController error", "Laps entity was not fuond");
         sceneManager().quit();
+        return;
     }
 
-    mLapsText = mEntity->getScene()->findEntity("laps" + std::to_string(mPlayerNumber)).get()
-        ->getComponent<UIText>("uitext");
+    mLapsText = lapsEntity->getComponent<UIText>("uitext");
 
     if (!mLapsText) {
         errorManager().throwMotorEngineError("VehicleController error", "Entity doesn't have UIText component");
         sceneManager().quit();
+        return;
     }
 
     // Lock in axis (X-Z)
     mRigidBody->setLinearFactor(Vector3(1, 0, 1));
     mRigidBody->setAngularFactor(Vector3(0, 1, 0));
 
-    if (!mEntity->getScene()->findEntity("chrono" + std::to_string(mPlayerNumber))) {
+    Entity* chronoEntity = mEntity->getScene()->findEntity("chrono" + std::to_string(mPlayerNumber)).get();
+    if (!chronoEntity) {
         errorManager().throwMotorEngineError("VehicleController error", "Chrono entity was not fuond");
         sceneManager().quit();
+        return;
     }
 
-    mChrono = getEntity()->getScene()->findEntity("chrono" + std::to_string(mPlayerNumber)).get()
-        ->getComponent<UIText>("uitext");
+    mChrono = chronoEntity->getComponent<UIText>("uitext");
 
     if (!mChrono) {
         errorManager().throwMotorEngineError("VehicleController error", "Entity doesn't have UIText component");
         sceneManager().quit();
+        return;
     }
 
     mCheckpointIndex = -1;
@@ -172,7 +190,18 @@ void VehicleController::update(const double& dt)
     mControllableTimer->update(dt);
 
     if (!hasFinished) {
-        mFinishAudio = mTransform->getChild(0)->getEntity()->getComponent<AudioSource>("audiosource");
+        Transform* child = mTransform->getChild(0);
+        if (!child) {
+            errorManager().throwMotorEngineError("VehicleController update error", "Entity doesn't have child 0.");
+            sceneManager().quit();
+            return;
+        }
+        mFinishAudio = child->getEntity()->getComponent<AudioSource>("audiosource");
+        if (!mFinishAudio) {
+            errorManager().throwMotorEngineError("VehicleController update error", "Child 0 doesn't have audioSource component.");
+            sceneManager().quit();
+            return;
+        }
         hasFinished = true;
     }
 
@@ -183,8 +212,22 @@ void VehicleController::update(const double& dt)
 
             mRigidBody->setAngularVelocity(Vector3::Zero());
             mTransform->setRotation(mLastOrientation);
-            sceneManager().getActiveScene()->findEntity("camera" + std::to_string(mPlayerNumber + 1)).get()
-                ->getComponent<CameraFollow>("camerafollow")->enabled = true;
+            Entity* cameraEntity = sceneManager().getActiveScene()
+                ->findEntity("camera" + std::to_string(mPlayerNumber + 1)).get();
+            if (!cameraEntity) {
+                errorManager().throwMotorEngineError("VehicleController error", 
+                    "camera" + std::to_string(mPlayerNumber + 1) + " entity was not found.");
+                sceneManager().quit();
+                return;
+            }
+            CameraFollow* cameraFollow = cameraEntity->getComponent<CameraFollow>("camerafollow");
+            if (!cameraFollow) {
+                errorManager().throwMotorEngineError("VehicleController error", 
+                    "camera" + std::to_string(mPlayerNumber + 1) + " entity doesn't have CameraFollow component");
+                sceneManager().quit();
+                return;
+            }
+            cameraFollow->enabled = true;
 
             mControllable = true;
         }
@@ -232,11 +275,20 @@ void VehicleController::update(const double& dt)
             mPowerUpEntity->getComponent<Oil>("oil")->use(mEntity);
             break;
         case THUNDER:
+        {
             // Create thunder entity with thunder Component
             setMaxSpeedAndRotationSpeed(mOriginalMaxSpeed * 2, mMaxAngularSpeed);
             mThunderAudio->play();
-            mEntity->getComponent<RigidBody>("rigidbody")->addImpulse(vForward * mThunderSpeedBoost);
+            RigidBody* rigidbody = mEntity->getComponent<RigidBody>("rigidbody");
+            if (!rigidbody) {
+                errorManager().throwMotorEngineError("VehicleController error", 
+                    mEntity->getName() + " entity doesn't have RigidBody component");
+                sceneManager().quit();
+                return;
+            }
+            rigidbody->addImpulse(vForward * mThunderSpeedBoost);
             mSpeedBoostTimer->resume();
+        }
             break;
         default:
             break;
@@ -482,8 +534,21 @@ void VehicleController::startNerfTimer()
 {
     mControllableTimer->resume();
     mRigidBody->setAngularVelocity(Vector3::Up() * 10);
-    sceneManager().getActiveScene()->findEntity("camera" + std::to_string(mPlayerNumber + 1)).get()
-        ->getComponent<CameraFollow>("camerafollow")->enabled = false;
+    Entity* cameraEntity = sceneManager().getActiveScene()->findEntity("camera" + std::to_string(mPlayerNumber + 1)).get();
+    if (!cameraEntity) {
+        errorManager().throwMotorEngineError("VehicleController startNerfTimer error",
+            "Camera entity doesn't exist.");
+        sceneManager().quit();
+        return;
+    }
+    CameraFollow* cameraFollow = cameraEntity->getComponent<CameraFollow>("camerafollow");
+    if (!cameraFollow) {
+        errorManager().throwMotorEngineError("VehicleController startNerfTimer error",
+            "Camera entity doesn't have cameraFollow component");
+        sceneManager().quit();
+        return;
+    }
+    cameraFollow->enabled = false;
     mControllable = false;
     mLastOrientation = mTransform->getRotation().toEuler();
 }
@@ -492,7 +557,15 @@ void VehicleController::onCollisionEnter(me::Entity* other)
 {
     if (other->hasComponent("checkpoint")) {
         Checkpoint* checkpoint = other->getComponent<Checkpoint>("checkpoint");
-        mLastCheckpointPosition = checkpoint->getEntity()->getComponent<Transform>("transform")->getPosition();
+        Transform* lastCheckpointTransform = checkpoint->getEntity()->getComponent<Transform>("transform");
+        if(!lastCheckpointTransform){
+            errorManager().throwMotorEngineError("VehicleController onCollisionEnter error",
+                "Last checkpoint entity doesn't have transform component");
+            sceneManager().quit();
+            return;
+        }
+        mLastCheckpointPosition = lastCheckpointTransform->getPosition();
+          
 
 #ifdef _DEBUG
         std::cout << "Car " << mPlayerNumber << " has reached checkpoint " << checkpoint->getIndex() << "\n";
@@ -525,7 +598,21 @@ void VehicleController::onCollisionEnter(me::Entity* other)
                         gameManager()->setWinnerTime(mFinishTime, mPlayerNumber);
                     else gameManager()->setLoserTime(mFinishTime);
 
-                    mEntity->getScene()->findEntity("finish" + std::to_string(mPlayerNumber)).get()->getComponent<UIText>("uitext")->setActive(true);
+                    Entity* finishEntity = mEntity->getScene()->findEntity("finish" + std::to_string(mPlayerNumber)).get();
+                    if (!finishEntity) {
+                        errorManager().throwMotorEngineError("VehicleController onCollisionEnter error",
+                            "Finish entity doesn't exist.");
+                        sceneManager().quit();
+                        return;
+                    }
+                    UIText* finishUIText = finishEntity->getComponent<UIText>("uitext");
+                    if (!finishUIText) {
+                        errorManager().throwMotorEngineError("VehicleController onCollisionEnter error",
+                            "Finish entity doesn't have UIText component");
+                        sceneManager().quit();
+                        return;
+                    }
+                    finishUIText->setActive(true);
 #ifdef _DEBUG
                     std::cout << "Car " << mPlayerNumber << " finished the race in " << mFinishTime << "\n";
 #endif

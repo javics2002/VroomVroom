@@ -55,12 +55,22 @@ void PowerUpUIWheel::start() {
 	if (!mEntity->getScene()->findEntity(mLinkedUISpriteName)) {
 		errorManager().throwMotorEngineError("PowerUpUIWheel error", "Linked sprite entity was not found");
 		sceneManager().quit();
+        return;
 	}
 
-	mLinkedUISprite = mEntity->getScene()->findEntity(mLinkedUISpriteName)->getComponent<UISpriteRenderer>("uispriterenderer");
-	if (!mLinkedUISprite) {
-		errorManager().throwMotorEngineError("PowerUpUIWheel error", "Linked sprite entity doesn't have UISpriteRenderer component");
+	Entity* linkedUISpriteEntity = mEntity->getScene()->findEntity(mLinkedUISpriteName).get();
+	if (!linkedUISpriteEntity) {
+		errorManager().throwMotorEngineError("PowerUpUIWheel error",
+			mLinkedUISpriteName + " entity was not found.");
 		sceneManager().quit();
+		return;
+	}
+	mLinkedUISprite = linkedUISpriteEntity->getComponent<UISpriteRenderer>("uispriterenderer");
+	if (!mLinkedUISprite) {
+		errorManager().throwMotorEngineError("PowerUpUIWheel error", 
+			"Linked sprite entity doesn't have UISpriteRenderer component");
+		sceneManager().quit();
+        return;
 	}
 }
 

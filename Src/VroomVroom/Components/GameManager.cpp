@@ -6,6 +6,7 @@
 #include "Audio/SoundManager.h"
 #include "Input/InputManager.h"
 #include "Render/UIComponents/UIText.h"
+#include "MotorEngine/MotorEngineError.h"
 
 using namespace me;
 using namespace VroomVroom;
@@ -102,17 +103,83 @@ void GameManager::update(const double& dt)
 		if (sceneManager().getActiveScene()->getName() == "results.lua" || sceneManager().getActiveScene()->getName() == "resultstwo.lua") {
 			if (mNumPlayer>1) {
 				if (mWinner == 0) {
+					Entity* car1TextEntity = sceneManager().getActiveScene()->findEntity("caronetext").get();
+					if (!car1TextEntity) {
+						errorManager().throwMotorEngineError("GameManager error", "caronetext entity was not found");
+						sceneManager().quit();
+						return;
+					}
+					UIText* car1TextComponent = car1TextEntity->getComponent<UIText>("uitext");
+					if (!car1TextComponent) {
+						errorManager().throwMotorEngineError("GameManager error", 
+							"caronetext entity doesn't have uitext component.");
+						sceneManager().quit();
+						return;
+					}
+					car1TextComponent->setText(mWinnerTime);
 
-					sceneManager().getActiveScene()->findEntity("caronetext")->getComponent<UIText>("uitext")->setText(mWinnerTime);
-					sceneManager().getActiveScene()->findEntity("cartwotext")->getComponent<UIText>("uitext")->setText(mLoserTime);
+					Entity* car2TextEntity = sceneManager().getActiveScene()->findEntity("cartwotext").get();
+					if (!car2TextEntity) {
+						errorManager().throwMotorEngineError("GameManager error", "cartwotext entity was not found");
+						sceneManager().quit();
+						return;
+					}
+					UIText* car2TextComponent = car2TextEntity->getComponent<UIText>("uitext");
+					if (!car2TextEntity) {
+						errorManager().throwMotorEngineError("GameManager error",
+							"cartwotext entity doesn't have uitext component.");
+						sceneManager().quit();
+						return;
+					}
+					car2TextComponent->setText(mLoserTime);
 				}
 				else {
-					sceneManager().getActiveScene()->findEntity("caronetext")->getComponent<UIText>("uitext")->setText(mLoserTime);
-					sceneManager().getActiveScene()->findEntity("cartwotext")->getComponent<UIText>("uitext")->setText(mWinnerTime);
+					Entity* car1TextEntity = sceneManager().getActiveScene()->findEntity("caronetext").get();
+					if (!car1TextEntity) {
+						errorManager().throwMotorEngineError("GameManager error", "caronetext entity was not found");
+						sceneManager().quit();
+						return;
+					}
+					UIText* car1TextComponent = car1TextEntity->getComponent<UIText>("uitext");
+					if (!car1TextComponent) {
+						errorManager().throwMotorEngineError("GameManager error",
+							"caronetext entity doesn't have uitext component.");
+						sceneManager().quit();
+						return;
+					}
+					car1TextComponent->setText(mLoserTime);
+
+					Entity* car2TextEntity = sceneManager().getActiveScene()->findEntity("cartwotext").get();
+					if (!car2TextEntity) {
+						errorManager().throwMotorEngineError("GameManager error", "cartwotext entity was not found");
+						sceneManager().quit();
+						return;
+					}
+					UIText* car2TextComponent = car2TextEntity->getComponent<UIText>("uitext");
+					if (!car2TextEntity) {
+						errorManager().throwMotorEngineError("GameManager error",
+							"cartwotext entity doesn't have uitext component.");
+						sceneManager().quit();
+						return;
+					}
+					car2TextComponent->setText(mWinnerTime);
 				}
 			}
 			else {
-				sceneManager().getActiveScene()->findEntity("caronetext")->getComponent<UIText>("uitext")->setText(mWinnerTime);
+				Entity* car1TextEntity = sceneManager().getActiveScene()->findEntity("caronetext").get();
+				if (!car1TextEntity) {
+					errorManager().throwMotorEngineError("GameManager error", "caronetext entity was not found");
+					sceneManager().quit();
+					return;
+				}
+				UIText* car1TextComponent = car1TextEntity->getComponent<UIText>("uitext");
+				if (!car1TextComponent) {
+					errorManager().throwMotorEngineError("GameManager error",
+						"caronetext entity doesn't have uitext component.");
+					sceneManager().quit();
+					return;
+				}
+				car1TextComponent->setText(mWinnerTime);
 			}
 		}
 		break;

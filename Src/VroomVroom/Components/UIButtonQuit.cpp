@@ -24,7 +24,7 @@ me::Component* FactoryUIButtonQuit::create(me::Parameters& params)
 	int zOrder = Value(params, "zorder", 1);
 
 	UIButtonQuit* button = new UIButtonQuit();
-	if (button->createSprite(sprite, materialName, zOrder)) {
+	if (!button->createSprite(sprite, materialName, zOrder)) {
 		errorManager().throwMotorEngineError("Quit Button Factory Error", "A sprite with that name already exists.");
 		delete button;
 		return nullptr;
@@ -56,6 +56,7 @@ void VroomVroom::UIButtonQuit::start()
 	if (!mButtonAudio) {
 		errorManager().throwMotorEngineError("UIButtonQuit error", "An entity doesn't have AudioSource component");
 		sceneManager().quit();
+		return;
 	}
 }
 
@@ -76,8 +77,9 @@ void UIButtonQuit::update(const double& dt)
 		else if (stoppedSound) {
 			toggleSound = true;
 			stoppedSound = false;
+
 			if(mButtonAudio != nullptr)
-			mButtonAudio->play();
+				mButtonAudio->play();
 		}
 	}
 	else

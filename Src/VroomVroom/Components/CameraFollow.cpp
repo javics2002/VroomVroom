@@ -30,12 +30,6 @@ void FactoryCameraFollow::destroy(me::Component* component)
 	delete component;
 }
 
-
-
-
-
-
-
 CameraFollow::CameraFollow()
 {
 	mTargetTransform = nullptr;
@@ -51,12 +45,21 @@ void CameraFollow::start()
 	if (!sceneManager().getActiveScene()->findEntity(mTargetName)) {
 		errorManager().throwMotorEngineError("CameraFollow error", "Target entity was not found");
 		sceneManager().quit();
+		return;
 	}
-	mTargetTransform = sceneManager().getActiveScene()->findEntity(mTargetName).get()->getComponent<Transform>("transform");
+
+	Entity* targetEntity = sceneManager().getActiveScene()->findEntity(mTargetName).get();
+	if (!targetEntity){
+		errorManager().throwMotorEngineError("CameraFollow error", "Target entity doesn't exist.");
+		sceneManager().quit();
+		return;
+	}
+	mTargetTransform = targetEntity->getComponent<Transform>("transform");
 
 	if (!mTargetTransform) {
 		errorManager().throwMotorEngineError("CameraFollow error", "Target entity doesn't have transform component");
 		sceneManager().quit();
+		return;
 	}
 
 	mCameraTransform = getEntity()->getComponent<Transform>("transform");
@@ -64,6 +67,7 @@ void CameraFollow::start()
 	if (!mCameraTransform) {
 		errorManager().throwMotorEngineError("CameraFollow error", "Camera entity doesn't have transform component");
 		sceneManager().quit();
+		return;
 	}
 
 	mCamera = getEntity()->getComponent<Camera>("camera");
@@ -71,6 +75,7 @@ void CameraFollow::start()
 	if (!mCamera) {
 		errorManager().throwMotorEngineError("CameraFollow error", "Camera entity doesn't have Camera component");
 		sceneManager().quit();
+		return;
 	}
 
 	renderManager().setCameraFixedY(mCamera->getName(), true);
@@ -103,7 +108,21 @@ void CameraFollow::setTarget(Transform* target)
 
 void CameraFollow::setTarget(std::string targetName)
 {
-	mTargetTransform = sceneManager().getActiveScene()->findEntity(mTargetName).get()->getComponent<Transform>("transform");
+	Entity* targetEntity = sceneManager().getActiveScene()->findEntity(mTargetName).get();
+	if (!targetEntity) {
+		errorManager().throwMotorEngineError("CameraFollow error", 
+			mTargetName + " entity doesn't exist");
+		sceneManager().quit();
+		return;
+	}
+
+	mTargetTransform = targetEntity->getComponent<Transform>("transform");
+	if (!mTargetTransform) {
+		errorManager().throwMotorEngineError("CameraFollow error", 
+			mTargetName + " entity doesn't have transform component");
+		sceneManager().quit();
+		return;
+	}
 }
 
 void CameraFollow::setPositionOffset(Vector3 offset)

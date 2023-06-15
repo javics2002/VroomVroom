@@ -28,7 +28,7 @@ me::Component* FactoryUIButtonScene::create(me::Parameters& params)
 	int zOrder = Value(params, "zorder", 1);
 
 	UIButtonScene* button = new UIButtonScene();
-	if (button->createSprite(sprite, materialName, zOrder)) {
+	if (!button->createSprite(sprite, materialName, zOrder)) {
 		errorManager().throwMotorEngineError("Scene Button Factory Error", "A sprite with that name already exists.");
 		delete button;
 		return nullptr;
@@ -78,18 +78,32 @@ void UIButtonScene::start()
 		while ((pos = aux.find(delimiter)) != std::string::npos)
 		{
 			token = aux.substr(0, pos);
-			Transform* tr = sceneManager().getActiveScene()->findEntity(token).get()->getComponent<Transform>("transform");
+			Entity* auxEntity = sceneManager().getActiveScene()->findEntity(token).get();
+			if (!auxEntity) {
+				errorManager().throwMotorEngineError("UIButtonScene error", token + " entity was not found");
+				sceneManager().quit();
+				return;
+			}
+			Transform* tr = auxEntity->getComponent<Transform>("transform");
 			if (!tr) {
 				errorManager().throwMotorEngineError("UIButtonScene error", "Token entity doesn't have transform component");
 				sceneManager().quit();
+				return;
 			}
 			mPlayerLookTransform.push_back(tr);
 			aux.erase(0, pos + delimiter.length());
 		}
-		Transform* tr = sceneManager().getActiveScene()->findEntity(aux).get()->getComponent<Transform>("transform");
-		if (!tr) {
-			errorManager().throwMotorEngineError("UIButtonScene error", "Aux entity doesn't have transform component");
+		Entity* auxEntity = sceneManager().getActiveScene()->findEntity(aux).get();
+		if (!auxEntity) {
+			errorManager().throwMotorEngineError("UIButtonScene error", aux + " entity was not found");
 			sceneManager().quit();
+			return;
+		}
+		Transform* tr = auxEntity->getComponent<Transform>("transform");
+		if (!tr) {
+			errorManager().throwMotorEngineError("UIButtonScene error", aux + " entity doesn't have transform component");
+			sceneManager().quit();
+			return;
 		}
 		mPlayerLookTransform.push_back(tr);
 
@@ -130,8 +144,9 @@ void UIButtonScene::update(const double& dt)
 		else if (stoppedSound) {
 			toggleSound = true;
 			stoppedSound = false;
+
 			if (mHoverAudio != nullptr)
-			mHoverAudio->play();
+				mHoverAudio->play();
 		}
 	}
 	else

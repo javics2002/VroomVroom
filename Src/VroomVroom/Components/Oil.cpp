@@ -3,7 +3,8 @@
 #include "Audio/AudioComponents/AudioSource.h"
 #include "VehicleController.h"
 #include "EntityComponent/Entity.h"
-
+#include "MotorEngine/MotorEngineError.h"
+#include "MotorEngine/SceneManager.h"
 #include "EntityComponent/Transform.h"
 
 using namespace me;
@@ -76,9 +77,27 @@ void Oil::onCollisionExit(Entity* other)
 void VroomVroom::Oil::use(Entity* other)
 {
 	mOilSound = mEntity->getComponent<AudioSource>("audiosource");
+	if (!mOilSound) {
+		errorManager().throwMotorEngineError("Oil use error",
+			"oil entity doesn't have audioSource component.");
+		sceneManager().quit();
+		return;
+	}
 	mOilSound->play();
 	Transform* carTr = other->getComponent<Transform>("transform");
+	if (!carTr) {
+		errorManager().throwMotorEngineError("Oil use error",
+			other->getName() + " entity doesn't have transform component.");
+		sceneManager().quit();
+		return;
+	}
 	Transform *tr = mEntity->getComponent<Transform>("transform");
+	if (!tr) {
+		errorManager().throwMotorEngineError("Oil use error",
+			"oil entity doesn't have transform component.");
+		sceneManager().quit();
+		return;
+	}
 
 	tr->setPosition(carTr->getPosition() + (carTr->forward().normalize() * -mOffset));
 	me::Vector3 posOil = tr->getPosition();
