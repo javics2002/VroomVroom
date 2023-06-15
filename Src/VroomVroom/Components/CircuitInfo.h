@@ -3,6 +3,7 @@
 #define __VROOMVROOM_CIRCUITOINFO
 
 #include "EntityComponent/Component.h"
+#include "EntityComponent/FactoryComponent.h"
 #include "Utils/Vector3.h"
 
 #include <string>
@@ -17,6 +18,13 @@ namespace me {
 namespace VroomVroom {
 	class VehicleController;
 	class Checkpoint;
+
+
+	class FactoryCirtuitInfo : public me::FactoryComponent {
+	public:
+		me::Component* create(me::Parameters& params) override;
+		void destroy(me::Component* component) override;
+	};
 
 	/**
 	Stores information about the circuits area

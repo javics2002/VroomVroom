@@ -2,9 +2,27 @@
 #include "EntityComponent/Entity.h"
 #include "MotorEngine/Scene.h"
 #include "CircuitInfo.h"
+#include "MotorEngine/MotorEngineError.h"
+#include "MotorEngine/SceneManager.h"
 
 using namespace me;
 using namespace VroomVroom;
+
+
+Component* FactoryCheckpoint::create(Parameters& params)
+{
+	Checkpoint* checkpoint = new Checkpoint();
+
+	checkpoint->setIndex(Value(params, "index", Checkpoint::GetNumCheckpoints()));
+
+	return checkpoint;
+}
+
+void FactoryCheckpoint::destroy(Component* component)
+{
+	delete component;
+}
+
 
 int Checkpoint::MNumCheckpoints = 0;
 
@@ -21,7 +39,18 @@ void Checkpoint::start()
 {
 	MNumCheckpoints++;
 
+	if (!mEntity->getScene()->findEntity("circuit").get()) {
+		throwMotorEngineError("Checkpoint error", "Circuit entity was not found");
+		sceneManager().quit();
+	}
+
 	mCircuitInfo = mEntity->getScene()->findEntity("circuit").get()->getComponent<CircuitInfo>("circuitinfo");
+
+	if (!mCircuitInfo) {
+		throwMotorEngineError("Checkpoint error", "Circuit entity doesn't have CircuitInfo component");
+		sceneManager().quit();
+	}
+
 	mCircuitInfo->addCheckpoint(this);
 }
 

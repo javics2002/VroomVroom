@@ -3,6 +3,7 @@
 #define __VROOMVROOM_POWER_UP
 
 #include "EntityComponent/Component.h"
+#include "EntityComponent/FactoryComponent.h"
 
 namespace VroomVroom {
 	/**

@@ -11,12 +11,27 @@
 #include "Audio/AudioComponents/AudioSource.h"
 #include "MotorEngine/Scene.h"
 #include "GameManager.h"
+#include "MotorEngine/SceneManager.h"
+#include "MotorEngine/MotorEngineError.h"
 
 #include <iostream>
 #include <cassert>
 
 using namespace me;
 using namespace VroomVroom;
+
+
+me::Component* VroomVroom::FactoryPowerUpObject::create(me::Parameters& params)
+{
+	PowerUpObject* power = new PowerUpObject();
+	power->setPower(PowerUpType(Value(params, "type", rand() % 3)));
+	return power;
+}
+
+void VroomVroom::FactoryPowerUpObject::destroy(me::Component* component)
+{
+	delete component;
+}
 
 PowerUpObject::PowerUpObject()
 {
@@ -33,7 +48,15 @@ void PowerUpObject::start()
 	//mPowerUp = PowerUpType(rand() % 3);
 	mTimer = new Timer(false);
 	mTransform = mEntity->getComponent<Transform>("transform");
+	if (!mTransform) {
+		throwMotorEngineError("PowerUpObject error", "PowerUpObject entity doesn't have transform component");
+		sceneManager().quit();
+	}
 	mTakePowerAudio = mEntity->getComponent<AudioSource>("audiosource");
+	if (!mTakePowerAudio) {
+		throwMotorEngineError("PowerUpObject error", "PowerUpObject entity doesn't have AudioSource component");
+		sceneManager().quit();
+	}
 	mReviveTime = 4; // Set the time it takes for the power-up object to respawn after being picked up
 	mPowerUpEntity = nullptr;
 }

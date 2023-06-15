@@ -4,12 +4,22 @@
 #define __VROOMVROOM_UIBUTTON_QUIT
 
 #include "Render/UIComponents/UIButton.h"
+#include "EntityComponent/FactoryComponent.h"
 
 namespace me {
 	class AudioSource;
 }
 
 namespace VroomVroom {
+	
+
+	class FactoryUIButtonQuit : public me::FactoryComponent {
+	public:
+		me::Component* create(me::Parameters& params) override;
+		void destroy(me::Component* component) override;
+	};
+
+	
 	/**
 	The UISpriteRenderer class represents a visual object in 2D space as a screen overlay that will be attached to an entity.
 	*/

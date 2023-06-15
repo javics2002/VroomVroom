@@ -5,7 +5,7 @@
 #include "EntityComponent/Component.h"
 #include "VroomVroom/VroomVroomInput.h"
 #include "Utils/Singleton.h"
-
+#include "EntityComponent/FactoryComponent.h"
 #include <string>
 #include <unordered_map>
 
@@ -22,6 +22,13 @@ namespace VroomVroom {
 		GAMESTATE_GAMEOVER
 	};
 
+
+
+	class FactoryGameManager : public me::FactoryComponent {
+	public:
+		me::Component* create(me::Parameters& params) override;
+		void destroy(me::Component* component) override;
+	};
 
 	/**
 	Class GameManager, component that is singleton, use for control the gamestate

@@ -7,7 +7,7 @@
 #include "VehicleController.h"
 #include "Checkpoint.h"
 #include "GameManager.h"
-
+#include "MotorEngine/MotorEngineError.h"
 #include "Utils/Timer.h"
 #include "Render/UIComponents/UISpriteRenderer.h"
 
@@ -17,6 +17,27 @@
 
 using namespace me;
 using namespace VroomVroom;
+
+
+Component* FactoryCirtuitInfo::create(Parameters& params)
+{
+	CircuitInfo* circuitInfo = new CircuitInfo();
+	circuitInfo->setPosition(Vector3(Value(params, "position_x", 0.0f),
+		Value(params, "position_y", 0.0f), Value(params, "position_z", 0.0f)));
+
+	circuitInfo->setLaps(Value(params, "laps", 3));
+
+	circuitInfo->setInfo(Value(params, "halfwidthinner", 36.0f), Value(params, "halfwidthouter", 44.0f),
+		Value(params, "halfheightinner", 1.7f), Value(params, "halfheightouter", 8.0f),
+		Value(params, "radiusinner", 1.7f), Value(params, "radiusouter", 8.0f));
+
+	return circuitInfo;
+}
+
+void FactoryCirtuitInfo::destroy(Component* component)
+{
+	delete component;
+}
 
 CircuitInfo::CircuitInfo()
 {
@@ -41,6 +62,11 @@ void CircuitInfo::start()
 
 	mCountdownSprite = sceneManager().getActiveScene()->findEntity("countdownui").get()
 		->getComponent<UISpriteRenderer>("uispriterenderer");
+
+	if (!mCountdownSprite) {
+		throwMotorEngineError("CircuitInfo error", "CountdownUI entity doesn't have UISpriteRenderer component");
+		sceneManager().quit();
+	}
 
 }
 

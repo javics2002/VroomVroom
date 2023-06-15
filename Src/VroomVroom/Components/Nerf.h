@@ -4,6 +4,7 @@
 
 #include "PowerUp.h"
 
+
 namespace me {
 	class Entity;
 	class Timer;
@@ -11,9 +12,17 @@ namespace me {
 }
 
 namespace VroomVroom {
+
+
+	class FactoryNerf : public me::FactoryComponent {
+	public:
+		me::Component* create(me::Parameters& params) override;
+		void destroy(me::Component* component) override;
+	};
+
 	/**
-	Throws an oil barrel that makes an oil puddle behind the player and
-	makes the first car that drives on it lose control, and then disappears.
+	Throws a proyectil that moves forward, if it collide with another player,
+	this will loose control of his car for a seconds.
 	*/
 	class Nerf : public PowerUp
 	{

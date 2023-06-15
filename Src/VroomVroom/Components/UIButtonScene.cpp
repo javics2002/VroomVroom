@@ -10,9 +10,40 @@
 #include "EntityComponent/Entity.h"
 #include "Render/Window.h"
 #include "MotorEngine/Scene.h"
+#include "MotorEngine/MotorEngineError.h"
 
 using namespace me;
 using namespace VroomVroom;
+
+me::Component* FactoryUIButtonScene::create(me::Parameters& params)
+{
+	if (params.empty())
+	{
+		return new UIButtonScene();
+	}
+	std::string sprite = Value(params, "sprite", std::string());
+	std::string materialName = Value(params, "materialname", std::string());
+	std::string newScene = Value(params, "scene", std::string());
+	std::string playerlook = Value(params, "playerlook", std::string());
+	int zOrder = Value(params, "zorder", 1);
+
+	UIButtonScene* button = new UIButtonScene();
+	if (button->createSprite(sprite, materialName, zOrder)) {
+		throwMotorEngineError("Scene Button Factory Error", "A sprite with that name already exists.");
+		delete button;
+		return nullptr;
+	}
+	button->setNewScene(newScene);
+	button->setPlayerLook(playerlook);
+
+	return button;
+}
+
+void FactoryUIButtonScene::destroy(me::Component* component)
+{
+	delete component;
+}
+
 
 UIButtonScene::UIButtonScene()
 {
@@ -31,7 +62,10 @@ void UIButtonScene::start()
 	windowHeight = window().getWindowHeight();
 
 	mHoverAudio = mEntity->getComponent<AudioSource>("audiosource");
-
+	if (!mHoverAudio) {
+		throwMotorEngineError("UIButtonScene error", "An entity doesn't have AudioSource component");
+		sceneManager().quit();
+	}
 
 	if (!mPlayerLook.empty())
 	{
@@ -45,10 +79,18 @@ void UIButtonScene::start()
 		{
 			token = aux.substr(0, pos);
 			Transform* tr = sceneManager().getActiveScene()->findEntity(token).get()->getComponent<Transform>("transform");
+			if (!tr) {
+				throwMotorEngineError("UIButtonScene error", "Token entity doesn't have transform component");
+				sceneManager().quit();
+			}
 			mPlayerLookTransform.push_back(tr);
 			aux.erase(0, pos + delimiter.length());
 		}
 		Transform* tr = sceneManager().getActiveScene()->findEntity(aux).get()->getComponent<Transform>("transform");
+		if (!tr) {
+			throwMotorEngineError("UIButtonScene error", "Aux entity doesn't have transform component");
+			sceneManager().quit();
+		}
 		mPlayerLookTransform.push_back(tr);
 
 

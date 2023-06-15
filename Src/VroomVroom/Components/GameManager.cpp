@@ -10,6 +10,23 @@
 using namespace me;
 using namespace VroomVroom;
 
+
+
+Component* FactoryGameManager::create(Parameters& params)
+{
+	GameManager* gameManager = new GameManager();
+
+	return gameManager;
+}
+
+void FactoryGameManager::destroy(Component* component)
+{
+	delete component;
+}
+
+
+
+
 GameManager* GameManager::MInstance = nullptr;
 
 GameManager::GameManager() {

@@ -18,11 +18,36 @@
 #include "Nerf.h"
 #include "CameraFollow.h"
 
+#include "MotorEngine/MotorEngineError.h"
+
 #include "Utils/Vector3.h"
 #include "Utils/Timer.h"
 
 using namespace me;
 using namespace VroomVroom;
+
+
+
+Component* FactoryVehicleController::create(Parameters& params)
+{
+    VehicleController* vehicleController = new VehicleController();
+    vehicleController->setAccelerationAndRotation(Value(params, "acceleration", 0.2f),
+        Value(params, "rotationspeed", 0.07f));
+    vehicleController->setPlayerNumber(PlayerNumber(Value(params, "playernumber", 0)));
+    vehicleController->setMaxSpeedAndRotationSpeed(Value(params, "maxspeed", 12.0f), Value(params, "maxrotationspeed", 3.0f));
+    vehicleController->setLinearAndAngularDamping(Value(params, "lineardamping", 0.987f), Value(params, "angulardamping", 0.9f));
+    vehicleController->setAccelerationAndSteeringBoost(Value(params, "accelerationboost", 1.0f), Value(params, "steeringboost", 2.1f));
+    vehicleController->setSpeedBasedRotationMultiplier(Value(params, "speedbasedfactor", 5.0f));
+    vehicleController->setThunderSpeedBoost(Value(params, "thunderspeed", 23.0f));
+
+    return vehicleController;
+}
+
+void FactoryVehicleController::destroy(me::Component* component)
+{
+    delete component;
+}
+
 
 VehicleController::VehicleController()
 {
@@ -48,24 +73,77 @@ float VehicleController::getPlayerAxis(std::string axisName)
 void VehicleController::start()
 {
     mTransform = mEntity->getComponent<Transform>("transform");
+    if (!mTransform) {
+        throwMotorEngineError("VehicleController error", "Entity doesn't have transform component");
+        sceneManager().quit();
+    }
     mRigidBody = mEntity->getComponent<RigidBody>("rigidbody");
+    if (!mRigidBody) {
+        throwMotorEngineError("VehicleController error", "Entity doesn't have rigidbody component");
+        sceneManager().quit();
+    }
     mThunderAudio = mEntity->getComponent<AudioSource>("audiosource");
+    if (!mThunderAudio) {
+        throwMotorEngineError("VehicleController error", "Entity doesn't have AudioSource component");
+        sceneManager().quit();
+    }
     mPowerUpUIWheel = mEntity->getComponent<PowerUpUIWheel>("powerupuiwheel");
+    if (!mPowerUpUIWheel) {
+        throwMotorEngineError("VehicleController error", "Entity doesn't have PowerUpUIWheel component");
+        sceneManager().quit();
+    }
     mPowerUpUIWheel->addSpriteNameToPool("nerf");
     mPowerUpUIWheel->addSpriteNameToPool("oil");
     mPowerUpUIWheel->addSpriteNameToPool("lightningBolt");
+
+
+    if (!mEntity->getScene()->findEntity("circuit")) {
+        throwMotorEngineError("VehicleController error", "Circuit entity was not found");
+        sceneManager().quit();
+    }
+
     mCircuitInfo = mEntity->getScene()->findEntity("circuit").get()->getComponent<CircuitInfo>("circuitinfo");
+    if (!mCircuitInfo) {
+        throwMotorEngineError("VehicleController error", "Entity doesn't have CircuitInfo component");
+        sceneManager().quit();
+    }
+
+    if (!mEntity->getScene()->findEntity("finish" + std::to_string(mPlayerNumber))) {
+        throwMotorEngineError("VehicleController error", "Finish entity was not found");
+        sceneManager().quit();
+    }
     mEntity->getScene()->findEntity("finish" + std::to_string(mPlayerNumber)).get()->getComponent<UIText>("uitext")->setActive(false);
     mCircuitInfo->addVehicle(this);
+
+    if (!mEntity->getScene()->findEntity("laps" + std::to_string(mPlayerNumber))) {
+        throwMotorEngineError("VehicleController error", "Laps entity was not fuond");
+        sceneManager().quit();
+    }
+
     mLapsText = mEntity->getScene()->findEntity("laps" + std::to_string(mPlayerNumber)).get()
         ->getComponent<UIText>("uitext");
+
+    if (!mLapsText) {
+        throwMotorEngineError("VehicleController error", "Entity doesn't have UIText component");
+        sceneManager().quit();
+    }
 
     // Lock in axis (X-Z)
     mRigidBody->setLinearFactor(Vector3(1, 0, 1));
     mRigidBody->setAngularFactor(Vector3(0, 1, 0));
 
+    if (!mEntity->getScene()->findEntity("chrono" + std::to_string(mPlayerNumber))) {
+        throwMotorEngineError("VehicleController error", "Chrono entity was not fuond");
+        sceneManager().quit();
+    }
+
     mChrono = getEntity()->getScene()->findEntity("chrono" + std::to_string(mPlayerNumber)).get()
         ->getComponent<UIText>("uitext");
+
+    if (!mChrono) {
+        throwMotorEngineError("VehicleController error", "Entity doesn't have UIText component");
+        sceneManager().quit();
+    }
 
     mCheckpointIndex = -1;
     mLap = 0;

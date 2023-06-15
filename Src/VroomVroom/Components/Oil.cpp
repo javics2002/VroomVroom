@@ -9,6 +9,20 @@
 using namespace me;
 using namespace VroomVroom;
 
+Component* FactoryOil::create(Parameters& params)
+{
+	Oil* oil = new Oil();
+	oil->setFriction(Value(params, "friction", 5.0f));
+	return oil;
+
+}
+
+void FactoryOil::destroy(Component* component)
+{
+	delete component;
+}
+
+
 Oil::Oil()
 {
 }

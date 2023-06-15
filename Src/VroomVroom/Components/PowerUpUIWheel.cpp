@@ -3,9 +3,36 @@
 #include "Render/UIComponents/UISpriteRenderer.h"
 #include "EntityComponent/Entity.h"
 #include "MotorEngine/Scene.h"
+#include "MotorEngine/SceneManager.h"
+#include "MotorEngine/MotorEngineError.h"
 
 using namespace me;
 using namespace VroomVroom;
+
+
+
+me::Component* FactoryPowerUpUIWheel::create(me::Parameters& params)
+{
+	if (params.empty())
+	{
+		return new PowerUpUIWheel();
+	}
+	float spinSpeed = Value(params, "spinspeed", 0.2f);
+	std::string linkedSpriteEntityName = Value(params, "linkedsprite", std::string());
+
+	PowerUpUIWheel* powerUpWheel = new PowerUpUIWheel();
+	powerUpWheel->setSpinSpeed(spinSpeed);
+	powerUpWheel->setLinked(linkedSpriteEntityName);
+
+	return powerUpWheel;
+}
+
+void FactoryPowerUpUIWheel::destroy(me::Component* component)
+{
+	delete component;
+}
+
+
 
 PowerUpUIWheel::PowerUpUIWheel()
 {
@@ -24,7 +51,17 @@ void PowerUpUIWheel::start() {
 	mSpinTimer = new Timer(false);
 	mTotalSpinTime = 1;
 	mSpriteToLandOn = "NameNotSet";
+
+	if (!mEntity->getScene()->findEntity(mLinkedUISpriteName)) {
+		throwMotorEngineError("PowerUpUIWheel error", "Linked sprite entity was not found");
+		sceneManager().quit();
+	}
+
 	mLinkedUISprite = mEntity->getScene()->findEntity(mLinkedUISpriteName)->getComponent<UISpriteRenderer>("uispriterenderer");
+	if (!mLinkedUISprite) {
+		throwMotorEngineError("PowerUpUIWheel error", "Linked sprite entity doesn't have UISpriteRenderer component");
+		sceneManager().quit();
+	}
 }
 
 void PowerUpUIWheel::update(const double& dt) {

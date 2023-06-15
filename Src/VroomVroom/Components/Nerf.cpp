@@ -9,6 +9,18 @@
 using namespace me;
 using namespace VroomVroom;
 
+me::Component* VroomVroom::FactoryNerf::create(me::Parameters& params)
+{
+	Nerf* nerf = new Nerf();
+	return nerf;
+}
+
+void VroomVroom::FactoryNerf::destroy(me::Component* component)
+{
+	delete component;
+}
+
+
 Nerf::Nerf()
 {
 	mSpeed = 3;
