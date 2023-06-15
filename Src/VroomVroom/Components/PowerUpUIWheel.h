@@ -2,7 +2,8 @@
 #ifndef __VROOMVROOM_POWER_UP_UI_WHEEL
 #define __VROOMVROOM_POWER_UP_UI_WHEEL
 
-#include "EntityComponent/Components/Component.h"
+#include "EntityComponent/Component.h"
+#include "EntityComponent/FactoryComponent.h"
 #include <string>
 #include <list>
 
@@ -13,6 +14,14 @@ namespace me {
 }
 
 namespace VroomVroom {
+
+
+
+	class FactoryPowerUpUIWheel : public me::FactoryComponent {
+	public:
+		me::Component* create(me::Parameters& params) override;
+		void destroy(me::Component* component) override;
+	};
 
 	/**
 	A component class that represents a power-up wheel that randomly rotates between PowerUps before selecting a definitive one.

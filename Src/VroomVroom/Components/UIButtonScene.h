@@ -3,7 +3,8 @@
 #ifndef __VROOMVROOM_UIBUTTON_SCENE
 #define __VROOMVROOM_UIBUTTON_SCENE
 
-#include "EntityComponent/Components/UIButton.h"
+#include "Render/UIComponents/UIButton.h"
+#include "EntityComponent/FactoryComponent.h"
 
 #include <string>
 #include <vector>
@@ -15,6 +16,13 @@ namespace me {
 }
 
 namespace VroomVroom {
+
+
+	class FactoryUIButtonScene : public me::FactoryComponent {
+	public:
+		me::Component* create(me::Parameters& params) override;
+		void destroy(me::Component* component) override;
+	};
 
 	/**
 	The UISpriteRenderer class represents a visual object in 2D space as a screen overlay that will be attached to an entity.
@@ -51,14 +59,6 @@ namespace VroomVroom {
 		UIButtonScene();
 		//Destroy RenderManager map saved image
 		~UIButtonScene();
-
-		/*
-		* Creates the sprite of the button.
-		* @param name: the name of the value saved on the sprites map..
-		* @param material: the name of the sprite file.
-		* @param zOrder: a value that stablishes if a button is in front or behind something.
-		*/
-		void init(std::string name, std::string materialName, int zOrder);
 
 		/**
 		Get info for UITransform, create the Sprite and set the start pos

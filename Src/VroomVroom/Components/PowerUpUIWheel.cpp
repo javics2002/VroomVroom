@@ -1,11 +1,38 @@
 #include "PowerUpUIWheel.h"
 #include "Utils/Timer.h"
-#include "EntityComponent/Components/UISpriteRenderer.h"
+#include "Render/UIComponents/UISpriteRenderer.h"
 #include "EntityComponent/Entity.h"
-#include "EntityComponent/Scene.h"
+#include "MotorEngine/Scene.h"
+#include "MotorEngine/SceneManager.h"
+#include "MotorEngine/MotorEngineError.h"
 
 using namespace me;
 using namespace VroomVroom;
+
+
+
+me::Component* FactoryPowerUpUIWheel::create(me::Parameters& params)
+{
+	if (params.empty())
+	{
+		return new PowerUpUIWheel();
+	}
+	float spinSpeed = Value(params, "spinspeed", 0.2f);
+	std::string linkedSpriteEntityName = Value(params, "linkedsprite", std::string());
+
+	PowerUpUIWheel* powerUpWheel = new PowerUpUIWheel();
+	powerUpWheel->setSpinSpeed(spinSpeed);
+	powerUpWheel->setLinked(linkedSpriteEntityName);
+
+	return powerUpWheel;
+}
+
+void FactoryPowerUpUIWheel::destroy(me::Component* component)
+{
+	delete component;
+}
+
+
 
 PowerUpUIWheel::PowerUpUIWheel()
 {
@@ -24,7 +51,27 @@ void PowerUpUIWheel::start() {
 	mSpinTimer = new Timer(false);
 	mTotalSpinTime = 1;
 	mSpriteToLandOn = "NameNotSet";
-	mLinkedUISprite = mEntity->getScene()->findEntity(mLinkedUISpriteName)->getComponent<UISpriteRenderer>("uispriterenderer");
+
+	if (!mEntity->getScene()->findEntity(mLinkedUISpriteName)) {
+		errorManager().throwMotorEngineError("PowerUpUIWheel error", "Linked sprite entity was not found");
+		sceneManager().quit();
+        return;
+	}
+
+	Entity* linkedUISpriteEntity = mEntity->getScene()->findEntity(mLinkedUISpriteName).get();
+	if (!linkedUISpriteEntity) {
+		errorManager().throwMotorEngineError("PowerUpUIWheel error",
+			mLinkedUISpriteName + " entity was not found.");
+		sceneManager().quit();
+		return;
+	}
+	mLinkedUISprite = linkedUISpriteEntity->getComponent<UISpriteRenderer>("uispriterenderer");
+	if (!mLinkedUISprite) {
+		errorManager().throwMotorEngineError("PowerUpUIWheel error", 
+			"Linked sprite entity doesn't have UISpriteRenderer component");
+		sceneManager().quit();
+        return;
+	}
 }
 
 void PowerUpUIWheel::update(const double& dt) {

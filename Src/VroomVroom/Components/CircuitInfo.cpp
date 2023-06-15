@@ -1,15 +1,15 @@
 #include "CircuitInfo.h"
-#include "EntityComponent/Scene.h"
+#include "MotorEngine/Scene.h"
 #include "EntityComponent/Entity.h"
-#include "EntityComponent/SceneManager.h"
-#include "EntityComponent/Components/Transform.h"
+#include "MotorEngine/SceneManager.h"
+#include "EntityComponent/Transform.h"
 #include "Audio/SoundManager.h"
 #include "VehicleController.h"
 #include "Checkpoint.h"
 #include "GameManager.h"
-
+#include "MotorEngine/MotorEngineError.h"
 #include "Utils/Timer.h"
-#include "EntityComponent/Components/UISpriteRenderer.h"
+#include "Render/UIComponents/UISpriteRenderer.h"
 
 #define _USE_MATH_DEFINES
 #include <math.h>
@@ -17,6 +17,27 @@
 
 using namespace me;
 using namespace VroomVroom;
+
+
+Component* FactoryCirtuitInfo::create(Parameters& params)
+{
+	CircuitInfo* circuitInfo = new CircuitInfo();
+	circuitInfo->setPosition(Vector3(Value(params, "position_x", 0.0f),
+		Value(params, "position_y", 0.0f), Value(params, "position_z", 0.0f)));
+
+	circuitInfo->setLaps(Value(params, "laps", 3));
+
+	circuitInfo->setInfo(Value(params, "halfwidthinner", 36.0f), Value(params, "halfwidthouter", 44.0f),
+		Value(params, "halfheightinner", 1.7f), Value(params, "halfheightouter", 8.0f),
+		Value(params, "radiusinner", 1.7f), Value(params, "radiusouter", 8.0f));
+
+	return circuitInfo;
+}
+
+void FactoryCirtuitInfo::destroy(Component* component)
+{
+	delete component;
+}
 
 CircuitInfo::CircuitInfo()
 {
@@ -39,8 +60,20 @@ void CircuitInfo::start()
 	mRaceStarted = false;
 	mTimer = new Timer(true);
 
-	mCountdownSprite = sceneManager().getActiveScene()->findEntity("countdownui").get()
-		->getComponent<UISpriteRenderer>("uispriterenderer");
+	Entity* countdownEntity = sceneManager().getActiveScene()->findEntity("countdownui").get();
+	if (!countdownEntity) {
+		errorManager().throwMotorEngineError("CircuitInfo error", "CountdownUI entity was not found");
+		sceneManager().quit();
+		return;
+	}
+
+	mCountdownSprite = countdownEntity->getComponent<UISpriteRenderer>("uispriterenderer");
+
+	if (!mCountdownSprite) {
+		errorManager().throwMotorEngineError("CircuitInfo error", "CountdownUI entity doesn't have UISpriteRenderer component");
+		sceneManager().quit();
+        return;
+	}
 
 }
 
@@ -126,14 +159,56 @@ void CircuitInfo::calculatePlaces()
 
 			//Lastly check their remaining distance to the next checkpoint
 			else {
-				Vector3 nextCheckpointPosition =
-					mCheckpoints[(mVehicles[i]->getChekpointIndex() + 1) % Checkpoint::GetNumCheckpoints()]
-					->getEntity()->getComponent<Transform>("transform")->getPosition();
+				Entity* entity = mCheckpoints[(mVehicles[i]->getChekpointIndex() + 1) % Checkpoint::GetNumCheckpoints()]
+					->getEntity();
+				if (!entity) {
+					errorManager().throwMotorEngineError("CalculatePlaces error", 
+						"Checkpoint" + std::to_string((mVehicles[i]->getChekpointIndex() + 1) 
+							% Checkpoint::GetNumCheckpoints()) + " entity was not found.");
+					sceneManager().quit();
+					return;
+				}
+				Transform* transform = entity->getComponent<Transform>("transform");
+				if (!transform) {
+					errorManager().throwMotorEngineError("CalculatePlaces error",
+						entity->getName() + " entity doesn't have transform component.");
+					sceneManager().quit();
+					return;
+				}
+				Vector3 nextCheckpointPosition = transform->getPosition();
+					
+				Entity* iVehicleEntity = mVehicles[i]->getEntity();
+				if (!iVehicleEntity) {
+					errorManager().throwMotorEngineError("CalculatePlaces error",
+						std::to_string(i) + " vehicle entity was not found.");
+					sceneManager().quit();
+					return;
+				}
+				Transform* iVehicleTransform = iVehicleEntity->getComponent<Transform>("transform");
+				if (!iVehicleTransform) {
+					errorManager().throwMotorEngineError("CalculatePlaces error",
+						std::to_string(i) + " vehicle entity doesn't have transform component.");
+					sceneManager().quit();
+					return;
+				}
+				Vector3 iVehiclePosition = iVehicleTransform->getPosition();
 
-				Vector3 iVehiclePosition = mVehicles[i]->getEntity()
-					->getComponent<Transform>("transform")->getPosition();
-				Vector3 jVehiclePosition = mVehicles[j]->getEntity()
-					->getComponent<Transform>("transform")->getPosition();
+
+				Entity* jVehicleEntity = mVehicles[j]->getEntity();
+				if (!iVehicleEntity) {
+					errorManager().throwMotorEngineError("CalculatePlaces error",
+						std::to_string(j) + " vehicle entity was not found.");
+					sceneManager().quit();
+					return;
+				}
+				Transform* jVehicleTransform = jVehicleEntity->getComponent<Transform>("transform");
+				if (!jVehicleTransform) {
+					errorManager().throwMotorEngineError("CalculatePlaces error",
+						std::to_string(j) + " vehicle entity doesn't have transform component.");
+					sceneManager().quit();
+					return;
+				}
+				Vector3 jVehiclePosition = jVehicleTransform->getPosition();
 
 				if (nextCheckpointPosition.distance(iVehiclePosition)
 					> nextCheckpointPosition.distance(jVehiclePosition))
@@ -158,8 +233,20 @@ void CircuitInfo::calculatePlaces()
 			continue;
 		}
 
-		UISpriteRenderer* placeUISprite = getEntity()->getScene()->findEntity(placeUIName).get()
-			->getComponent<UISpriteRenderer>("uispriterenderer");
+		Entity* placeEntity = getEntity()->getScene()->findEntity(placeUIName).get();
+		if (!placeEntity) {
+			errorManager().throwMotorEngineError("CalculatePlaces error",
+				placeUIName + " entity was not found.");
+			sceneManager().quit();
+			return;
+		}
+		UISpriteRenderer* placeUISprite = placeEntity->getComponent<UISpriteRenderer>("uispriterenderer");
+		if (!placeUISprite) {
+			errorManager().throwMotorEngineError("CalculatePlaces error",
+				placeUIName + " entity doesn't have UISpriteRenderer component.");
+			sceneManager().quit();
+			return;
+		}
 
 		switch (vehicle->getPlace()) {
 		case 1:

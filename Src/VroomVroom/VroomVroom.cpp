@@ -1,9 +1,19 @@
 #include "VroomVroom/VroomVroom.h"
 #include "framework.h"
-#include "EntityComponent/Components/ComponentsFactory.h"
-#include "Components/VroomVroomComponents.h"
+#include "EntityComponent/ComponentsFactory.h"
+#include "VroomVroom/Components/Nerf.h"
+#include "VroomVroom/Components/Oil.h"
+#include "VroomVroom/Components/UIButtonScene.h"
+#include "VroomVroom/Components/UIButtonQuit.h"
+#include "VroomVroom/Components/PowerUpObject.h"
+#include "VroomVroom/Components/PowerUpUiWheel.h"
+#include "VroomVroom/Components/VehicleController.h"
+#include "VroomVroom/Components/CircuitInfo.h"
+#include "VroomVroom/Components/Checkpoint.h"
+#include "VroomVroom/Components/CameraFollow.h"
+
 #include "Components/GameManager.h"
-#include "EntityComponent/SceneManager.h"
+#include "MotorEngine/SceneManager.h"
 #include "EntityComponent/Entity.h"
 
 // Input
@@ -20,7 +30,8 @@ __VROOMVROOM_API const char* name()
 }
 
 __VROOMVROOM_API bool init() {
-	return sceneManager().loadScene("mainmenu.lua");
+	sceneManager().change("mainmenu.lua");
+	return sceneManager().loadScene();
 }
 
 __VROOMVROOM_API void initFactories()

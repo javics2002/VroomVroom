@@ -29,7 +29,6 @@
     <ClCompile Include="..\..\Src\VroomVroom\Components\PowerUpUIWheel.cpp" />
     <ClCompile Include="..\..\Src\VroomVroom\Components\UIButtonQuit.cpp" />
     <ClCompile Include="..\..\Src\VroomVroom\Components\UIButtonScene.cpp" />
-    <ClCompile Include="..\..\Src\VroomVroom\Components\VroomVroomComponents.cpp" />
     <ClCompile Include="..\..\Src\VroomVroom\Components\VehicleController.cpp" />
     <ClCompile Include="..\..\Src\VroomVroom\dllmain.cpp" />
     <ClCompile Include="..\..\Src\VroomVroom\VroomVroom.cpp" />
@@ -47,7 +46,6 @@
     <ClInclude Include="..\..\Src\VroomVroom\Components\PowerUpUIWheel.h" />
     <ClInclude Include="..\..\Src\VroomVroom\Components\UIButtonQuit.h" />
     <ClInclude Include="..\..\Src\VroomVroom\Components\UIButtonScene.h" />
-    <ClInclude Include="..\..\Src\VroomVroom\Components\VroomVroomComponents.h" />
     <ClInclude Include="..\..\Src\VroomVroom\Components\VehicleController.h" />
     <ClInclude Include="..\..\Src\VroomVroom\framework.h" />
     <ClInclude Include="..\..\Src\VroomVroom\pch.h" />

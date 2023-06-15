@@ -3,13 +3,24 @@
 #ifndef __VROOMVROOM_CHECKPOINT
 #define __VROOMVROOM_CHECKPOINT
 
-#include "EntityComponent/Components/Component.h"
+#include "EntityComponent/FactoryComponent.h"
+#include "EntityComponent/Component.h"
+
 
 namespace me {
 	class RigidBody;
 }
 
 namespace VroomVroom {
+
+
+
+	class FactoryCheckpoint : public me::FactoryComponent {
+	public:
+		me::Component* create(me::Parameters& params) override;
+		void destroy(me::Component* component) override;
+	};
+
 	class CircuitInfo;
 
 	/*

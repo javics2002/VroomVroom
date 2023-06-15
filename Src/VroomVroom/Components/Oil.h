@@ -12,6 +12,15 @@ namespace me {
 }
 
 namespace VroomVroom {
+
+
+	class FactoryOil : public me::FactoryComponent {
+	public:
+		me::Component* create(me::Parameters& params) override;
+		void destroy(me::Component* component) override;
+	};
+
+
 	/**
 	Throws an oil barrel that makes an oil puddle behind the player and
 	makes the first car that drives on it lose control, and then disappears.

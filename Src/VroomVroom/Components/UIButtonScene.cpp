@@ -2,17 +2,48 @@
 #include "Input/InputManager.h"
 #include "Render/RenderManager.h"
 #include "Audio/SoundManager.h"
-#include "EntityComponent/SceneManager.h"
+#include "MotorEngine/SceneManager.h"
 #include "GameManager.h"
-#include "EntityComponent/Components/UITransform.h"
-#include "EntityComponent/Components/Transform.h"
-#include "EntityComponent/Components/AudioSource.h"
+#include "Render/UIComponents/UITransform.h"
+#include "EntityComponent/Transform.h"
+#include "Audio/AudioComponents/AudioSource.h"
 #include "EntityComponent/Entity.h"
 #include "Render/Window.h"
-#include "EntityComponent/Scene.h"
+#include "MotorEngine/Scene.h"
+#include "MotorEngine/MotorEngineError.h"
 
 using namespace me;
 using namespace VroomVroom;
+
+me::Component* FactoryUIButtonScene::create(me::Parameters& params)
+{
+	if (params.empty())
+	{
+		return new UIButtonScene();
+	}
+	std::string sprite = Value(params, "sprite", std::string());
+	std::string materialName = Value(params, "materialname", std::string());
+	std::string newScene = Value(params, "scene", std::string());
+	std::string playerlook = Value(params, "playerlook", std::string());
+	int zOrder = Value(params, "zorder", 1);
+
+	UIButtonScene* button = new UIButtonScene();
+	if (!button->createSprite(sprite, materialName, zOrder)) {
+		errorManager().throwMotorEngineError("Scene Button Factory Error", "A sprite with that name already exists.");
+		delete button;
+		return nullptr;
+	}
+	button->setNewScene(newScene);
+	button->setPlayerLook(playerlook);
+
+	return button;
+}
+
+void FactoryUIButtonScene::destroy(me::Component* component)
+{
+	delete component;
+}
+
 
 UIButtonScene::UIButtonScene()
 {
@@ -23,18 +54,6 @@ UIButtonScene::~UIButtonScene()
 	renderManager().destroyUISprite(mName);
 }
 
-void UIButtonScene::init(std::string name, std::string materialName, int zOrder)
-{
-	mName = name;
-	mSpriteName = materialName;
-
-	if (mSpriteName.size() > 0)
-	{
-		renderManager().createSprite(mName, mSpriteName, zOrder);
-	}
-
-}
-
 void UIButtonScene::start()
 {
 	UIButton::start();
@@ -43,7 +62,10 @@ void UIButtonScene::start()
 	windowHeight = window().getWindowHeight();
 
 	mHoverAudio = mEntity->getComponent<AudioSource>("audiosource");
-
+	if (!mHoverAudio) {
+		errorManager().throwMotorEngineError("UIButtonScene error", "An entity doesn't have AudioSource component");
+		sceneManager().quit();
+	}
 
 	if (!mPlayerLook.empty())
 	{
@@ -56,11 +78,33 @@ void UIButtonScene::start()
 		while ((pos = aux.find(delimiter)) != std::string::npos)
 		{
 			token = aux.substr(0, pos);
-			Transform* tr = sceneManager().getActiveScene()->findEntity(token).get()->getComponent<Transform>("transform");
+			Entity* auxEntity = sceneManager().getActiveScene()->findEntity(token).get();
+			if (!auxEntity) {
+				errorManager().throwMotorEngineError("UIButtonScene error", token + " entity was not found");
+				sceneManager().quit();
+				return;
+			}
+			Transform* tr = auxEntity->getComponent<Transform>("transform");
+			if (!tr) {
+				errorManager().throwMotorEngineError("UIButtonScene error", "Token entity doesn't have transform component");
+				sceneManager().quit();
+				return;
+			}
 			mPlayerLookTransform.push_back(tr);
 			aux.erase(0, pos + delimiter.length());
 		}
-		Transform* tr = sceneManager().getActiveScene()->findEntity(aux).get()->getComponent<Transform>("transform");
+		Entity* auxEntity = sceneManager().getActiveScene()->findEntity(aux).get();
+		if (!auxEntity) {
+			errorManager().throwMotorEngineError("UIButtonScene error", aux + " entity was not found");
+			sceneManager().quit();
+			return;
+		}
+		Transform* tr = auxEntity->getComponent<Transform>("transform");
+		if (!tr) {
+			errorManager().throwMotorEngineError("UIButtonScene error", aux + " entity doesn't have transform component");
+			sceneManager().quit();
+			return;
+		}
 		mPlayerLookTransform.push_back(tr);
 
 
@@ -100,8 +144,9 @@ void UIButtonScene::update(const double& dt)
 		else if (stoppedSound) {
 			toggleSound = true;
 			stoppedSound = false;
+
 			if (mHoverAudio != nullptr)
-			mHoverAudio->play();
+				mHoverAudio->play();
 		}
 	}
 	else
@@ -160,7 +205,12 @@ void VroomVroom::UIButtonScene::toggleHover()
 void UIButtonScene::execute()
 {
 	soundManager().stopEverySound();
-	sceneManager().change(mNewScene);
+
+	std::list<std::string> awake;
+	awake.push_back("createCheckpoints");
+	awake.push_back("createWalls");
+
+	sceneManager().change(mNewScene, awake);
 }
 
 

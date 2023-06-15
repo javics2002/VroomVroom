@@ -2,7 +2,8 @@
 #ifndef __VROOMVROOM_CAMERAFOLLOW
 #define __VROOMVROOM_CAMERAFOLLOW
 
-#include "EntityComponent/Components/Component.h"
+#include "EntityComponent/Component.h"
+#include "EntityComponent/FactoryComponent.h"
 #include "Utils/Vector3.h"
 #include <string>
 
@@ -13,6 +14,14 @@ namespace me {
 }
 
 namespace VroomVroom {
+
+	class FactoryCameraFollow : public me::FactoryComponent {
+	public:
+		me::Component* create(me::Parameters& params) override;
+		void destroy(me::Component* component) override;
+	};
+
+
 	/*
 	The CameraFollow component manages the Transform and Camera components
 	to track a target.

@@ -3,7 +3,8 @@
 #define __VROOMVROOM_POWER_UP_OBJECT
 
 
-#include "EntityComponent/Components/Component.h"
+#include "EntityComponent/Component.h"
+#include "EntityComponent/FactoryComponent.h"
 
 namespace me {
 	class Timer;
@@ -20,6 +21,14 @@ namespace VroomVroom {
 	{
 		NERF, OIL, THUNDER
 	};
+
+
+	class FactoryPowerUpObject : public me::FactoryComponent {
+	public:
+		me::Component* create(me::Parameters& params) override;
+		void destroy(me::Component* component) override;
+	};
+
 
 	/**
 	A box that gives the player that touches it a random power-up,

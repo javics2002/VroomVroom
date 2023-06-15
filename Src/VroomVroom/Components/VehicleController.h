@@ -2,10 +2,11 @@
 #ifndef __VROOMVROOM_VEHICLECONTROLLER
 #define __VROOMVROOM_VEHICLECONTROLLER
 
-#include "EntityComponent/Components/Component.h"
-#include "EntityComponent/Components/UIText.h"
+#include "EntityComponent/Component.h"
+#include "Render/UIComponents/UIText.h"
 #include "VroomVroom/VroomVroomInput.h"
 #include "Utils/Vector3.h"
+#include "EntityComponent/FactoryComponent.h"
 #include <string>
 
 namespace me {
@@ -21,6 +22,14 @@ namespace VroomVroom {
 	class PowerUpUIWheel;
 
 	enum PowerUpType : int;
+
+
+	class FactoryVehicleController : public me::FactoryComponent {
+	public:
+		me::Component* create(me::Parameters& params) override;
+		void destroy(me::Component* component) override;
+	};
+
 
 	class VehicleController : public me::Component {
 	private:

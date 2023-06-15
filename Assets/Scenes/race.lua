@@ -1,9 +1,9 @@
-Entities = {
+ Entities = {
 	Circuit = {
 	    Transform = {
             position = { x = -65, y = 5, z = 0 },
 			rotation = { x = 0, y = 0, z = 0 },
-            scale = { x = 1, y = 1, z = 1} --80 30 40
+            scale = { x = 1, y = 1, z = 1}
 	    },
 	    RigidBody = {
 		    colShape = 1,
@@ -22,7 +22,6 @@ Entities = {
         meshrenderer = {
             mesh = "circuit",
             meshName = "Circuito.mesh",
-            -- materialName = "Material/roja"
         },
         CircuitInfo = {
             laps = 3
@@ -110,7 +109,6 @@ Entities = {
         meshrenderer = {
             mesh = "kartone",
             meshName = "RedCar.mesh",
-            --materialName = "Material/roja"
         },
         audiolistener = {
 
@@ -257,103 +255,6 @@ Entities = {
             groupchannel = "music"
         }
     },
-    
-    checkpoint3 = {
-        Transform = {
-            position = { x= -120, y = 0, z = 0 },
-            scale = { x = 1, y = 1, z = 1 },
-            rotation = {x = 0, y = 180, z = 0}
-        },
-        RigidBody = {
-            colShape = 1,
-            mvType = static,
-            mass = 5,
-            group = 1,
-            mask = 2,
-            colliderscale = {x = 10, y = 10, z = 1},
-            restitution = .5,
-            friction = 0.5,
-            isTrigger = true
-        },
-        collider = {
-
-        },
-        Checkpoint={
-            index = 3;
-        }
-    },
-    checkpoint2 = {
-        Transform = {
-            position = { x= -80, y = 0, z = 10 },
-            scale = { x = 1, y = 1, z = 1 },
-            rotation = {x = 0, y = 180, z = 0}
-        },
-        RigidBody = {
-            colShape = 1,
-            mvType = static,
-            mass = 5,
-            group = 1,
-            mask = 2,
-            colliderscale = {x = 1, y = 10, z = 10},
-            restitution = .5,
-            friction = 0.5,
-            isTrigger = true
-        },
-        collider = {
-
-        },
-        Checkpoint={
-            index = 2;
-        }
-    },
-    checkpoint1 = {
-        Transform = {
-            position = { x= -0, y = 0, z = 0 },
-            scale = { x = 1, y = 1, z = 1 },
-            rotation = {x = 0, y = 180, z = 0}
-        },
-        RigidBody = {
-            colShape = 1,
-            mvType = static,
-            mass = 5,
-            group = 1,
-            mask = 2,
-            colliderscale = {x = 10, y = 10, z = 1},
-            restitution = .5,
-            friction = 0.5,
-            isTrigger = true
-        },
-        collider = {
-
-        },
-        Checkpoint={
-            index = 1;
-        }
-    },
-    checkpoint0 = {
-        Transform = {
-            position = { x=-42, y = 0, z = -10 },
-            scale = { x = 1, y = 1, z = 1 },
-            rotation = {x = 0, y = 180, z = 0}
-        },
-        RigidBody = {
-            colShape = 1,
-            mvType = static,
-            mass = 5,
-            group = 1,
-            mask = 2,
-            colliderscale = {x = 1, y = 10, z = 10},
-            restitution = .5,
-            friction = 0.5,
-            isTrigger = true
-        },
-        collider = {
-
-        },
-        Checkpoint={
-            index = 0;
-        }
-    },
 
     DirectionalLight = {
         Transform = {
@@ -368,569 +269,6 @@ Entities = {
         }
     },
 
-    -- -- Paredes del centro del circuito
-
-    ParedCentroDerecha = {
-        Transform = {
-            position = { x = -63, y = 5, z = 2.8},
-			rotation = { x = 0, y = 0, z = 0 },
-            scale = { x = 1, y = 1, z = 1}
-	    },
-        RigidBody = {
-		    colShape = 1,
-		    mvType = static,
-		    mass = 5,
-            group = 1,
-            mask = 2,
-            colliderscale = {x = 54, y = 10, z = 0.01},
-		    restitution = .5,
-		    friction = .3,
-		    isTrigger = false
-	    },
-        collider = {}
-    },
-
-    ParedCentroIzquierda = {
-        Transform = {
-            position = { x = -63, y = 5, z = -2.8},
-			rotation = { x = 0, y = 0, z = 0 },
-            scale = { x = 1, y = 1, z = 1}
-	    },
-        RigidBody = {
-		    colShape = 1,
-		    mvType = static,
-		    mass = 5,
-            group = 1,
-            mask = 2,
-            colliderscale = {x = 54, y = 10, z = 0.01},
-		    restitution = .5,
-		    friction = .3,
-		    isTrigger = false
-	    },
-        collider = {}
-    },
-
-    ParedCentro1 = {
-        Transform = {
-            position = { x = -7.2, y = 5, z = 0},
-			rotation = { x = 0, y = 90, z = 0 },
-            scale = { x = 1, y = 1, z = 1}
-	    },
-        RigidBody = {
-		    colShape = 1,
-		    mvType = static,
-		    mass = 5,
-            group = 1,
-            mask = 2,
-            colliderscale = {x = 0.8, y = 10, z = 0.01},
-		    restitution = .5,
-		    friction = .3,
-		    isTrigger = false
-	    },
-        collider = {}
-    },
-
-    ParedCentro2 = {
-        Transform = {
-            position = { x = -7.4, y = 5, z = -0.8},
-			rotation = { x = 0, y = -70, z = 0 },
-            scale = { x = 1, y = 1, z = 1}
-	    },
-        RigidBody = {
-		    colShape = 1,
-		    mvType = static,
-		    mass = 5,
-            group = 1,
-            mask = 2,
-            colliderscale = {x = 0.8, y = 10, z = 0.01},
-		    restitution = .5,
-		    friction = .3,
-		    isTrigger = false
-	    },
-        collider = {}
-    },
-
-    ParedCentro3 = {
-        Transform = {
-            position = { x = -8.2, y = 5, z = -2},
-			rotation = { x = 0, y = -50, z = 0 },
-            scale = { x = 1, y = 1, z = 1}
-	    },
-        RigidBody = {
-		    colShape = 1,
-		    mvType = static,
-		    mass = 5,
-            group = 1,
-            mask = 2,
-            colliderscale = {x = 0.8, y = 10, z = 0.01},
-		    restitution = .5,
-		    friction = .3,
-		    isTrigger = false
-	    },
-        collider = {}
-    },
-
-    ParedCentro4 = {
-        Transform = {
-            position = { x = -7.4, y = 5, z = 0.8},
-			rotation = { x = 0, y = 70, z = 0 },
-            scale = { x = 1, y = 1, z = 1}
-	    },
-        RigidBody = {
-		    colShape = 1,
-		    mvType = static,
-		    mass = 5,
-            group = 1,
-            mask = 2,
-            colliderscale = {x = 0.8, y = 10, z = 0.01},
-		    restitution = .5,
-		    friction = .3,
-		    isTrigger = false
-	    },
-        collider = {}
-    },
-
-    ParedCentro5 = {
-        Transform = {
-            position = { x = -8.2, y = 5, z = 2},
-			rotation = { x = 0, y = 50, z = 0 },
-            scale = { x = 1, y = 1, z = 1}
-	    },
-        RigidBody = {
-		    colShape = 1,
-		    mvType = static,
-		    mass = 5,
-            group = 1,
-            mask = 2,
-            colliderscale = {x = 0.8, y = 10, z = 0.01},
-		    restitution = .5,
-		    friction = .3,
-		    isTrigger = false
-	    },
-        collider = {}
-    },
-
-    ParedCentro6 = {
-        Transform = {
-            position = { x = -119, y = 5, z = 0},
-			rotation = { x = 0, y = 90, z = 0 },
-            scale = { x = 1, y = 1, z = 1}
-	    },
-        RigidBody = {
-		    colShape = 1,
-		    mvType = static,
-		    mass = 5,
-            group = 1,
-            mask = 2,
-            colliderscale = {x = 0.8, y = 10, z = 0.01},
-		    restitution = .5,
-		    friction = .3,
-		    isTrigger = false
-	    },
-        collider = {}
-    },
-
-    ParedCentro7 = {
-        Transform = {
-            position = { x = -119, y = 5, z = 0.8},
-			rotation = { x = 0, y = -70, z = 0 },
-            scale = { x = 1, y = 1, z = 1}
-	    },
-        RigidBody = {
-		    colShape = 1,
-		    mvType = static,
-		    mass = 5,
-            group = 1,
-            mask = 2,
-            colliderscale = {x = 0.8, y = 10, z = 0.01},
-		    restitution = .5,
-		    friction = .3,
-		    isTrigger = false
-	    },
-        collider = {}
-    },
-
-    ParedCentro8 = {
-        Transform = {
-            position = { x = -118, y = 5, z = 2},
-			rotation = { x = 0, y = -40, z = 0 },
-            scale = { x = 1, y = 1, z = 1}
-	    },
-        RigidBody = {
-		    colShape = 1,
-		    mvType = static,
-		    mass = 5,
-            group = 1,
-            mask = 2,
-            colliderscale = {x = 0.8, y = 10, z = 0.01},
-		    restitution = .5,
-		    friction = .3,
-		    isTrigger = false
-	    },
-        collider = {}
-    },
-
-    ParedCentro9 = {
-        Transform = {
-            position = { x = -119, y = 5, z = -0.8},
-			rotation = { x = 0, y = 70, z = 0 },
-            scale = { x = 1, y = 1, z = 1}
-	    },
-        RigidBody = {
-		    colShape = 1,
-		    mvType = static,
-		    mass = 5,
-            group = 1,
-            mask = 2,
-            colliderscale = {x = 0.8, y = 10, z = 0.01},
-		    restitution = .5,
-		    friction = .3,
-		    isTrigger = false
-	    },
-        collider = {}
-    },
-
-    ParedCentro10 = {
-        Transform = {
-            position = { x = -118, y = 5, z = -2},
-			rotation = { x = 0, y = 40, z = 0 },
-            scale = { x = 1, y = 1, z = 1}
-	    },
-        RigidBody = {
-		    colShape = 1,
-		    mvType = static,
-		    mass = 5,
-            group = 1,
-            mask = 2,
-            colliderscale = {x = 0.8, y = 10, z = 0.01},
-		    restitution = .5,
-		    friction = .3,
-		    isTrigger = false
-	    },
-        collider = {}
-    },
-
- --Paredes del exterior del circuito
-
-    ParedDerecha = {
-        Transform = {
-            position = { x = -50, y = 5, z = 13},
-            rotation = { x = 0, y = 0, z = 0 },
-            scale = { x = 1, y = 1, z = 1}
-        },
-        RigidBody = {
-            colShape = 1,
-            mvType = static,
-            mass = 5,
-            group = 1,
-            mask = 2,
-            colliderscale = {x = 100, y = 10, z = 0.01},
-            restitution = .5,
-            friction = .3,
-            isTrigger = false
-        },
-        collider = {}
-    },
-
-    ParedIzquierda = {
-        Transform = {
-            position = { x = -50, y = 5, z = -13},
-            rotation = { x = 0, y = 0, z = 0 },
-            scale = { x = 1, y = 1, z = 1}
-        },
-        RigidBody = {
-            colShape = 1,
-            mvType = static,
-            mass = 5,
-            group = 1,
-            mask = 2,
-            colliderscale = {x = 100, y = 10, z = 0.01},
-            restitution = .5,
-            friction = .3,
-            isTrigger = false
-        },
-        collider = {}
-    },
-
-    ParedFondo1 = {
-        Transform = {
-            position = { x = 2.5, y = 5, z = 0},
-            rotation = { x = 0, y = 0, z = 0 },
-            scale = { x = 1, y = 1, z = 1}
-        },
-        RigidBody = {
-            colShape = 1,
-            mvType = static,
-            mass = 5,
-            group = 1,
-            mask = 2,
-            colliderscale = {x = 0.01, y = 10, z = 10},
-            restitution = .5,
-            friction = .3,
-            isTrigger = false
-        },
-        collider = {}
-    },
-
-    ParedFondo2 = {
-        Transform = {
-            position = { x = 1, y = 5, z = -6},
-            rotation = { x = 0, y = 27, z = 0 },
-            scale = { x = 1, y = 1, z = 1}
-        },
-        RigidBody = {
-            colShape = 1,
-            mvType = static,
-            mass = 5,
-            group = 1,
-            mask = 2,
-            colliderscale = {x = 0.01, y = 10, z = 20},
-            restitution = .5,
-            friction = .3,
-            isTrigger = false
-        },
-        collider = {}
-    },
-
-    ParedFondo3 = {
-        Transform = {
-            position = { x = 0, y = 5, z = -8},
-            rotation = { x = 0, y = 42, z = 0 },
-            scale = { x = 1, y = 1, z = 1}
-        },
-        RigidBody = {
-            colShape = 1,
-            mvType = static,
-            mass = 5,
-            group = 1,
-            mask = 2,
-            colliderscale = {x = 0.01, y = 10, z = 10},
-            restitution = .5,
-            friction = .3,
-            isTrigger = false
-        },
-        collider = {}
-    },
-
-    ParedFondo4 = {
-        Transform = {
-            position = { x = -2, y = 5, z = -11},
-            rotation = { x = 0, y = 65, z = 0 },
-            scale = { x = 1, y = 1, z = 1}
-        },
-        RigidBody = {
-            colShape = 1,
-            mvType = static,
-            mass = 5,
-            group = 1,
-            mask = 2,
-            colliderscale = {x = 0.01, y = 10, z = 10},
-            restitution = .5,
-            friction = .3,
-            isTrigger = false
-        },
-        collider = {}
-    },
-
-    ParedFondo5 = {
-        Transform = {
-            position = { x = 1.5, y = 5, z = 6},
-            rotation = { x = 0, y = -27, z = 0 },
-            scale = { x = 1, y = 1, z = 1}
-        },
-        RigidBody = {
-            colShape = 1,
-            mvType = static,
-            mass = 5,
-            group = 1,
-            mask = 2,
-            colliderscale = {x = 0.01, y = 10, z = 20},
-            restitution = .5,
-            friction = .3,
-            isTrigger = false
-        },
-        collider = {}
-    },
-
-    ParedFondo6 = {
-        Transform = {
-            position = { x = 0, y = 5, z = 8},
-            rotation = { x = 0, y = -42, z = 0 },
-            scale = { x = 1, y = 1, z = 1}
-        },
-        RigidBody = {
-            colShape = 1,
-            mvType = static,
-            mass = 5,
-            group = 1,
-            mask = 2,
-            colliderscale = {x = 0.01, y = 10, z = 10},
-            restitution = .5,
-            friction = .3,
-            isTrigger = false
-        },
-        collider = {}
-    },
-
-    ParedFondo7 = {
-        Transform = {
-            position = { x = -2, y = 5, z = 11},
-            rotation = { x = 0, y = -65, z = 0 },
-            scale = { x = 1, y = 1, z = 1}
-        },
-        RigidBody = {
-            colShape = 1,
-            mvType = static,
-            mass = 5,
-            group = 1,
-            mask = 2,
-            colliderscale = {x = 0.01, y = 10, z = 10},
-            restitution = .5,
-            friction = .3,
-            isTrigger = false
-        },
-        collider = {}
-    },
-
-    ParedFrente1 = {
-        Transform = {
-            position = { x = -129, y = 5, z = 0},
-            rotation = { x = 0, y = 0, z = 0 },
-            scale = { x = 1, y = 1, z = 1}
-        },
-        RigidBody = {
-            colShape = 1,
-            mvType = static,
-            mass = 5,
-            group = 1,
-            mask = 2,
-            colliderscale = {x = 0.01, y = 10, z = 10},
-            restitution = .5,
-            friction = .3,
-            isTrigger = false
-        },
-        collider = {}
-    },
-
-    ParedFrente2 = {
-        Transform = {
-            position = { x = -127.2, y = 5.5, z = 6},
-            rotation = { x = 0, y = 27, z = 0 },
-            scale = { x = 1, y = 1, z = 1}
-        },
-        RigidBody = {
-            colShape = 1,
-            mvType = static,
-            mass = 5,
-            group = 1,
-            mask = 2,
-            colliderscale = {x = 0.01, y = 10, z = 10},
-            restitution = .5,
-            friction = .3,
-            isTrigger = false
-        },
-        collider = {}
-    },
-
-    ParedFrente3 = {
-        Transform = {
-            position = { x = -126.5, y = 5, z = 8},
-            rotation = { x = 0, y = 42, z = 0 },
-            scale = { x = 1, y = 1, z = 1}
-        },
-        RigidBody = {
-            colShape = 1,
-            mvType = static,
-            mass = 5,
-            group = 1,
-            mask = 2,
-            colliderscale = {x = 0.01, y = 10, z = 10},
-            restitution = .5,
-            friction = .3,
-            isTrigger = false
-        },
-        collider = {}
-    },
-
-    ParedFrente4 = {
-        Transform = {
-            position = { x = -124.5, y = 5, z = 11},
-            rotation = { x = 0, y = 65, z = 0 },
-            scale = { x = 1, y = 1, z = 1}
-        },
-        RigidBody = {
-            colShape = 1,
-            mvType = static,
-            mass = 5,
-            group = 1,
-            mask = 2,
-            colliderscale = {x = 0.01, y = 10, z = 10},
-            restitution = .5,
-            friction = .3,
-            isTrigger = false
-        },
-        collider = {}
-    },
-
-    ParedFrente5 = {
-        Transform = {
-            position = { x = -127.2, y = 5.5, z = -6},
-            rotation = { x = 0, y = -27, z = 0 },
-            scale = { x = 1, y = 1, z = 1}
-        },
-        RigidBody = {
-            colShape = 1,
-            mvType = static,
-            mass = 5,
-            group = 1,
-            mask = 2,
-            colliderscale = {x = 0.01, y = 10, z = 20},
-            restitution = .5,
-            friction = .3,
-            isTrigger = false
-        },
-        collider = {}
-    },
-
-    ParedFrente6 = {
-        Transform = {
-            position = { x = -126.5, y = 5, z = -8},
-            rotation = { x = 0, y = -42, z = 0 },
-            scale = { x = 1, y = 1, z = 1}
-        },
-        RigidBody = {
-            colShape = 1,
-            mvType = static,
-            mass = 5,
-            group = 1,
-            mask = 2,
-            colliderscale = {x = 0.01, y = 10, z = 10},
-            restitution = .5,
-            friction = .3,
-            isTrigger = false
-        },
-        collider = {}
-    },
-
-    ParedFrente7 = {
-        Transform = {
-            position = {x = -124.5, y = 5, z = -11},
-            rotation = { x = 0, y = -65, z = 0 },
-            scale = { x = 1, y = 1, z = 1}
-        },
-        RigidBody = {
-            colShape = 1,
-            mvType = static,
-            mass = 5,
-            group = 1,
-            mask = 2,
-            colliderscale = {x = 0.01, y = 10, z = 10},
-            restitution = .5,
-            friction = .3,
-            isTrigger = false
-        },
-        collider = {}
-    },
     -------------------------------------------------------------
     ---------           decoracion circuito              --------
     -------------------------------------------------------------
@@ -944,7 +282,6 @@ Entities = {
         meshrenderer = {
             mesh = "arboles",
             meshName = "Arboles.mesh",
-            -- materialName = "Material/roja"
         }
 	},
     Houses = {
@@ -956,9 +293,294 @@ Entities = {
         meshrenderer = {
             mesh = "houses",
             meshName = "Casas.mesh",
-            -- materialName = "Material/roja"
         }
 	}
 }
+
+
+function createWalls()
+
+    
+    --Paredes interiores
+
+    insideWallsTr = {
+
+        Transform0 = {
+            position = { x = -63, y = 5, z = 2.8},
+            rotation = { x = 0, y = 0, z = 0 },
+            scale = { x = 1, y = 1, z = 1}
+        },
+
+        Transform1 = {
+            position = { x = -63, y = 5, z = -2.8},
+            rotation = { x = 0, y = 0, z = 0 },
+            scale = { x = 1, y = 1, z = 1}
+        },
+
+        Transform2 = {
+            position = { x = -7.2, y = 5, z = 0},
+            rotation = { x = 0, y = 90, z = 0 },
+            scale = { x = 1, y = 1, z = 1}
+        },
+
+        Transform3 = {
+            position = { x = -7.4, y = 5, z = -0.8},
+            rotation = { x = 0, y = -70, z = 0 },
+            scale = { x = 1, y = 1, z = 1}
+        },
+
+        Transform4 = {
+            position = { x = -8.2, y = 5, z = -2},
+            rotation = { x = 0, y = -50, z = 0 },
+            scale = { x = 1, y = 1, z = 1}
+        },
+
+        Transform5 = {
+            position = { x = -7.4, y = 5, z = 0.8},
+            rotation = { x = 0, y = 70, z = 0 },
+            scale = { x = 1, y = 1, z = 1}
+        },
+
+        Transform6 = {
+            position = { x = -8.2, y = 5, z = 2},
+            rotation = { x = 0, y = 50, z = 0 },
+            scale = { x = 1, y = 1, z = 1}
+        },
+
+        Transform7 = {
+            position = { x = -119, y = 5, z = 0},
+            rotation = { x = 0, y = 90, z = 0 },
+            scale = { x = 1, y = 1, z = 1}
+        },
+
+        Transform8 = {
+            position = { x = -119, y = 5, z = 0.8},
+            rotation = { x = 0, y = -70, z = 0 },
+            scale = { x = 1, y = 1, z = 1}
+        },
+
+        Transform9 = {
+            position = { x = -118, y = 5, z = 2},
+            rotation = { x = 0, y = -40, z = 0 },
+            scale = { x = 1, y = 1, z = 1}
+        },
+
+        Transform10 = {
+            position = { x = -119, y = 5, z = -0.8},
+            rotation = { x = 0, y = 70, z = 0 },
+            scale = { x = 1, y = 1, z = 1}
+        },
+
+        Transform11 = {
+            position = { x = -118, y = 5, z = -2},
+            rotation = { x = 0, y = 40, z = 0 },
+            scale = { x = 1, y = 1, z = 1}
+        }
+    }
+
+    --Escalas de los colliders de las paredes interiores
+    collidersScaleIW = {
+        {x = 54, y = 10, z = 0.01},
+        {x = 0.8, y = 10, z = 0.01}
+    }
+
+    local s = 1
+
+    for i = 1, 12, 1 do
+        if i >= 3 then s = 2 end
+        wall = {
+            Transform = insideWallsTr["Transform" .. i-1],
+            RigidBody = {
+                colShape = 1,
+                mvType = static,
+                mass = 5,
+                group = 1,
+                mask = 2,
+                colliderscale = collidersScaleIW[s],
+                restitution = .5,
+                friction = .3,
+                isTrigger = false
+            },
+            collider = {}
+        }
+
+       Entities["insideWall" .. i-1] = wall
+    end
+
+    --Paredes exteriores
+
+    outsideWallsTr = {
+
+        Transform0 = {
+            position = { x = -50, y = 5, z = 13},
+            rotation = { x = 0, y = 0, z = 0 },
+            scale = { x = 1, y = 1, z = 1}
+        },
+
+        Transform1 = {
+            position = { x = -50, y = 5, z = -13},
+            rotation = { x = 0, y = 0, z = 0 },
+            scale = { x = 1, y = 1, z = 1}
+        },
+
+        Transform2 = {
+            position = { x = 2.5, y = 5, z = 0},
+            rotation = { x = 0, y = 0, z = 0 },
+            scale = { x = 1, y = 1, z = 1}
+        },
+
+        Transform3 = {
+            position = { x = 1, y = 5, z = -6},
+            rotation = { x = 0, y = 27, z = 0 },
+            scale = { x = 1, y = 1, z = 1}
+        },
+
+        Transform4 = {
+            position = { x = 0, y = 5, z = -8},
+            rotation = { x = 0, y = 42, z = 0 },
+            scale = { x = 1, y = 1, z = 1}
+        },
+
+        Transform5 = {
+            position = { x = -2, y = 5, z = -11},
+            rotation = { x = 0, y = 65, z = 0 },
+            scale = { x = 1, y = 1, z = 1}
+        },
+
+        Transform6 = {
+            position = { x = 1.5, y = 5, z = 6},
+            rotation = { x = 0, y = -27, z = 0 },
+            scale = { x = 1, y = 1, z = 1}
+        },
+
+        Transform7 = {
+            position = { x = 0, y = 5, z = 8},
+            rotation = { x = 0, y = -42, z = 0 },
+            scale = { x = 1, y = 1, z = 1}
+        },
+
+        Transform8 = {
+            position = { x = -2, y = 5, z = 11},
+            rotation = { x = 0, y = -65, z = 0 },
+            scale = { x = 1, y = 1, z = 1}
+        },
+
+        Transform9 = {
+            position = { x = -129, y = 5, z = 0},
+            rotation = { x = 0, y = 0, z = 0 },
+            scale = { x = 1, y = 1, z = 1}
+        },
+
+        Transform10 = {
+            position = { x = -127.2, y = 5.5, z = 6},
+            rotation = { x = 0, y = 27, z = 0 },
+            scale = { x = 1, y = 1, z = 1}
+        },
+
+        Transform11 = {
+            position = { x = -126.5, y = 5, z = 8},
+            rotation = { x = 0, y = 42, z = 0 },
+            scale = { x = 1, y = 1, z = 1}
+        },
+
+        Transform12 = {
+            position = { x = -124.5, y = 5, z = 11},
+            rotation = { x = 0, y = 65, z = 0 },
+            scale = { x = 1, y = 1, z = 1}
+        },
+
+        Transform13 = {
+            position = { x = -127.2, y = 5.5, z = -6},
+            rotation = { x = 0, y = -27, z = 0 },
+            scale = { x = 1, y = 1, z = 1}
+        },
+
+        Transform14 = {
+            position = { x = -126.5, y = 5, z = -8},
+            rotation = { x = 0, y = -42, z = 0 },
+            scale = { x = 1, y = 1, z = 1}
+        },
+
+        Transform15 = {
+            position = {x = -124.5, y = 5, z = -11},
+            rotation = { x = 0, y = -65, z = 0 },
+            scale = { x = 1, y = 1, z = 1}
+        },
+    }
+
+    --Escalas de los colliders de las paredes interiores
+    collidersScaleOW = {
+        {x = 100, y = 10, z = 0.01},
+        {x = 0.01, y = 10, z = 10}
+    }
+
+    s = 1
+
+    for i = 1, 16, 1 do
+        if i >= 3 then s = 2 end
+        wall = {
+            Transform = outsideWallsTr["Transform" .. i-1],
+            RigidBody = {
+                colShape = 1,
+                mvType = static,
+                mass = 5,
+                group = 1,
+                mask = 2,
+                colliderscale = collidersScaleOW[s],
+                restitution = .5,
+                friction = .3,
+                isTrigger = false
+            },
+            collider = {}
+        }
+
+       Entities["outsideWall" .. i-1] = wall
+    end
+
+end
+
+
+function createCheckpoints()
+
+
+    checkpointPositions = {
+        { x = -42, y = 0, z = -10 },
+        { x = 0, y = 0, z = 0 },
+        { x = -80, y = 0, z = 10 },
+        { x = -120, y = 0, z = 0 }
+    }
+
+    checkpointRotation = {
+        180, 90, 180, 90
+    }
+
+    for i = 1, 4, 1 do
+        checkpoint = {
+            Transform = {
+                position = checkpointPositions[i],
+                scale = { x = 1, y = 1, z = 1 },
+                rotation = { x = 0, y = checkpointRotation[i], z = 0 }
+            },
+            RigidBody = {
+                colShape = 1,
+                mvType = static,
+                mass = 5,
+                group = 1,
+                mask = 2,
+                colliderscale = { x = 1, y = 10, z = 10 },
+                restitution = 0.5,
+                friction = 0.5,
+                isTrigger = true
+            },
+            collider = {},
+            Checkpoint = {
+                index = i - 1;
+            }
+        }
+
+       Entities["checkpoint" .. i-1] = checkpoint
+    end
+
+end
 
 
