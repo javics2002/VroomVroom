@@ -43,7 +43,7 @@ namespace VroomVroom {
 		float mAcceleration;
 		float mRotationSpeed;
 
-		float mThunderSpeedBoost;
+		float mSpeedBoost;
 
 		float mLinearDamping; 
 		float mAngularDamping;
@@ -89,7 +89,7 @@ namespace VroomVroom {
 		bool hasFinished = false;
 
 		const float NERF_HIT_TIME = 2.0f;
-		const float THUNDER_BOOST_TIME = 1.5f;
+		const float BOOST_TIME = 1.5f;
 		const float OIL_HINDER_TIME = 3.0f;
 
 		/*
@@ -145,6 +145,7 @@ namespace VroomVroom {
 		*/
 		void updatePowerUpTimerValues(const double& dt);
 
+
 	public:
 		VehicleController();
 		~VehicleController();
@@ -160,7 +161,7 @@ namespace VroomVroom {
 		void setLinearAndAngularDamping(float linearDrag, float angularDrag);
 		void setAccelerationAndSteeringBoost(float accelerationBoost, float steeringBoost);
 		void setSpeedBasedRotationMultiplier(float speedBasedFactor);
-		void setThunderSpeedBoost(float thunderBoost);
+		void setSpeedBoost(float boost);
 
 		/*
 		* Sets parameters needed to differentiate each car, the power up to use and if the player can control it.
@@ -187,8 +188,15 @@ namespace VroomVroom {
 		float getOrigMaxSpeed();
 		float getMaxAngularSpeed();
 
+		float getBoostImpulse();
+
 		void startOilTimer();
 		void startNerfTimer();
+
+		/*
+		* Resumes Boost Timer
+		*/
+		void resumeSpeedBoostTimer();
 
 		/*
 		Returns true if the car has a power up

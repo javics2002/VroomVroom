@@ -60,6 +60,9 @@
     <ClCompile Include="..\..\Src\VroomVroom\Components\UIButtonQuit.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Src\VroomVroom\Components\BoostPad.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Src\VroomVroom\framework.h">
@@ -108,6 +111,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Src\VroomVroom\Components\UIButtonQuit.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\VroomVroom\Components\BoostPad.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

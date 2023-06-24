@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Src\VroomVroom\Components\BoostPad.cpp" />
     <ClCompile Include="..\..\Src\VroomVroom\Components\CameraFollow.cpp" />
     <ClCompile Include="..\..\Src\VroomVroom\Components\Checkpoint.cpp" />
     <ClCompile Include="..\..\Src\VroomVroom\Components\GameManager.cpp" />
@@ -36,6 +37,7 @@
     <ClCompile Include="..\..\Src\VroomVroom\VroomVroomInput.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Src\VroomVroom\Components\BoostPad.h" />
     <ClInclude Include="..\..\Src\VroomVroom\Components\CameraFollow.h" />
     <ClInclude Include="..\..\Src\VroomVroom\Components\Checkpoint.h" />
     <ClInclude Include="..\..\Src\VroomVroom\Components\GameManager.h" />

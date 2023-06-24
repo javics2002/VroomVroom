@@ -11,6 +11,7 @@
 #include "VroomVroom/Components/CircuitInfo.h"
 #include "VroomVroom/Components/Checkpoint.h"
 #include "VroomVroom/Components/CameraFollow.h"
+#include "VroomVroom/Components/BoostPad.h"
 
 #include "Components/GameManager.h"
 #include "MotorEngine/SceneManager.h"
@@ -47,6 +48,7 @@ __VROOMVROOM_API void initFactories()
 	componentsFactory().addFactoryComponent("powerupobject", new FactoryPowerUpObject());
 	componentsFactory().addFactoryComponent("oil", new FactoryOil());
 	componentsFactory().addFactoryComponent("nerf", new FactoryNerf());
+	componentsFactory().addFactoryComponent("boostpad", new FactoryBoostPad());
 }
 
 __VROOMVROOM_API void initInput()

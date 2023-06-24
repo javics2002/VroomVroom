@@ -38,7 +38,7 @@ Component* FactoryVehicleController::create(Parameters& params)
     vehicleController->setLinearAndAngularDamping(Value(params, "lineardamping", 0.987f), Value(params, "angulardamping", 0.9f));
     vehicleController->setAccelerationAndSteeringBoost(Value(params, "accelerationboost", 1.0f), Value(params, "steeringboost", 2.1f));
     vehicleController->setSpeedBasedRotationMultiplier(Value(params, "speedbasedfactor", 5.0f));
-    vehicleController->setThunderSpeedBoost(Value(params, "thunderspeed", 23.0f));
+    vehicleController->setSpeedBoost(Value(params, "thunderspeed", 23.0f));
 
     return vehicleController;
 }
@@ -286,7 +286,7 @@ void VehicleController::update(const double& dt)
                 sceneManager().quit();
                 return;
             }
-            rigidbody->addImpulse(vForward * mThunderSpeedBoost);
+            rigidbody->addImpulse(vForward * mSpeedBoost);
             mSpeedBoostTimer->resume();
         }
             break;
@@ -446,7 +446,7 @@ void VehicleController::setControllable(bool controllable) {
 
 void VehicleController::updatePowerUpTimerValues(const double& dt)
 {
-    if (mSpeedBoostTimer->getRawSeconds() >= THUNDER_BOOST_TIME) {
+    if (mSpeedBoostTimer->getRawSeconds() >= BOOST_TIME) {
         setMaxSpeedAndRotationSpeed(mOriginalMaxSpeed, mMaxAngularSpeed);
         mSpeedBoostTimer->reset();
         mSpeedBoostTimer->pause();
@@ -520,14 +520,19 @@ float VehicleController::getMaxAngularSpeed()
     return mMaxAngularSpeed;
 }
 
+float VehicleController::getBoostImpulse()
+{
+    return mSpeedBoost;
+}
+
 void VehicleController::startOilTimer()
 {
     mSpeedSlowTimer->resume();
 }
 
-void VehicleController::setThunderSpeedBoost(float thunderBoost)
+void VehicleController::setSpeedBoost(float boost)
 {
-    mThunderSpeedBoost = thunderBoost;
+    mSpeedBoost = boost;
 }
 
 void VehicleController::startNerfTimer()
@@ -551,6 +556,11 @@ void VehicleController::startNerfTimer()
     cameraFollow->enabled = false;
     mControllable = false;
     mLastOrientation = mTransform->getRotation().toEuler();
+}
+
+void VehicleController::resumeSpeedBoostTimer()
+{
+    mSpeedBoostTimer->resume();
 }
 
 void VehicleController::onCollisionEnter(me::Entity* other)

@@ -429,6 +429,42 @@ Entities = {
         }
     },
 
+
+    BoostPad1 = {
+        Transform = {
+            position = { x= -15, y = 5.6, z = 10 },
+            scale = { x = 1, y = 1, z = 1},
+            rotation = {x = 0, y = 180, z = 0}
+        },
+        RigidBody = {
+            colShape = 1,
+            mvType = 2,
+            mass = 0,
+            group = 4,
+            mask = 1,
+            colliderscale = {x = 1, y = 1, z = 1},
+            restitution = .5,
+            friction = 0.5,
+            isTrigger = true
+        },
+        meshrenderer = {
+            mesh = "boostPad1",
+            meshName = "RedRacer.mesh"
+        },
+        collider = {
+        },
+        boostPad = {
+        },
+        audiosource = {
+            name = "boostPadSound1",
+            path = "posibleAumentoDeVel.mp3",
+            onstart = false,
+            loop = false,
+            threed = false,
+            groupchannel = "effects"
+        }
+    },
+
     
     PowerUp1 = {
         Transform = {
