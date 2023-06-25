@@ -86,6 +86,7 @@ void VroomVroom::BoostPad::onCollisionEnter(me::Entity* other)
 			return;
 		}
 		rigidbody->addImpulse(tr->forward().normalize() * vehController->getBoostImpulse());
+		vehController->resetSpeedBoostTimer();
 		vehController->resumeSpeedBoostTimer();
 	}
 

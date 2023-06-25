@@ -199,6 +199,11 @@ namespace VroomVroom {
 		void resumeSpeedBoostTimer();
 
 		/*
+		* Resets Boost Timer
+		*/
+		void resetSpeedBoostTimer();
+
+		/*
 		Returns true if the car has a power up
 		*/
 		bool isPowerUpPicked();

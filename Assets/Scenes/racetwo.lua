@@ -432,9 +432,9 @@ Entities = {
 
     BoostPad1 = {
         Transform = {
-            position = { x= -15, y = 5.6, z = 10 },
-            scale = { x = 1, y = 1, z = 1},
-            rotation = {x = 0, y = 180, z = 0}
+            position = { x= -15, y = 5.01, z = 10 },
+            scale = { x = 1, y = 1, z = 2},
+            rotation = {x = 0, y = 0, z = 0}
         },
         RigidBody = {
             colShape = 1,
@@ -449,7 +449,7 @@ Entities = {
         },
         meshrenderer = {
             mesh = "boostPad1",
-            meshName = "RedRacer.mesh"
+            meshName = "Oil.mesh"
         },
         collider = {
         },
@@ -457,6 +457,78 @@ Entities = {
         },
         audiosource = {
             name = "boostPadSound1",
+            path = "posibleAumentoDeVel.mp3",
+            onstart = false,
+            loop = false,
+            threed = false,
+            groupchannel = "effects"
+        }
+    },
+
+
+    BoostPad2 = {
+        Transform = {
+            position = { x= -55, y = 5.01, z = 5 },
+            scale = { x = 1, y = 1, z = 2},
+            rotation = {x = 0, y = 0, z = 0}
+        },
+        RigidBody = {
+            colShape = 1,
+            mvType = 2,
+            mass = 0,
+            group = 4,
+            mask = 1,
+            colliderscale = {x = 1, y = 1, z = 1},
+            restitution = .5,
+            friction = 0.5,
+            isTrigger = true
+        },
+        meshrenderer = {
+            mesh = "boostPad2",
+            meshName = "Oil.mesh"
+        },
+        collider = {
+        },
+        boostPad = {
+        },
+        audiosource = {
+            name = "boostPadSound2",
+            path = "posibleAumentoDeVel.mp3",
+            onstart = false,
+            loop = false,
+            threed = false,
+            groupchannel = "effects"
+        }
+    },
+
+
+    BoostPad3 = {
+        Transform = {
+            position = { x= -126, y = 5.01, z = 0 },
+            scale = { x = 1, y = 1, z = 2},
+            rotation = {x = 0, y = 90, z = 0}
+        },
+        RigidBody = {
+            colShape = 1,
+            mvType = 2,
+            mass = 0,
+            group = 4,
+            mask = 1,
+            colliderscale = {x = 1, y = 1, z = 1},
+            restitution = .5,
+            friction = 0.5,
+            isTrigger = true
+        },
+        meshrenderer = {
+            mesh = "boostPad3",
+            meshName = "Oil.mesh"
+        },
+        collider = {
+        },
+        boostPad = {
+        },
+        audiosource = {
+            name = "boostPadSound3",
             path = "posibleAumentoDeVel.mp3",
             onstart = false,
             loop = false,

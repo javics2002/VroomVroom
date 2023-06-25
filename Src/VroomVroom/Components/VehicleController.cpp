@@ -287,6 +287,7 @@ void VehicleController::update(const double& dt)
                 return;
             }
             rigidbody->addImpulse(vForward * mSpeedBoost);
+            mSpeedBoostTimer->reset();
             mSpeedBoostTimer->resume();
         }
             break;
@@ -561,6 +562,11 @@ void VehicleController::startNerfTimer()
 void VehicleController::resumeSpeedBoostTimer()
 {
     mSpeedBoostTimer->resume();
+}
+
+void VroomVroom::VehicleController::resetSpeedBoostTimer()
+{
+    mSpeedBoostTimer->reset();
 }
 
 void VehicleController::onCollisionEnter(me::Entity* other)
