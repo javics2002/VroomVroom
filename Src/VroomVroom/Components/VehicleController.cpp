@@ -39,6 +39,7 @@ Component* FactoryVehicleController::create(Parameters& params)
     vehicleController->setAccelerationAndSteeringBoost(Value(params, "accelerationboost", 1.0f), Value(params, "steeringboost", 2.1f));
     vehicleController->setSpeedBasedRotationMultiplier(Value(params, "speedbasedfactor", 5.0f));
     vehicleController->setSpeedBoost(Value(params, "thunderspeed", 23.0f));
+    vehicleController->setMotionControlled(Value(params, "motioncontrolled", false));
 
     return vehicleController;
 }
@@ -249,7 +250,14 @@ void VehicleController::update(const double& dt)
     bool accelerate = getPlayerButton("ACCELERATE");
     bool decelerate = getPlayerButton("DECELERATE");
     bool useObject = getPlayerButton("USEOBJECT");
-    float deltaX = getPlayerAxis("HORIZONTAL");
+
+    float deltaX;
+    // deltaX = getPlayerAxis("HORIZONTAL");
+
+    if (!mMotionControlled) {
+        deltaX = getPlayerAxis("HORIZONTAL");
+    }
+    else deltaX = getPlayerAxis("HORIZONTAL_MOTIONCONTROLS");
 
     Vector3 vForward = mTransform->forward().normalize();
 
@@ -443,6 +451,8 @@ void VehicleController::setPlayerNumber(PlayerNumber playerNumber) {
 
 void VehicleController::setControllable(bool controllable) {
     mControllable = controllable;
+
+    if (mControllable) inputManager().resetMotionControlValues();
 }
 
 void VehicleController::updatePowerUpTimerValues(const double& dt)
@@ -534,6 +544,11 @@ void VehicleController::startOilTimer()
 void VehicleController::setSpeedBoost(float boost)
 {
     mSpeedBoost = boost;
+}
+
+void VroomVroom::VehicleController::setMotionControlled(bool motion)
+{
+    mMotionControlled = motion;
 }
 
 void VehicleController::startNerfTimer()

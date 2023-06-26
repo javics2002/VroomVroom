@@ -84,9 +84,14 @@ __VROOMVROOM_API void initInput()
 	gamepadLeftHorizontal.type = INPUTTYPE_GAMEPAD_AXIS;
 	gamepadLeftHorizontal.which = GAMEPAD_AXISCODE_LEFTX;
 
+	AxisInput gamepadMotionHorizontal;
+	gamepadMotionHorizontal.type = INPUTTYPE_GAMEPAD_AXIS;
+	gamepadMotionHorizontal.which = GAMEPAD_AXISCODE_MOTION_ROLL;
+
 	AxisInfo horizontalInfo;
 	horizontalInfo.dead = .1f;
 	horizontalInfo.gravity = .4f;
+	inputManager().setMotionControlsSensitivity(0.0f, 0.0f, 0.0012f);
 
 	//Accelerate
 	Input keyboardAccelerate[PLAYERNUMBER_MAX];
@@ -146,6 +151,7 @@ __VROOMVROOM_API void initInput()
 		//Horizontal movement axis with keyboard and controller
 		inputManager().addAxis(playerButtonName("HORIZONTAL", playerI), horizontalInfo, keyboardHorizontal[playerI]);
 		inputManager().addBinding(playerButtonName("HORIZONTAL", playerI), gamepadLeftHorizontal);
+		inputManager().addBinding(playerButtonName("HORIZONTAL_MOTIONCONTROLS", playerI), gamepadMotionHorizontal);
 
 		//Accelerate with keyboard and controller
 		inputManager().addButton(playerButtonName("ACCELERATE", playerI), keyboardAccelerate[playerI], playerI);

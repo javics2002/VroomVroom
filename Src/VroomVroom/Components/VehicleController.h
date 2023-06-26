@@ -52,6 +52,8 @@ namespace VroomVroom {
 		float mSteeringBoost;
 		float mSpeedBasedRotationMultiplier;
 
+		bool mMotionControlled;
+
 		me::Timer* mSpeedBoostTimer;
 		me::Timer* mSpeedSlowTimer;
 		me::Timer* mControllableTimer;
@@ -162,6 +164,7 @@ namespace VroomVroom {
 		void setAccelerationAndSteeringBoost(float accelerationBoost, float steeringBoost);
 		void setSpeedBasedRotationMultiplier(float speedBasedFactor);
 		void setSpeedBoost(float boost);
+		void setMotionControlled(bool motion);
 
 		/*
 		* Sets parameters needed to differentiate each car, the power up to use and if the player can control it.

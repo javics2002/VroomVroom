@@ -449,7 +449,7 @@ Entities = {
         },
         meshrenderer = {
             mesh = "boostPad1",
-            meshName = "Oil.mesh"
+            meshName = "BoostPad.mesh"
         },
         collider = {
         },
@@ -485,7 +485,7 @@ Entities = {
         },
         meshrenderer = {
             mesh = "boostPad2",
-            meshName = "Oil.mesh"
+            meshName = "BoostPad.mesh"
         },
         collider = {
         },
@@ -521,7 +521,7 @@ Entities = {
         },
         meshrenderer = {
             mesh = "boostPad3",
-            meshName = "Oil.mesh"
+            meshName = "BoostPad.mesh"
         },
         collider = {
         },
