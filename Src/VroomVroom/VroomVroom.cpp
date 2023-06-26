@@ -77,7 +77,7 @@ __VROOMVROOM_API void initInput()
 	keyboardHorizontal[0].negative = KEYBOARDCODE_A;
 
 	keyboardHorizontal[1].type = INPUTTYPE_KEYBOARD;
-	keyboardHorizontal[1].positive = KEYBOARDCODE_RIGHT; 
+	keyboardHorizontal[1].positive = KEYBOARDCODE_RIGHT;
 	keyboardHorizontal[1].negative = KEYBOARDCODE_LEFT;
 
 	AxisInput gamepadLeftHorizontal;
@@ -86,7 +86,7 @@ __VROOMVROOM_API void initInput()
 
 	AxisInput gamepadMotionHorizontal;
 	gamepadMotionHorizontal.type = INPUTTYPE_GAMEPAD_AXIS;
-	gamepadMotionHorizontal.which = GAMEPAD_AXISCODE_MOTION_ROLL;
+	gamepadMotionHorizontal.which = GAMEPAD_AXISCODE_MOTION;
 
 	AxisInfo horizontalInfo;
 	horizontalInfo.dead = .1f;

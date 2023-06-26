@@ -216,14 +216,14 @@ void VehicleController::update(const double& dt)
             Entity* cameraEntity = sceneManager().getActiveScene()
                 ->findEntity("camera" + std::to_string(mPlayerNumber + 1)).get();
             if (!cameraEntity) {
-                errorManager().throwMotorEngineError("VehicleController error", 
+                errorManager().throwMotorEngineError("VehicleController error",
                     "camera" + std::to_string(mPlayerNumber + 1) + " entity was not found.");
                 sceneManager().quit();
                 return;
             }
             CameraFollow* cameraFollow = cameraEntity->getComponent<CameraFollow>("camerafollow");
             if (!cameraFollow) {
-                errorManager().throwMotorEngineError("VehicleController error", 
+                errorManager().throwMotorEngineError("VehicleController error",
                     "camera" + std::to_string(mPlayerNumber + 1) + " entity doesn't have CameraFollow component");
                 sceneManager().quit();
                 return;
@@ -252,12 +252,13 @@ void VehicleController::update(const double& dt)
     bool useObject = getPlayerButton("USEOBJECT");
 
     float deltaX;
-    // deltaX = getPlayerAxis("HORIZONTAL");
 
     if (!mMotionControlled) {
         deltaX = getPlayerAxis("HORIZONTAL");
     }
-    else deltaX = getPlayerAxis("HORIZONTAL_MOTIONCONTROLS");
+    else {
+        deltaX = inputManager().getAxisMotionFromInputNumber(2, getPlayerAxis("HORIZONTAL_MOTIONCONTROLS"));
+    }
 
     Vector3 vForward = mTransform->forward().normalize();
 
@@ -289,7 +290,7 @@ void VehicleController::update(const double& dt)
             mThunderAudio->play();
             RigidBody* rigidbody = mEntity->getComponent<RigidBody>("rigidbody");
             if (!rigidbody) {
-                errorManager().throwMotorEngineError("VehicleController error", 
+                errorManager().throwMotorEngineError("VehicleController error",
                     mEntity->getName() + " entity doesn't have RigidBody component");
                 sceneManager().quit();
                 return;
@@ -298,7 +299,7 @@ void VehicleController::update(const double& dt)
             mSpeedBoostTimer->reset();
             mSpeedBoostTimer->resume();
         }
-            break;
+        break;
         default:
             break;
         }
@@ -310,9 +311,9 @@ void VehicleController::update(const double& dt)
 
 void VehicleController::clamp(float& value, float min, float max)
 {
-    if (value > max) 
+    if (value > max)
         value = max;
-    else if (value < min) 
+    else if (value < min)
         value = min;
 }
 
@@ -336,9 +337,9 @@ void VehicleController::applyPush(const double& dt, bool accelerate, bool decele
     bool movingBackwards = isMovingBackwards();
 
     if (movingBackwards)
-        lastVelocity =  vForward * -(mRigidBody->getVelocity().magnitude() * mLinearDamping);
+        lastVelocity = vForward * -(mRigidBody->getVelocity().magnitude() * mLinearDamping);
     else
-        lastVelocity =  vForward * (mRigidBody->getVelocity().magnitude() * mLinearDamping);
+        lastVelocity = vForward * (mRigidBody->getVelocity().magnitude() * mLinearDamping);
 
     Vector3 newVelocity = lastVelocity;
     float velocity;
@@ -401,7 +402,7 @@ void VehicleController::applyRotation(const double& dt, float deltaX)
     else if (deltaX < 0) { // Izquierda
         if (angVel.y < 0)
             rotationVelocity = lastAngularVelocity - (mRotationSpeed * mSteeringBoost * deltaX);
-        else 
+        else
             rotationVelocity = lastAngularVelocity - (mRotationSpeed * deltaX);
 
         // Limit angular velocity
@@ -589,14 +590,14 @@ void VehicleController::onCollisionEnter(me::Entity* other)
     if (other->hasComponent("checkpoint")) {
         Checkpoint* checkpoint = other->getComponent<Checkpoint>("checkpoint");
         Transform* lastCheckpointTransform = checkpoint->getEntity()->getComponent<Transform>("transform");
-        if(!lastCheckpointTransform){
+        if (!lastCheckpointTransform) {
             errorManager().throwMotorEngineError("VehicleController onCollisionEnter error",
                 "Last checkpoint entity doesn't have transform component");
             sceneManager().quit();
             return;
         }
         mLastCheckpointPosition = lastCheckpointTransform->getPosition();
-          
+
 
 #ifdef _DEBUG
         std::cout << "Car " << mPlayerNumber << " has reached checkpoint " << checkpoint->getIndex() << "\n";
@@ -611,7 +612,7 @@ void VehicleController::onCollisionEnter(me::Entity* other)
                 mCheckpointIndex = 0;
                 mLap++;
 
-                if(mLap != mCircuitInfo->getLaps())
+                if (mLap != mCircuitInfo->getLaps())
                     mLapsText->setText("Lap " + std::to_string(mLap + 1) + "/" + std::to_string(mCircuitInfo->getLaps()));
 
 #ifdef _DEBUG
