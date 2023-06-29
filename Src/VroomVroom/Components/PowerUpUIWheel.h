@@ -81,6 +81,12 @@ namespace VroomVroom {
 		*/
 		bool isAnimEnd();
 
+		/*
+		Stops the spinning wheel on a set sprite.
+		@param materialName Name of the Sprite Material to stop the spinning wheel on.
+		*/
+		void stopSpinOnSprite(std::string materialName);
+
 	private:
 		// Described in component
 		float mSpinSpeed;
@@ -95,13 +101,6 @@ namespace VroomVroom {
 		me::Timer* mSpriteIntervalTimer;
 		me::Timer* mSpinTimer;
 		float mTotalSpinTime;	// This comes from the PowerUp Wheel Manager, which calls spinForSeconds
-
-		/*
-		Stops the spinning wheel on a set sprite.
-		@param materialName Name of the Sprite Material to stop the spinning wheel on.
-		*/
-		void stopSpinOnSprite(std::string materialName);
 	};
 }
 #endif
-

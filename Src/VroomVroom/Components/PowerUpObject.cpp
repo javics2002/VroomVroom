@@ -1,6 +1,7 @@
 #include "PowerUpObject.h"
 #include "Oil.h"
 #include "Nerf.h"
+#include "Thief.h"
 #include <math.h>
 #include "VehicleController.h"
 #include "Utils/Timer.h"
@@ -52,13 +53,13 @@ void PowerUpObject::start()
 	if (!mTransform) {
 		errorManager().throwMotorEngineError("PowerUpObject error", "PowerUpObject entity doesn't have transform component");
 		sceneManager().quit();
-        return;
+		return;
 	}
 	mTakePowerAudio = mEntity->getComponent<AudioSource>("audiosource");
 	if (!mTakePowerAudio) {
 		errorManager().throwMotorEngineError("PowerUpObject error", "PowerUpObject entity doesn't have AudioSource component");
 		sceneManager().quit();
-        return;
+		return;
 	}
 	mReviveTime = 4; // Set the time it takes for the power-up object to respawn after being picked up
 	mPowerUpEntity = nullptr;
@@ -94,13 +95,13 @@ void PowerUpObject::update(const double& dt)
 		}
 	}
 
-	else mTransform->rotate(1, me::Vector3(0,1,0));
+	else mTransform->rotate(1, me::Vector3(0, 1, 0));
 }
 
 void PowerUpObject::resetPowerUp()
 {
 	// Choose a new random power-up type for the object to represent
-	mPowerUp = PowerUpType(rand() % 3);
+	mPowerUp = PowerUpType(rand() % 4);
 }
 
 void PowerUpObject::setPower(PowerUpType type)
@@ -132,12 +133,12 @@ void PowerUpObject::onCollisionEnter(me::Entity* other)
 
 		VehicleController* vehicleController = other->getComponent<VehicleController>("vehiclecontroller");
 		if (!vehicleController) {
-			errorManager().throwMotorEngineError("PowerUpObject error", 
+			errorManager().throwMotorEngineError("PowerUpObject error",
 				other->getName() + " entity doesn't have VehicleController component");
 			sceneManager().quit();
 			return;
 		}
-		
+
 		if (!vehicleController->isPowerUpPicked()) {
 			mTakePowerAudio->play();
 			switch (mPowerUp)
@@ -147,6 +148,10 @@ void PowerUpObject::onCollisionEnter(me::Entity* other)
 				break;
 			case OIL:
 				mPowerUpEntity = createOilEntity();
+				break;
+
+			case THIEF:
+				mPowerUpEntity = createThiefEntity();
 				break;
 			}
 
@@ -158,7 +163,7 @@ void PowerUpObject::onCollisionEnter(me::Entity* other)
 
 Entity* PowerUpObject::createOilEntity()
 {
-    Entity* oil = mEntity->getScene()->addEntity("Oil" + std::to_string(gameManager()->getContPowerUps())).get();
+	Entity* oil = mEntity->getScene()->addEntity("Oil" + std::to_string(gameManager()->getContPowerUps())).get();
 	Transform* tr;
 	RigidBody* rb;
 	Collider* col;
@@ -168,7 +173,7 @@ Entity* PowerUpObject::createOilEntity()
 
 	tr = oil->addComponent<Transform>("transform");
 	assert(tr);
-	tr->setPosition(Vector3(-70,-100,-10));
+	tr->setPosition(Vector3(-70, -100, -10));
 	tr->setRotation(Vector3(0, 0, 0));
 	tr->setScale(Vector3(3, 1, 3));
 
@@ -194,7 +199,7 @@ Entity* PowerUpObject::createOilEntity()
 	rb->setMass(1);
 	rb->setGroup(6);
 	rb->setMask(1);
-	rb->setColliderScale(Vector3(0.25,1,0.25));
+	rb->setColliderScale(Vector3(0.25, 1, 0.25));
 	rb->setRestitution(0.5);
 	rb->setFriction(0.5);
 	rb->setTrigger(true);
@@ -225,7 +230,7 @@ Entity* PowerUpObject::createNerfEntity()
 	assert(nerfTransfrom);
 	nerfTransfrom->setPosition(Vector3(0, -500, 0));
 	nerfTransfrom->setScale(Vector3(1, 1, 1));
-	
+
 	AudioSource* nerfAudio = nerf->addComponent<AudioSource>("audiosource");
 	assert(nerfAudio);
 	nerfAudio->setSourceName("nerfSound" + std::to_string(gameManager()->getContPowerUps()));
@@ -257,7 +262,7 @@ Entity* PowerUpObject::createNerfEntity()
 	MeshRenderer* meshNerf = static_cast<MeshRenderer*>(nerf->addComponent("meshrenderer", meshRendererParameters));
 	if (!meshNerf)
 		return nullptr;
-	
+
 	Nerf* nerfComp = nerf->addComponent<Nerf>("nerf");
 	assert(nerfComp);
 	nerfComp->setSpeed(30);
@@ -265,4 +270,54 @@ Entity* PowerUpObject::createNerfEntity()
 	gameManager()->addPowerUp();
 
 	return nerf;
+}
+
+me::Entity* VroomVroom::PowerUpObject::createThiefEntity()
+{
+	Entity* thief = mEntity->getScene()->addEntity("Thief" + std::to_string(gameManager()->getContPowerUps())).get();
+
+	Transform* thiefTransfrom = thief->addComponent<Transform>("transform");
+	assert(thiefTransfrom);
+	thiefTransfrom->setPosition(Vector3(0, -500, 0));
+	thiefTransfrom->setScale(Vector3(1, 1, 1));
+
+	AudioSource* thiefAudio = thief->addComponent<AudioSource>("audiosource");
+	assert(thiefAudio);
+	thiefAudio->setSourceName("thiefSound" + std::to_string(gameManager()->getContPowerUps()));
+	thiefAudio->setSourcePath("throwRocket.mp3");
+	thiefAudio->setPlayOnStart(false);
+	thiefAudio->setGroupChannelName("effects");
+	thiefAudio->setVolume(4.0f);
+	thiefAudio->setIsThreeD(true);
+	thiefAudio->setLoop(false);
+	thiefAudio->setMinDistance(1.0f);
+	thiefAudio->setMaxDistance(60.0f);
+
+	Collider* thiefCol = thief->addComponent<Collider>("collider");
+	assert(thiefCol);
+
+	RigidBody* thiefRigidbody = thief->addComponent<RigidBody>("rigidbody");
+	assert(thiefRigidbody);
+	thiefRigidbody->setColShape(SHAPES_BOX);
+	thiefRigidbody->setMomeventType(MOVEMENT_TYPE_KINEMATIC);
+	thiefRigidbody->setMass(1);
+	thiefRigidbody->setGroup(2);
+	thiefRigidbody->setMask(7);
+	thiefRigidbody->setColliderScale(me::Vector3(1, .25, 1));
+	thiefRigidbody->setTrigger(true);
+
+	Parameters meshRendererParameters;
+	meshRendererParameters["mesh"] = "t" + std::to_string(gameManager()->getContPowerUps());
+	meshRendererParameters["meshname"] = "Nerf.mesh";
+	MeshRenderer* meshThief = static_cast<MeshRenderer*>(thief->addComponent("meshrenderer", meshRendererParameters));
+	if (!meshThief)
+		return nullptr;
+
+	Thief* thiefComp = thief->addComponent<Thief>("thief");
+	assert(thiefComp);
+	thiefComp->setSpeed(30);
+
+	gameManager()->addPowerUp();
+
+	return thief;
 }

@@ -14,6 +14,7 @@ namespace me {
 	class RigidBody;
 	class Timer;
 	class AudioSource;
+	class Entity;
 }
 
 namespace VroomVroom {
@@ -45,7 +46,7 @@ namespace VroomVroom {
 
 		float mSpeedBoost;
 
-		float mLinearDamping; 
+		float mLinearDamping;
 		float mAngularDamping;
 
 		float mAccelerationBoost;
@@ -57,7 +58,7 @@ namespace VroomVroom {
 		me::Timer* mSpeedBoostTimer;
 		me::Timer* mSpeedSlowTimer;
 		me::Timer* mControllableTimer;
-		
+
 		me::UIText* mChrono;
 
 		/*
@@ -108,7 +109,7 @@ namespace VroomVroom {
 		float getPlayerAxis(std::string axisName);
 
 		/*
-		Takes a float reference "value" and two float parameters "min" and "max". 
+		Takes a float reference "value" and two float parameters "min" and "max".
 		Its purpose is to limit the value of "value" to be within the range specified by "min" and "max".
 		If "value" is smaller than "min", "value" is set to "min". If "value" is larger than "max", "value" is set to "max".
 		If "value" is already within the range, it is left unchanged.
@@ -121,11 +122,11 @@ namespace VroomVroom {
 		/*
 		Returns a boolean value that indicates whether an object is currently moving backwards or not.
 		It does this by checking the object's current velocity or direction vector and determining whether it is pointing in the opposite direction of its forward vector.
-		If the velocity vector points in the opposite direction of the forward vector, then the object is considered to be moving backwards, and the method returns "true". 
+		If the velocity vector points in the opposite direction of the forward vector, then the object is considered to be moving backwards, and the method returns "true".
 		Otherwise, if the velocity vector is pointing in the same direction as the forward vector or if the object is stationary, the method returns "false".
 
 		@returns Whether the vehicle is going backwards or not
-		*/ 
+		*/
 		bool isMovingBackwards();
 
 		/**
@@ -134,7 +135,7 @@ namespace VroomVroom {
 		@param DeltaX turn direction
 		*/
 		void applyRotation(const double& dt, float deltaX);
-		
+
 		/**
 		Apply the push physics to the car, using linearSpeed.
 		@param Dt the time lapsed from previous frame
@@ -156,7 +157,7 @@ namespace VroomVroom {
 		void update(const double& dt) override;
 
 		/*
-		* Set parameters needed to drive the car correctly. 
+		* Set parameters needed to drive the car correctly.
 		*/
 		void setAccelerationAndRotation(float acceleration, float angularSpeed);
 		void setMaxSpeedAndRotationSpeed(float maxSpeed, float maxRotationSpeed);
@@ -216,6 +217,13 @@ namespace VroomVroom {
 		@param other The method takes a pointer to the other entity involved in the collision as a parameter.
 		*/
 		void onCollisionEnter(me::Entity* other) override;
+
+		/*
+		*Gets the power up from the power up it is carrying.
+		*/
+		PowerUpType getPowerUpType();
+
+		me::Entity* getPowerUpStolen();
 	};
 }
 #endif

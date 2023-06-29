@@ -16,6 +16,7 @@
 #include "PowerUpObject.h"
 #include "Oil.h"
 #include "Nerf.h"
+#include "Thief.h"
 #include "CameraFollow.h"
 
 #include "MotorEngine/MotorEngineError.h"
@@ -100,6 +101,7 @@ void VehicleController::start()
     mPowerUpUIWheel->addSpriteNameToPool("nerf");
     mPowerUpUIWheel->addSpriteNameToPool("oil");
     mPowerUpUIWheel->addSpriteNameToPool("lightningBolt");
+    mPowerUpUIWheel->addSpriteNameToPool("thief");
 
     Entity* circuitEntity = mEntity->getScene()->findEntity("circuit").get();
     if (!circuitEntity) {
@@ -253,11 +255,11 @@ void VehicleController::update(const double& dt)
 
     float deltaX;
 
-    if (mMotionControlled && inputManager().doesPlayerHaveMotionControls(getPlayerNumber())) {
-        deltaX = inputManager().getAxisMotionFromInputNumber(2, getPlayerAxis("HORIZONTAL_MOTIONCONTROLS"));
+    if (!mMotionControlled) {
+        deltaX = getPlayerAxis("HORIZONTAL");
     }
     else {
-        deltaX = getPlayerAxis("HORIZONTAL");
+        deltaX = inputManager().getAxisMotionFromInputNumber(2, getPlayerAxis("HORIZONTAL_MOTIONCONTROLS"));
     }
 
     Vector3 vForward = mTransform->forward().normalize();
@@ -276,13 +278,19 @@ void VehicleController::update(const double& dt)
         switch (mPowerUpType)
         {
         case NERF:
+        {
             // Create nerf entity  with nerf Component
             mPowerUpEntity->getComponent<Nerf>("nerf")->use(mEntity);
-            break;
+            mPowerUpPicked = false;
+        }
+        break;
         case OIL:
+        {
             //Create oil entity with Oil Component
             mPowerUpEntity->getComponent<Oil>("oil")->use(mEntity);
-            break;
+            mPowerUpPicked = false;
+        }
+        break;
         case THUNDER:
         {
             // Create thunder entity with thunder Component
@@ -298,14 +306,17 @@ void VehicleController::update(const double& dt)
             rigidbody->addImpulse(vForward * mSpeedBoost);
             mSpeedBoostTimer->reset();
             mSpeedBoostTimer->resume();
+            mPowerUpPicked = false;
         }
         break;
+        case THIEF:
+            mPowerUpEntity->getComponent<Thief>("thief")->use(mEntity);
+            break;
         default:
             break;
         }
 
         mPowerUpUIWheel->resetLinkSprite();
-        mPowerUpPicked = false;
     }
 }
 
@@ -414,6 +425,22 @@ void VehicleController::applyRotation(const double& dt, float deltaX)
     mRigidBody->setAngularVelocity(newAngularVelocity);
 }
 
+PowerUpType VroomVroom::VehicleController::getPowerUpType()
+{
+    return mPowerUpType;
+}
+
+Entity* VroomVroom::VehicleController::getPowerUpStolen()
+{
+    if (mPowerUpPicked) {
+        mPowerUpUIWheel->resetLinkSprite();
+        mPowerUpPicked = false;
+
+        return mPowerUpEntity;
+    }
+    else return nullptr;
+}
+
 void VehicleController::setAccelerationAndRotation(float acceleration, float rotationSpeed)
 {
     mAcceleration = acceleration;
@@ -496,6 +523,9 @@ void VehicleController::setPowerUpUI()
         break;
     case THUNDER:
         name = "lightningBolt";
+        break;
+    case THIEF:
+        name = "thief";
         break;
     }
 
