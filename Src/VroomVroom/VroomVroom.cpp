@@ -3,6 +3,7 @@
 #include "EntityComponent/ComponentsFactory.h"
 #include "VroomVroom/Components/Nerf.h"
 #include "VroomVroom/Components/Oil.h"
+#include "VroomVroom/Components/Thief.h"
 #include "VroomVroom/Components/UIButtonScene.h"
 #include "VroomVroom/Components/UIButtonQuit.h"
 #include "VroomVroom/Components/PowerUpObject.h"
@@ -48,6 +49,7 @@ __VROOMVROOM_API void initFactories()
 	componentsFactory().addFactoryComponent("powerupobject", new FactoryPowerUpObject());
 	componentsFactory().addFactoryComponent("oil", new FactoryOil());
 	componentsFactory().addFactoryComponent("nerf", new FactoryNerf());
+	componentsFactory().addFactoryComponent("thief", new FactoryThief());
 	componentsFactory().addFactoryComponent("boostpad", new FactoryBoostPad());
 }
 

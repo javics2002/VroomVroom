@@ -62,11 +62,10 @@ void Thief::onCollisionEnter(Entity* other)
 
 	if (other->hasComponent("vehiclecontroller")) {
 		VehicleController* otherVC = other->getComponent<VehicleController>("vehiclecontroller");
-		VehicleController* myVC = mEntity->getComponent<VehicleController>("vehiclecontroller");
 		stolenPowerUp = other->getComponent<VehicleController>("vehiclecontroller")->getPowerUpStolen();
 
 		if (stolenPowerUp != nullptr) {
-			myVC->setPowerUp(otherVC->getPowerUpType(), stolenPowerUp);
+			mVC->setPowerUp(otherVC->getPowerUpType(), stolenPowerUp);
 			std::string name;
 			switch (otherVC->getPowerUpType())
 			{
@@ -83,18 +82,36 @@ void Thief::onCollisionEnter(Entity* other)
 				name = "thief";
 				break;
 			}
-			mEntity->getComponent<PowerUpUIWheel>("powerupuiwheel")->stopSpinOnSprite(name);
+			mPUW->stopSpinOnSprite(name);
 		}
+	}
+	else {
+		mVC->setPowerUpPicked(false);
 	}
 	mEntity->destroy();
 }
 
 void Thief::use(Entity* other)
 {
+	mPUW = other->getComponent<PowerUpUIWheel>("powerupuiwheel");
+		if (!mPUW) {
+			errorManager().throwMotorEngineError("Thief use error",
+				"Other entity doesn't have powerupuiwheel component.");
+			sceneManager().quit();
+			return;
+		}
+	mVC = other->getComponent<VehicleController>("vehiclecontroller");
+	if (!mVC) {
+		errorManager().throwMotorEngineError("Thief use error",
+			"Thief entity doesn't have vehicleController component.");
+		sceneManager().quit();
+		return;
+	}
+
 	mThiefSound = mEntity->getComponent<AudioSource>("audiosource");
 	if (!mThiefSound) {
-		errorManager().throwMotorEngineError("Nerf use error",
-			"nerf entity doesn't have audioSource component.");
+		errorManager().throwMotorEngineError("Thief use error",
+			"Thief entity doesn't have audioSource component.");
 		sceneManager().quit();
 		return;
 	}
@@ -102,7 +119,7 @@ void Thief::use(Entity* other)
 
 	Transform* carTr = other->getComponent<Transform>("transform");
 	if (!carTr) {
-		errorManager().throwMotorEngineError("Nerf use error",
+		errorManager().throwMotorEngineError("Thief use error",
 			other->getName() + " entity doesn't have transform component.");
 		sceneManager().quit();
 		return;
@@ -110,8 +127,8 @@ void Thief::use(Entity* other)
 
 	Transform* transform = mEntity->getComponent<Transform>("transform");
 	if (!transform) {
-		errorManager().throwMotorEngineError("Nerf use error",
-			"nerf entity doesn't have transform component.");
+		errorManager().throwMotorEngineError("Thief use error",
+			"Thief entity doesn't have transform component.");
 		sceneManager().quit();
 		return;
 	}

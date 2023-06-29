@@ -28,7 +28,7 @@ particle_system Particle/chispa
     // Gravity.
     affector LinearForce
     {
-        force_vector      0 -100 0
+        force_vector  0 -100 0
         force_application add
     }
     affector ColourFader
@@ -36,18 +36,6 @@ particle_system Particle/chispa
         alpha -1.5
     }
 
-    //affector ColourImage
-    //{ 
-    //    image smokecolors.png
-    //}
-    // Fader.
-    //affector ColourFader
-    //{
-    //    red 1
-    //    green 1
-    //    blue 1
-    //    alpha -0.8
-    //}
 }
 
 particle_system Particle/polvo

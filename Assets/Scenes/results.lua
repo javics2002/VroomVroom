@@ -191,7 +191,7 @@ Entities = {
 
     CarOne = {
         Transform = {
-            position = { x = 6, y = -1.3, z = -1.5 },
+            position = { x = 6, y = -1, z = -1.5 },
             scale = { x = 0.9, y = 0.9, z = 0.9 },
             rotation = {x = -2, y = 193, z = 0}
         },

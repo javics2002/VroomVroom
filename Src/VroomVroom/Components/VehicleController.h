@@ -174,6 +174,7 @@ namespace VroomVroom {
 		void setControllable(bool controllable);
 		void setPowerUp(PowerUpType powerUpType, me::Entity* powerUpEntity);
 		void setPowerUpUI();
+		void setPowerUpPicked(bool set);
 
 		PlayerNumber getPlayerNumber();
 

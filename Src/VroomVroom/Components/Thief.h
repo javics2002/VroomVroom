@@ -12,7 +12,9 @@ namespace me {
 }
 
 namespace VroomVroom {
-
+	
+	class VehicleController;
+	class PowerUpUIWheel;
 
 	class FactoryThief : public me::FactoryComponent {
 	public:
@@ -31,6 +33,10 @@ namespace VroomVroom {
 		float mSpeed;
 
 		me::AudioSource* mThiefSound;
+
+		VehicleController* mVC;
+
+		PowerUpUIWheel* mPUW;
 
 	public:
 		Thief();

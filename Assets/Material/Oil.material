@@ -14,11 +14,11 @@ material Material.002 {
             }
 
             texture_unit {
-                texture Oil.png
+                texture Oil.PNG
                 tex_address_mode wrap
                 colour_op modulate
             }
-            // dont know how to export: alpha_texture Oil.png
+            // dont know how to export: alpha_texture Oil.PNG
         }
     }
 }

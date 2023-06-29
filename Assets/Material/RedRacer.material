@@ -11,7 +11,7 @@ material MaterialRedRacer {
             }
 
             texture_unit {
-                texture RacerA_Baked.png
+                texture RacerA_Baked.PNG
                 tex_address_mode wrap
                 colour_op modulate
             }

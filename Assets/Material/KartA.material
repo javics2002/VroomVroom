@@ -11,7 +11,7 @@ material Material.001 {
             }
 
             texture_unit {
-                texture KartA_Baked.png
+                texture KartA_Baked.PNG
                 tex_address_mode wrap
                 colour_op modulate
             }

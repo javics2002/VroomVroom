@@ -12,7 +12,7 @@ material PP_Standard_Material.009 {
             }
             shadow_caster_material PP_Standard_Material_Shadow
             texture_unit {
-                texture PP_Color_Palette.png
+                texture PP_Color_Palette.PNG
                 tex_address_mode wrap
                 colour_op modulate
             }
@@ -33,11 +33,11 @@ material Fantasy_House_6.005 {
             }
             shadow_caster_material PP_Standard_Material_Shadow
             texture_unit {
-                texture Fantasy_House_6.png
+                texture Fantasy_House_6.PNG
                 tex_address_mode wrap
                 colour_op modulate
             }
-            // dont know how to export: alpha_texture Fantasy_House_6.png
+            // dont know how to export: alpha_texture Fantasy_House_6.PNG
         }
     }
 }
@@ -69,7 +69,7 @@ material PP_Standard_Material.033 {
             }
             shadow_caster_material PP_Standard_Material_Shadow
             texture_unit {
-                texture PP_Color_Palette.png
+                texture PP_Color_Palette.PNG
                 tex_address_mode wrap
                 colour_op modulate
             }
@@ -89,7 +89,7 @@ material PP_Standard_Material.008 {
             }
             shadow_caster_material PP_Standard_Material_Shadow
             texture_unit {
-                texture PP_Color_Palette.png
+                texture PP_Color_Palette.PNG
                 tex_address_mode wrap
                 colour_op modulate
             }
@@ -110,11 +110,11 @@ material Fantasy_House_6.004 {
             }
 
             texture_unit {
-                texture Fantasy_House_6.png
+                texture Fantasy_House_6.PNG
                 tex_address_mode wrap
                 colour_op modulate
             }
-            // dont know how to export: alpha_texture Fantasy_House_6.png
+            // dont know how to export: alpha_texture Fantasy_House_6.PNG
         }
     }
 }
@@ -146,7 +146,7 @@ material PP_Standard_Material.032 {
             }
 
             texture_unit {
-                texture PP_Color_Palette.png
+                texture PP_Color_Palette.PNG
                 tex_address_mode wrap
                 colour_op modulate
             }
@@ -166,7 +166,7 @@ material PP_Standard_Material.007 {
             }
 
             texture_unit {
-                texture PP_Color_Palette.png
+                texture PP_Color_Palette.PNG
                 tex_address_mode wrap
                 colour_op modulate
             }
@@ -187,11 +187,11 @@ material Fantasy_House_6.003 {
             }
 
             texture_unit {
-                texture Fantasy_House_6.png
+                texture Fantasy_House_6.PNG
                 tex_address_mode wrap
                 colour_op modulate
             }
-            // dont know how to export: alpha_texture Fantasy_House_6.png
+            // dont know how to export: alpha_texture Fantasy_House_6.PNG
         }
     }
 }
@@ -223,7 +223,7 @@ material PP_Standard_Material.031 {
             }
 
             texture_unit {
-                texture PP_Color_Palette.png
+                texture PP_Color_Palette.PNG
                 tex_address_mode wrap
                 colour_op modulate
             }
@@ -243,7 +243,7 @@ material PP_Standard_Material.006 {
             }
 
             texture_unit {
-                texture PP_Color_Palette.png
+                texture PP_Color_Palette.PNG
                 tex_address_mode wrap
                 colour_op modulate
             }
@@ -263,7 +263,7 @@ material PP_Standard_Material.051 {
             }
 
             texture_unit {
-                texture PP_Color_Palette.png
+                texture PP_Color_Palette.PNG
                 tex_address_mode wrap
                 colour_op modulate
             }
@@ -284,11 +284,11 @@ material Fantasy_House_6.002 {
             }
 
             texture_unit {
-                texture Fantasy_House_6.png
+                texture Fantasy_House_6.PNG
                 tex_address_mode wrap
                 colour_op modulate
             }
-            // dont know how to export: alpha_texture Fantasy_House_6.png
+            // dont know how to export: alpha_texture Fantasy_House_6.PNG
         }
     }
 }
@@ -305,7 +305,7 @@ material PP_Standard_Material.030 {
             }
 
             texture_unit {
-                texture PP_Color_Palette.png
+                texture PP_Color_Palette.PNG
                 tex_address_mode wrap
                 colour_op modulate
             }
@@ -340,7 +340,7 @@ material PP_Standard_Material.005 {
             }
 
             texture_unit {
-                texture PP_Color_Palette.png
+                texture PP_Color_Palette.PNG
                 tex_address_mode wrap
                 colour_op modulate
             }
@@ -360,7 +360,7 @@ material PP_Standard_Material.050 {
             }
 
             texture_unit {
-                texture PP_Color_Palette.png
+                texture PP_Color_Palette.PNG
                 tex_address_mode wrap
                 colour_op modulate
             }
@@ -381,11 +381,11 @@ material Fantasy_House_6.001 {
             }
 
             texture_unit {
-                texture Fantasy_House_6.png
+                texture Fantasy_House_6.PNG
                 tex_address_mode wrap
                 colour_op modulate
             }
-            // dont know how to export: alpha_texture Fantasy_House_6.png
+            // dont know how to export: alpha_texture Fantasy_House_6.PNG
         }
     }
 }
@@ -402,7 +402,7 @@ material PP_Standard_Material.028 {
             }
 
             texture_unit {
-                texture PP_Color_Palette.png
+                texture PP_Color_Palette.PNG
                 tex_address_mode wrap
                 colour_op modulate
             }
@@ -437,7 +437,7 @@ material PP_Standard_Material.004 {
             }
 
             texture_unit {
-                texture PP_Color_Palette.png
+                texture PP_Color_Palette.PNG
                 tex_address_mode wrap
                 colour_op modulate
             }
@@ -457,7 +457,7 @@ material PP_Standard_Material.049 {
             }
 
             texture_unit {
-                texture PP_Color_Palette.png
+                texture PP_Color_Palette.PNG
                 tex_address_mode wrap
                 colour_op modulate
             }
@@ -478,11 +478,11 @@ material Fantasy_House_6 {
             }
 
             texture_unit {
-                texture Fantasy_House_6.png
+                texture Fantasy_House_6.PNG
                 tex_address_mode wrap
                 colour_op modulate
             }
-            // dont know how to export: alpha_texture Fantasy_House_6.png
+            // dont know how to export: alpha_texture Fantasy_House_6.PNG
         }
     }
 }
@@ -499,7 +499,7 @@ material PP_Standard_Material.027 {
             }
 
             texture_unit {
-                texture PP_Color_Palette.png
+                texture PP_Color_Palette.PNG
                 tex_address_mode wrap
                 colour_op modulate
             }
@@ -549,7 +549,7 @@ material PP_Standard_Material.003 {
             }
 
             texture_unit {
-                texture PP_Color_Palette.png
+                texture PP_Color_Palette.PNG
                 tex_address_mode wrap
                 colour_op modulate
             }
@@ -569,7 +569,7 @@ material PP_Standard_Material.048 {
             }
 
             texture_unit {
-                texture PP_Color_Palette.png
+                texture PP_Color_Palette.PNG
                 tex_address_mode wrap
                 colour_op modulate
             }
@@ -589,7 +589,7 @@ material PP_Standard_Material.026 {
             }
 
             texture_unit {
-                texture PP_Color_Palette.png
+                texture PP_Color_Palette.PNG
                 tex_address_mode wrap
                 colour_op modulate
             }
@@ -639,7 +639,7 @@ material PP_Standard_Material {
             }
 
             texture_unit {
-                texture PP_Color_Palette.png
+                texture PP_Color_Palette.PNG
                 tex_address_mode wrap
                 colour_op modulate
             }
@@ -659,7 +659,7 @@ material PP_Standard_Material.047 {
             }
 
             texture_unit {
-                texture PP_Color_Palette.png
+                texture PP_Color_Palette.PNG
                 tex_address_mode wrap
                 colour_op modulate
             }
@@ -694,7 +694,7 @@ material PP_Standard_Material.025 {
             }
 
             texture_unit {
-                texture PP_Color_Palette.png
+                texture PP_Color_Palette.PNG
                 tex_address_mode wrap
                 colour_op modulate
             }
@@ -744,7 +744,7 @@ material PP_Standard_Material.046 {
             }
 
             texture_unit {
-                texture PP_Color_Palette.png
+                texture PP_Color_Palette.PNG
                 tex_address_mode wrap
                 colour_op modulate
             }
@@ -779,7 +779,7 @@ material PP_Standard_Material.024 {
             }
 
             texture_unit {
-                texture PP_Color_Palette.png
+                texture PP_Color_Palette.PNG
                 tex_address_mode wrap
                 colour_op modulate
             }
@@ -800,11 +800,11 @@ material Fantasy_House_6.018 {
             }
 
             texture_unit {
-                texture Fantasy_House_6.png
+                texture Fantasy_House_6.PNG
                 tex_address_mode wrap
                 colour_op modulate
             }
-            // dont know how to export: alpha_texture Fantasy_House_6.png
+            // dont know how to export: alpha_texture Fantasy_House_6.PNG
         }
     }
 }
@@ -836,7 +836,7 @@ material PP_Standard_Material.045 {
             }
 
             texture_unit {
-                texture PP_Color_Palette.png
+                texture PP_Color_Palette.PNG
                 tex_address_mode wrap
                 colour_op modulate
             }
@@ -886,7 +886,7 @@ material PP_Standard_Material.023 {
             }
 
             texture_unit {
-                texture PP_Color_Palette.png
+                texture PP_Color_Palette.PNG
                 tex_address_mode wrap
                 colour_op modulate
             }
@@ -907,11 +907,11 @@ material Fantasy_House_6.017 {
             }
 
             texture_unit {
-                texture Fantasy_House_6.png
+                texture Fantasy_House_6.PNG
                 tex_address_mode wrap
                 colour_op modulate
             }
-            // dont know how to export: alpha_texture Fantasy_House_6.png
+            // dont know how to export: alpha_texture Fantasy_House_6.PNG
         }
     }
 }
@@ -958,7 +958,7 @@ material PP_Standard_Material.044 {
             }
 
             texture_unit {
-                texture PP_Color_Palette.png
+                texture PP_Color_Palette.PNG
                 tex_address_mode wrap
                 colour_op modulate
             }
@@ -993,7 +993,7 @@ material PP_Standard_Material.022 {
             }
 
             texture_unit {
-                texture PP_Color_Palette.png
+                texture PP_Color_Palette.PNG
                 tex_address_mode wrap
                 colour_op modulate
             }
@@ -1014,11 +1014,11 @@ material Fantasy_House_6.016 {
             }
 
             texture_unit {
-                texture Fantasy_House_6.png
+                texture Fantasy_House_6.PNG
                 tex_address_mode wrap
                 colour_op modulate
             }
-            // dont know how to export: alpha_texture Fantasy_House_6.png
+            // dont know how to export: alpha_texture Fantasy_House_6.PNG
         }
     }
 }
@@ -1050,7 +1050,7 @@ material PP_Standard_Material.043 {
             }
 
             texture_unit {
-                texture PP_Color_Palette.png
+                texture PP_Color_Palette.PNG
                 tex_address_mode wrap
                 colour_op modulate
             }
@@ -1100,7 +1100,7 @@ material PP_Standard_Material.021 {
             }
 
             texture_unit {
-                texture PP_Color_Palette.png
+                texture PP_Color_Palette.PNG
                 tex_address_mode wrap
                 colour_op modulate
             }
@@ -1121,11 +1121,11 @@ material Fantasy_House_6.015 {
             }
 
             texture_unit {
-                texture Fantasy_House_6.png
+                texture Fantasy_House_6.PNG
                 tex_address_mode wrap
                 colour_op modulate
             }
-            // dont know how to export: alpha_texture Fantasy_House_6.png
+            // dont know how to export: alpha_texture Fantasy_House_6.PNG
         }
     }
 }
@@ -1157,7 +1157,7 @@ material PP_Standard_Material.042 {
             }
 
             texture_unit {
-                texture PP_Color_Palette.png
+                texture PP_Color_Palette.PNG
                 tex_address_mode wrap
                 colour_op modulate
             }
@@ -1207,7 +1207,7 @@ material PP_Standard_Material.020 {
             }
 
             texture_unit {
-                texture PP_Color_Palette.png
+                texture PP_Color_Palette.PNG
                 tex_address_mode wrap
                 colour_op modulate
             }
@@ -1228,11 +1228,11 @@ material Fantasy_House_6.014 {
             }
 
             texture_unit {
-                texture Fantasy_House_6.png
+                texture Fantasy_House_6.PNG
                 tex_address_mode wrap
                 colour_op modulate
             }
-            // dont know how to export: alpha_texture Fantasy_House_6.png
+            // dont know how to export: alpha_texture Fantasy_House_6.PNG
         }
     }
 }
@@ -1264,7 +1264,7 @@ material PP_Standard_Material.041 {
             }
 
             texture_unit {
-                texture PP_Color_Palette.png
+                texture PP_Color_Palette.PNG
                 tex_address_mode wrap
                 colour_op modulate
             }
@@ -1329,7 +1329,7 @@ material PP_Standard_Material.019 {
             }
 
             texture_unit {
-                texture PP_Color_Palette.png
+                texture PP_Color_Palette.PNG
                 tex_address_mode wrap
                 colour_op modulate
             }
@@ -1350,11 +1350,11 @@ material Fantasy_House_6.013 {
             }
 
             texture_unit {
-                texture Fantasy_House_6.png
+                texture Fantasy_House_6.PNG
                 tex_address_mode wrap
                 colour_op modulate
             }
-            // dont know how to export: alpha_texture Fantasy_House_6.png
+            // dont know how to export: alpha_texture Fantasy_House_6.PNG
         }
     }
 }
@@ -1386,7 +1386,7 @@ material PP_Standard_Material.040 {
             }
 
             texture_unit {
-                texture PP_Color_Palette.png
+                texture PP_Color_Palette.PNG
                 tex_address_mode wrap
                 colour_op modulate
             }
@@ -1436,7 +1436,7 @@ material PP_Standard_Material.017 {
             }
 
             texture_unit {
-                texture PP_Color_Palette.png
+                texture PP_Color_Palette.PNG
                 tex_address_mode wrap
                 colour_op modulate
             }
@@ -1457,11 +1457,11 @@ material Fantasy_House_6.012 {
             }
 
             texture_unit {
-                texture Fantasy_House_6.png
+                texture Fantasy_House_6.PNG
                 tex_address_mode wrap
                 colour_op modulate
             }
-            // dont know how to export: alpha_texture Fantasy_House_6.png
+            // dont know how to export: alpha_texture Fantasy_House_6.PNG
         }
     }
 }
@@ -1493,7 +1493,7 @@ material PP_Standard_Material.039 {
             }
 
             texture_unit {
-                texture PP_Color_Palette.png
+                texture PP_Color_Palette.PNG
                 tex_address_mode wrap
                 colour_op modulate
             }
@@ -1544,11 +1544,11 @@ material Fantasy_House_6.011 {
             }
 
             texture_unit {
-                texture Fantasy_House_6.png
+                texture Fantasy_House_6.PNG
                 tex_address_mode wrap
                 colour_op modulate
             }
-            // dont know how to export: alpha_texture Fantasy_House_6.png
+            // dont know how to export: alpha_texture Fantasy_House_6.PNG
         }
     }
 }
@@ -1565,7 +1565,7 @@ material PP_Standard_Material.016 {
             }
 
             texture_unit {
-                texture PP_Color_Palette.png
+                texture PP_Color_Palette.PNG
                 tex_address_mode wrap
                 colour_op modulate
             }
@@ -1600,7 +1600,7 @@ material PP_Standard_Material.038 {
             }
 
             texture_unit {
-                texture PP_Color_Palette.png
+                texture PP_Color_Palette.PNG
                 tex_address_mode wrap
                 colour_op modulate
             }
@@ -1650,7 +1650,7 @@ material PP_Standard_Material.015 {
             }
 
             texture_unit {
-                texture PP_Color_Palette.png
+                texture PP_Color_Palette.PNG
                 tex_address_mode wrap
                 colour_op modulate
             }
@@ -1671,11 +1671,11 @@ material Fantasy_House_6.010 {
             }
 
             texture_unit {
-                texture Fantasy_House_6.png
+                texture Fantasy_House_6.PNG
                 tex_address_mode wrap
                 colour_op modulate
             }
-            // dont know how to export: alpha_texture Fantasy_House_6.png
+            // dont know how to export: alpha_texture Fantasy_House_6.PNG
         }
     }
 }
@@ -1707,7 +1707,7 @@ material PP_Standard_Material.037 {
             }
 
             texture_unit {
-                texture PP_Color_Palette.png
+                texture PP_Color_Palette.PNG
                 tex_address_mode wrap
                 colour_op modulate
             }
@@ -1757,7 +1757,7 @@ material PP_Standard_Material.014 {
             }
 
             texture_unit {
-                texture PP_Color_Palette.png
+                texture PP_Color_Palette.PNG
                 tex_address_mode wrap
                 colour_op modulate
             }
@@ -1778,11 +1778,11 @@ material Fantasy_House_6.009 {
             }
 
             texture_unit {
-                texture Fantasy_House_6.png
+                texture Fantasy_House_6.PNG
                 tex_address_mode wrap
                 colour_op modulate
             }
-            // dont know how to export: alpha_texture Fantasy_House_6.png
+            // dont know how to export: alpha_texture Fantasy_House_6.PNG
         }
     }
 }
@@ -1814,7 +1814,7 @@ material PP_Standard_Material.036 {
             }
 
             texture_unit {
-                texture PP_Color_Palette.png
+                texture PP_Color_Palette.PNG
                 tex_address_mode wrap
                 colour_op modulate
             }
@@ -1864,7 +1864,7 @@ material PP_Standard_Material.013 {
             }
 
             texture_unit {
-                texture PP_Color_Palette.png
+                texture PP_Color_Palette.PNG
                 tex_address_mode wrap
                 colour_op modulate
             }
@@ -1885,11 +1885,11 @@ material Fantasy_House_6.008 {
             }
 
             texture_unit {
-                texture Fantasy_House_6.png
+                texture Fantasy_House_6.PNG
                 tex_address_mode wrap
                 colour_op modulate
             }
-            // dont know how to export: alpha_texture Fantasy_House_6.png
+            // dont know how to export: alpha_texture Fantasy_House_6.PNG
         }
     }
 }
@@ -1906,7 +1906,7 @@ material PP_Standard_Material.035 {
             }
 
             texture_unit {
-                texture PP_Color_Palette.png
+                texture PP_Color_Palette.PNG
                 tex_address_mode wrap
                 colour_op modulate
             }
@@ -1941,7 +1941,7 @@ material PP_Standard_Material.012 {
             }
 
             texture_unit {
-                texture PP_Color_Palette.png
+                texture PP_Color_Palette.PNG
                 tex_address_mode wrap
                 colour_op modulate
             }
@@ -1962,11 +1962,11 @@ material Fantasy_House_6.007 {
             }
 
             texture_unit {
-                texture Fantasy_House_6.png
+                texture Fantasy_House_6.PNG
                 tex_address_mode wrap
                 colour_op modulate
             }
-            // dont know how to export: alpha_texture Fantasy_House_6.png
+            // dont know how to export: alpha_texture Fantasy_House_6.PNG
         }
     }
 }
@@ -1998,7 +1998,7 @@ material PP_Standard_Material.034 {
             }
 
             texture_unit {
-                texture PP_Color_Palette.png
+                texture PP_Color_Palette.PNG
                 tex_address_mode wrap
                 colour_op modulate
             }
@@ -2018,7 +2018,7 @@ material PP_Standard_Material.010 {
             }
 
             texture_unit {
-                texture PP_Color_Palette.png
+                texture PP_Color_Palette.PNG
                 tex_address_mode wrap
                 colour_op modulate
             }
@@ -2039,11 +2039,11 @@ material Fantasy_House_6.006 {
             }
 
             texture_unit {
-                texture Fantasy_House_6.png
+                texture Fantasy_House_6.PNG
                 tex_address_mode wrap
                 colour_op modulate
             }
-            // dont know how to export: alpha_texture Fantasy_House_6.png
+            // dont know how to export: alpha_texture Fantasy_House_6.PNG
         }
     }
 }

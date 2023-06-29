@@ -157,7 +157,7 @@ Entities = {
 
     CarOne = {
         Transform = {
-            position = { x = 6, y = -1.1, z = -2.5 },
+            position = { x = 6, y = -1, z = -2.5 },
             scale = { x = 0.8, y = 0.8, z = 0.8 },
             rotation = {x = -2, y = 200, z = 0}
         },
@@ -176,7 +176,7 @@ Entities = {
             name = "yourtime",
             text = "PLAYER ONE",
             colour = { x = 1, y = 0 , z = 0},
-            position = { x = 0.24, y = 0.37 },
+            position = { x = 0.25, y = 0.37 },
             dimension = { x = 0.3, y = 0.3 },
             charheight = 0.06,
             fontname = "Mario"
@@ -200,7 +200,7 @@ Entities = {
     },
     CarTwo = {
         Transform = {
-            position = { x = 6.2, y = -1.2, z = -0.5 },
+            position = { x = 6.2, y = -1.16, z = -0.5 },
             scale = { x = 0.8, y = 0.8, z = 0.8 },
             rotation = {x = 0, y = 178, z = 0}
         },
@@ -220,7 +220,7 @@ Entities = {
             name = "caronetext",
             text = "00:00:00",
             colour = { x = 1, y = 0 , z = 0},
-            position = { x = 0.24, y = 0.45 },
+            position = { x = 0.25, y = 0.45 },
             dimension = { x = 0.3, y = 0.3 },
             charheight = 0.06,
             fontname = "Mario"

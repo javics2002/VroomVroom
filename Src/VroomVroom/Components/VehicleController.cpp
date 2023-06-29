@@ -532,6 +532,11 @@ void VehicleController::setPowerUpUI()
     mPowerUpUIWheel->spinForSecondsAndLandOnSprite(3, name);
 }
 
+void VroomVroom::VehicleController::setPowerUpPicked(bool set)
+{
+    mPowerUpPicked = set;
+}
+
 void VehicleController::setPlace(int newPlace)
 {
     mPlace = newPlace;

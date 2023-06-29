@@ -16,7 +16,7 @@ material PowerUpContainer {
                 tex_address_mode wrap
                 colour_op modulate
             }
-            // dont know how to export: alpha_texture export.png
+            // dont know how to export: alpha_texture export.PNG
         }
     }
 }
