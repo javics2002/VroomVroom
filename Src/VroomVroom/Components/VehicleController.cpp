@@ -16,7 +16,6 @@
 #include "PowerUpObject.h"
 #include "Oil.h"
 #include "Nerf.h"
-#include "Thief.h"
 #include "CameraFollow.h"
 
 #include "MotorEngine/MotorEngineError.h"
@@ -101,7 +100,6 @@ void VehicleController::start()
     mPowerUpUIWheel->addSpriteNameToPool("nerf");
     mPowerUpUIWheel->addSpriteNameToPool("oil");
     mPowerUpUIWheel->addSpriteNameToPool("lightningBolt");
-    mPowerUpUIWheel->addSpriteNameToPool("thief");
 
     Entity* circuitEntity = mEntity->getScene()->findEntity("circuit").get();
     if (!circuitEntity) {
@@ -281,14 +279,12 @@ void VehicleController::update(const double& dt)
         {
             // Create nerf entity  with nerf Component
             mPowerUpEntity->getComponent<Nerf>("nerf")->use(mEntity);
-            mPowerUpPicked = false;
         }
         break;
         case OIL:
         {
             //Create oil entity with Oil Component
             mPowerUpEntity->getComponent<Oil>("oil")->use(mEntity);
-            mPowerUpPicked = false;
         }
         break;
         case THUNDER:
@@ -306,17 +302,14 @@ void VehicleController::update(const double& dt)
             rigidbody->addImpulse(vForward * mSpeedBoost);
             mSpeedBoostTimer->reset();
             mSpeedBoostTimer->resume();
-            mPowerUpPicked = false;
         }
         break;
-        case THIEF:
-            mPowerUpEntity->getComponent<Thief>("thief")->use(mEntity);
-            break;
         default:
             break;
         }
 
         mPowerUpUIWheel->resetLinkSprite();
+        mPowerUpPicked = false;
     }
 }
 
@@ -425,22 +418,6 @@ void VehicleController::applyRotation(const double& dt, float deltaX)
     mRigidBody->setAngularVelocity(newAngularVelocity);
 }
 
-PowerUpType VroomVroom::VehicleController::getPowerUpType()
-{
-    return mPowerUpType;
-}
-
-Entity* VroomVroom::VehicleController::getPowerUpStolen()
-{
-    if (mPowerUpPicked) {
-        mPowerUpUIWheel->resetLinkSprite();
-        mPowerUpPicked = false;
-
-        return mPowerUpEntity;
-    }
-    else return nullptr;
-}
-
 void VehicleController::setAccelerationAndRotation(float acceleration, float rotationSpeed)
 {
     mAcceleration = acceleration;
@@ -523,9 +500,6 @@ void VehicleController::setPowerUpUI()
         break;
     case THUNDER:
         name = "lightningBolt";
-        break;
-    case THIEF:
-        name = "thief";
         break;
     }
 

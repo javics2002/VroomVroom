@@ -19,7 +19,7 @@ namespace VroomVroom {
 	*/
 	enum PowerUpType
 	{
-		NERF, OIL, THUNDER, THIEF
+		NERF, OIL, THUNDER
 	};
 
 
@@ -68,11 +68,10 @@ namespace VroomVroom {
 		void onCollisionEnter(me::Entity* other) override;
 
 		/*
-		* Return the entity of the picked power up (oil ,nerf or thief)
+		* Return the entity of the picked power up (oil or nerf)
 		*/
 		me::Entity* createOilEntity();
 		me::Entity* createNerfEntity();
-		me::Entity* createThiefEntity();
 
 	private:
 		PowerUpType mPowerUp; // the type of power-up that this object represents

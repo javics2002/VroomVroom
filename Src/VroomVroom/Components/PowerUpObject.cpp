@@ -1,7 +1,6 @@
 #include "PowerUpObject.h"
 #include "Oil.h"
 #include "Nerf.h"
-#include "Thief.h"
 #include <math.h>
 #include "VehicleController.h"
 #include "Utils/Timer.h"
@@ -101,7 +100,7 @@ void PowerUpObject::update(const double& dt)
 void PowerUpObject::resetPowerUp()
 {
 	// Choose a new random power-up type for the object to represent
-	mPowerUp = PowerUpType(rand() % 4);
+	mPowerUp = PowerUpType(rand() % 3);
 }
 
 void PowerUpObject::setPower(PowerUpType type)
@@ -148,10 +147,6 @@ void PowerUpObject::onCollisionEnter(me::Entity* other)
 				break;
 			case OIL:
 				mPowerUpEntity = createOilEntity();
-				break;
-
-			case THIEF:
-				mPowerUpEntity = createThiefEntity();
 				break;
 			}
 
@@ -270,54 +265,4 @@ Entity* PowerUpObject::createNerfEntity()
 	gameManager()->addPowerUp();
 
 	return nerf;
-}
-
-me::Entity* VroomVroom::PowerUpObject::createThiefEntity()
-{
-	Entity* thief = mEntity->getScene()->addEntity("Thief" + std::to_string(gameManager()->getContPowerUps())).get();
-
-	Transform* thiefTransfrom = thief->addComponent<Transform>("transform");
-	assert(thiefTransfrom);
-	thiefTransfrom->setPosition(Vector3(0, -500, 0));
-	thiefTransfrom->setScale(Vector3(1, 1, 1));
-
-	AudioSource* thiefAudio = thief->addComponent<AudioSource>("audiosource");
-	assert(thiefAudio);
-	thiefAudio->setSourceName("thiefSound" + std::to_string(gameManager()->getContPowerUps()));
-	thiefAudio->setSourcePath("throwRocket.mp3");
-	thiefAudio->setPlayOnStart(false);
-	thiefAudio->setGroupChannelName("effects");
-	thiefAudio->setVolume(4.0f);
-	thiefAudio->setIsThreeD(true);
-	thiefAudio->setLoop(false);
-	thiefAudio->setMinDistance(1.0f);
-	thiefAudio->setMaxDistance(60.0f);
-
-	Collider* thiefCol = thief->addComponent<Collider>("collider");
-	assert(thiefCol);
-
-	RigidBody* thiefRigidbody = thief->addComponent<RigidBody>("rigidbody");
-	assert(thiefRigidbody);
-	thiefRigidbody->setColShape(SHAPES_BOX);
-	thiefRigidbody->setMomeventType(MOVEMENT_TYPE_KINEMATIC);
-	thiefRigidbody->setMass(1);
-	thiefRigidbody->setGroup(2);
-	thiefRigidbody->setMask(7);
-	thiefRigidbody->setColliderScale(me::Vector3(1, .25, 1));
-	thiefRigidbody->setTrigger(true);
-
-	Parameters meshRendererParameters;
-	meshRendererParameters["mesh"] = "t" + std::to_string(gameManager()->getContPowerUps());
-	meshRendererParameters["meshname"] = "Nerf.mesh";
-	MeshRenderer* meshThief = static_cast<MeshRenderer*>(thief->addComponent("meshrenderer", meshRendererParameters));
-	if (!meshThief)
-		return nullptr;
-
-	Thief* thiefComp = thief->addComponent<Thief>("thief");
-	assert(thiefComp);
-	thiefComp->setSpeed(30);
-
-	gameManager()->addPowerUp();
-
-	return thief;
 }

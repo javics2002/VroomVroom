@@ -14,7 +14,6 @@ namespace me {
 	class RigidBody;
 	class Timer;
 	class AudioSource;
-	class Entity;
 }
 
 namespace VroomVroom {
@@ -217,13 +216,6 @@ namespace VroomVroom {
 		@param other The method takes a pointer to the other entity involved in the collision as a parameter.
 		*/
 		void onCollisionEnter(me::Entity* other) override;
-
-		/*
-		*Gets the power up from the power up it is carrying.
-		*/
-		PowerUpType getPowerUpType();
-
-		me::Entity* getPowerUpStolen();
 	};
 }
 #endif
