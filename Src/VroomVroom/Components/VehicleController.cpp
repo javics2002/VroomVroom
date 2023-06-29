@@ -253,11 +253,11 @@ void VehicleController::update(const double& dt)
 
     float deltaX;
 
-    if (!mMotionControlled) {
-        deltaX = getPlayerAxis("HORIZONTAL");
+    if (mMotionControlled && inputManager().doesPlayerHaveMotionControls(getPlayerNumber())) {
+        deltaX = inputManager().getAxisMotionFromInputNumber(2, getPlayerAxis("HORIZONTAL_MOTIONCONTROLS"));
     }
     else {
-        deltaX = inputManager().getAxisMotionFromInputNumber(2, getPlayerAxis("HORIZONTAL_MOTIONCONTROLS"));
+        deltaX = getPlayerAxis("HORIZONTAL");
     }
 
     Vector3 vForward = mTransform->forward().normalize();
