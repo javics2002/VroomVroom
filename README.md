@@ -60,8 +60,8 @@ El juego soporta teclado y mando.
 |**Acción**|**Teclado(J1)**|**Teclado(J2)**|**Mando Xbox**|**DualShock 4**|
 | ------ | ------ | ------ | ------ | ------ |
 | Acelerar | W | Flecha arriba | A | X |
-| Girar a la izquierda | A | Flecha izquierda | Joystick | Joystick |
-| Girar a la derecha | D | Flecha derecha | Joystick | Joystick |
+| Girar a la izquierda | A | Flecha izquierda | Joystick / Girar Mando | Joystick / Girar Mando |
+| Girar a la derecha | D | Flecha derecha | Joystick / Girar Mando | Joystick / Girar Mando |
 | Frenar/Marcha atrás | S | Flecha abajo | B | O |
 | Usar objeto | Space / E | P / Ctrl Der | LB/RB/X/Y | L1/R1/△/⃞ |
 | Volver al menú | ESC | ESC | Start | Options |
@@ -70,7 +70,7 @@ El juego soporta teclado y mando.
 
 ### **Circuito**
 
-El circuito es el escenario que recorren los vehículos. Tiene forma de 0. Cuenta con una serie de checkpoints para asegurar la correcta vuelta de los jugadores, y evitar que estos traten de realizar la carrera en dirección contraria o saltándose partes del circuito. Hay cajas de objetos repartidas por el escenario, que contienen un power-up, especificados más abajo, estás obsequian al jugador con uno de los tres power-ups, de manera completamente aleatoria.
+El circuito es el escenario que recorren los vehículos. Tiene forma de 0. Cuenta con una serie de checkpoints para asegurar la correcta vuelta de los jugadores, y evitar que estos traten de realizar la carrera en dirección contraria o saltándose partes del circuito. En la versión para dos jugadores, hay cajas de objetos repartidas por el escenario, que contienen un power-up, especificados más abajo, estás obsequian al jugador con uno de los tres power-ups, de manera completamente aleatoria; y Boost Pads, que proporcionan un impulso al conducir sobre ellos.
 
 <div align="center">
     <img src="readme_assets/circuit.png" alt="title" width="746" height="209">
@@ -97,6 +97,7 @@ Las cajas desaparecen al ser recogidas y una nueva caja aparece en su misma posi
 
 Solo habrá un elemento del escenario a tener en cuenta
   * Vallas: rodean el circuito para no salirte de forma que si chocas con ella rebotarás un poco hacia atrás y tendrás que redirigir el coche.
+  * Boost Pads: colocados en el suelo a lo largo de la pista, proporcionan un impulso al conducir sobre ellos.
   
   
 ## <p align="center">**Dinámica**</p>
@@ -124,7 +125,7 @@ El diseño de sonido consta de una gama de sonidos cartoon, que representan cada
 **1 X Circuito:**
 
   * **Baby Park:**
-    Este circuito tiene forma de 0, tiene amplitud de 8 coches y se completa al darle 7 vueltas. El espacio reducido y la sencillez de este circuito nos proporcionará una gran sensación de frenetismo centrándonos más en coger los power ups para molestar o beneficiarnos.
+    Este circuito tiene forma de 0, tiene amplitud de 8 coches y se completa al darle 7 vueltas. El espacio reducido y la sencillez de este circuito nos proporcionará una gran sensación de frenetismo centrándonos más en coger los power ups para molestar o beneficiarnos. La versión para dos jugadores incluye cajas de Power-ups y Boost Pads.
     
 *3 X Power Ups:*
   * **Thunder:**
