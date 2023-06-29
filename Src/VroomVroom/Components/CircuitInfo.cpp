@@ -81,6 +81,12 @@ void CircuitInfo::update(const double& dt)
 {
 	mTimer->update(dt);
 
+	if (gameManager() == nullptr) {
+		errorManager().throwMotorEngineError("CircuitInfo Update Error", "Game Manager does not exist");
+		sceneManager().quit();
+		return;
+	}
+
 	if (!mRaceStarted && !mRaceFinished) {
 		if (mTimer->getRawSeconds() > 3) {
 			mRaceStarted = true;

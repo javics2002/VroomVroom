@@ -555,6 +555,12 @@ void VehicleController::startNerfTimer()
 
 void VehicleController::onCollisionEnter(me::Entity* other)
 {
+    if (gameManager() == nullptr) {
+        errorManager().throwMotorEngineError("VehicleController onCollisionEnter Error", "Game Manager does not exist");
+        sceneManager().quit();
+        return;
+    }
+
     if (other->hasComponent("checkpoint")) {
         Checkpoint* checkpoint = other->getComponent<Checkpoint>("checkpoint");
         Transform* lastCheckpointTransform = checkpoint->getEntity()->getComponent<Transform>("transform");

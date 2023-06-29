@@ -158,6 +158,12 @@ void PowerUpObject::onCollisionEnter(me::Entity* other)
 
 Entity* PowerUpObject::createOilEntity()
 {
+	if (gameManager() == nullptr) {
+		errorManager().throwMotorEngineError("CreateOilEntity Error", "Game Manager does not exist");
+		sceneManager().quit();
+		return nullptr;
+	}
+
     Entity* oil = mEntity->getScene()->addEntity("Oil" + std::to_string(gameManager()->getContPowerUps())).get();
 	Transform* tr;
 	RigidBody* rb;
@@ -219,6 +225,12 @@ Entity* PowerUpObject::createOilEntity()
 
 Entity* PowerUpObject::createNerfEntity()
 {
+	if (gameManager() == nullptr) {
+		errorManager().throwMotorEngineError("CreateNerfEntity Error", "Game Manager does not exist");
+		sceneManager().quit();
+		return nullptr;
+	}
+
 	Entity* nerf = mEntity->getScene()->addEntity("Nerf" + std::to_string(gameManager()->getContPowerUps())).get();
 
 	Transform* nerfTransfrom = nerf->addComponent<Transform>("transform");

@@ -139,6 +139,13 @@ void UIButtonScene::update(const double& dt)
 		if (inputManager().getButton("LEFTCLICK")) {
 			//mClickAudio->play();
 			execute();
+			
+			if (gameManager() == nullptr) {
+				errorManager().throwMotorEngineError("UIButtonScene error", "Game Manager does not exist");
+				sceneManager().quit();
+				return;
+			}
+
 			gameManager()->changeState(mNewScene);
 		}
 		else if (stoppedSound) {
