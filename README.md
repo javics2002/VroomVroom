@@ -70,7 +70,7 @@ El juego soporta teclado y mando.
 
 ### **Circuito**
 
-El circuito es el escenario que recorren los vehículos. Tiene forma de 0. Cuenta con una serie de checkpoints para asegurar la correcta vuelta de los jugadores, y evitar que estos traten de realizar la carrera en dirección contraria o saltándose partes del circuito. En la versión para dos jugadores, hay cajas de objetos repartidas por el escenario, que contienen un power-up, especificados más abajo, estás obsequian al jugador con uno de los tres power-ups, de manera completamente aleatoria; y Boost Pads, que proporcionan un impulso al conducir sobre ellos.
+El circuito es el escenario que recorren los vehículos. Tiene forma de 0. Cuenta con una serie de checkpoints para asegurar la correcta vuelta de los jugadores, y evitar que estos traten de realizar la carrera en dirección contraria o saltándose partes del circuito. En la versión para un jugador, hay anillos a lo largo del circuito, que congelan el cronómetro durante un instante, para mejorar el récord del jugador. En la versión para dos jugadores, hay cajas de objetos repartidas por el escenario, que contienen un power-up, especificados más abajo, estás obsequian al jugador con uno de los tres power-ups, de manera completamente aleatoria; y Boost Pads, que proporcionan un impulso al conducir sobre ellos.
 
 <div align="center">
     <img src="readme_assets/circuit.png" alt="title" width="746" height="209">
@@ -97,6 +97,7 @@ Las cajas desaparecen al ser recogidas y una nueva caja aparece en su misma posi
 
 Solo habrá un elemento del escenario a tener en cuenta
   * Vallas: rodean el circuito para no salirte de forma que si chocas con ella rebotarás un poco hacia atrás y tendrás que redirigir el coche.
+  * Time-Freeze Rings: anillos a lo largo del circuito, congelan el cronómetro durante un momento al atravesarlos.
   * Boost Pads: colocados en el suelo a lo largo de la pista, proporcionan un impulso al conducir sobre ellos.
   
   
