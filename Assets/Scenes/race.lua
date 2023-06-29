@@ -10,7 +10,7 @@ Entities = {
 		    mvType = static,
 		    mass = 5,
             group = 2,
-            mask = 6,
+            mask = 1,
             colliderscale = {x = 200, y = 0.01, z = 200},
 		    restitution = .5,
 		    friction = .3,
@@ -86,8 +86,8 @@ Entities = {
             colShape = 2,
             mvType = 0,
             mass = 1,
-            group = 2,
-            mask = 7,
+            group = 1,
+            mask = 63,
             colliderscale = {x = 1, y = .4, z = 1},
             restitution = 0,
             friction = 0,
@@ -238,6 +238,263 @@ Entities = {
         }
     },
 
+    ------------------------------------------------------------------------------------------
+    ------------------------------------------------------------------------------------------
+
+
+    timeFreezeRing1 = {
+        Transform = {
+            position = { x= -15, y = 5.01, z = 10 },
+            scale = { x = 1, y = 1, z = 2},
+            rotation = {x = 0, y = 0, z = 0}
+        },
+        RigidBody = {
+            colShape = 1,
+            mvType = 2,
+            mass = 0,
+            group = 4,
+            mask = 1,
+            colliderscale = {x = 1, y = 1, z = 1},
+            restitution = .5,
+            friction = 0.5,
+            isTrigger = true
+        },
+        meshrenderer = {
+            mesh = "timeFreezeRing1",
+            meshName = "BoostPad.mesh"
+        },
+        collider = {
+        },
+        timeFreezeRing = {
+            circuitInfoName = "Circuit"
+        },
+        audiosource = {
+            name = "timeFreezeRingSound1",
+            path = "posibleAumentoDeVel.mp3",
+            onstart = false,
+            loop = false,
+            threed = false,
+            groupchannel = "effects"
+        }
+    },
+
+    timeFreezeRing2 = {
+        Transform = {
+            position = { x= -55, y = 5.01, z = 5 },
+            scale = { x = 1, y = 1, z = 2},
+            rotation = {x = 0, y = 0, z = 0}
+        },
+        RigidBody = {
+            colShape = 1,
+            mvType = 2,
+            mass = 0,
+            group = 4,
+            mask = 1,
+            colliderscale = {x = 1, y = 1, z = 1},
+            restitution = .5,
+            friction = 0.5,
+            isTrigger = true
+        },
+        meshrenderer = {
+            mesh = "timeFreezeRing2",
+            meshName = "BoostPad.mesh"
+        },
+        collider = {
+        },
+        timeFreezeRing = {
+            circuitInfoName = "Circuit"
+        },
+        audiosource = {
+            name = "timeFreezeRingSound2",
+            path = "posibleAumentoDeVel.mp3",
+            onstart = false,
+            loop = false,
+            threed = false,
+            groupchannel = "effects"
+        }
+    },
+
+    timeFreezeRing3 = {
+        Transform = {
+            position = { x= -126, y = 5.01, z = 0 },
+            scale = { x = 1, y = 1, z = 2},
+            rotation = {x = 0, y = 90, z = 0}
+        },
+        RigidBody = {
+            colShape = 1,
+            mvType = 2,
+            mass = 0,
+            group = 4,
+            mask = 1,
+            colliderscale = {x = 1, y = 1, z = 1},
+            restitution = .5,
+            friction = 0.5,
+            isTrigger = true
+        },
+        meshrenderer = {
+            mesh = "timeFreezeRing3",
+            meshName = "BoostPad.mesh"
+        },
+        collider = {
+        },
+        timeFreezeRing = {
+            circuitInfoName = "Circuit"
+        },
+        audiosource = {
+            name = "timeFreezeRingSound3",
+            path = "posibleAumentoDeVel.mp3",
+            onstart = false,
+            loop = false,
+            threed = false,
+            groupchannel = "effects"
+        }
+    },
+
+    timeFreezeRing4 = {
+        Transform = {
+            position = { x= -90, y = 5.01, z = -5 },
+            scale = { x = 1, y = 1, z = 2},
+            rotation = {x = 0, y = 0, z = 0}
+        },
+        RigidBody = {
+            colShape = 1,
+            mvType = 2,
+            mass = 0,
+            group = 4,
+            mask = 1,
+            colliderscale = {x = 1, y = 1, z = 1},
+            restitution = .5,
+            friction = 0.5,
+            isTrigger = true
+        },
+        meshrenderer = {
+            mesh = "timeFreezeRing4",
+            meshName = "BoostPad.mesh"
+        },
+        collider = {
+        },
+        timeFreezeRing = {
+            circuitInfoName = "Circuit"
+        },
+        audiosource = {
+            name = "timeFreezeRingSound4",
+            path = "posibleAumentoDeVel.mp3",
+            onstart = false,
+            loop = false,
+            threed = false,
+            groupchannel = "effects"
+        }
+    },
+
+    timeFreezeRing5 = {
+        Transform = {
+            position = { x= -70, y = 5.01, z = -5 },
+            scale = { x = 1, y = 1, z = 2},
+            rotation = {x = 0, y = 0, z = 0}
+        },
+        RigidBody = {
+            colShape = 1,
+            mvType = 2,
+            mass = 0,
+            group = 4,
+            mask = 1,
+            colliderscale = {x = 1, y = 1, z = 1},
+            restitution = .5,
+            friction = 0.5,
+            isTrigger = true
+        },
+        meshrenderer = {
+            mesh = "timeFreezeRing5",
+            meshName = "BoostPad.mesh"
+        },
+        collider = {
+        },
+        timeFreezeRing = {
+            circuitInfoName = "Circuit"
+        },
+        audiosource = {
+            name = "timeFreezeRingSound5",
+            path = "posibleAumentoDeVel.mp3",
+            onstart = false,
+            loop = false,
+            threed = false,
+            groupchannel = "effects"
+        }
+    },
+
+    timeFreezeRing6 = {
+        Transform = {
+            position = { x= -40, y = 5.01, z = -10 },
+            scale = { x = 1, y = 1, z = 2},
+            rotation = {x = 0, y = 0, z = 0}
+        },
+        RigidBody = {
+            colShape = 1,
+            mvType = 2,
+            mass = 0,
+            group = 4,
+            mask = 1,
+            colliderscale = {x = 1, y = 1, z = 1},
+            restitution = .5,
+            friction = 0.5,
+            isTrigger = true
+        },
+        meshrenderer = {
+            mesh = "timeFreezeRing6",
+            meshName = "BoostPad.mesh"
+        },
+        collider = {
+        },
+        timeFreezeRing = {
+            circuitInfoName = "Circuit"
+        },
+        audiosource = {
+            name = "timeFreezeRingSound6",
+            path = "posibleAumentoDeVel.mp3",
+            onstart = false,
+            loop = false,
+            threed = false,
+            groupchannel = "effects"
+        }
+    },
+
+    timeFreezeRing7 = {
+        Transform = {
+            position = { x= -20, y = 5.01, z = -10 },
+            scale = { x = 1, y = 1, z = 2},
+            rotation = {x = 0, y = 0, z = 0}
+        },
+        RigidBody = {
+            colShape = 1,
+            mvType = 2,
+            mass = 0,
+            group = 4,
+            mask = 1,
+            colliderscale = {x = 1, y = 1, z = 1},
+            restitution = .5,
+            friction = 0.5,
+            isTrigger = true
+        },
+        meshrenderer = {
+            mesh = "timeFreezeRing7",
+            meshName = "BoostPad.mesh"
+        },
+        collider = {
+        },
+        timeFreezeRing = {
+            circuitInfoName = "Circuit"
+        },
+        audiosource = {
+            name = "timeFreezeRingSound7",
+            path = "posibleAumentoDeVel.mp3",
+            onstart = false,
+            loop = false,
+            threed = false,
+            groupchannel = "effects"
+        }
+    },
+    
+    
     ------------------------------------------------------------------------------------------
     ------------------------------------------------------------------------------------------
 
@@ -966,5 +1223,291 @@ Entities = {
         }
 	}
 }
+
+
+function createWalls()
+
+    
+    --Paredes interiores
+
+    insideWallsTr = {
+
+        Transform0 = {
+            position = { x = -63, y = 5, z = 2.8},
+            rotation = { x = 0, y = 0, z = 0 },
+            scale = { x = 1, y = 1, z = 1}
+        },
+
+        Transform1 = {
+            position = { x = -63, y = 5, z = -2.8},
+            rotation = { x = 0, y = 0, z = 0 },
+            scale = { x = 1, y = 1, z = 1}
+        },
+
+        Transform2 = {
+            position = { x = -7.2, y = 5, z = 0},
+            rotation = { x = 0, y = 90, z = 0 },
+            scale = { x = 1, y = 1, z = 1}
+        },
+
+        Transform3 = {
+            position = { x = -7.4, y = 5, z = -0.8},
+            rotation = { x = 0, y = -70, z = 0 },
+            scale = { x = 1, y = 1, z = 1}
+        },
+
+        Transform4 = {
+            position = { x = -8.2, y = 5, z = -2},
+            rotation = { x = 0, y = -50, z = 0 },
+            scale = { x = 1, y = 1, z = 1}
+        },
+
+        Transform5 = {
+            position = { x = -7.4, y = 5, z = 0.8},
+            rotation = { x = 0, y = 70, z = 0 },
+            scale = { x = 1, y = 1, z = 1}
+        },
+
+        Transform6 = {
+            position = { x = -8.2, y = 5, z = 2},
+            rotation = { x = 0, y = 50, z = 0 },
+            scale = { x = 1, y = 1, z = 1}
+        },
+
+        Transform7 = {
+            position = { x = -119, y = 5, z = 0},
+            rotation = { x = 0, y = 90, z = 0 },
+            scale = { x = 1, y = 1, z = 1}
+        },
+
+        Transform8 = {
+            position = { x = -119, y = 5, z = 0.8},
+            rotation = { x = 0, y = -70, z = 0 },
+            scale = { x = 1, y = 1, z = 1}
+        },
+
+        Transform9 = {
+            position = { x = -118, y = 5, z = 2},
+            rotation = { x = 0, y = -40, z = 0 },
+            scale = { x = 1, y = 1, z = 1}
+        },
+
+        Transform10 = {
+            position = { x = -119, y = 5, z = -0.8},
+            rotation = { x = 0, y = 70, z = 0 },
+            scale = { x = 1, y = 1, z = 1}
+        },
+
+        Transform11 = {
+            position = { x = -118, y = 5, z = -2},
+            rotation = { x = 0, y = 40, z = 0 },
+            scale = { x = 1, y = 1, z = 1}
+        }
+    }
+
+    --Escalas de los colliders de las paredes interiores
+    collidersScaleIW = {
+        {x = 54, y = 10, z = 0.01},
+        {x = 0.8, y = 10, z = 0.01}
+    }
+
+    local s = 1
+
+    for i = 1, 12, 1 do
+        if i >= 3 then s = 2 end
+        wall = {
+            Transform = insideWallsTr["Transform" .. i-1],
+            RigidBody = {
+                colShape = 1,
+                mvType = static,
+                mass = 5,
+                group = 3,
+                mask = 3,
+                colliderscale = collidersScaleIW[s],
+                restitution = .5,
+                friction = .3,
+                isTrigger = false
+            },
+            collider = {}
+        }
+
+       Entities["insideWall" .. i-1] = wall
+    end
+
+    --Paredes exteriores
+
+    outsideWallsTr = {
+
+        Transform0 = {
+            position = { x = -50, y = 5, z = 13},
+            rotation = { x = 0, y = 0, z = 0 },
+            scale = { x = 1, y = 1, z = 1}
+        },
+
+        Transform1 = {
+            position = { x = -50, y = 5, z = -13},
+            rotation = { x = 0, y = 0, z = 0 },
+            scale = { x = 1, y = 1, z = 1}
+        },
+
+        Transform2 = {
+            position = { x = 2.5, y = 5, z = 0},
+            rotation = { x = 0, y = 0, z = 0 },
+            scale = { x = 1, y = 1, z = 1}
+        },
+
+        Transform3 = {
+            position = { x = 1, y = 5, z = -6},
+            rotation = { x = 0, y = 27, z = 0 },
+            scale = { x = 1, y = 1, z = 1}
+        },
+
+        Transform4 = {
+            position = { x = 0, y = 5, z = -8},
+            rotation = { x = 0, y = 42, z = 0 },
+            scale = { x = 1, y = 1, z = 1}
+        },
+
+        Transform5 = {
+            position = { x = -2, y = 5, z = -11},
+            rotation = { x = 0, y = 65, z = 0 },
+            scale = { x = 1, y = 1, z = 1}
+        },
+
+        Transform6 = {
+            position = { x = 1.5, y = 5, z = 6},
+            rotation = { x = 0, y = -27, z = 0 },
+            scale = { x = 1, y = 1, z = 1}
+        },
+
+        Transform7 = {
+            position = { x = 0, y = 5, z = 8},
+            rotation = { x = 0, y = -42, z = 0 },
+            scale = { x = 1, y = 1, z = 1}
+        },
+
+        Transform8 = {
+            position = { x = -2, y = 5, z = 11},
+            rotation = { x = 0, y = -65, z = 0 },
+            scale = { x = 1, y = 1, z = 1}
+        },
+
+        Transform9 = {
+            position = { x = -129, y = 5, z = 0},
+            rotation = { x = 0, y = 0, z = 0 },
+            scale = { x = 1, y = 1, z = 1}
+        },
+
+        Transform10 = {
+            position = { x = -127.2, y = 5.5, z = 6},
+            rotation = { x = 0, y = 27, z = 0 },
+            scale = { x = 1, y = 1, z = 1}
+        },
+
+        Transform11 = {
+            position = { x = -126.5, y = 5, z = 8},
+            rotation = { x = 0, y = 42, z = 0 },
+            scale = { x = 1, y = 1, z = 1}
+        },
+
+        Transform12 = {
+            position = { x = -124.5, y = 5, z = 11},
+            rotation = { x = 0, y = 65, z = 0 },
+            scale = { x = 1, y = 1, z = 1}
+        },
+
+        Transform13 = {
+            position = { x = -127.2, y = 5.5, z = -6},
+            rotation = { x = 0, y = -27, z = 0 },
+            scale = { x = 1, y = 1, z = 1}
+        },
+
+        Transform14 = {
+            position = { x = -126.5, y = 5, z = -8},
+            rotation = { x = 0, y = -42, z = 0 },
+            scale = { x = 1, y = 1, z = 1}
+        },
+
+        Transform15 = {
+            position = {x = -124.5, y = 5, z = -11},
+            rotation = { x = 0, y = -65, z = 0 },
+            scale = { x = 1, y = 1, z = 1}
+        },
+    }
+
+    --Escalas de los colliders de las paredes interiores
+    collidersScaleOW = {
+        {x = 100, y = 10, z = 0.01},
+        {x = 0.01, y = 10, z = 10}
+    }
+
+    s = 1
+
+    for i = 1, 16, 1 do
+        if i >= 3 then s = 2 end
+        wall = {
+            Transform = outsideWallsTr["Transform" .. i-1],
+            RigidBody = {
+                colShape = 1,
+                mvType = static,
+                mass = 5,
+                group = 3,
+                mask = 3,
+                colliderscale = collidersScaleOW[s],
+                restitution = .5,
+                friction = .3,
+                isTrigger = false
+            },
+            collider = {}
+        }
+
+       Entities["outsideWall" .. i-1] = wall
+    end
+
+end
+
+
+function createCheckpoints()
+
+
+    checkpointPositions = {
+        { x = -42, y = 0, z = -10 },
+        { x = 0, y = 0, z = 0 },
+        { x = -80, y = 0, z = 10 },
+        { x = -120, y = 0, z = 0 }
+    }
+
+    checkpointRotation = {
+        180, 90, 180, 90
+    }
+
+    for i = 1, 4, 1 do
+        checkpoint = {
+            Transform = {
+                position = checkpointPositions[i],
+                scale = { x = 1, y = 1, z = 1 },
+                rotation = { x = 0, y = checkpointRotation[i], z = 0 }
+            },
+            RigidBody = {
+                colShape = 1,
+                mvType = static,
+                mass = 5,
+                group = 7,
+                mask = 1,
+                colliderscale = { x = 1, y = 10, z = 10 },
+                restitution = 0.5,
+                friction = 0.5,
+                isTrigger = true
+            },
+            collider = {},
+            Checkpoint = {
+                index = i - 1;
+            }
+        }
+
+       Entities["checkpoint" .. i-1] = checkpoint
+    end
+
+end
 
 

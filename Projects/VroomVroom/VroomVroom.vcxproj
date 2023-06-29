@@ -29,6 +29,7 @@
     <ClCompile Include="..\..\Src\VroomVroom\Components\PowerUpObject.cpp" />
     <ClCompile Include="..\..\Src\VroomVroom\Components\PowerUpUIWheel.cpp" />
     <ClCompile Include="..\..\Src\VroomVroom\Components\Thief.cpp" />
+    <ClCompile Include="..\..\Src\VroomVroom\Components\TimeFreezeRing.cpp" />
     <ClCompile Include="..\..\Src\VroomVroom\Components\UIButtonQuit.cpp" />
     <ClCompile Include="..\..\Src\VroomVroom\Components\UIButtonScene.cpp" />
     <ClCompile Include="..\..\Src\VroomVroom\Components\VehicleController.cpp" />
@@ -48,6 +49,7 @@
     <ClInclude Include="..\..\Src\VroomVroom\Components\PowerUpObject.h" />
     <ClInclude Include="..\..\Src\VroomVroom\Components\PowerUpUIWheel.h" />
     <ClInclude Include="..\..\Src\VroomVroom\Components\Thief.h" />
+    <ClInclude Include="..\..\Src\VroomVroom\Components\TimeFreezeRing.h" />
     <ClInclude Include="..\..\Src\VroomVroom\Components\UIButtonQuit.h" />
     <ClInclude Include="..\..\Src\VroomVroom\Components\UIButtonScene.h" />
     <ClInclude Include="..\..\Src\VroomVroom\Components\VehicleController.h" />

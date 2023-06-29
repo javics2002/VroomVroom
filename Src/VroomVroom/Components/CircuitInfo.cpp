@@ -53,12 +53,14 @@ CircuitInfo::~CircuitInfo()
 {
 	delete mTimer;
 	delete mFinishTimer;
+	delete mFreezeTimer;
 }
 
 void CircuitInfo::start()
 {
 	mRaceStarted = false;
 	mTimer = new Timer(true);
+	mFreezeTimer = new Timer(false);
 
 	Entity* countdownEntity = sceneManager().getActiveScene()->findEntity("countdownui").get();
 	if (!countdownEntity) {
@@ -79,7 +81,17 @@ void CircuitInfo::start()
 
 void CircuitInfo::update(const double& dt)
 {
-	mTimer->update(dt);
+	if (mTimeIsFrozen) {
+		mTimer->pause();
+		mFreezeTimer->update(dt);
+		if (mFreezeTimer->getRawSeconds() >= mFreezeSecondsLeft) {
+			mFreezeTimer->pause();
+			mTimer->resume();
+			mTimeIsFrozen = false;
+		}
+	}
+	else
+		mTimer->update(dt);
 
 	if (!mRaceStarted && !mRaceFinished) {
 		if (mTimer->getRawSeconds() > 3) {
@@ -390,6 +402,15 @@ std::string CircuitInfo::getElapsedTime()
 {
 	return mTimer->getFormattedTime();
 }
+
+void CircuitInfo::freezeTimer(float secs)
+{
+	mTimeIsFrozen = true;
+	mFreezeTimer->reset();
+	mFreezeTimer->resume();
+	mFreezeSecondsLeft = secs;
+}
+
 std::string CircuitInfo::getFinishTime()
 {
 

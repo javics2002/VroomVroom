@@ -13,6 +13,7 @@
 #include "VroomVroom/Components/Checkpoint.h"
 #include "VroomVroom/Components/CameraFollow.h"
 #include "VroomVroom/Components/BoostPad.h"
+#include "VroomVroom/Components/TimeFreezeRing.h"
 
 #include "Components/GameManager.h"
 #include "MotorEngine/SceneManager.h"
@@ -51,6 +52,7 @@ __VROOMVROOM_API void initFactories()
 	componentsFactory().addFactoryComponent("nerf", new FactoryNerf());
 	componentsFactory().addFactoryComponent("thief", new FactoryThief());
 	componentsFactory().addFactoryComponent("boostpad", new FactoryBoostPad());
+	componentsFactory().addFactoryComponent("timefreezering", new FactoryTimeFreezeRing());
 }
 
 __VROOMVROOM_API void initInput()
