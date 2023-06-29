@@ -10,7 +10,7 @@
 		    mvType = static,
 		    mass = 5,
             group = 2,
-            mask = 6,
+            mask = 1,
             colliderscale = {x = 200, y = 0.01, z = 200},
 		    restitution = .5,
 		    friction = .3,
@@ -85,8 +85,8 @@
             colShape = 2,
             mvType = 0,
             mass = 1,
-            group = 2,
-            mask = 7,
+            group = 1,
+            mask = 63,
             colliderscale = {x = 1, y = .4, z = 1},
             restitution = 0,
             friction = 0,
@@ -230,6 +230,263 @@
             fontname = "Mario"
         }
     },
+    
+    ------------------------------------------------------------------------------------------
+    ------------------------------------------------------------------------------------------
+
+
+    timeFreezeRing1 = {
+        Transform = {
+            position = { x= -15, y = 5.01, z = 10 },
+            scale = { x = 1, y = 1, z = 2},
+            rotation = {x = 0, y = 0, z = 0}
+        },
+        RigidBody = {
+            colShape = 1,
+            mvType = 2,
+            mass = 0,
+            group = 4,
+            mask = 1,
+            colliderscale = {x = 1, y = 1, z = 1},
+            restitution = .5,
+            friction = 0.5,
+            isTrigger = true
+        },
+        meshrenderer = {
+            mesh = "timeFreezeRing1",
+            meshName = "BoostPad.mesh"
+        },
+        collider = {
+        },
+        timeFreezeRing = {
+            circuitInfoName = "Circuit"
+        },
+        audiosource = {
+            name = "timeFreezeRingSound1",
+            path = "posibleAumentoDeVel.mp3",
+            onstart = false,
+            loop = false,
+            threed = false,
+            groupchannel = "effects"
+        }
+    },
+
+    timeFreezeRing2 = {
+        Transform = {
+            position = { x= -55, y = 5.01, z = 5 },
+            scale = { x = 1, y = 1, z = 2},
+            rotation = {x = 0, y = 0, z = 0}
+        },
+        RigidBody = {
+            colShape = 1,
+            mvType = 2,
+            mass = 0,
+            group = 4,
+            mask = 1,
+            colliderscale = {x = 1, y = 1, z = 1},
+            restitution = .5,
+            friction = 0.5,
+            isTrigger = true
+        },
+        meshrenderer = {
+            mesh = "timeFreezeRing2",
+            meshName = "BoostPad.mesh"
+        },
+        collider = {
+        },
+        timeFreezeRing = {
+            circuitInfoName = "Circuit"
+        },
+        audiosource = {
+            name = "timeFreezeRingSound2",
+            path = "posibleAumentoDeVel.mp3",
+            onstart = false,
+            loop = false,
+            threed = false,
+            groupchannel = "effects"
+        }
+    },
+
+    timeFreezeRing3 = {
+        Transform = {
+            position = { x= -126, y = 5.01, z = 0 },
+            scale = { x = 1, y = 1, z = 2},
+            rotation = {x = 0, y = 90, z = 0}
+        },
+        RigidBody = {
+            colShape = 1,
+            mvType = 2,
+            mass = 0,
+            group = 4,
+            mask = 1,
+            colliderscale = {x = 1, y = 1, z = 1},
+            restitution = .5,
+            friction = 0.5,
+            isTrigger = true
+        },
+        meshrenderer = {
+            mesh = "timeFreezeRing3",
+            meshName = "BoostPad.mesh"
+        },
+        collider = {
+        },
+        timeFreezeRing = {
+            circuitInfoName = "Circuit"
+        },
+        audiosource = {
+            name = "timeFreezeRingSound3",
+            path = "posibleAumentoDeVel.mp3",
+            onstart = false,
+            loop = false,
+            threed = false,
+            groupchannel = "effects"
+        }
+    },
+
+    timeFreezeRing4 = {
+        Transform = {
+            position = { x= -90, y = 5.01, z = -5 },
+            scale = { x = 1, y = 1, z = 2},
+            rotation = {x = 0, y = 0, z = 0}
+        },
+        RigidBody = {
+            colShape = 1,
+            mvType = 2,
+            mass = 0,
+            group = 4,
+            mask = 1,
+            colliderscale = {x = 1, y = 1, z = 1},
+            restitution = .5,
+            friction = 0.5,
+            isTrigger = true
+        },
+        meshrenderer = {
+            mesh = "timeFreezeRing4",
+            meshName = "BoostPad.mesh"
+        },
+        collider = {
+        },
+        timeFreezeRing = {
+            circuitInfoName = "Circuit"
+        },
+        audiosource = {
+            name = "timeFreezeRingSound4",
+            path = "posibleAumentoDeVel.mp3",
+            onstart = false,
+            loop = false,
+            threed = false,
+            groupchannel = "effects"
+        }
+    },
+
+    timeFreezeRing5 = {
+        Transform = {
+            position = { x= -70, y = 5.01, z = -5 },
+            scale = { x = 1, y = 1, z = 2},
+            rotation = {x = 0, y = 0, z = 0}
+        },
+        RigidBody = {
+            colShape = 1,
+            mvType = 2,
+            mass = 0,
+            group = 4,
+            mask = 1,
+            colliderscale = {x = 1, y = 1, z = 1},
+            restitution = .5,
+            friction = 0.5,
+            isTrigger = true
+        },
+        meshrenderer = {
+            mesh = "timeFreezeRing5",
+            meshName = "BoostPad.mesh"
+        },
+        collider = {
+        },
+        timeFreezeRing = {
+            circuitInfoName = "Circuit"
+        },
+        audiosource = {
+            name = "timeFreezeRingSound5",
+            path = "posibleAumentoDeVel.mp3",
+            onstart = false,
+            loop = false,
+            threed = false,
+            groupchannel = "effects"
+        }
+    },
+
+    timeFreezeRing6 = {
+        Transform = {
+            position = { x= -40, y = 5.01, z = -10 },
+            scale = { x = 1, y = 1, z = 2},
+            rotation = {x = 0, y = 0, z = 0}
+        },
+        RigidBody = {
+            colShape = 1,
+            mvType = 2,
+            mass = 0,
+            group = 4,
+            mask = 1,
+            colliderscale = {x = 1, y = 1, z = 1},
+            restitution = .5,
+            friction = 0.5,
+            isTrigger = true
+        },
+        meshrenderer = {
+            mesh = "timeFreezeRing6",
+            meshName = "BoostPad.mesh"
+        },
+        collider = {
+        },
+        timeFreezeRing = {
+            circuitInfoName = "Circuit"
+        },
+        audiosource = {
+            name = "timeFreezeRingSound6",
+            path = "posibleAumentoDeVel.mp3",
+            onstart = false,
+            loop = false,
+            threed = false,
+            groupchannel = "effects"
+        }
+    },
+
+    timeFreezeRing7 = {
+        Transform = {
+            position = { x= -20, y = 5.01, z = -10 },
+            scale = { x = 1, y = 1, z = 2},
+            rotation = {x = 0, y = 0, z = 0}
+        },
+        RigidBody = {
+            colShape = 1,
+            mvType = 2,
+            mass = 0,
+            group = 4,
+            mask = 1,
+            colliderscale = {x = 1, y = 1, z = 1},
+            restitution = .5,
+            friction = 0.5,
+            isTrigger = true
+        },
+        meshrenderer = {
+            mesh = "timeFreezeRing7",
+            meshName = "BoostPad.mesh"
+        },
+        collider = {
+        },
+        timeFreezeRing = {
+            circuitInfoName = "Circuit"
+        },
+        audiosource = {
+            name = "timeFreezeRingSound7",
+            path = "posibleAumentoDeVel.mp3",
+            onstart = false,
+            loop = false,
+            threed = false,
+            groupchannel = "effects"
+        }
+    },
+    
     
     ------------------------------------------------------------------------------------------
     ------------------------------------------------------------------------------------------
@@ -395,8 +652,8 @@ function createWalls()
                 colShape = 1,
                 mvType = static,
                 mass = 5,
-                group = 1,
-                mask = 2,
+                group = 3,
+                mask = 3,
                 colliderscale = collidersScaleIW[s],
                 restitution = .5,
                 friction = .3,
@@ -525,8 +782,8 @@ function createWalls()
                 colShape = 1,
                 mvType = static,
                 mass = 5,
-                group = 1,
-                mask = 2,
+                group = 3,
+                mask = 3,
                 colliderscale = collidersScaleOW[s],
                 restitution = .5,
                 friction = .3,
@@ -566,8 +823,8 @@ function createCheckpoints()
                 colShape = 1,
                 mvType = static,
                 mass = 5,
-                group = 1,
-                mask = 2,
+                group = 7,
+                mask = 1,
                 colliderscale = { x = 1, y = 10, z = 10 },
                 restitution = 0.5,
                 friction = 0.5,

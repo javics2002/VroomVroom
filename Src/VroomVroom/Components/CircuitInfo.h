@@ -46,11 +46,15 @@ namespace VroomVroom {
 
 		int mLaps;
 
+		bool mTimeIsFrozen = false;
+		float mFreezeSecondsLeft;
+
 		bool mRaceStarted = false;
 		bool mRaceFinished = false;
 		int mCarsFinished = 0;
 		me::Timer* mTimer = nullptr;
 		me::Timer* mFinishTimer = nullptr;
+		me::Timer* mFreezeTimer = nullptr;
 
 		std::vector<VehicleController*> mVehicles;
 		std::map<int, Checkpoint*> mCheckpoints;
@@ -129,6 +133,12 @@ namespace VroomVroom {
 		* @return The elapsed time as a string in the format "HH:MM:SS".
 		*/
 		std::string getElapsedTime();
+
+		/**
+		* Freeze the Race timer for a certain time.
+		* @param secs Number of seconds to freeze the timer for.
+		*/
+		void freezeTimer(float secs);
 
 		/**
 		* Get the finish time of the race.
