@@ -239,7 +239,7 @@
         Transform = {
             position = { x= -15, y = 5.01, z = 10 },
             scale = { x = 1, y = 1, z = 2},
-            rotation = {x = 0, y = 0, z = 0}
+            rotation = {x = 0, y = 90, z = 0}
         },
         RigidBody = {
             colShape = 1,
@@ -254,7 +254,7 @@
         },
         meshrenderer = {
             mesh = "timeFreezeRing1",
-            meshName = "BoostPad.mesh"
+            meshName = "TimeFreezeRing.mesh"
         },
         collider = {
         },
@@ -275,7 +275,7 @@
         Transform = {
             position = { x= -55, y = 5.01, z = 5 },
             scale = { x = 1, y = 1, z = 2},
-            rotation = {x = 0, y = 0, z = 0}
+            rotation = {x = 0, y = 90, z = 0}
         },
         RigidBody = {
             colShape = 1,
@@ -290,7 +290,7 @@
         },
         meshrenderer = {
             mesh = "timeFreezeRing2",
-            meshName = "BoostPad.mesh"
+            meshName = "TimeFreezeRing.mesh"
         },
         collider = {
         },
@@ -311,7 +311,7 @@
         Transform = {
             position = { x= -126, y = 5.01, z = 0 },
             scale = { x = 1, y = 1, z = 2},
-            rotation = {x = 0, y = 90, z = 0}
+            rotation = {x = 0, y = 0, z = 0}
         },
         RigidBody = {
             colShape = 1,
@@ -326,7 +326,7 @@
         },
         meshrenderer = {
             mesh = "timeFreezeRing3",
-            meshName = "BoostPad.mesh"
+            meshName = "TimeFreezeRing.mesh"
         },
         collider = {
         },
@@ -347,7 +347,7 @@
         Transform = {
             position = { x= -90, y = 5.01, z = -5 },
             scale = { x = 1, y = 1, z = 2},
-            rotation = {x = 0, y = 0, z = 0}
+            rotation = {x = 0, y = 90, z = 0}
         },
         RigidBody = {
             colShape = 1,
@@ -362,7 +362,7 @@
         },
         meshrenderer = {
             mesh = "timeFreezeRing4",
-            meshName = "BoostPad.mesh"
+            meshName = "TimeFreezeRing.mesh"
         },
         collider = {
         },
@@ -383,7 +383,7 @@
         Transform = {
             position = { x= -70, y = 5.01, z = -5 },
             scale = { x = 1, y = 1, z = 2},
-            rotation = {x = 0, y = 0, z = 0}
+            rotation = {x = 0, y = 90, z = 0}
         },
         RigidBody = {
             colShape = 1,
@@ -398,7 +398,7 @@
         },
         meshrenderer = {
             mesh = "timeFreezeRing5",
-            meshName = "BoostPad.mesh"
+            meshName = "TimeFreezeRing.mesh"
         },
         collider = {
         },
@@ -419,7 +419,7 @@
         Transform = {
             position = { x= -40, y = 5.01, z = -10 },
             scale = { x = 1, y = 1, z = 2},
-            rotation = {x = 0, y = 0, z = 0}
+            rotation = {x = 0, y = 90, z = 0}
         },
         RigidBody = {
             colShape = 1,
@@ -434,7 +434,7 @@
         },
         meshrenderer = {
             mesh = "timeFreezeRing6",
-            meshName = "BoostPad.mesh"
+            meshName = "TimeFreezeRing.mesh"
         },
         collider = {
         },
@@ -455,7 +455,7 @@
         Transform = {
             position = { x= -20, y = 5.01, z = -10 },
             scale = { x = 1, y = 1, z = 2},
-            rotation = {x = 0, y = 0, z = 0}
+            rotation = {x = 0, y = 90, z = 0}
         },
         RigidBody = {
             colShape = 1,
@@ -470,7 +470,7 @@
         },
         meshrenderer = {
             mesh = "timeFreezeRing7",
-            meshName = "BoostPad.mesh"
+            meshName = "TimeFreezeRing.mesh"
         },
         collider = {
         },
